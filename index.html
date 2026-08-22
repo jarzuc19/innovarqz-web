@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InnovArqZ Soluciones Integrales S.A.S. | BIM, CIM e Ingeniería</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --accent-copper: #d97706;
+            --accent-copper-hover: #b45309;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --whatsapp-color: #25d366;
+            --whatsapp-hover: #1da851;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 5%;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(15, 23, 42, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .logo span {
+            color: var(--accent-copper);
+        }
+
+        .logo small {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 1.75rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-copper);
+        }
+
+        .hero {
+            padding: 6rem 5% 4rem;
+            text-align: center;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-copper);
+            color: #fff;
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-copper-hover);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-copper);
+            color: var(--accent-copper);
+        }
+
+        .btn-whatsapp {
+            background-color: var(--whatsapp-color);
+            color: #fff;
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--whatsapp-hover);
+        }
+
+        section {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-copper);
+            box-shadow: 0 10px 30px -10px rgba(217, 119, 6, 0.15);
+        }
+
+        .card-icon {
+            color: var(--accent-copper);
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-main);
+        }
+
+        .card ul {
+            list-style: none;
+            color: var(--text-muted);
+            font-size: 0.98rem;
+        }
+
+        .card ul li {
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1.4rem;
+        }
+
+        .card ul li::before {
+            content: "•";
+            color: var(--accent-copper);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .bim-section {
+            background-color: #0b1120;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            max-width: 100%;
+        }
+
+        .bim-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .dim-card {
+            background-color: var(--bg-card);
+            padding: 1.75rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .dim-tag {
+            display: inline-block;
+            background-color: rgba(217, 119, 6, 0.15);
+            color: var(--accent-copper);
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .dim-card h4 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .dim-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--bg-card);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .comparison-table th {
+            background-color: rgba(15, 23, 42, 0.8);
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .comparison-table td.bad {
+            color: #f87171;
+        }
+
+        .comparison-table td.good {
+            color: #4ade80;
+            font-weight: 600;
+        }
+
+        /* Portafolio & Tarjetas */
+        .portfolio-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: var(--bg-card);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.25rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--accent-copper);
+            color: #fff;
+            border-color: var(--accent-copper);
+        }
+
+        .portfolio-grid, .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-card, .team-card {
+            background-color: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .portfolio-card:hover, .team-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-copper);
+        }
+
+        .portfolio-cover, .team-avatar {
+            height: 200px;
+            background-color: #0f172a;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .portfolio-cover-bg, .team-avatar-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-copper);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .portfolio-body, .team-body {
+            padding: 1.75rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portfolio-body h4, .team-body h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .team-role {
+            color: var(--accent-copper);
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .portfolio-body p, .team-body p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+            flex-grow: 1;
+        }
+
+        .portfolio-tags, .team-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+        }
+
+        .tag {
+            background-color: rgba(148, 163, 184, 0.1);
+            color: var(--accent-copper);
+            font-size: 0.78rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .btn-modal-trigger {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-modal-trigger:hover {
+            background-color: var(--accent-copper);
+            border-color: var(--accent-copper);
+            color: #fff;
+        }
+
+        /* Modales */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 5%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-copper);
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-main);
+        }
+
+        .modal-subtitle {
+            color: var(--accent-copper);
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .modal-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-item {
+            height: 140px;
+            background-color: #0f172a;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .modal-description {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+
+        .modal-description h5 {
+            color: var(--text-main);
+            font-size: 1.1rem;
+            margin: 1.25rem 0 0.5rem;
+        }
+
+        /* Sección Nosotros & Equipo */
+        .about-section {
+            background-color: #0b1120;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            max-width: 100%;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .esencia-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .esencia-card {
+            background-color: var(--bg-card);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .esencia-badge {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: rgba(217, 119, 6, 0.12);
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            letter-spacing: -0.5px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .esencia-card h4 {
+            font-size: 1.1rem;
+            color: var(--accent-copper);
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .esencia-card p {
+            color: var(--text-muted);
+            font-size: 0.93rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .vision-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-copper);
+            padding: 2.5rem;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .vision-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .vision-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Contacto */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+        }
+
+        .contact-details {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .contact-details li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-main);
+        }
+
+        .contact-details i {
+            color: var(--accent-copper);
+        }
+
+        .contact-form {
+            background-color: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-copper);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background-color: #0b1120;
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer a {
+            color: var(--accent-copper);
+            text-decoration: none;
+        }
+
+        @media (max-width: 868px) {
+            .grid-2x2, .vision-box, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 2.2rem; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <div>Innov<span>ArqZ</span></div>
+            <small>Soluciones Integrales</small>
+        </div>
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#bim-cim">Metodología BIM/CIM</a>
+            <a href="#portafolio">Portafolio</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <h1>Innovación Tecnológica y Control Técnico en Arquitectura e Ingeniería</h1>
+        <p>Soluciones integrales para proyectos de edificación e infraestructura mediante metodologías BIM/CIM, optimización de costos y gestión de activos.</p>
+        <div class="hero-buttons">
+            <a href="#contacto" class="btn-primary"><i data-lucide="mail" size="18"></i> Solicitar Cotización</a>
+            <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20los%20servicios%20de%20InnovArqZ" target="_blank" class="btn-whatsapp"><i data-lucide="message-square" size="18"></i> WhatsApp Directo</a>
+            <a href="#nosotros" class="btn-secondary"><i data-lucide="building" size="18"></i> Conocer la Firma</a>
+        </div>
+    </section>
+
+    <section id="servicios">
+        <div class="section-title">
+            <h2>Nuestros Pilares de Servicio</h2>
+            <p>Especialización técnica respaldada por la metodología OpenBIM (ISO 19650).</p>
+        </div>
+
+        <div class="grid-2x2">
+            <div class="card">
+                <i data-lucide="layers" class="card-icon" size="38"></i>
+                <h3>Ingeniería, Arquitectura & BIM / CIM</h3>
+                <ul>
+                    <li>Implementación OpenBIM (ISO 19650)</li>
+                    <li>Modelado Urbano & Territorial (CIM)</li>
+                    <li>Diseño Arquitectónico & Estructuración</li>
+                    <li>Consultoría y Capacitación Especializada</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <i data-lucide="hard-hat" class="card-icon" size="38"></i>
+                <h3>Ejecución, Interventoría & Control</h3>
+                <ul>
+                    <li>Construcción de Infraestructura y Edificaciones</li>
+                    <li>Interventoría Técnica, Administrativa y Financiera</li>
+                    <li>Control de Calidad & Presupuestos (BIM 4D/5D)</li>
+                    <li>Supervisión Técnica Independiente</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <i data-lucide="building-2" class="card-icon" size="38"></i>
+                <h3>Gerencia de Activos & Facility Management</h3>
+                <ul>
+                    <li>Entrega de Modelos As-Built para Mantenimiento</li>
+                    <li>Optimización del Ciclo de Vida (BIM 7D)</li>
+                    <li>Administración y Gestión Inmobiliaria</li>
+                    <li>Mantenimiento Preventivo y Correctivo</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <i data-lucide="package" class="card-icon" size="38"></i>
+                <h3>Suministros Técnicos & Equipamiento</h3>
+                <ul>
+                    <li>Materiales Especializados de Construcción</li>
+                    <li>Dotaciones Industriales & EPP</li>
+                    <li>Equipamiento Tecnológico y de Cómputo</li>
+                    <li>Suministros de Seguridad Técnica</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="bim-section" id="bim-cim">
+        <section class="bim-container">
+            <div class="section-title">
+                <h2>Transformación Digital: Metodología BIM & CIM</h2>
+                <p>Gestión estandarizada de la información bajo la norma internacional ISO 19650.</p>
+            </div>
+
+            <div class="dimensions-grid">
+                <div class="dim-card">
+                    <span class="dim-tag">1D / 2D</span>
+                    <h4>Conceptualización & Planos</h4>
+                    <p>Estructuración inicial, cumplimiento normativo y elaboración de planimetría ejecutiva coordinada.</p>
+                </div>
+                <div class="dim-card">
+                    <span class="dim-tag">3D</span>
+                    <h4>Modelado Geométrico</h4>
+                    <p>Detección temprana de interferencias (Clash Detection) entre disciplinas (ARQ, EST, MEP) previo a obra.</p>
+                </div>
+                <div class="dim-card">
+                    <span class="dim-tag">4D</span>
+                    <h4>Planificación & Tiempo</h4>
+                    <p>Simulación constructiva temporal, control de cronogramas y secuenciación de actividades en sitio.</p>
+                </div>
+                <div class="dim-card">
+                    <span class="dim-tag">5D</span>
+                    <h4>Presupuesto & Cantidades</h4>
+                    <p>Extracción automatizada y exacta de cantidades de obra (APU) para un control financiero estricto.</p>
+                </div>
+                <div class="dim-card">
+                    <span class="dim-tag">6D</span>
+                    <h4>Sostenibilidad</h4>
+                    <p>Análisis de eficiencia energética, confort ambiental y evaluación del impacto territorial.</p>
+                </div>
+                <div class="dim-card">
+                    <span class="dim-tag">7D</span>
+                    <h4>Facility Management</h4>
+                    <p>Entrega del Gemelo Digital (As-Built) enriquecido para la gestión del mantenimiento y operación del activo.</p>
+                </div>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspecto Técnico</th>
+                        <th>Método Tradicional</th>
+                        <th>Ecosistema InnovArqZ (OpenBIM/CIM)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Interferencias en Obra</strong></td>
+                        <td class="bad">Se detectan durante la ejecución (Sobrecostos y retrasos)</td>
+                        <td class="good">Se resuelven digitalmente antes de construir</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Presupuesto y Cantidades</strong></td>
+                        <td class="bad">Estimaciones manuales con margen de error alto</td>
+                        <td class="good">Extracción directa desde el modelo (Precisión 5D)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Documentación y Planos</strong></td>
+                        <td class="bad">Desconexión entre disciplinas y versiones obsoletas</td>
+                        <td class="good">Entorno Común de Datos (CDE) centralizado e ISO 19650</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+<!-- Portafolio (Versión Lanzamiento Oficial) -->
+    <section id="portafolio">
+        <div class="section-title">
+            <h2>Portafolio & Casos de Estudio</h2>
+            <p>Estructuración técnica, consultoría y proyectos desarrollados bajo estándares internacionales.</p>
+        </div>
+
+        <div class="portfolio-tabs">
+            <button class="tab-btn active">Todos</button>
+            <button class="tab-btn">Diseño & BIM</button>
+            <button class="tab-btn">Infraestructura & Obra</button>
+            <button class="tab-btn">Interventoría</button>
+            <button class="tab-btn">Modelado Urbano (CIM)</button>
+        </div>
+
+        <div class="portfolio-grid">
+            <!-- Tarjeta Institucional 1 -->
+            <div class="portfolio-card">
+                <div class="portfolio-cover">
+                    <div class="portfolio-cover-bg">
+                        <i data-lucide="shield-check" size="48"></i>
+                        <span style="font-size: 0.85rem; margin-top: 0.75rem; color: var(--text-main); font-weight: 600;">Proyectos de Consultoría & Edificación</span>
+                    </div>
+                </div>
+                <div class="portfolio-body">
+                    <h4>Documentación Técnica & Modelos OpenBIM</h4>
+                    <p>Modelos ejecutivos, coordinaciones multidisciplinares (ARQ/EST/MEP) y expedientes de interventoría en proceso de sistematización.</p>
+                    <div class="portfolio-tags">
+                        <span class="tag">ISO 19650</span>
+                        <span class="tag">BIM 5D</span>
+                        <span class="tag">Interventoría</span>
+                    </div>
+                    <button class="btn-modal-trigger" style="opacity: 0.7; cursor: default;">
+                        <i data-lucide="lock" size="16"></i> Fichas Disponibles bajo Solicitud
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tarjeta Institucional 2 -->
+            <div class="portfolio-card">
+                <div class="portfolio-cover">
+                    <div class="portfolio-cover-bg">
+                        <i data-lucide="map-pin" size="48"></i>
+                        <span style="font-size: 0.85rem; margin-top: 0.75rem; color: var(--text-main); font-weight: 600;">Infraestructura Territorial & CIM</span>
+                    </div>
+                </div>
+                <div class="portfolio-body">
+                    <h4>Estudios Geoespaciales & Ordenamiento</h4>
+                    <p>Modelado de datos topográficos, integración GIS y documentación de soporte técnico para proyectos de impacto territorial.</p>
+                    <div class="portfolio-tags">
+                        <span class="tag">CIM</span>
+                        <span class="tag">Civil 3D</span>
+                        <span class="tag">GIS</span>
+                    </div>
+                    <button class="btn-modal-trigger" style="opacity: 0.7; cursor: default;">
+                        <i data-lucide="lock" size="16"></i> Fichas Disponibles bajo Solicitud
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Portafolio Demo -->
+    <div class="modal-overlay" id="modal-demo">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal-demo')">
+                <i data-lucide="x" size="24"></i>
+            </button>
+            
+            <div class="modal-header">
+                <h3>Módulo de Control & Estructura Metálica</h3>
+                <div class="modal-meta">
+                    <span><i data-lucide="map-pin" size="14"></i> Nariño, Colombia</span>
+                    <span><i data-lucide="calendar" size="14"></i> 2026</span>
+                    <span><i data-lucide="tag" size="14"></i> Consultoría & Coordinación BIM</span>
+                </div>
+            </div>
+
+            <h5 style="color: var(--text-main); margin-bottom: 0.75rem;">Galería de Imágenes & Entregables</h5>
+            <div class="modal-gallery-grid">
+                <div class="gallery-item">
+                    <i data-lucide="box" size="28" style="color: var(--accent-copper);"></i>
+                    <span style="margin-top: 0.5rem;">Render 3D Exterior</span>
+                </div>
+                <div class="gallery-item">
+                    <i data-lucide="layers" size="28" style="color: var(--accent-copper);"></i>
+                    <span style="margin-top: 0.5rem;">Coordinación MEP / ARQ</span>
+                </div>
+                <div class="gallery-item">
+                    <i data-lucide="file-text" size="28" style="color: var(--accent-copper);"></i>
+                    <span style="margin-top: 0.5rem;">Plano Estructural As-Built</span>
+                </div>
+                <div class="gallery-item">
+                    <i data-lucide="camera" size="28" style="color: var(--accent-copper);"></i>
+                    <span style="margin-top: 0.5rem;">Avance de Obra en Sitio</span>
+                </div>
+            </div>
+
+            <div class="modal-description">
+                <h5>Alcance del Proyecto & Desglose Técnico</h5>
+                <p>Desarrollo integral del proyecto bajo metodología OpenBIM conforme a los estándares internacionales ISO 19650. El alcance abarcó desde el levantamiento de topografía georreferenciada hasta la cuantificación exacta de material para la estructura metálica y paneles de cubierta.</p>
+                
+                <h5>Herramientas & Ecosistema Tecnológico</h5>
+                <p>• <strong>Modelado y Coordinación:</strong> Autodesk Revit + Visual Scripting en Dynamo.<br>
+                • <strong>Detección de Interferencias:</strong> Navisworks Manage (Control de colisiones entre especialidades).<br>
+                • <strong>Control Presupuestal (BIM 5D):</strong> Extracción automatizada de APU y cantidades de obra.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección Nosotros & Equipo Técnico -->
+    <div class="about-section" id="nosotros">
+        <section class="about-container">
+            <div class="section-title">
+                <h2>Nuestra Identidad Institucional</h2>
+                <p style="max-width: 800px; margin: 0.5rem auto 0;"><strong>InnovArqZ: Soluciones Integrales S.A.S.</strong> es una firma consultora y constructora nacida para revolucionar el sector de la edificación, la infraestructura vial y el ordenamiento territorial en Colombia.</p>
+            </div>
+
+            <div class="esencia-grid">
+                <div class="esencia-card">
+                    <span class="esencia-badge">INNOV</span>
+                    <h4>Innovación Conectada</h4>
+                    <p>Adoptamos la tecnología como eje transversal. Implementamos metodologías predictivas para prever contingencias y optimizar presupuestos.</p>
+                </div>
+
+                <div class="esencia-card">
+                    <span class="esencia-badge">ARQ</span>
+                    <h4>Diseño Funcional & Resiliente</h4>
+                    <p>La arquitectura responde al entorno mediante planes ambientales rigurosos, adaptabilidad al cambio climático y pertenencia comunitaria.</p>
+                </div>
+
+                <div class="esencia-card">
+                    <span class="esencia-badge">IN</span>
+                    <h4>Rigor Técnico & Estructural</h4>
+                    <p>La ingeniería civil representa solidez. Aplicamos análisis y cálculos computacionales de vanguardia para obras perdurables.</p>
+                </div>
+
+                <div class="esencia-card">
+                    <span class="esencia-badge">Z</span>
+                    <h4>Compromiso de A a Z</h4>
+                    <p>Nuestra promesa concluye con la entrega exacta. Acompañamos desde la formulación conceptual (A) hasta la liquidación del activo (Z).</p>
+                </div>
+            </div>
+
+            <div class="vision-box">
+                <div class="vision-item">
+                    <h3>Misión</h3>
+                    <p>Proveer soluciones integrales en consultoría, diseño, interventoría y construcción mediante la digitalización avanzada, la innovación metodológica BIM/CIM y el suministro de tecnología especializada. Nos comprometemos con el desarrollo sostenible y la mitigación de riesgos.</p>
+                </div>
+                <div class="vision-item">
+                    <h3>Proyección Estratégica 2031</h3>
+                    <p>Consolidarnos como la firma referente en transformación digital arquitectónica y ordenamiento territorial en Colombia. Pioneros en el desarrollo de <strong>Gemelos Digitales</strong> y modelos CIM aplicados a Smart Cities.</p>
+                </div>
+            </div>
+
+            <!-- Módulo de Equipo Colaborador -->
+            <div class="section-title" style="margin-bottom: 2.5rem;">
+                <h2>Equipo Técnico & Dirección General</h2>
+                <p>Profesionales al frente del desarrollo digital, consultoría e interventoría técnica.</p>
+            </div>
+
+            <div class="team-grid">
+                <!-- TARJETA PERFIL DE PRUEBA -->
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <div class="team-avatar-bg">
+                            <i data-lucide="user-check" size="48"></i>
+                            <span style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.8;">[ Foto Corporativa ]</span>
+                        </div>
+                    </div>
+                    <div class="team-body">
+                        <h4>Arq. James Ramiro Zúñiga Caipe</h4>
+                        <div class="team-role">Director General & Coordinador BIM / CIM</div>
+                        <p>Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares, dirección operativa de obra y ordenamiento territorial.</p>
+                        <div class="team-tags">
+                            <span class="tag">Arq. UDeNar</span>
+                            <span class="tag">buildingSMART</span>
+                            <span class="tag">BIM 5D</span>
+                        </div>
+                        <button class="btn-modal-trigger" onclick="openModal('modal-perfil-james')">
+                            <i data-lucide="user" size="16"></i> Ver Perfil Técnico / Trayectoria
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL EMERGENTE PERFIL PROFESIONAL (JAMES ZÚÑIGA) -->
+    <div class="modal-overlay" id="modal-perfil-james">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal-perfil-james')">
+                <i data-lucide="x" size="24"></i>
+            </button>
+            
+            <div class="modal-header">
+                <h3>Arq. James Ramiro Zúñiga Caipe</h3>
+                <div class="modal-subtitle">Fundador & Principal Manager — InnovArqZ Soluciones Integrales S.A.S.</div>
+                <div class="modal-meta">
+                    <span><i data-lucide="award" size="14"></i> Matrícula Profesional CPNAA</span>
+                    <span><i data-lucide="shield-check" size="14"></i> buildingSMART Certified</span>
+                    <span><i data-lucide="map-pin" size="14"></i> Nariño, Colombia</span>
+                </div>
+            </div>
+
+            <div class="modal-description">
+                <h5>Perfil Ejecutivo & Dirección Técnica</h5>
+                <p>Arquitecto egresado de la <strong>Universidad de Nariño</strong> con matrícula profesional vigente, al frente del ecosistema técnico de <strong>InnovArqZ</strong>. Amplia trayectoria en la coordinación de modelos multidisciplinares (ARQ/EST/MEP), federación digital, detección de interferencias y control financiero presupuestal (BIM 5D) bajo la norma internacional <strong>ISO 19650</strong> y estándares OpenBIM. Combina el liderazgo en la gestión digital de proyectos con una sólida experiencia en residencia y dirección operativa de obra pública, interventoría y estructuración de Documentos Técnicos de Soporte (DTS) para Esquemas de Ordenamiento Territorial (EOT).</p>
+                
+                <h5>Formación Académica & Certificaciones</h5>
+                <p>• <strong>Arquitecto:</strong> Universidad de Nariño.<br>
+                • <strong>Certificación Internacional:</strong> buildingSMART Professional Certification — Entry Level.<br>
+                • <strong>Máster BIM Manager Internacional (+IA y VR):</strong> Espacio BIM / ATC Autodesk (600 Horas, En Curso).<br>
+                • <strong>Diplomado BIM Civil (Infraestructuras):</strong> Universidad de Nariño (180 Horas).<br>
+                • <strong>Diplomado BIM Arquitectura e Ingeniería:</strong> Universidad de Nariño (124 Horas).<br>
+                • <strong>Diplomado Ordenamiento Territorial (PBOT/EOT):</strong> Escuela Superior de Administración Pública - ESAP (80 Horas).</p>
+
+                <h5>Dominio de Software & Herramientas Especializadas</h5>
+                <p>• <strong>BIM & Modelado Tridimensional:</strong> Autodesk Revit (ARQ/EST/MEP), Navisworks Manage, Infraworks, ArchiCAD, SketchUp.<br>
+                • <strong>Programación & Automatización de Datos:</strong> Visual Scripting en Dynamo, Python (Extracción de data para APUs y cronogramas).<br>
+                • <strong>CAD, GIS & Topografía:</strong> AutoCAD Civil 3D, ArcGIS Pro.<br>
+                • <strong>Visualización Arquitectónica:</strong> D5 Render, Twinmotion, AI Rendering.</p>
+
+                <h5>Experiencia Clave en Gestión & Campo</h5>
+                <p>Extensa experiencia en residencia operativa y control técnico en contratos de adecuación de infraestructura educativa y vial, cálculo de balances de obra (APUs, actas parciales/finales) y articulación comunitaria en territorios étnicos. Igualmente, ha liderado la coordinación de Comités Municipales para la Gestión del Riesgo de Desastres (CMGRD).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contacto -->
+    <section id="contacto">
+        <div class="section-title">
+            <h2>Hablemos de su Próximo Proyecto</h2>
+            <p>Atención directa para entidades públicas, constructoras y clientes particulares.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Contacte a Nuestro Equipo Técnico</h3>
+                <p>Déjenos sus datos o contáctenos directamente para coordinar una consultoría, estructurar propuestas de licitación o cotizar cualquiera de nuestras líneas de servicio.</p>
+
+                <ul class="contact-details">
+                    <li>
+                        <i data-lucide="mail" size="22"></i>
+                        <span>infobim@innovarqzsas.com</span>
+                    </li>
+                    <li>
+                        <i data-lucide="phone" size="22"></i>
+                        <span>(+57) 315 850 5885</span>
+                    </li>
+                    <li>
+                        <i data-lucide="map-pin" size="22"></i>
+                        <span>Ricaurte, Nariño, Colombia</span>
+                    </li>
+                </ul>
+
+                <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20los%20servicios%20de%20InnovArqZ" target="_blank" class="btn-whatsapp">
+                    <i data-lucide="message-square" size="20"></i> Iniciar Chat en WhatsApp
+                </a>
+            </div>
+
+            <div class="contact-form">
+                <form action="https://formspree.io/f/xknp_placeholder" method="POST">
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo / Entidad</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej. Ing. Carlos Rodríguez" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correo">Correo Electrónico de Contacto</label>
+                        <input type="email" id="correo" name="correo" placeholder="ejemplo@dominio.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono / WhatsApp</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="(+57) 300 000 0000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pilar">Pilar de Servicio de Interés</label>
+                        <select id="pilar" name="pilar" required>
+                            <option value="" disabled selected>Seleccione una opción...</option>
+                            <option value="BIM-CIM">Ingeniería, Arquitectura & BIM / CIM</option>
+                            <option value="Ejecucion-Interventoria">Ejecución de Obras & Interventoría</option>
+                            <option value="Activos-FM">Gerencia de Activos & Facility Management (BIM 7D)</option>
+                            <option value="Suministros">Suministros Técnicos & Equipamiento</option>
+                            <option value="Otro">Consulta General / Licitaciones</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mensaje">Detalles del Proyecto o Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" placeholder="Describa brevemente el alcance del proyecto, ubicación o requerimientos..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; border: none; cursor: pointer;">
+                        <i data-lucide="send" size="18"></i> Enviar Mensaje
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>InnovArqZ Soluciones Integrales S.A.S.</strong></p>
+        <p>Ricaurte, Nariño - Colombia | <a href="mailto:infobim@innovarqzsas.com">infobim@innovarqzsas.com</a></p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">&copy; 2026 InnovArqZ. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        };
+    </script>
+</body>
+</html>

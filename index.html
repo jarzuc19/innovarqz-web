@@ -41,7 +41,7 @@
             line-height: 1.6;
         }
 
-        /* HEADER & NAVEGACIÓN DENSAS */
+        /* HEADER & NAVEGACIÓN */
         header {
             display: flex;
             justify-content: space-between;
@@ -89,7 +89,6 @@
 
         nav a:hover { color: var(--accent-copper); }
 
-        /* ESTADO ACTIVO PARA EL MENÚ */
         nav a.nav-active {
             color: var(--accent-copper);
         }
@@ -156,12 +155,14 @@
             letter-spacing: -0.5px;
         }
 
+        /* AJUSTE DE ANIMACIÓN CÍCLICA 1 A 1 */
         .sliding-text-container {
-            display: block;
-            height: 1.3em;
+            display: inline-block;
+            height: 2.8em;
             overflow: hidden;
-            position: relative;
+            vertical-align: top;
             margin-top: 0.3rem;
+            width: 100%;
         }
 
         .sliding-text-wrapper {
@@ -172,10 +173,15 @@
 
         .slide-item {
             color: var(--accent-copper);
-            height: 1.3em;
+            height: 2.8em;
             line-height: 1.3em;
-            white-space: nowrap;
-            display: block;
+            white-space: normal;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 0.5rem;
+            box-sizing: border-box;
         }
 
         @keyframes slideUp {
@@ -363,7 +369,7 @@
             font-size: 1.05rem;
         }
 
-        /* SERVICIOS Y PORTAFOLIO / FONDO TECNICO DE CURVAS DE NIVEL */
+        /* SERVICIOS Y PORTAFOLIO */
         .tech-section {
             background-color: #0b1120;
             border-top: 1px solid var(--border-color);
@@ -406,7 +412,6 @@
             margin: 0 auto;
         }
 
-        /* CARROUSEL COMÚN */
         .carousel-wrapper {
             position: relative;
             width: 100%;
@@ -613,7 +618,7 @@
             width: 56px;
         }
 
-        /* LÍNEA DE TIEMPO DEL PORTAFOLIO */
+        /* LÍNEA DE TIEMPO Y TAB-FILTERS */
         .timeline-container {
             margin: 2rem 0 2.5rem;
             position: relative;
@@ -676,7 +681,6 @@
             transition: background-color 0.3s;
         }
 
-        /* PESTAÑAS DE CATEGORÍA */
         .portfolio-tabs {
             display: flex;
             justify-content: center;
@@ -1011,7 +1015,7 @@
         .modal-header { margin-bottom: 1.5rem; }
         .modal-header h3 { font-size: 1.8rem; margin-bottom: 0.25rem; color: var(--text-main); }
         .modal-subtitle { color: var(--accent-copper); font-weight: 600; font-size: 1.05rem; margin-bottom: 0.75rem; }
-        
+
         .modal-meta {
             display: flex;
             gap: 1.5rem;
@@ -1057,7 +1061,7 @@
             margin: 1.25rem 0 0.5rem;
         }
 
-        /* SECCIÓN NOSOTROS */
+        /* NOSOTROS */
         .about-section {
             position: relative;
             background-color: var(--bg-dark);
@@ -1298,7 +1302,7 @@
 
         .btn-modal-trigger:hover { background-color: var(--accent-copper); border-color: var(--accent-copper); color: #fff; }
 
-        /* SECCIÓN CONTACTO REPARADA Y COMPLETA */
+        /* CONTACTO */
         .contact-section {
             position: relative;
             background-color: #0b1120;
@@ -1428,7 +1432,6 @@
             padding: 2.25rem;
         }
 
-        /* ESTILOS DE CAMPOS Y FORMULARIO (RESTABLECIDOS) */
         .form-group {
             margin-bottom: 1.25rem;
             display: flex;
@@ -1490,29 +1493,42 @@
             .adn-divider { display: none; }
         }
 
-       @media (max-width: 900px) {
-    .bim-interactive-grid { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 2.2rem; }
-    nav { display: none; }
-    
-    /* Ajuste para que la tarjeta ocupe el ancho completo disponible */
-    .service-slide, .portfolio-slide { 
-        flex: 0 0 100%; 
-        aspect-ratio: auto; 
-        min-height: 360px; 
-    }
-    
-    .carousel-track {
-        gap: 0; /* Elimina el espacio entre tarjetas en móvil para facilitar el cálculo */
-    }
+        @media (max-width: 900px) {
+            .bim-interactive-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+            nav { display: none; }
 
-    .prev-arrow { left: 0.2rem; }
-    .next-arrow { right: 0.2rem; }
-    .bar-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
-    .bar-label { width: 100%; }
-    .bar-track { width: 100%; }
-    .timeline-nodes { width: 100%; }
-}
+            .sliding-text-container {
+                padding: 0;
+                height: 3.2em; /* Altura ajustada para 2 líneas en móviles */
+            }
+
+            .slide-item {
+                height: 3.2em;
+                line-height: 1.25em;
+                white-space: normal;
+                word-break: break-word;
+                text-align: center;
+                font-size: 0.85em;
+            }
+
+            .service-slide, .portfolio-slide { 
+                flex: 0 0 100%; 
+                aspect-ratio: auto; 
+                min-height: 360px; 
+            }
+            
+            .carousel-track {
+                gap: 0;
+            }
+
+            .prev-arrow { left: 0.2rem; }
+            .next-arrow { right: 0.2rem; }
+            .bar-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+            .bar-label { width: 100%; }
+            .bar-track { width: 100%; }
+            .timeline-nodes { width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -1562,7 +1578,7 @@
 
         <div class="hero-content">
             <h1>
-                Innovación Tecnológica y Control Técnico en
+                Innovación Tecnológica y Control Técnico en<br>
                 <span class="sliding-text-container">
                     <span class="sliding-text-wrapper">
                         <span class="slide-item">Ingeniería, Arquitectura & BIM / CIM</span>
@@ -1750,16 +1766,16 @@
                 <p>Sincronización de procesos y gestión de información bajo el marco ISO 19650.</p>
             </div>
 
-            <!-- Interactivo Engranajes -->
             <div class="bim-interactive-grid">
                 <div class="gears-container">
-                    <svg viewBox="0 0 520 520" class="gears-svg">
+                    <svg viewBox="0 -20 520 540" class="gears-svg">
+                        <text x="260" y="-2" text-anchor="middle" fill="var(--accent-copper)" font-size="15" font-weight="800" letter-spacing="4">MARCO RECTOR ISO 19650</text>
+
                         <g class="gear-iso-outer">
                             <circle cx="260" cy="260" r="250" fill="none" stroke="rgba(217, 119, 6, 0.2)" stroke-width="2" />
                             <circle cx="260" cy="260" r="240" fill="none" stroke="rgba(59, 130, 246, 0.3)" stroke-width="12" stroke-dasharray="10, 14" />
                             <circle cx="260" cy="260" r="228" fill="#0f172a" stroke="rgba(217, 119, 6, 0.4)" stroke-width="2" />
                         </g>
-                        <text x="260" y="36" text-anchor="middle" fill="var(--accent-copper)" font-size="11" font-weight="800" letter-spacing="3">MARCO RECTOR ISO 19650</text>
 
                         <path d="M 80 180 C 160 100, 240 320, 320 200 C 370 120, 430 300, 440 340" fill="none" stroke="rgba(217, 119, 6, 0.15)" stroke-width="1.5" stroke-dasharray="4, 6" />
 
@@ -1911,7 +1927,7 @@
         </div>
     </section>
 
-    <!-- PORTAFOLIO & CASOS DE ESTUDIO -->
+    <!-- PORTAFOLIO -->
     <section id="portafolio" class="tech-section">
         <div class="topo-bg">
             <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -2063,7 +2079,7 @@
         </div>
     </div>
 
-    <!-- SECCIÓN NOSOTROS -->
+    <!-- NOSOTROS -->
     <section class="about-section" id="nosotros">
         <div class="about-3d-bg">
             <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -2148,25 +2164,24 @@
             </div>
 
             <div class="team-grid-3">
-                <!-- TARJETA REEMPLAZADA PARA JAMES ZÚÑIGA -->
-<div class="team-card">
-    <div class="team-avatar">
-        <img src="james-zuniga.jpg" alt="Arq. James Ramiro Zúñiga Caipe" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;">
-    </div>
-    <div class="team-body">
-        <h4>Arq. James Ramiro Zúñiga Caipe</h4>
-        <div class="team-role">Director General & Coordinador BIM / CIM</div>
-        <p>Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.</p>
-        <div class="team-tags">
-            <span class="tag">Arq. UDENAR</span>
-            <span class="tag">buildingSMART</span>
-            <span class="tag">BIM 5D</span>
-        </div>
-        <button class="btn-modal-trigger" onclick="openModal('modal-perfil-james')">
-            <i data-lucide="user"></i> Ver Perfil Técnico
-        </button>
-    </div>
-</div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <img src="james-zuniga.jpg" alt="Arq. James Ramiro Zúñiga Caipe" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;">
+                    </div>
+                    <div class="team-body">
+                        <h4>Arq. James Ramiro Zúñiga Caipe</h4>
+                        <div class="team-role">Director General & Coordinador BIM / CIM</div>
+                        <p>Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.</p>
+                        <div class="team-tags">
+                            <span class="tag">Arq. UDENAR</span>
+                            <span class="tag">buildingSMART</span>
+                            <span class="tag">BIM 5D</span>
+                        </div>
+                        <button class="btn-modal-trigger" onclick="openModal('modal-perfil-james')">
+                            <i data-lucide="user"></i> Ver Perfil Técnico
+                        </button>
+                    </div>
+                </div>
 
                 <div class="team-card">
                     <div class="team-avatar">
@@ -2221,7 +2236,7 @@
             <button class="modal-close" onclick="closeModal('modal-perfil-james')"><i data-lucide="x"></i></button>
             <div class="modal-header">
                 <h3>Arq. James Ramiro Zúñiga Caipe</h3>
-                <div class="modal-subtitle">Fundador & Principal Manager </div>
+                <div class="modal-subtitle">Fundador & Principal Manager</div>
                 <div class="modal-meta">
                     <span><i data-lucide="award"></i> Matrícula Profesional CPNAA</span>
                     <span><i data-lucide="shield-check"></i> buildingSMART Certified</span>
@@ -2242,7 +2257,7 @@
         </div>
     </div>
 
-    <!-- SECCIÓN CONTACTO OPTIMIZADA -->
+    <!-- CONTACTO -->
     <section class="contact-section" id="contacto">
         <div class="contact-vector-bg">
             <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -2291,7 +2306,6 @@
                     </a>
                 </div>
 
-                <!-- Formulario -->
                 <div class="contact-form-card">
                     <img src="contacto-innovarqz.jpg" alt="Fondo técnico de contacto InnovArqZ" class="form-bg-img">
                     <div class="form-overlay-dark"></div>
@@ -2347,14 +2361,13 @@
         <p style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">&copy; 2026 InnovArqZ. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- SCRIPT JAVASCRIPT GLOBAL -->
+    <!-- JAVASCRIPT GLOBAL -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) {
                 lucide.createIcons();
             }
 
-            // DETECTOR DE SECCIÓN ACTIVA EN EL MENÚ NAVEGABLE
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('nav a');
 
@@ -2376,7 +2389,6 @@
 
             sections.forEach(section => sectionObserver.observe(section));
 
-            // ANIMACIÓN DE BARRAS COMPARATIVAS
             const animatedContainer = document.getElementById('animatedBarsContainer');
             if (animatedContainer) {
                 const barObserver = new IntersectionObserver((entries) => {
@@ -2415,61 +2427,58 @@
             return slideClass;
         }
 
-function goToSlide(trackId, rawSlideClass, slideIndex) {
-    const track = document.getElementById(trackId);
-    if (!track) return;
+        function goToSlide(trackId, rawSlideClass, slideIndex) {
+            const track = document.getElementById(trackId);
+            if (!track) return;
 
-    const slideClass = normalizeClass(rawSlideClass);
-    const slides = Array.from(track.getElementsByClassName(slideClass));
-    const visibleSlides = slides.filter(s => window.getComputedStyle(s).display !== 'none');
-    
-    if (visibleSlides.length === 0) return;
+            const slideClass = normalizeClass(rawSlideClass);
+            const slides = Array.from(track.getElementsByClassName(slideClass));
+            const visibleSlides = slides.filter(s => window.getComputedStyle(s).display !== 'none');
+            
+            if (visibleSlides.length === 0) return;
 
-    let activeIdx = carouselIndices[trackId] || 0;
+            let activeIdx = carouselIndices[trackId] || 0;
 
-    if (slideIndex >= visibleSlides.length) {
-        activeIdx = 0;
-    } else if (slideIndex < 0) {
-        activeIdx = visibleSlides.length - 1;
-    } else {
-        activeIdx = slideIndex;
-    }
+            if (slideIndex >= visibleSlides.length) {
+                activeIdx = 0;
+            } else if (slideIndex < 0) {
+                activeIdx = visibleSlides.length - 1;
+            } else {
+                activeIdx = slideIndex;
+            }
 
-    carouselIndices[trackId] = activeIdx;
+            carouselIndices[trackId] = activeIdx;
 
-    // Detecta si la pantalla es móvil (ancho menor o igual a 900px)
-    const isMobile = window.innerWidth <= 900;
+            const isMobile = window.innerWidth <= 900;
 
-    if (isMobile) {
-        // En móvil avanza exactamente de 100% en 100%
-        track.style.transform = `translateX(-${activeIdx * 100}%)`;
-    } else {
-        // En escritorio mantiene la proporción original
-        const offsetPercent = activeIdx * 52;
-        const offsetPx = activeIdx * 28;
-        track.style.transform = `translateX(calc(-${offsetPercent}% - ${offsetPx}px))`;
-    }
+            if (isMobile) {
+                track.style.transform = `translateX(-${activeIdx * 100}%)`;
+            } else {
+                const offsetPercent = activeIdx * 52;
+                const offsetPx = activeIdx * 28;
+                track.style.transform = `translateX(calc(-${offsetPercent}% - ${offsetPx}px))`;
+            }
 
-    slides.forEach(s => s.classList.remove('active-slide'));
-    if (visibleSlides[activeIdx]) {
-        visibleSlides[activeIdx].classList.add('active-slide');
-    }
+            slides.forEach(s => s.classList.remove('active-slide'));
+            if (visibleSlides[activeIdx]) {
+                visibleSlides[activeIdx].classList.add('active-slide');
+            }
 
-    const indicatorContainer = document.getElementById(
-        trackId === 'servicesTrack' ? 'servicesIndicators' : 'portfolioIndicators'
-    );
+            const indicatorContainer = document.getElementById(
+                trackId === 'servicesTrack' ? 'servicesIndicators' : 'portfolioIndicators'
+            );
 
-    if (indicatorContainer) {
-        indicatorContainer.innerHTML = '';
-        visibleSlides.forEach((_, idx) => {
-            const btn = document.createElement('button');
-            btn.className = `indicator-pill ${idx === activeIdx ? 'active' : ''}`;
-            btn.type = 'button';
-            btn.onclick = () => goToSlide(trackId, slideClass, idx);
-            indicatorContainer.appendChild(btn);
-        });
-    }
-}
+            if (indicatorContainer) {
+                indicatorContainer.innerHTML = '';
+                visibleSlides.forEach((_, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = `indicator-pill ${idx === activeIdx ? 'active' : ''}`;
+                    btn.type = 'button';
+                    btn.onclick = () => goToSlide(trackId, slideClass, idx);
+                    indicatorContainer.appendChild(btn);
+                });
+            }
+        }
 
         function nextSlide(trackId, slideClass) {
             const current = carouselIndices[trackId] || 0;

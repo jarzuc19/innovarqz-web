@@ -1490,18 +1490,29 @@
             .adn-divider { display: none; }
         }
 
-        @media (max-width: 900px) {
-            .bim-interactive-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.2rem; }
-            nav { display: none; }
-            .service-slide, .portfolio-slide { flex: 0 0 85%; aspect-ratio: auto; min-height: 360px; }
-            .prev-arrow { left: 0.2rem; }
-            .next-arrow { right: 0.2rem; }
-            .bar-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
-            .bar-label { width: 100%; }
-            .bar-track { width: 100%; }
-            .timeline-nodes { width: 100%; }
-        }
+       @media (max-width: 900px) {
+    .bim-interactive-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.2rem; }
+    nav { display: none; }
+    
+    /* Ajuste para que la tarjeta ocupe el ancho completo disponible */
+    .service-slide, .portfolio-slide { 
+        flex: 0 0 100%; 
+        aspect-ratio: auto; 
+        min-height: 360px; 
+    }
+    
+    .carousel-track {
+        gap: 0; /* Elimina el espacio entre tarjetas en móvil para facilitar el cálculo */
+    }
+
+    .prev-arrow { left: 0.2rem; }
+    .next-arrow { right: 0.2rem; }
+    .bar-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    .bar-label { width: 100%; }
+    .bar-track { width: 100%; }
+    .timeline-nodes { width: 100%; }
+}
     </style>
 </head>
 <body>
@@ -2404,52 +2415,61 @@
             return slideClass;
         }
 
-        function goToSlide(trackId, rawSlideClass, slideIndex) {
-            const track = document.getElementById(trackId);
-            if (!track) return;
+function goToSlide(trackId, rawSlideClass, slideIndex) {
+    const track = document.getElementById(trackId);
+    if (!track) return;
 
-            const slideClass = normalizeClass(rawSlideClass);
-            const slides = Array.from(track.getElementsByClassName(slideClass));
-            const visibleSlides = slides.filter(s => window.getComputedStyle(s).display !== 'none');
-            
-            if (visibleSlides.length === 0) return;
+    const slideClass = normalizeClass(rawSlideClass);
+    const slides = Array.from(track.getElementsByClassName(slideClass));
+    const visibleSlides = slides.filter(s => window.getComputedStyle(s).display !== 'none');
+    
+    if (visibleSlides.length === 0) return;
 
-            let activeIdx = carouselIndices[trackId] || 0;
+    let activeIdx = carouselIndices[trackId] || 0;
 
-            if (slideIndex >= visibleSlides.length) {
-                activeIdx = 0;
-            } else if (slideIndex < 0) {
-                activeIdx = visibleSlides.length - 1;
-            } else {
-                activeIdx = slideIndex;
-            }
+    if (slideIndex >= visibleSlides.length) {
+        activeIdx = 0;
+    } else if (slideIndex < 0) {
+        activeIdx = visibleSlides.length - 1;
+    } else {
+        activeIdx = slideIndex;
+    }
 
-            carouselIndices[trackId] = activeIdx;
+    carouselIndices[trackId] = activeIdx;
 
-            const offsetPercent = activeIdx * 52;
-            const offsetPx = activeIdx * 28;
-            track.style.transform = `translateX(calc(-${offsetPercent}% - ${offsetPx}px))`;
+    // Detecta si la pantalla es móvil (ancho menor o igual a 900px)
+    const isMobile = window.innerWidth <= 900;
 
-            slides.forEach(s => s.classList.remove('active-slide'));
-            if (visibleSlides[activeIdx]) {
-                visibleSlides[activeIdx].classList.add('active-slide');
-            }
+    if (isMobile) {
+        // En móvil avanza exactamente de 100% en 100%
+        track.style.transform = `translateX(-${activeIdx * 100}%)`;
+    } else {
+        // En escritorio mantiene la proporción original
+        const offsetPercent = activeIdx * 52;
+        const offsetPx = activeIdx * 28;
+        track.style.transform = `translateX(calc(-${offsetPercent}% - ${offsetPx}px))`;
+    }
 
-            const indicatorContainer = document.getElementById(
-                trackId === 'servicesTrack' ? 'servicesIndicators' : 'portfolioIndicators'
-            );
+    slides.forEach(s => s.classList.remove('active-slide'));
+    if (visibleSlides[activeIdx]) {
+        visibleSlides[activeIdx].classList.add('active-slide');
+    }
 
-            if (indicatorContainer) {
-                indicatorContainer.innerHTML = '';
-                visibleSlides.forEach((_, idx) => {
-                    const btn = document.createElement('button');
-                    btn.className = `indicator-pill ${idx === activeIdx ? 'active' : ''}`;
-                    btn.type = 'button';
-                    btn.onclick = () => goToSlide(trackId, slideClass, idx);
-                    indicatorContainer.appendChild(btn);
-                });
-            }
-        }
+    const indicatorContainer = document.getElementById(
+        trackId === 'servicesTrack' ? 'servicesIndicators' : 'portfolioIndicators'
+    );
+
+    if (indicatorContainer) {
+        indicatorContainer.innerHTML = '';
+        visibleSlides.forEach((_, idx) => {
+            const btn = document.createElement('button');
+            btn.className = `indicator-pill ${idx === activeIdx ? 'active' : ''}`;
+            btn.type = 'button';
+            btn.onclick = () => goToSlide(trackId, slideClass, idx);
+            indicatorContainer.appendChild(btn);
+        });
+    }
+}
 
         function nextSlide(trackId, slideClass) {
             const current = carouselIndices[trackId] || 0;

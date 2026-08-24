@@ -617,40 +617,86 @@
             width: 56px;
         }
 
-        /* LÍNEA DE TIEMPO Y TAB-FILTERS */
+        /* LÍNEA DE TIEMPO CON CARRUSEL INTERNO */
         .timeline-container {
             margin: 2rem 0 2.5rem;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 100%;
         }
 
         .timeline-track-line {
             position: absolute;
             top: 50%;
-            left: 10%;
-            right: 10%;
+            left: 5%;
+            right: 5%;
             height: 2px;
             background-color: var(--border-color);
             z-index: 1;
             transform: translateY(-50%);
         }
 
-        .timeline-nodes {
+        .timeline-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            max-width: 720px;
             position: relative;
             z-index: 2;
+        }
+
+        .timeline-fixed-node {
+            flex-shrink: 0;
+        }
+
+        .timeline-nav-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             display: flex;
-            justify-content: space-between;
-            width: 80%;
-            max-width: 600px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-nav-btn:hover {
+            background-color: var(--accent-copper);
+            border-color: var(--accent-copper);
+            color: #fff;
+        }
+
+        .timeline-viewport {
+            overflow: hidden;
+            width: calc(5 * 95px);
+            max-width: 100%;
+        }
+
+        .timeline-track-inner {
+            display: flex;
+            gap: 0.6rem;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .timeline-track-inner .time-node {
+            flex-shrink: 0;
+            width: 85px;
+            justify-content: center;
         }
 
         .time-node {
             background-color: var(--bg-card);
             border: 2px solid var(--border-color);
             color: var(--text-muted);
-            padding: 0.4rem 1rem;
+            padding: 0.4rem 0.8rem;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 700;
@@ -1528,7 +1574,7 @@
             .bar-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
             .bar-label { width: 100%; }
             .bar-track { width: 100%; }
-            .timeline-nodes { width: 100%; }
+            .timeline-wrapper { max-width: 100%; }
         }
     </style>
 </head>
@@ -1956,13 +2002,29 @@
                 <button class="tab-btn" onclick="filterCategory('cim', this)">Modelado Urbano (CIM)</button>
             </div>
 
+            <!-- LÍNEA DE TIEMPO DESLIZANTE CON BOTÓN 'TODOS' FIJO Y FLECHAS DE NAVEGACIÓN -->
             <div class="timeline-container">
                 <div class="timeline-track-line"></div>
-                <div class="timeline-nodes">
-                    <div class="time-node active" onclick="filterYear('all', this)"><span class="node-dot"></span><span>Todos</span></div>
-                    <div class="time-node" onclick="filterYear('2024', this)"><span class="node-dot"></span><span>2024</span></div>
-                    <div class="time-node" onclick="filterYear('2025', this)"><span class="node-dot"></span><span>2025</span></div>
-                    <div class="time-node" onclick="filterYear('2026', this)"><span class="node-dot"></span><span>2026</span></div>
+                <div class="timeline-wrapper">
+                    <div class="timeline-fixed-node">
+                        <div class="time-node active" onclick="filterYear('all', this)">
+                            <span class="node-dot"></span><span>Todos</span>
+                        </div>
+                    </div>
+
+                    <button class="timeline-nav-btn" onclick="scrollTimeline(-1)" type="button" aria-label="Año anterior">
+                        <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
+                    </button>
+
+                    <div class="timeline-viewport">
+                        <div class="timeline-track-inner" id="timelineTrackInner">
+                            <!-- Se renderizan los años dinámicamente desde JS -->
+                        </div>
+                    </div>
+
+                    <button class="timeline-nav-btn" onclick="scrollTimeline(1)" type="button" aria-label="Año siguiente">
+                        <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+                    </button>
                 </div>
             </div>
 
@@ -2288,425 +2350,451 @@
     </footer>
 
     <!-- JAVASCRIPT GLOBAL -->
-<script>
-    let proyectosGlobales = [];
+    <script>
+        let proyectosGlobales = [];
 
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.lucide) {
-            lucide.createIcons();
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
 
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('nav a');
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a');
 
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const currentId = entry.target.getAttribute('id');
-                    navLinks.forEach(link => {
-                        link.classList.remove('nav-active');
-                        if (link.getAttribute('href') === `#${currentId}`) {
-                            link.classList.add('nav-active');
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const currentId = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('nav-active');
+                            if (link.getAttribute('href') === `#${currentId}`) {
+                                link.classList.add('nav-active');
+                            }
+                        });
+                    }
+                });
+            }, {
+                rootMargin: '-25% 0px -55% 0px'
+            });
+
+            sections.forEach(section => sectionObserver.observe(section));
+
+            const animatedContainer = document.getElementById('animatedBarsContainer');
+            if (animatedContainer) {
+                const barObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const barFills = entry.target.querySelectorAll('.bar-fill');
+                        if (entry.isIntersecting) {
+                            barFills.forEach(bar => {
+                                const targetWidth = bar.getAttribute('data-target');
+                                bar.style.width = targetWidth;
+                                bar.classList.add('active-fill');
+                            });
+                        } else {
+                            barFills.forEach(bar => {
+                                bar.style.width = '0%';
+                                bar.classList.remove('active-fill');
+                            });
                         }
                     });
-                }
-            });
-        }, {
-            rootMargin: '-25% 0px -55% 0px'
+                }, { threshold: 0.2 });
+
+                barObserver.observe(animatedContainer);
+            }
+
+            goToSlide('servicesTrack', 'service-slide', 0);
+            cargarPortafolioDinamico();
         });
 
-        sections.forEach(section => sectionObserver.observe(section));
+        const carouselIndices = {
+            'servicesTrack': 0,
+            'portfolioTrack': 0
+        };
 
-        const animatedContainer = document.getElementById('animatedBarsContainer');
-        if (animatedContainer) {
-            const barObserver = new IntersectionObserver((entries) => {
+        function normalizeClass(slideClass) {
+            if (slideClass === 'serviceSlide') return 'service-slide';
+            if (slideClass === 'portfolioSlide') return 'portfolio-slide';
+            return slideClass;
+        }
+
+        function goToSlide(trackId, rawSlideClass, slideIndex) {
+            const track = document.getElementById(trackId);
+            if (!track) return;
+
+            const slideClass = normalizeClass(rawSlideClass);
+            const slides = Array.from(track.getElementsByClassName(slideClass));
+            const visibleSlides = slides.filter(s => window.getComputedStyle(s).display !== 'none');
+            
+            if (visibleSlides.length === 0) return;
+
+            let activeIdx = carouselIndices[trackId] || 0;
+
+            if (slideIndex >= visibleSlides.length) {
+                activeIdx = 0;
+            } else if (slideIndex < 0) {
+                activeIdx = visibleSlides.length - 1;
+            } else {
+                activeIdx = slideIndex;
+            }
+
+            carouselIndices[trackId] = activeIdx;
+
+            const isMobile = window.innerWidth <= 900;
+
+            if (isMobile) {
+                track.style.transform = `translateX(-${activeIdx * 100}%)`;
+            } else {
+                const offsetPercent = activeIdx * 52;
+                const offsetPx = activeIdx * 28;
+                track.style.transform = `translateX(calc(-${offsetPercent}% - ${offsetPx}px))`;
+            }
+
+            slides.forEach(s => s.classList.remove('active-slide'));
+            if (visibleSlides[activeIdx]) {
+                visibleSlides[activeIdx].classList.add('active-slide');
+            }
+
+            const indicatorContainer = document.getElementById(
+                trackId === 'servicesTrack' ? 'servicesIndicators' : 'portfolioIndicators'
+            );
+
+            if (indicatorContainer) {
+                indicatorContainer.innerHTML = '';
+                visibleSlides.forEach((_, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = `indicator-pill ${idx === activeIdx ? 'active' : ''}`;
+                    btn.type = 'button';
+                    btn.onclick = () => goToSlide(trackId, slideClass, idx);
+                    indicatorContainer.appendChild(btn);
+                });
+            }
+        }
+
+        function nextSlide(trackId, slideClass) {
+            const current = carouselIndices[trackId] || 0;
+            goToSlide(trackId, slideClass, current + 1);
+        }
+
+        function prevSlide(trackId, slideClass) {
+            const current = carouselIndices[trackId] || 0;
+            goToSlide(trackId, slideClass, current - 1);
+        }
+
+        let activeCategory = 'all';
+        let activeYear = 'all';
+
+        function filterCategory(category, btnElement) {
+            activeCategory = category;
+            const buttons = btnElement.parentElement.querySelectorAll('.tab-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+            applyPortfolioFilters();
+        }
+
+        function filterYear(year, btnElement) {
+            activeYear = year;
+            const nodes = document.querySelectorAll('.time-node');
+            nodes.forEach(n => n.classList.remove('active'));
+            btnElement.classList.add('active');
+            applyPortfolioFilters();
+        }
+
+        function applyPortfolioFilters() {
+            const slides = document.querySelectorAll('.portfolio-slide');
+            
+            slides.forEach(slide => {
+                const slideYear = slide.getAttribute('data-year');
+                const slideCat = slide.getAttribute('data-category');
+
+                const matchYear = (activeYear === 'all' || slideYear === activeYear);
+                const matchCat = (activeCategory === 'all' || slideCat === activeCategory);
+
+                if (matchYear && matchCat) {
+                    slide.style.setProperty('display', 'flex', 'important');
+                } else {
+                    slide.style.setProperty('display', 'none', 'important');
+                }
+            });
+
+            carouselIndices['portfolioTrack'] = 0;
+            goToSlide('portfolioTrack', 'portfolio-slide', 0);
+        }
+
+        const contactSection = document.getElementById('contacto');
+        const floatingActions = document.getElementById('floatingActions');
+
+        if (contactSection && floatingActions) {
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    const barFills = entry.target.querySelectorAll('.bar-fill');
                     if (entry.isIntersecting) {
-                        barFills.forEach(bar => {
-                            const targetWidth = bar.getAttribute('data-target');
-                            bar.style.width = targetWidth;
-                            bar.classList.add('active-fill');
-                        });
+                        floatingActions.classList.add('hidden');
                     } else {
-                        barFills.forEach(bar => {
-                            bar.style.width = '0%';
-                            bar.classList.remove('active-fill');
-                        });
+                        floatingActions.classList.remove('hidden');
                     }
                 });
             }, { threshold: 0.2 });
 
-            barObserver.observe(animatedContainer);
+            observer.observe(contactSection);
         }
 
-        goToSlide('servicesTrack', 'service-slide', 0);
-        cargarPortafolioDinamico();
-    });
-
-    const carouselIndices = {
-        'servicesTrack': 0,
-        'portfolioTrack': 0
-    };
-
-    function normalizeClass(slideClass) {
-        if (slideClass === 'serviceSlide') return 'service-slide';
-        if (slideClass === 'portfolioSlide') return 'portfolio-slide';
-        return slideClass;
-    }
-
-    function goToSlide(trackId, rawSlideClass, slideIndex) {
-        const track = document.getElementById(trackId);
-        if (!track) return;
-
-        const slideClass = normalizeClass(rawSlideClass);
-        const slides = Array.from(track.getElementsByClassName(slideClass));
-        const visibleSlides = slides.filter(s => window.getComputedStyle(s).display !== 'none');
-        
-        if (visibleSlides.length === 0) return;
-
-        let activeIdx = carouselIndices[trackId] || 0;
-
-        if (slideIndex >= visibleSlides.length) {
-            activeIdx = 0;
-        } else if (slideIndex < 0) {
-            activeIdx = visibleSlides.length - 1;
-        } else {
-            activeIdx = slideIndex;
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
         }
 
-        carouselIndices[trackId] = activeIdx;
-
-        const isMobile = window.innerWidth <= 900;
-
-        if (isMobile) {
-            track.style.transform = `translateX(-${activeIdx * 100}%)`;
-        } else {
-            const offsetPercent = activeIdx * 52;
-            const offsetPx = activeIdx * 28;
-            track.style.transform = `translateX(calc(-${offsetPercent}% - ${offsetPx}px))`;
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
         }
 
-        slides.forEach(s => s.classList.remove('active-slide'));
-        if (visibleSlides[activeIdx]) {
-            visibleSlides[activeIdx].classList.add('active-slide');
-        }
-
-        const indicatorContainer = document.getElementById(
-            trackId === 'servicesTrack' ? 'servicesIndicators' : 'portfolioIndicators'
-        );
-
-        if (indicatorContainer) {
-            indicatorContainer.innerHTML = '';
-            visibleSlides.forEach((_, idx) => {
-                const btn = document.createElement('button');
-                btn.className = `indicator-pill ${idx === activeIdx ? 'active' : ''}`;
-                btn.type = 'button';
-                btn.onclick = () => goToSlide(trackId, slideClass, idx);
-                indicatorContainer.appendChild(btn);
-            });
-        }
-    }
-
-    function nextSlide(trackId, slideClass) {
-        const current = carouselIndices[trackId] || 0;
-        goToSlide(trackId, slideClass, current + 1);
-    }
-
-    function prevSlide(trackId, slideClass) {
-        const current = carouselIndices[trackId] || 0;
-        goToSlide(trackId, slideClass, current - 1);
-    }
-
-    let activeCategory = 'all';
-    let activeYear = 'all';
-
-    function filterCategory(category, btnElement) {
-        activeCategory = category;
-        const buttons = btnElement.parentElement.querySelectorAll('.tab-btn');
-        buttons.forEach(b => b.classList.remove('active'));
-        btnElement.classList.add('active');
-        applyPortfolioFilters();
-    }
-
-    function filterYear(year, btnElement) {
-        activeYear = year;
-        const nodes = btnElement.parentElement.querySelectorAll('.time-node');
-        nodes.forEach(n => n.classList.remove('active'));
-        btnElement.classList.add('active');
-        applyPortfolioFilters();
-    }
-
-    function applyPortfolioFilters() {
-        const slides = document.querySelectorAll('.portfolio-slide');
-        
-        slides.forEach(slide => {
-            const slideYear = slide.getAttribute('data-year');
-            const slideCat = slide.getAttribute('data-category');
-
-            const matchYear = (activeYear === 'all' || slideYear === activeYear);
-            const matchCat = (activeCategory === 'all' || slideCat === activeCategory);
-
-            if (matchYear && matchCat) {
-                slide.style.setProperty('display', 'flex', 'important');
-            } else {
-                slide.style.setProperty('display', 'none', 'important');
+        window.addEventListener('click', (event) => {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
             }
         });
 
-        carouselIndices['portfolioTrack'] = 0;
-        goToSlide('portfolioTrack', 'portfolio-slide', 0);
-    }
+        const dimData = [
+            {
+                badge: "DIMENSIÓN 1D / 2D",
+                title: "Estructuración, Ideas & Planimetría Base",
+                desc: "Definición inicial del proyecto, condicionantes normativos, factibilidad técnica y generación de documentación bidimensional estandarizada para trámites y licencias.",
+                benefits: [
+                    "Línea base documental bajo estándares de intercambio CDE.",
+                    "Estudios de cabida y viabilidad legal/urbanística.",
+                    "Definición de Términos de Referencia y Plan de Ejecución BIM (BEP)."
+                ]
+            },
+            {
+                badge: "DIMENSIÓN 3D",
+                title: "Modelado Geométrico & Detección de Colisiones",
+                desc: "Construcción del Gemelo Digital tridimensional federado (ARQ, EST, MEP). Identificación y solución de interferencias antes de la fase de obra.",
+                benefits: [
+                    "Coordinación técnica interdisciplinaria sin imprevistos.",
+                    "Visualización hiperrealista para toma de decisiones.",
+                    "Cuantificación de insumos automatizada a partir del modelo."
+                ]
+            },
+            {
+                badge: "DIMENSIÓN 4D",
+                title: "Planificación Temporal & Simulación Constructiva",
+                desc: "Vinculación del modelo 3D con la programación de obra (Gantt). Permite simular virtualmente la secuencia de construcción y optimizar la ruta crítica.",
+                benefits: [
+                    "Control estricto de tiempos y fases de ejecución.",
+                    "Simulación visual de procesos de montaje y logística.",
+                    "Prevención de cuellos de botella e interferencias en sitio."
+                ]
+            },
+            {
+                badge: "DIMENSIÓN 5D",
+                title: "Estimación de Costos & Análisis Financiero (APU)",
+                desc: "Integración del modelo paramétrico con presupuestos, análisis de precios unitarios y flujo de caja en tiempo real.",
+                benefits: [
+                    "Cómputos métricos exactos sin margen de omisión manual.",
+                    "Monitoreo continuo de variaciones presupuestales.",
+                    "Transparencia en el control financiero e interventoría."
+                ]
+            },
+            {
+                badge: "DIMENSIÓN 6D",
+                title: "Sostenibilidad & Eficiencia Energética",
+                desc: "Evaluación del impacto ambiental, análisis del ciclo térmico, huella de carbono y optimización del rendimiento energético del activo.",
+                benefits: [
+                    "Diseño orientado a certificaciones sostenibles.",
+                    "Simulación de consumo de energía e iluminación natural.",
+                    "Selección de materiales de bajo impacto ambiental."
+                ]
+            },
+            {
+                badge: "DIMENSIÓN 7D",
+                title: "Gemelo Digital & Facility Management",
+                desc: "Operación y mantenimiento del activo durante su ciclo de vida. Entrega de modelos As-Built vinculados a sistemas de administración inmobiliaria.",
+                benefits: [
+                    "Gestión eficiente de mantenimiento preventivo/correctivo.",
+                    "Centralización de fichas técnicas y manuales de operación.",
+                    "Maximización del valor del inmueble a largo plazo."
+                ]
+            }
+        ];
 
-    const contactSection = document.getElementById('contacto');
-    const floatingActions = document.getElementById('floatingActions');
-
-    if (contactSection && floatingActions) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    floatingActions.classList.add('hidden');
+        function selectDimension(index) {
+            const gears = document.querySelectorAll('.gear-item');
+            gears.forEach((g, idx) => {
+                if (idx === index) {
+                    g.classList.add('active');
                 } else {
-                    floatingActions.classList.remove('hidden');
+                    g.classList.remove('active');
                 }
             });
-        }, { threshold: 0.2 });
 
-        observer.observe(contactSection);
-    }
-
-    function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-    }
-
-    function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    }
-
-    window.addEventListener('click', (event) => {
-        if (event.target.classList.contains('modal-overlay')) {
-            event.target.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    });
-
-    const dimData = [
-        {
-            badge: "DIMENSIÓN 1D / 2D",
-            title: "Estructuración, Ideas & Planimetría Base",
-            desc: "Definición inicial del proyecto, condicionantes normativos, factibilidad técnica y generación de documentación bidimensional estandarizada para trámites y licencias.",
-            benefits: [
-                "Línea base documental bajo estándares de intercambio CDE.",
-                "Estudios de cabida y viabilidad legal/urbanística.",
-                "Definición de Términos de Referencia y Plan de Ejecución BIM (BEP)."
-            ]
-        },
-        {
-            badge: "DIMENSIÓN 3D",
-            title: "Modelado Geométrico & Detección de Colisiones",
-            desc: "Construcción del Gemelo Digital tridimensional federado (ARQ, EST, MEP). Identificación y solución de interferencias antes de la fase de obra.",
-            benefits: [
-                "Coordinación técnica interdisciplinaria sin imprevistos.",
-                "Visualización hiperrealista para toma de decisiones.",
-                "Cuantificación de insumos automatizada a partir del modelo."
-            ]
-        },
-        {
-            badge: "DIMENSIÓN 4D",
-            title: "Planificación Temporal & Simulación Constructiva",
-            desc: "Vinculación del modelo 3D con la programación de obra (Gantt). Permite simular virtualmente la secuencia de construcción y optimizar la ruta crítica.",
-            benefits: [
-                "Control estricto de tiempos y fases de ejecución.",
-                "Simulación visual de procesos de montaje y logística.",
-                "Prevención de cuellos de botella e interferencias en sitio."
-            ]
-        },
-        {
-            badge: "DIMENSIÓN 5D",
-            title: "Estimación de Costos & Análisis Financiero (APU)",
-            desc: "Integración del modelo paramétrico con presupuestos, análisis de precios unitarios y flujo de caja en tiempo real.",
-            benefits: [
-                "Cómputos métricos exactos sin margen de omisión manual.",
-                "Monitoreo continuo de variaciones presupuestales.",
-                "Transparencia en el control financiero e interventoría."
-            ]
-        },
-        {
-            badge: "DIMENSIÓN 6D",
-            title: "Sostenibilidad & Eficiencia Energética",
-            desc: "Evaluación del impacto ambiental, análisis del ciclo térmico, huella de carbono y optimización del rendimiento energético del activo.",
-            benefits: [
-                "Diseño orientado a certificaciones sostenibles.",
-                "Simulación de consumo de energía e iluminación natural.",
-                "Selección de materiales de bajo impacto ambiental."
-            ]
-        },
-        {
-            badge: "DIMENSIÓN 7D",
-            title: "Gemelo Digital & Facility Management",
-            desc: "Operación y mantenimiento del activo durante su ciclo de vida. Entrega de modelos As-Built vinculados a sistemas de administración inmobiliaria.",
-            benefits: [
-                "Gestión eficiente de mantenimiento preventivo/correctivo.",
-                "Centralización de fichas técnicas y manuales de operación.",
-                "Maximización del valor del inmueble a largo plazo."
-            ]
-        }
-    ];
-
-    function selectDimension(index) {
-        const gears = document.querySelectorAll('.gear-item');
-        gears.forEach((g, idx) => {
-            if (idx === index) {
-                g.classList.add('active');
-            } else {
-                g.classList.remove('active');
+            const data = dimData[index];
+            if (data) {
+                document.getElementById('dimBadge').innerText = data.badge;
+                document.getElementById('dimTitle').innerText = data.title;
+                document.getElementById('dimDesc').innerText = data.desc;
+                
+                const listContainer = document.getElementById('dimList');
+                listContainer.innerHTML = data.benefits.map(b => `<li>${b}</li>`).join('');
             }
-        });
-
-        const data = dimData[index];
-        if (data) {
-            document.getElementById('dimBadge').innerText = data.badge;
-            document.getElementById('dimTitle').innerText = data.title;
-            document.getElementById('dimDesc').innerText = data.desc;
-            
-            const listContainer = document.getElementById('dimList');
-            listContainer.innerHTML = data.benefits.map(b => `<li>${b}</li>`).join('');
-        }
-    }
-
-    /* CARGA DINÁMICA DE PORTAFOLIO Y LÍNEA DE TIEMPO */
-/* MAPEO DE CATEGORÍAS A TEXTO COMPLETO Y COMPATIBILIDAD DIRECTA */
-const nombresCategorias = {
-    'bim': 'Diseño & BIM',
-    'obra': 'Infraestructura & Obra',
-    'interventoria': 'Interventoría',
-    'cim': 'Modelado Urbano (CIM)'
-};
-
-async function cargarPortafolioDinamico() {
-    const contenedor = document.getElementById('portfolioTrack');
-    if (!contenedor) return;
-
-    try {
-        const res = await fetch('proyectos.json?v=' + Date.now());
-        if (!res.ok) throw new Error('No se pudo cargar proyectos.json');
-        
-        proyectosGlobales = await res.json();
-        contenedor.innerHTML = '';
-
-        if (proyectosGlobales.length === 0) {
-            contenedor.innerHTML = '<p style="color:var(--text-muted); text-align:center; width:100%; padding:2rem;">No hay proyectos publicados actualmente.</p>';
-            return;
         }
 
-        renderizarLineaTiempoDinamica();
+        /* MAPEO DE CATEGORÍAS A TEXTO COMPLETO Y COMPATIBILIDAD DIRECTA */
+        const nombresCategorias = {
+            'bim': 'Diseño & BIM',
+            'obra': 'Infraestructura & Obra',
+            'interventoria': 'Interventoría',
+            'cim': 'Modelado Urbano (CIM)'
+        };
 
-        proyectosGlobales.forEach((proj, idx) => {
-            const slide = document.createElement('div');
-            slide.className = `portfolio-slide ${idx === 0 ? 'active-slide' : ''}`;
-            slide.setAttribute('data-year', proj.year || '');
-            slide.setAttribute('data-category', proj.category || '');
+        async function cargarPortafolioDinamico() {
+            const contenedor = document.getElementById('portfolioTrack');
+            if (!contenedor) return;
 
-            const hasCover = proj.coverUrl && proj.coverUrl.trim() !== '';
+            try {
+                const res = await fetch('proyectos.json?v=' + Date.now());
+                if (!res.ok) throw new Error('No se pudo cargar proyectos.json');
+                
+                proyectosGlobales = await res.json();
+                contenedor.innerHTML = '';
 
-            // Obtiene el texto completo guardado en proj.categoryLabel o mapea el ID 'obra' -> 'Infraestructura & Obra'
-            const textoCategoria = proj.categoryLabel || proj.categoryName || nombresCategorias[proj.category] || proj.category || '';
+                if (proyectosGlobales.length === 0) {
+                    contenedor.innerHTML = '<p style="color:var(--text-muted); text-align:center; width:100%; padding:2rem;">No hay proyectos publicados actualmente.</p>';
+                    return;
+                }
 
-            slide.innerHTML = `
-                ${hasCover ? `<div class="slide-card-bg" style="background-image: url('${proj.coverUrl}');"></div>` : `
-                <div class="slide-card-placeholder">
-                    <i data-lucide="box" style="width: 48px; height: 48px; stroke-width: 1.5;"></i>
-                    <span style="font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 1px;">[ RENDER / PROYECTO 3D ]</span>
-                </div>`}
-                <div class="slide-card-overlay"></div>
-                <div class="slide-content">
-                    <div class="portfolio-tags">
-                        ${proj.year ? `<span class="tag">${proj.year}</span>` : ''}
-                        ${textoCategoria ? `<span class="tag">${textoCategoria}</span>` : ''}
-                        ${proj.standard ? `<span class="tag">${proj.standard}</span>` : ''}
-                        ${proj.software ? `<span class="tag">${proj.software}</span>` : ''}
+                renderizarLineaTiempoDinamica();
+
+                proyectosGlobales.forEach((proj, idx) => {
+                    const slide = document.createElement('div');
+                    slide.className = `portfolio-slide ${idx === 0 ? 'active-slide' : ''}`;
+                    slide.setAttribute('data-year', proj.year || '');
+                    slide.setAttribute('data-category', proj.category || '');
+
+                    const hasCover = proj.coverUrl && proj.coverUrl.trim() !== '';
+
+                    const textoCategoria = proj.categoryLabel || proj.categoryName || nombresCategorias[proj.category] || proj.category || '';
+
+                    slide.innerHTML = `
+                        ${hasCover ? `<div class="slide-card-bg" style="background-image: url('${proj.coverUrl}');"></div>` : `
+                        <div class="slide-card-placeholder">
+                            <i data-lucide="box" style="width: 48px; height: 48px; stroke-width: 1.5;"></i>
+                            <span style="font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 1px;">[ RENDER / PROYECTO 3D ]</span>
+                        </div>`}
+                        <div class="slide-card-overlay"></div>
+                        <div class="slide-content">
+                            <div class="portfolio-tags">
+                                ${proj.year ? `<span class="tag">${proj.year}</span>` : ''}
+                                ${textoCategoria ? `<span class="tag">${textoCategoria}</span>` : ''}
+                                ${proj.standard ? `<span class="tag">${proj.standard}</span>` : ''}
+                                ${proj.software ? `<span class="tag">${proj.software}</span>` : ''}
+                            </div>
+                            <h3>${proj.title}</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">${proj.subtitle || ''}</p>
+                            <button class="btn-slide-action" onclick="openPortfolioModal('${proj.id}')">Ver Caso de Estudio <i data-lucide="arrow-right"></i></button>
+                        </div>
+                    `;
+                    contenedor.appendChild(slide);
+                });
+
+                if (window.lucide) lucide.createIcons();
+                goToSlide('portfolioTrack', 'portfolio-slide', 0);
+
+            } catch (err) {
+                console.error('Error al renderizar el portafolio dinámico:', err);
+            }
+        }
+
+        /* LÓGICA DE NAVEGACIÓN DESLIZANTE DE LÍNEA DE TIEMPO */
+        let timelineOffset = 0;
+        const VISIBLE_YEARS = 5;
+        const NODE_WIDTH = 95;
+
+        function renderizarLineaTiempoDinamica() {
+            const trackInner = document.getElementById('timelineTrackInner');
+            if (!trackInner) return;
+
+            const anosUnicos = [...new Set(proyectosGlobales.map(p => p.year).filter(Boolean))].sort((a, b) => a - b);
+
+            let html = '';
+            anosUnicos.forEach(ano => {
+                html += `
+                    <div class="time-node" onclick="filterYear('${ano}', this)">
+                        <span class="node-dot"></span><span>${ano}</span>
                     </div>
-                    <h3>${proj.title}</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">${proj.subtitle || ''}</p>
-                    <button class="btn-slide-action" onclick="openPortfolioModal('${proj.id}')">Ver Caso de Estudio <i data-lucide="arrow-right"></i></button>
-                </div>
-            `;
-            contenedor.appendChild(slide);
-        });
-
-        if (window.lucide) lucide.createIcons();
-        goToSlide('portfolioTrack', 'portfolio-slide', 0);
-
-    } catch (err) {
-        console.error('Error al renderizar el portafolio dinámico:', err);
-    }
-}
-
-    function renderizarLineaTiempoDinamica() {
-        const timelineNodes = document.querySelector('.timeline-nodes');
-        if (!timelineNodes) return;
-
-        const anosUnicos = [...new Set(proyectosGlobales.map(p => p.year).filter(Boolean))].sort((a, b) => a - b);
-
-        let html = `<div class="time-node active" onclick="filterYear('all', this)"><span class="node-dot"></span><span>Todos</span></div>`;
-
-        anosUnicos.forEach(ano => {
-            html += `<div class="time-node" onclick="filterYear('${ano}', this)"><span class="node-dot"></span><span>${ano}</span></div>`;
-        });
-
-        timelineNodes.innerHTML = html;
-    }
-
-    function openPortfolioModal(id) {
-        const proj = proyectosGlobales.find(p => p.id === id);
-        if (!proj) return;
-
-        document.getElementById('modalTitle').innerText = proj.title || 'Caso de Estudio';
-        document.getElementById('modalMetaYear').innerHTML = `<i data-lucide="calendar"></i> ${proj.year || '2026'}`;
-        document.getElementById('modalMetaStandard').innerHTML = `<i data-lucide="tag"></i> ${proj.standard || ''}`;
-        document.getElementById('modalMetaSoftware').innerHTML = `<i data-lucide="cpu"></i> ${proj.software || ''}`;
-        
-        document.getElementById('modalScope').innerText = proj.scope || 'Sin descripción del alcance.';
-        document.getElementById('modalTools').innerText = proj.tools || 'Sin herramientas especificadas.';
-
-        const galleryGrid = document.getElementById('modalGalleryGrid');
-        galleryGrid.innerHTML = '';
-
-        const gallery = proj.galleryUrls || [];
-        if (gallery.length > 0) {
-            gallery.forEach((url, i) => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                item.style.backgroundImage = `url('${url}')`;
-                item.innerHTML = `<span style="background:rgba(15,23,42,0.8); padding:2px 6px; border-radius:4px; font-size:0.75rem;">Entregable ${i+1}</span>`;
-                galleryGrid.appendChild(item);
+                `;
             });
-        } else {
-            galleryGrid.innerHTML = `
-                <div class="gallery-item"><i data-lucide="box" style="color: var(--accent-copper);"></i><span style="margin-top: 0.5rem;">Render 3D Exterior</span></div>
-                <div class="gallery-item"><i data-lucide="layers" style="color: var(--accent-copper);"></i><span style="margin-top: 0.5rem;">Coordinación MEP / ARQ</span></div>
-            `;
+
+            trackInner.innerHTML = html;
+            timelineOffset = 0;
+            trackInner.style.transform = 'translateX(0px)';
+
+            if (window.lucide) lucide.createIcons();
         }
 
-        if (window.lucide) lucide.createIcons();
-        openModal('modal-portfolio');
-    }
+        function scrollTimeline(direction) {
+            const trackInner = document.getElementById('timelineTrackInner');
+            if (!trackInner) return;
 
-    function openPortfolioModalByPosition(idx) {
-        if (proyectosGlobales.length > idx) {
-            openPortfolioModal(proyectosGlobales[idx].id);
-        } else {
-            alert("Proyecto no disponible.");
+            const totalNodes = trackInner.children.length;
+            const maxOffset = Math.max(0, totalNodes - VISIBLE_YEARS);
+
+            timelineOffset += direction;
+
+            if (timelineOffset < 0) timelineOffset = 0;
+            if (timelineOffset > maxOffset) timelineOffset = maxOffset;
+
+            const shiftPx = timelineOffset * NODE_WIDTH;
+            trackInner.style.transform = `translateX(-${shiftPx}px)`;
         }
-    }
-</script>
+
+        function openPortfolioModal(id) {
+            const proj = proyectosGlobales.find(p => p.id === id);
+            if (!proj) return;
+
+            document.getElementById('modalTitle').innerText = proj.title || 'Caso de Estudio';
+            document.getElementById('modalMetaYear').innerHTML = `<i data-lucide="calendar"></i> ${proj.year || '2026'}`;
+            document.getElementById('modalMetaStandard').innerHTML = `<i data-lucide="tag"></i> ${proj.standard || ''}`;
+            document.getElementById('modalMetaSoftware').innerHTML = `<i data-lucide="cpu"></i> ${proj.software || ''}`;
+            
+            document.getElementById('modalScope').innerText = proj.scope || 'Sin descripción del alcance.';
+            document.getElementById('modalTools').innerText = proj.tools || 'Sin herramientas especificadas.';
+
+            const galleryGrid = document.getElementById('modalGalleryGrid');
+            galleryGrid.innerHTML = '';
+
+            const gallery = proj.galleryUrls || [];
+            if (gallery.length > 0) {
+                gallery.forEach((url, i) => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.style.backgroundImage = `url('${url}')`;
+                    item.innerHTML = `<span style="background:rgba(15,23,42,0.8); padding:2px 6px; border-radius:4px; font-size:0.75rem;">Entregable ${i+1}</span>`;
+                    galleryGrid.appendChild(item);
+                });
+            } else {
+                galleryGrid.innerHTML = `
+                    <div class="gallery-item"><i data-lucide="box" style="color: var(--accent-copper);"></i><span style="margin-top: 0.5rem;">Render 3D Exterior</span></div>
+                    <div class="gallery-item"><i data-lucide="layers" style="color: var(--accent-copper);"></i><span style="margin-top: 0.5rem;">Coordinación MEP / ARQ</span></div>
+                `;
+            }
+
+            if (window.lucide) lucide.createIcons();
+            openModal('modal-portfolio');
+        }
+
+        function openPortfolioModalByPosition(idx) {
+            if (proyectosGlobales.length > idx) {
+                openPortfolioModal(proyectosGlobales[idx].id);
+            } else {
+                alert("Proyecto no disponible.");
+            }
+        }
+    </script>
 </body>
 </html>

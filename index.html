@@ -155,7 +155,6 @@
             letter-spacing: -0.5px;
         }
 
-        /* AJUSTE DE ANIMACIÓN CÍCLICA 1 A 1 */
         .sliding-text-container {
             display: inline-block;
             height: 2.8em;
@@ -1047,6 +1046,8 @@
             font-size: 0.8rem;
             text-align: center;
             padding: 0.5rem;
+            background-size: cover;
+            background-position: center;
         }
 
         .modal-description {
@@ -1500,7 +1501,7 @@
 
             .sliding-text-container {
                 padding: 0;
-                height: 3.2em; /* Altura ajustada para 2 líneas en móviles */
+                height: 3.2em;
             }
 
             .slide-item {
@@ -1973,108 +1974,33 @@
                     <i data-lucide="chevron-right"></i>
                 </button>
                 
-                <div class="carousel-track" id="portfolioTrack">
-                    <div class="portfolio-slide active-slide" data-year="2026" data-category="bim">
-                        <div class="slide-card-placeholder">
-                            <i data-lucide="box" style="width: 48px; height: 48px; stroke-width: 1.5;"></i>
-                            <span style="font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 1px;">[ RENDER / PROYECTO 3D ]</span>
-                        </div>
-                        <div class="slide-card-overlay"></div>
-                        <div class="slide-content">
-                            <div class="portfolio-tags">
-                                <span class="tag">2026</span><span class="tag">ISO 19650</span><span class="tag">BIM 5D</span>
-                            </div>
-                            <h3>Módulo de Control & Estructura Metálica</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">Nariño, Colombia — Consultoría & Coordinación OpenBIM</p>
-                            <button class="btn-slide-action" onclick="openModal('modal-demo')">Ver Caso de Estudio <i data-lucide="arrow-right"></i></button>
-                        </div>
-                    </div>
+                <!-- EL CONTENEDOR DEL CARRUSEL SE LLENA DINÁMICAMENTE DESDE PROYECTOS.JSON -->
+                <div class="carousel-track" id="portfolioTrack"></div>
 
-                    <div class="portfolio-slide" data-year="2026" data-category="cim">
-                        <div class="slide-card-placeholder">
-                            <i data-lucide="map-pin" style="width: 48px; height: 48px; stroke-width: 1.5;"></i>
-                            <span style="font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 1px;">[ MODELO GEOESPACIAL CIM ]</span>
-                        </div>
-                        <div class="slide-card-overlay"></div>
-                        <div class="slide-content">
-                            <div class="portfolio-tags">
-                                <span class="tag">2026</span><span class="tag">CIM</span><span class="tag">Civil 3D</span><span class="tag">GIS</span>
-                            </div>
-                            <h3>Levantamiento Geoespacial & Topografía</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">Pacífico Nariñense — Modelado de Terreno & EOT</p>
-                            <button class="btn-slide-action" onclick="openModal('modal-demo')">Ver Caso de Estudio <i data-lucide="arrow-right"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-slide" data-year="2025" data-category="interventoria">
-                        <div class="slide-card-placeholder">
-                            <i data-lucide="clipboard-check" style="width: 48px; height: 48px; stroke-width: 1.5;"></i>
-                            <span style="font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 1px;">[ INTERVENTORÍA / CONTROL ]</span>
-                        </div>
-                        <div class="slide-card-overlay"></div>
-                        <div class="slide-content">
-                            <div class="portfolio-tags">
-                                <span class="tag">2025</span><span class="tag">Interventoría</span><span class="tag">APU</span><span class="tag">Control Financiero</span>
-                            </div>
-                            <h3>Auditoría Técnica & Auditoría Presupuestal</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">Infraestructura Municipal — Obra Pública</p>
-                            <button class="btn-slide-action" onclick="openModal('modal-demo')">Ver Caso de Estudio <i data-lucide="arrow-right"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-slide" data-year="2024" data-category="obra">
-                        <div class="slide-card-placeholder">
-                            <i data-lucide="building" style="width: 48px; height: 48px; stroke-width: 1.5;"></i>
-                            <span style="font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 1px;">[ EDIFICACIÓN / ESTRUCTURA ]</span>
-                        </div>
-                        <div class="slide-card-overlay"></div>
-                        <div class="slide-content">
-                            <div class="portfolio-tags">
-                                <span class="tag">2024</span><span class="tag">Estructura</span><span class="tag">Concretos</span><span class="tag">Estructuración</span>
-                            </div>
-                            <h3>Adecuación de Infraestructura Base</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">Nariño, Colombia — Residencia Operativa</p>
-                            <button class="btn-slide-action" onclick="openModal('modal-demo')">Ver Caso de Estudio <i data-lucide="arrow-right"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-indicators" id="portfolioIndicators">
-                    <button class="indicator-pill active" onclick="goToSlide('portfolioTrack', 'portfolio-slide', 0)"></button>
-                    <button class="indicator-pill" onclick="goToSlide('portfolioTrack', 'portfolio-slide', 1)"></button>
-                    <button class="indicator-pill" onclick="goToSlide('portfolioTrack', 'portfolio-slide', 2)"></button>
-                    <button class="indicator-pill" onclick="goToSlide('portfolioTrack', 'portfolio-slide', 3)"></button>
-                </div>
+                <div class="carousel-indicators" id="portfolioIndicators"></div>
             </div>
         </div>
     </section>
 
-    <!-- Modal Portafolio Demo -->
-    <div class="modal-overlay" id="modal-demo">
+    <!-- Modal Portafolio Dinámico -->
+    <div class="modal-overlay" id="modal-portfolio">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('modal-demo')"><i data-lucide="x"></i></button>
+            <button class="modal-close" onclick="closeModal('modal-portfolio')"><i data-lucide="x"></i></button>
             <div class="modal-header">
-                <h3>Módulo de Control & Estructura Metálica</h3>
+                <h3 id="modalTitle">Título del Proyecto</h3>
                 <div class="modal-meta">
-                    <span><i data-lucide="map-pin"></i> Nariño, Colombia</span>
-                    <span><i data-lucide="calendar"></i> 2026</span>
-                    <span><i data-lucide="tag"></i> Consultoría & Coordinación BIM</span>
+                    <span id="modalMetaYear"><i data-lucide="calendar"></i> ---</span>
+                    <span id="modalMetaStandard"><i data-lucide="tag"></i> ---</span>
+                    <span id="modalMetaSoftware"><i data-lucide="cpu"></i> ---</span>
                 </div>
             </div>
             <h5 style="color: var(--text-main); margin-bottom: 0.75rem;">Galería de Imágenes & Entregables</h5>
-            <div class="modal-gallery-grid">
-                <div class="gallery-item"><i data-lucide="box" style="color: var(--accent-copper);"></i><span style="margin-top: 0.5rem;">Render 3D Exterior</span></div>
-                <div class="gallery-item"><i data-lucide="layers" style="color: var(--accent-copper);"></i><span style="margin-top: 0.5rem;">Coordinación MEP / ARQ</span></div>
-                <div class="gallery-item"><i data-lucide="file-text" style="color: var(--accent-copper);"></i><span style="margin-top: 0.5rem;">Plano Estructural As-Built</span></div>
-                <div class="gallery-item"><i data-lucide="camera" style="color: var(--accent-copper);"></i><span style="margin-top: 0.5rem;">Avance de Obra en Sitio</span></div>
-            </div>
+            <div class="modal-gallery-grid" id="modalGalleryGrid"></div>
             <div class="modal-description">
                 <h5>Alcance del Proyecto & Desglose Técnico</h5>
-                <p>Desarrollo integral del proyecto bajo metodología OpenBIM conforme a los estándares internacionales ISO 19650. El alcance abarcó desde el levantamiento de topografía georreferenciada hasta la cuantificación exacta de material para la estructura metálica y paneles de cubierta.</p>
+                <p id="modalScope">---</p>
                 <h5>Herramientas & Ecosistema Tecnológico</h5>
-                <p>• <strong>Modelado y Coordinación:</strong> Autodesk Revit + Visual Scripting en Dynamo.<br>
-                • <strong>Detección de Interferencias:</strong> Navisworks Manage (Control de colisiones entre especialidades).<br>
-                • <strong>Control Presupuestal (BIM 5D):</strong> Extracción automatizada de APU y cantidades de obra.</p>
+                <p id="modalTools">---</p>
             </div>
         </div>
     </div>
@@ -2199,7 +2125,7 @@
                             <span class="tag">APU</span>
                             <span class="tag">Control Q</span>
                         </div>
-                        <button class="btn-modal-trigger" onclick="openModal('modal-demo')">
+                        <button class="btn-modal-trigger" onclick="openPortfolioModalByPosition(0)">
                             <i data-lucide="file-text"></i> Ver Alcance Operativo
                         </button>
                     </div>
@@ -2221,7 +2147,7 @@
                             <span class="tag">GIS</span>
                             <span class="tag">CIM</span>
                         </div>
-                        <button class="btn-modal-trigger" onclick="openModal('modal-demo')">
+                        <button class="btn-modal-trigger" onclick="openPortfolioModalByPosition(0)">
                             <i data-lucide="file-text"></i> Ver Capacidades
                         </button>
                     </div>
@@ -2363,6 +2289,8 @@
 
     <!-- JAVASCRIPT GLOBAL -->
     <script>
+        let proyectosGlobales = [];
+
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) {
                 lucide.createIcons();
@@ -2413,7 +2341,7 @@
             }
 
             goToSlide('servicesTrack', 'service-slide', 0);
-            goToSlide('portfolioTrack', 'portfolio-slide', 0);
+            cargarPortafolioDinamico();
         });
 
         const carouselIndices = {
@@ -2654,43 +2582,102 @@
             }
         }
 
+        /* CARGA DINÁMICA DEL PORTAFOLIO DESDE PROYECTOS.JSON */
         async function cargarPortafolioDinamico() {
-    const contenedor = document.getElementById('contenedor-carrusel'); // Reemplaza con el ID o clase real de tu contenedor de tarjetas
-    if (!contenedor) return;
+            const contenedor = document.getElementById('portfolioTrack');
+            if (!contenedor) return;
 
-    try {
-        // El parámetro ?v= evita que el navegador use la versión guardada en caché
-        const res = await fetch('proyectos.json?v=' + Date.now());
-        if (!res.ok) throw new Error('No se pudo cargar proyectos.json');
-        
-        const proyectos = await res.json();
-        
-        // Limpiar ejemplos hardcoded viejos
-        contenedor.innerHTML = '';
+            try {
+                const res = await fetch('proyectos.json?v=' + Date.now());
+                if (!res.ok) throw new Error('No se pudo cargar proyectos.json');
+                
+                proyectosGlobales = await res.json();
+                contenedor.innerHTML = '';
 
-        proyectos.forEach(proj => {
-            const cardHTML = `
-                <div class="card-portfolio">
-                    <div class="card-img" style="background-image: url('${proj.coverUrl}'); height: 200px; background-size: cover;"></div>
-                    <div class="card-body" style="padding: 1.5rem;">
-                        <div class="tags" style="margin-bottom: 0.5rem;">
-                            <span class="badge">${proj.year}</span>
-                            <span class="badge">${proj.standard}</span>
-                            <span class="badge">${proj.software}</span>
+                if (proyectosGlobales.length === 0) {
+                    contenedor.innerHTML = '<p style="color:var(--text-muted); text-align:center; width:100%; padding:2rem;">No hay proyectos publicados actualmente.</p>';
+                    return;
+                }
+
+                proyectosGlobales.forEach((proj, idx) => {
+                    const slide = document.createElement('div');
+                    slide.className = `portfolio-slide ${idx === 0 ? 'active-slide' : ''}`;
+                    slide.setAttribute('data-year', proj.year || '2026');
+                    slide.setAttribute('data-category', proj.category || 'bim');
+
+                    const hasCover = proj.coverUrl && proj.coverUrl.trim() !== '';
+
+                    slide.innerHTML = `
+                        ${hasCover ? `<div class="slide-card-bg" style="background-image: url('${proj.coverUrl}');"></div>` : `
+                        <div class="slide-card-placeholder">
+                            <i data-lucide="box" style="width: 48px; height: 48px; stroke-width: 1.5;"></i>
+                            <span style="font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 1px;">[ RENDER / PROYECTO 3D ]</span>
+                        </div>`}
+                        <div class="slide-card-overlay"></div>
+                        <div class="slide-content">
+                            <div class="portfolio-tags">
+                                <span class="tag">${proj.year || ''}</span>
+                                <span class="tag">${proj.standard || ''}</span>
+                                <span class="tag">${proj.software || ''}</span>
+                            </div>
+                            <h3>${proj.title}</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">${proj.subtitle || ''}</p>
+                            <button class="btn-slide-action" onclick="openPortfolioModal('${proj.id}')">Ver Caso de Estudio <i data-lucide="arrow-right"></i></button>
                         </div>
-                        <h3>${proj.title}</h3>
-                        <p style="color: #94a3b8; font-size: 0.9rem;">${proj.subtitle}</p>
-                    </div>
-                </div>
-            `;
-            contenedor.innerHTML += cardHTML;
-        });
-    } catch (err) {
-        console.error('Error al renderizar el portafolio:', err);
-    }
-}
+                    `;
+                    contenedor.appendChild(slide);
+                });
 
-document.addEventListener('DOMContentLoaded', cargarPortafolioDinamico);
+                if (window.lucide) lucide.createIcons();
+                goToSlide('portfolioTrack', 'portfolio-slide', 0);
+
+            } catch (err) {
+                console.error('Error al renderizar el portafolio dinámico:', err);
+            }
+        }
+
+        function openPortfolioModal(id) {
+            const proj = proyectosGlobales.find(p => p.id === id);
+            if (!proj) return;
+
+            document.getElementById('modalTitle').innerText = proj.title || 'Caso de Estudio';
+            document.getElementById('modalMetaYear').innerHTML = `<i data-lucide="calendar"></i> ${proj.year || '2026'}`;
+            document.getElementById('modalMetaStandard').innerHTML = `<i data-lucide="tag"></i> ${proj.standard || ''}`;
+            document.getElementById('modalMetaSoftware').innerHTML = `<i data-lucide="cpu"></i> ${proj.software || ''}`;
+            
+            document.getElementById('modalScope').innerText = proj.scope || 'Sin descripción del alcance.';
+            document.getElementById('modalTools').innerText = proj.tools || 'Sin herramientas especificadas.';
+
+            const galleryGrid = document.getElementById('modalGalleryGrid');
+            galleryGrid.innerHTML = '';
+
+            const gallery = proj.galleryUrls || [];
+            if (gallery.length > 0) {
+                gallery.forEach((url, i) => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.style.backgroundImage = `url('${url}')`;
+                    item.innerHTML = `<span style="background:rgba(15,23,42,0.8); padding:2px 6px; border-radius:4px; font-size:0.75rem;">Entregable ${i+1}</span>`;
+                    galleryGrid.appendChild(item);
+                });
+            } else {
+                galleryGrid.innerHTML = `
+                    <div class="gallery-item"><i data-lucide="box" style="color: var(--accent-copper);"></i><span style="margin-top: 0.5rem;">Render 3D Exterior</span></div>
+                    <div class="gallery-item"><i data-lucide="layers" style="color: var(--accent-copper);"></i><span style="margin-top: 0.5rem;">Coordinación MEP / ARQ</span></div>
+                `;
+            }
+
+            if (window.lucide) lucide.createIcons();
+            openModal('modal-portfolio');
+        }
+
+        function openPortfolioModalByPosition(idx) {
+            if (proyectosGlobales.length > idx) {
+                openPortfolioModal(proyectosGlobales[idx].id);
+            } else {
+                alert("Proyecto no disponible.");
+            }
+        }
     </script>
 </body>
 </html>

@@ -2583,62 +2583,72 @@
     }
 
     /* CARGA DINÁMICA DE PORTAFOLIO Y LÍNEA DE TIEMPO */
-    async function cargarPortafolioDinamico() {
-        const contenedor = document.getElementById('portfolioTrack');
-        if (!contenedor) return;
+/* MAPEO DE CATEGORÍAS A TEXTO COMPLETO Y COMPATIBILIDAD DIRECTA */
+const nombresCategorias = {
+    'bim': 'Diseño & BIM',
+    'obra': 'Infraestructura & Obra',
+    'interventoria': 'Interventoría',
+    'cim': 'Modelado Urbano (CIM)'
+};
 
-        try {
-            const res = await fetch('proyectos.json?v=' + Date.now());
-            if (!res.ok) throw new Error('No se pudo cargar proyectos.json');
-            
-            proyectosGlobales = await res.json();
-            contenedor.innerHTML = '';
+async function cargarPortafolioDinamico() {
+    const contenedor = document.getElementById('portfolioTrack');
+    if (!contenedor) return;
 
-            if (proyectosGlobales.length === 0) {
-                contenedor.innerHTML = '<p style="color:var(--text-muted); text-align:center; width:100%; padding:2rem;">No hay proyectos publicados actualmente.</p>';
-                return;
-            }
+    try {
+        const res = await fetch('proyectos.json?v=' + Date.now());
+        if (!res.ok) throw new Error('No se pudo cargar proyectos.json');
+        
+        proyectosGlobales = await res.json();
+        contenedor.innerHTML = '';
 
-            renderizarLineaTiempoDinamica();
-
-            proyectosGlobales.forEach((proj, idx) => {
-                const slide = document.createElement('div');
-                slide.className = `portfolio-slide ${idx === 0 ? 'active-slide' : ''}`;
-                slide.setAttribute('data-year', proj.year || '');
-                slide.setAttribute('data-category', proj.category || '');
-
-                const hasCover = proj.coverUrl && proj.coverUrl.trim() !== '';
-                const categoriaTexto = proj.categoryLabel || proj.categoryName || proj.category || '';
-
-                slide.innerHTML = `
-                    ${hasCover ? `<div class="slide-card-bg" style="background-image: url('${proj.coverUrl}');"></div>` : `
-                    <div class="slide-card-placeholder">
-                        <i data-lucide="box" style="width: 48px; height: 48px; stroke-width: 1.5;"></i>
-                        <span style="font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 1px;">[ RENDER / PROYECTO 3D ]</span>
-                    </div>`}
-                    <div class="slide-card-overlay"></div>
-                    <div class="slide-content">
-                        <div class="portfolio-tags">
-                            ${proj.year ? `<span class="tag">${proj.year}</span>` : ''}
-                            ${categoriaTexto ? `<span class="tag">${categoriaTexto}</span>` : ''}
-                            ${proj.standard ? `<span class="tag">${proj.standard}</span>` : ''}
-                            ${proj.software ? `<span class="tag">${proj.software}</span>` : ''}
-                        </div>
-                        <h3>${proj.title}</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">${proj.subtitle || ''}</p>
-                        <button class="btn-slide-action" onclick="openPortfolioModal('${proj.id}')">Ver Caso de Estudio <i data-lucide="arrow-right"></i></button>
-                    </div>
-                `;
-                contenedor.appendChild(slide);
-            });
-
-            if (window.lucide) lucide.createIcons();
-            goToSlide('portfolioTrack', 'portfolio-slide', 0);
-
-        } catch (err) {
-            console.error('Error al renderizar el portafolio dinámico:', err);
+        if (proyectosGlobales.length === 0) {
+            contenedor.innerHTML = '<p style="color:var(--text-muted); text-align:center; width:100%; padding:2rem;">No hay proyectos publicados actualmente.</p>';
+            return;
         }
+
+        renderizarLineaTiempoDinamica();
+
+        proyectosGlobales.forEach((proj, idx) => {
+            const slide = document.createElement('div');
+            slide.className = `portfolio-slide ${idx === 0 ? 'active-slide' : ''}`;
+            slide.setAttribute('data-year', proj.year || '');
+            slide.setAttribute('data-category', proj.category || '');
+
+            const hasCover = proj.coverUrl && proj.coverUrl.trim() !== '';
+
+            // Obtiene el texto completo guardado en proj.categoryLabel o mapea el ID 'obra' -> 'Infraestructura & Obra'
+            const textoCategoria = proj.categoryLabel || proj.categoryName || nombresCategorias[proj.category] || proj.category || '';
+
+            slide.innerHTML = `
+                ${hasCover ? `<div class="slide-card-bg" style="background-image: url('${proj.coverUrl}');"></div>` : `
+                <div class="slide-card-placeholder">
+                    <i data-lucide="box" style="width: 48px; height: 48px; stroke-width: 1.5;"></i>
+                    <span style="font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 1px;">[ RENDER / PROYECTO 3D ]</span>
+                </div>`}
+                <div class="slide-card-overlay"></div>
+                <div class="slide-content">
+                    <div class="portfolio-tags">
+                        ${proj.year ? `<span class="tag">${proj.year}</span>` : ''}
+                        ${textoCategoria ? `<span class="tag">${textoCategoria}</span>` : ''}
+                        ${proj.standard ? `<span class="tag">${proj.standard}</span>` : ''}
+                        ${proj.software ? `<span class="tag">${proj.software}</span>` : ''}
+                    </div>
+                    <h3>${proj.title}</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">${proj.subtitle || ''}</p>
+                    <button class="btn-slide-action" onclick="openPortfolioModal('${proj.id}')">Ver Caso de Estudio <i data-lucide="arrow-right"></i></button>
+                </div>
+            `;
+            contenedor.appendChild(slide);
+        });
+
+        if (window.lucide) lucide.createIcons();
+        goToSlide('portfolioTrack', 'portfolio-slide', 0);
+
+    } catch (err) {
+        console.error('Error al renderizar el portafolio dinámico:', err);
     }
+}
 
     function renderizarLineaTiempoDinamica() {
         const timelineNodes = document.querySelector('.timeline-nodes');

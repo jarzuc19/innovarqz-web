@@ -1,0 +1,15 @@
+[
+  {
+    "id": "proj-1787557454169",
+    "title": "Análisis Territorio & Riesgo Urbano",
+    "subtitle": "Ricaurte, Nariño — Análisis Geoespacial & Resiliencia Urbana",
+    "year": "2025",
+    "category": "cim",
+    "standard": "EOT / GIS",
+    "software": "ArcGIS / QGIS",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1bg69Ne4ly_mwiYK4LXhcETLh1iPYxfYd",
+    "galleryUrls": [],
+    "scope": "Integración de datos geoespaciales (GIS) con parámetros territoriales para esquemas de ordenamiento territorial (EOT), delimitación de zonas de riesgo y gestión técnica de licencias urbanísticas. Levantamiento y estructuración vectorial del componente urbano-rural.",
+    "tools": "• Análisis Geoespacial: ArcGIS Pro / QGIS\n• Captura & Terreno: LiDAR / Infraworks\n• Automatización de Datos: Python Scripting para procesamiento espacial"
+  }
+]

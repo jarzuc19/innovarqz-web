@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador de Portafolio | InnovArqZ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --accent-copper: #d97706;
+            --accent-copper-hover: #b45309;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); padding: 2rem 5%; line-height: 1.5; }
+
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); margin-bottom: 2rem;
+        }
+
+        .logo { font-size: 1.4rem; font-weight: 800; color: var(--text-main); }
+        .logo span { color: var(--accent-copper); }
+
+        .config-bar {
+            background-color: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 10px; padding: 1.25rem; margin-bottom: 2.5rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+        }
+        .config-bar input {
+            background: #0f172a; border: 1px solid var(--border-color); color: #fff;
+            padding: 0.53rem 0.8rem; border-radius: 6px; font-size: 0.85rem; flex: 1; min-width: 200px;
+        }
+
+        .btn {
+            background-color: var(--accent-copper); color: #fff; border: none; padding: 0.65rem 1.2rem;
+            border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: inline-flex;
+            align-items: center; gap: 0.5rem; transition: background 0.3s;
+        }
+        .btn:hover { background-color: var(--accent-copper-hover); }
+        .btn-secondary { background-color: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
+        .btn-secondary:hover { background-color: var(--border-color); }
+
+        /* EDITOR HÍBRIDO WYSIWYG */
+        .wysiwyg-container { display: flex; flex-direction: column; gap: 2.5rem; max-width: 950px; margin: 0 auto; }
+        .editor-section-title { font-size: 1.1rem; color: var(--accent-copper); font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* VISTA PREVIA TARJETA CARRUSEL */
+        .card-preview {
+            background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px;
+            padding: 2rem; position: relative; overflow: hidden; min-height: 380px; display: flex; flex-direction: column; justify-content: flex-end;
+        }
+        .cover-dropzone {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+            border: 2px dashed var(--border-color); display: flex; flex-direction: column; align-items: center;
+            justify-content: center; color: var(--text-muted); cursor: pointer; background-size: cover; background-position: center; transition: border-color 0.3s;
+        }
+        .cover-dropzone:hover { border-color: var(--accent-copper); }
+        .cover-dropzone.has-image { border: none; }
+        .cover-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.92) 80%); z-index: 2; pointer-events: none; }
+        .card-content { position: relative; z-index: 3; }
+
+        /* SELECTORES Y ETIQUETAS */
+        .selectors-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .select-custom { background: rgba(15, 23, 42, 0.85); color: var(--accent-copper); border: 1px solid var(--border-color); padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.78rem; font-weight: 700; outline: none; }
+
+        .input-inline { background: transparent; border: none; border-bottom: 1px dashed var(--border-color); color: #fff; width: 100%; outline: none; padding: 0.2rem 0; }
+        .input-inline-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.4rem; }
+        .input-inline-sub { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* VISTA PREVIA FICHA TÉCNICA MODAL */
+        .modal-preview { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; }
+        .gallery-dropzone {
+            border: 2px dashed var(--border-color); border-radius: 10px; padding: 1.5rem; text-align: center;
+            color: var(--text-muted); cursor: pointer; margin-bottom: 1.5rem; transition: border-color 0.3s;
+        }
+        .gallery-dropzone:hover { border-color: var(--accent-copper); }
+
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+        .thumb-item { position: relative; height: 100px; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; background-size: cover; background-position: center; cursor: grab; }
+        .thumb-item .btn-remove { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.7); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; }
+
+        .form-area { display: flex; flex-direction: column; gap: 1rem; }
+        .form-area label { font-size: 0.85rem; font-weight: 700; color: var(--accent-copper); }
+        .form-area textarea { background: #0f172a; border: 1px solid var(--border-color); color: var(--text-main); padding: 0.8rem; border-radius: 8px; font-size: 0.9rem; outline: none; resize: vertical; min-height: 90px; }
+
+        .actions-bar { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; }
+        #statusMessage { margin-top: 1rem; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; display: none; }
+        .status-success { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success); }
+        .status-error { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid var(--danger); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Innov<span>ArqZ</span> <small style="font-size:0.6rem; color:var(--text-muted);">| Admin Portafolio</small></div>
+        <button id="btnAuth" class="btn btn-secondary" onclick="handleAuthClick()"><i data-lucide="key"></i> Conectar Google Drive</button>
+    </header>
+
+    <!-- CONFIGURACIÓN API GITHUB -->
+    <div class="config-bar">
+        <i data-lucide="github" style="color:var(--accent-copper)"></i>
+        <input type="password" id="ghToken" placeholder="GitHub Personal Access Token (ghp_...)">
+        <input type="text" id="ghRepo" placeholder="Usuario/Repositorio (ej: usuario/innovarqz-web)">
+        <span style="font-size:0.75rem; color:var(--text-muted);">Drive Folder ID: <strong>10ZTEUOmCPC3SpoBsK1VrDi4CHbc6YPxp</strong></span>
+    </div>
+
+    <!-- FORMULARIO UNIFICADO WYSIWYG -->
+    <div class="wysiwyg-container">
+        
+        <!-- PARTE 1: PORTADA CARRUSEL -->
+        <div>
+            <div class="editor-section-title"><i data-lucide="layout-template"></i> 1. Portada del Proyecto (Carrusel)</div>
+            <div class="card-preview">
+                <div class="cover-dropzone" id="coverDropzone" onclick="document.getElementById('fileCover').click()">
+                    <i data-lucide="image-plus" style="width: 36px; height: 36px; margin-bottom:0.5rem;"></i>
+                    <span>Arrastra o haz clic para cambiar Portada</span>
+                </div>
+                <input type="file" id="fileCover" accept="image/*" style="display:none" onchange="loadCover(event)">
+                <div class="cover-overlay"></div>
+
+                <div class="card-content">
+                    <div class="selectors-row">
+                        <select id="selYear" class="select-custom" onchange="checkCustomSelect(this)">
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="custom">+ Nuevo Año</option>
+                        </select>
+                        <select id="selCategory" class="select-custom">
+                            <option value="bim">Diseño & BIM</option>
+                            <option value="obra">Infraestructura & Obra</option>
+                            <option value="interventoria">Interventoría</option>
+                            <option value="cim">Modelado Urbano (CIM)</option>
+                        </select>
+                        <select id="selStandard" class="select-custom" onchange="checkCustomSelect(this)">
+                            <option value="ISO 19650">ISO 19650</option>
+                            <option value="NSR-10">NSR-10</option>
+                            <option value="BIM 5D">BIM 5D</option>
+                            <option value="BIM 6D">BIM 6D</option>
+                            <option value="BIM 7D">BIM 7D</option>
+                            <option value="EOT / GIS">EOT / GIS</option>
+                            <option value="custom">+ Nuevo Estándar</option>
+                        </select>
+                        <select id="selSoftware" class="select-custom" onchange="checkCustomSelect(this)">
+                            <option value="Autodesk Revit">Autodesk Revit</option>
+                            <option value="AutoCAD Civil 3D">AutoCAD Civil 3D</option>
+                            <option value="Navisworks Manage">Navisworks Manage</option>
+                            <option value="Dynamo Scripting">Dynamo Scripting</option>
+                            <option value="ArcGIS / QGIS">ArcGIS / QGIS</option>
+                            <option value="Infraworks">Infraworks</option>
+                            <option value="Software APU">Software APU</option>
+                            <option value="Python Automation">Python Automation</option>
+                            <option value="custom">+ Nuevo Software</option>
+                        </select>
+                    </div>
+
+                    <input type="text" id="txtTitle" class="input-inline input-inline-title" placeholder="Título del Proyecto (ej. Módulo de Control)">
+                    <input type="text" id="txtSubtitle" class="input-inline input-inline-sub" placeholder="Ubicación — Alcance corto (ej. Nariño, Colombia — Consultoría OpenBIM)">
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTE 2: FICHA DETALLADA Y GALERÍA -->
+        <div>
+            <div class="editor-section-title"><i data-lucide="file-text"></i> 2. Detalle del Modal (Galería y Ficha Técnica)</div>
+            <div class="modal-preview">
+                
+                <label class="form-area" style="margin-bottom:0.5rem;"><span style="font-size:0.85rem; font-weight:700; color:var(--accent-copper);">Galería de Renders y Planos Secundarios:</span></label>
+                <div class="gallery-dropzone" onclick="document.getElementById('fileGallery').click()">
+                    <i data-lucide="upload-cloud" style="width: 28px; height: 28px;"></i>
+                    <p style="font-size:0.85rem; margin-top:0.3rem;">Arrastra múltiples renders o haz clic para seleccionarlos</p>
+                </div>
+                <input type="file" id="fileGallery" accept="image/*" multiple style="display:none" onchange="loadGallery(event)">
+
+                <div class="gallery-grid" id="galleryGrid"></div>
+
+                <div class="form-area">
+                    <label for="txtScope">Alcance del Proyecto & Desglose Técnico:</label>
+                    <textarea id="txtScope" placeholder="Describe la ejecución del proyecto, topografía, cuantificación de materiales..."></textarea>
+
+                    <label for="txtTools">Herramientas & Ecosistema Tecnológico:</label>
+                    <textarea id="txtTools" placeholder="• Modelado: Autodesk Revit + Dynamo&#10;• Interferencias: Navisworks Manage&#10;• Control: Presupuesto APU"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- BARRA DE ACCIÓN -->
+        <div class="actions-bar">
+            <button class="btn" onclick="saveAndPublish()"><i data-lucide="send"></i> Guardar y Publicar Proyecto</button>
+        </div>
+        <div id="statusMessage"></div>
+
+    </div>
+
+    <script>
+        const DRIVE_FOLDER_ID = '10ZTEUOmCPC3SpoBsK1VrDi4CHbc6YPxp';
+        let accessToken = null;
+        let coverFile = null;
+        let galleryFiles = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+
+        /* GOOGLE DRIVE OAUTH */
+        function handleAuthClick() {
+            const client = google.accounts.oauth2.initTokenClient({
+                client_id: '868065094251-fe4g53qplg4pvu089a8m9613s6uqu1l0.apps.googleusercontent.com',
+                scope: 'https://www.googleapis.com/auth/drive.file',
+                callback: (tokenResponse) => {
+                    accessToken = tokenResponse.access_token;
+                    document.getElementById('btnAuth').innerHTML = `<i data-lucide="check-circle"></i> Conectado a Drive`;
+                    document.getElementById('btnAuth').style.borderColor = 'var(--success)';
+                    lucide.createIcons();
+                },
+            });
+            client.requestAccessToken();
+        }
+
+        /* MANEJO DE IMÁGENES */
+        function loadCover(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            coverFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const dropzone = document.getElementById('coverDropzone');
+                dropzone.style.backgroundImage = `url('${e.target.result}')`;
+                dropzone.classList.add('has-image');
+                dropzone.querySelector('span').innerText = 'Cambiar Portada';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function loadGallery(event) {
+            const files = Array.from(event.target.files);
+            files.forEach(file => {
+                galleryFiles.push(file);
+                renderGalleryGrid();
+            });
+        }
+
+        function renderGalleryGrid() {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            galleryFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement('div');
+                    div.className = 'thumb-item';
+                    div.style.backgroundImage = `url('${e.target.result}')`;
+                    div.innerHTML = `<button class="btn-remove" onclick="removeGalleryItem(${index})">✕</button>`;
+                    grid.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function removeGalleryItem(index) {
+            galleryFiles.splice(index, 1);
+            renderGalleryGrid();
+        }
+
+        function checkCustomSelect(select) {
+            if (select.value === 'custom') {
+                const val = prompt('Ingrese el nuevo valor:');
+                if (val) {
+                    const opt = document.createElement('option');
+                    opt.value = val; opt.innerText = val; opt.selected = true;
+                    select.insertBefore(opt, select.lastElementChild);
+                } else {
+                    select.selectedIndex = 0;
+                }
+            }
+        }
+
+        /* PROCESAMIENTO Y PUBLICACIÓN */
+        async function saveAndPublish() {
+            const title = document.getElementById('txtTitle').value.trim();
+            const token = document.getElementById('ghToken').value.trim();
+            const repo = document.getElementById('ghRepo').value.trim();
+
+            if (!title) return showStatus('Debes ingresar un título para el proyecto.', 'error');
+            if (!coverFile) return showStatus('Debes seleccionar una imagen de portada.', 'error');
+            if (!accessToken) return showStatus('Debes conectar tu cuenta de Google Drive primero.', 'error');
+            if (!token || !repo) return showStatus('Ingresa tu Token de GitHub y Repositorio para publicar.', 'error');
+
+            showStatus('Procesando imágenes y creando carpeta en Google Drive...', 'success');
+
+            try {
+                // 1. Crear Subcarpeta en Google Drive
+                const folderId = await createDriveFolder(title, DRIVE_FOLDER_ID);
+                
+                // 2. Subir Portada
+                const coverUrl = await uploadFileToDrive(coverFile, folderId);
+
+                // 3. Subir Galería Secundaria
+                const galleryUrls = [];
+                for (let file of galleryFiles) {
+                    const url = await uploadFileToDrive(file, folderId);
+                    galleryUrls.push(url);
+                }
+
+                // 4. Construir Objeto Proyecto
+                const newProject = {
+                    id: 'proj-' + Date.now(),
+                    title: title,
+                    subtitle: document.getElementById('txtSubtitle').value,
+                    year: document.getElementById('selYear').value,
+                    category: document.getElementById('selCategory').value,
+                    standard: document.getElementById('selStandard').value,
+                    software: document.getElementById('selSoftware').value,
+                    coverUrl: coverUrl,
+                    galleryUrls: galleryUrls,
+                    scope: document.getElementById('txtScope').value,
+                    tools: document.getElementById('txtTools').value
+                };
+
+                // 5. Actualizar JSON en GitHub
+                showStatus('Actualizando proyectos.json en GitHub...', 'success');
+                await updateGitHubJSON(newProject, token, repo);
+
+                showStatus('¡Proyecto publicado exitosamente en el portafolio!', 'success');
+            } catch (err) {
+                console.error(err);
+                showStatus('Error al publicar: ' + err.message, 'error');
+            }
+        }
+
+        /* DRIVE API HELPERS */
+        async function createDriveFolder(folderName, parentId) {
+            const metadata = {
+                name: folderName,
+                mimeType: 'application/vnd.google-apps.folder',
+                parents: [parentId]
+            };
+            const res = await fetch('https://www.googleapis.com/drive/v3/files', {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
+                body: JSON.stringify(metadata)
+            });
+            const data = await res.json();
+            return data.id;
+        }
+
+        async function uploadFileToDrive(file, folderId) {
+            const metadata = { name: file.name, parents: [folderId] };
+            const form = new FormData();
+            form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+            form.append('file', file);
+
+            const res = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + accessToken },
+                body: form
+            });
+            const data = await res.json();
+            
+            // Hacer archivo público para lectura
+            await fetch(`https://www.googleapis.com/drive/v3/files/${data.id}/permissions`, {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ role: 'reader', type: 'anyone' })
+            });
+
+            return `https://lh3.googleusercontent.com/d/${data.id}`;
+        }
+
+        /* GITHUB API HELPER */
+        async function updateGitHubJSON(newProject, token, repo) {
+            const path = 'proyectos.json';
+            const url = `https://api.github.com/repos/${repo}/contents/${path}`;
+
+            let sha = '';
+            let currentData = [];
+
+            // Leer archivo actual de GitHub
+            try {
+                const getRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+                if (getRes.ok) {
+                    const fileInfo = await getRes.json();
+                    sha = fileInfo.sha;
+                    const content = decodeURIComponent(escape(atob(fileInfo.content)));
+                    currentData = JSON.parse(content);
+                }
+            } catch (e) { console.log('Creando proyectos.json por primera vez'); }
+
+            currentData.unshift(newProject);
+
+            const updatedContent = btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2))));
+
+            const putRes = await fetch(url, {
+                method: 'PUT',
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: `Agregar proyecto: ${newProject.title}`,
+                    content: updatedContent,
+                    sha: sha || undefined
+                })
+            });
+
+            if (!putRes.ok) throw new Error('No se pudo escribir en GitHub. Revisa el token y nombre del repositorio.');
+        }
+
+        function showStatus(msg, type) {
+            const box = document.getElementById('statusMessage');
+            box.innerText = msg; box.className = 'status-' + type; box.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

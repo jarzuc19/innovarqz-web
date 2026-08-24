@@ -50,10 +50,12 @@
         .btn:hover { background-color: var(--accent-copper-hover); }
         .btn-secondary { background-color: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
         .btn-secondary:hover { background-color: var(--border-color); }
+        .btn-danger { background-color: var(--danger); color: #fff; }
+        .btn-danger:hover { background-color: #dc2626; }
 
         /* EDITOR HÍBRIDO WYSIWYG */
         .wysiwyg-container { display: flex; flex-direction: column; gap: 2.5rem; max-width: 950px; margin: 0 auto; }
-        .editor-section-title { font-size: 1.1rem; color: var(--accent-copper); font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .editor-section-title { font-size: 1.1rem; color: var(--accent-copper); font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 0.5rem; }
 
         /* VISTA PREVIA TARJETA CARRUSEL */
         .card-preview {
@@ -87,7 +89,7 @@
         .gallery-dropzone:hover { border-color: var(--accent-copper); }
 
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
-        .thumb-item { position: relative; height: 100px; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; background-size: cover; background-position: center; cursor: grab; }
+        .thumb-item { position: relative; height: 100px; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; background-size: cover; background-position: center; }
         .thumb-item .btn-remove { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.7); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; }
 
         .form-area { display: flex; flex-direction: column; gap: 1rem; }
@@ -98,6 +100,16 @@
         #statusMessage { margin-top: 1rem; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; display: none; }
         .status-success { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success); }
         .status-error { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid var(--danger); }
+
+        /* TABLA DE GESTIÓN DE PROYECTOS */
+        .projects-manager { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; margin-top: 3rem; }
+        .projects-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+        .project-item { display: flex; align-items: center; justify-content: space-between; background: #0f172a; border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; gap: 1rem; }
+        .project-info { display: flex; align-items: center; gap: 1rem; }
+        .project-thumb { width: 60px; height: 60px; border-radius: 6px; background-size: cover; background-position: center; border: 1px solid var(--border-color); flex-shrink: 0; }
+        .project-details h4 { font-size: 1rem; color: #fff; margin-bottom: 0.2rem; }
+        .project-details p { font-size: 0.8rem; color: var(--text-muted); }
+        .project-actions { display: flex; gap: 0.5rem; }
     </style>
 </head>
 <body>
@@ -111,8 +123,8 @@
     <div class="config-bar">
         <i data-lucide="github" style="color:var(--accent-copper)"></i>
         <input type="password" id="ghToken" placeholder="GitHub Personal Access Token (ghp_...)">
-        <input type="text" id="ghRepo" placeholder="Usuario/Repositorio (ej: usuario/innovarqz-web)">
-        <span style="font-size:0.75rem; color:var(--text-muted);">Drive Folder ID: <strong>10ZTEUOmCPC3SpoBsK1VrDi4CHbc6YPxp</strong></span>
+        <input type="text" id="ghRepo" placeholder="Usuario/Repositorio (ej: jarzuc19/innovarqz-web)">
+        <button class="btn btn-secondary" onclick="loadProjectsFromGitHub()"><i data-lucide="refresh-cw"></i> Cargar Proyectos</button>
     </div>
 
     <!-- FORMULARIO UNIFICADO WYSIWYG -->
@@ -197,9 +209,18 @@
 
         <!-- BARRA DE ACCIÓN -->
         <div class="actions-bar">
+            <button class="btn btn-secondary" onclick="resetForm()"><i data-lucide="plus-circle"></i> Nuevo Proyecto</button>
             <button class="btn" onclick="saveAndPublish()"><i data-lucide="send"></i> Guardar y Publicar Proyecto</button>
         </div>
         <div id="statusMessage"></div>
+
+        <!-- GESTIÓN DE PROYECTOS EXISTENTES -->
+        <div class="projects-manager">
+            <div class="editor-section-title"><i data-lucide="list-checks"></i> 3. Gestión de Proyectos Publicados</div>
+            <div class="projects-list" id="projectsList">
+                <p style="color:var(--text-muted); font-size:0.85rem;">Ingresa tu Token de GitHub para cargar y administrar los proyectos existentes.</p>
+            </div>
+        </div>
 
     </div>
 
@@ -207,7 +228,11 @@
         const DRIVE_FOLDER_ID = '10ZTEUOmCPC3SpoBsK1VrDi4CHbc6YPxp';
         let accessToken = null;
         let coverFile = null;
-        let galleryFiles = [];
+        let galleryFiles = []; // Para nuevos archivos subidos
+        let existingGalleryUrls = []; // Para URLs existentes al editar
+        let existingCoverUrl = null; // Para URL existente al editar
+        let currentEditingId = null;
+        let loadedProjects = [];
 
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) lucide.createIcons();
@@ -233,41 +258,62 @@
             const file = event.target.files[0];
             if (!file) return;
             coverFile = file;
+            existingCoverUrl = null;
             const reader = new FileReader();
             reader.onload = (e) => {
-                const dropzone = document.getElementById('coverDropzone');
-                dropzone.style.backgroundImage = `url('${e.target.result}')`;
-                dropzone.classList.add('has-image');
-                dropzone.querySelector('span').innerText = 'Cambiar Portada';
+                setCoverPreview(e.target.result);
             };
             reader.readAsDataURL(file);
+        }
+
+        function setCoverPreview(url) {
+            const dropzone = document.getElementById('coverDropzone');
+            dropzone.style.backgroundImage = `url('${url}')`;
+            dropzone.classList.add('has-image');
+            dropzone.querySelector('span').innerText = 'Cambiar Portada';
         }
 
         function loadGallery(event) {
             const files = Array.from(event.target.files);
             files.forEach(file => {
                 galleryFiles.push(file);
-                renderGalleryGrid();
             });
+            renderGalleryGrid();
         }
 
         function renderGalleryGrid() {
             const grid = document.getElementById('galleryGrid');
             grid.innerHTML = '';
+            
+            // Mostrar imágenes existentes (si se está editando)
+            existingGalleryUrls.forEach((url, index) => {
+                const div = document.createElement('div');
+                div.className = 'thumb-item';
+                div.style.backgroundImage = `url('${url}')`;
+                div.innerHTML = `<button class="btn-remove" onclick="removeExistingGalleryItem(${index})">✕</button>`;
+                grid.appendChild(div);
+            });
+
+            // Mostrar nuevas imágenes a subir
             galleryFiles.forEach((file, index) => {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     const div = document.createElement('div');
                     div.className = 'thumb-item';
                     div.style.backgroundImage = `url('${e.target.result}')`;
-                    div.innerHTML = `<button class="btn-remove" onclick="removeGalleryItem(${index})">✕</button>`;
+                    div.innerHTML = `<button class="btn-remove" onclick="removeNewGalleryItem(${index})">✕</button>`;
                     grid.appendChild(div);
                 };
                 reader.readAsDataURL(file);
             });
         }
 
-        function removeGalleryItem(index) {
+        function removeExistingGalleryItem(index) {
+            existingGalleryUrls.splice(index, 1);
+            renderGalleryGrid();
+        }
+
+        function removeNewGalleryItem(index) {
             galleryFiles.splice(index, 1);
             renderGalleryGrid();
         }
@@ -285,6 +331,129 @@
             }
         }
 
+        function resetForm() {
+            currentEditingId = null;
+            coverFile = null;
+            existingCoverUrl = null;
+            galleryFiles = [];
+            existingGalleryUrls = [];
+            
+            document.getElementById('txtTitle').value = '';
+            document.getElementById('txtSubtitle').value = '';
+            document.getElementById('txtScope').value = '';
+            document.getElementById('txtTools').value = '';
+            
+            const dropzone = document.getElementById('coverDropzone');
+            dropzone.style.backgroundImage = 'none';
+            dropzone.classList.remove('has-image');
+            dropzone.querySelector('span').innerText = 'Arrastra o haz clic para cambiar Portada';
+            
+            renderGalleryGrid();
+            showStatus('Formulario listo para nuevo proyecto.', 'success');
+        }
+
+        /* CARGAR Y GESTIONAR PROYECTOS DESDE GITHUB */
+        async function loadProjectsFromGitHub() {
+            const token = document.getElementById('ghToken').value.trim();
+            const repo = document.getElementById('ghRepo').value.trim();
+
+            if (!token || !repo) return showStatus('Ingresa Token y Repositorio de GitHub para cargar la lista.', 'error');
+
+            showStatus('Cargando proyectos desde GitHub...', 'success');
+            try {
+                const url = `https://api.github.com/repos/${repo}/contents/proyectos.json`;
+                const res = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+                if (res.ok) {
+                    const fileInfo = await res.json();
+                    const content = decodeURIComponent(escape(atob(fileInfo.content)));
+                    loadedProjects = JSON.parse(content);
+                    renderProjectsList();
+                    showStatus('Lista de proyectos cargada correctamente.', 'success');
+                } else {
+                    showStatus('No se encontró el archivo proyectos.json en el repositorio.', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showStatus('Error al cargar proyectos: ' + err.message, 'error');
+            }
+        }
+
+        function renderProjectsList() {
+            const list = document.getElementById('projectsList');
+            if (loadedProjects.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No hay proyectos registrados en proyectos.json.</p>';
+                return;
+            }
+
+            list.innerHTML = '';
+            loadedProjects.forEach((proj) => {
+                const item = document.createElement('div');
+                item.className = 'project-item';
+                item.innerHTML = `
+                    <div class="project-info">
+                        <div class="project-thumb" style="background-image: url('${proj.coverUrl || ''}')"></div>
+                        <div class="project-details">
+                            <h4>${proj.title}</h4>
+                            <p>${proj.year} | ${proj.category.toUpperCase()} | ${proj.standard}</p>
+                        </div>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn btn-secondary" onclick="editProject('${proj.id}')"><i data-lucide="edit-3"></i> Editar</button>
+                        <button class="btn btn-danger" onclick="deleteProject('${proj.id}')"><i data-lucide="trash-2"></i> Eliminar</button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function editProject(id) {
+            const proj = loadedProjects.find(p => p.id === id);
+            if (!proj) return;
+
+            currentEditingId = proj.id;
+            document.getElementById('txtTitle').value = proj.title || '';
+            document.getElementById('txtSubtitle').value = proj.subtitle || '';
+            document.getElementById('selYear').value = proj.year || '2026';
+            document.getElementById('selCategory').value = proj.category || 'bim';
+            document.getElementById('selStandard').value = proj.standard || 'ISO 19650';
+            document.getElementById('selSoftware').value = proj.software || 'Autodesk Revit';
+            document.getElementById('txtScope').value = proj.scope || '';
+            document.getElementById('txtTools').value = proj.tools || '';
+
+            existingCoverUrl = proj.coverUrl || null;
+            coverFile = null;
+            if (existingCoverUrl) setCoverPreview(existingCoverUrl);
+
+            existingGalleryUrls = [...(proj.galleryUrls || [])];
+            galleryFiles = [];
+            renderGalleryGrid();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showStatus(`Editando proyecto: "${proj.title}". Haz los cambios y presiona Guardar.`, 'success');
+        }
+
+        async function deleteProject(id) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este proyecto de la lista?')) return;
+
+            const token = document.getElementById('ghToken').value.trim();
+            const repo = document.getElementById('ghRepo').value.trim();
+
+            if (!token || !repo) return showStatus('Ingresa Token y Repositorio de GitHub.', 'error');
+
+            loadedProjects = loadedProjects.filter(p => p.id !== id);
+
+            showStatus('Eliminando proyecto de GitHub...', 'success');
+            try {
+                await saveAllProjectsToGitHub(loadedProjects, token, repo, 'Eliminar proyecto del portafolio');
+                renderProjectsList();
+                showStatus('Proyecto eliminado con éxito.', 'success');
+            } catch (err) {
+                console.error(err);
+                showStatus('Error al eliminar: ' + err.message, 'error');
+            }
+        }
+
         /* PROCESAMIENTO Y PUBLICACIÓN */
         async function saveAndPublish() {
             const title = document.getElementById('txtTitle').value.trim();
@@ -292,46 +461,61 @@
             const repo = document.getElementById('ghRepo').value.trim();
 
             if (!title) return showStatus('Debes ingresar un título para el proyecto.', 'error');
-            if (!coverFile) return showStatus('Debes seleccionar una imagen de portada.', 'error');
-            if (!accessToken) return showStatus('Debes conectar tu cuenta de Google Drive primero.', 'error');
+            if (!coverFile && !existingCoverUrl) return showStatus('Debes seleccionar una imagen de portada.', 'error');
+            if ((coverFile || galleryFiles.length > 0) && !accessToken) return showStatus('Debes conectar tu cuenta de Google Drive para subir nuevas imágenes.', 'error');
             if (!token || !repo) return showStatus('Ingresa tu Token de GitHub y Repositorio para publicar.', 'error');
 
-            showStatus('Procesando imágenes y creando carpeta en Google Drive...', 'success');
+            showStatus('Procesando datos e imágenes...', 'success');
 
             try {
-                // 1. Crear Subcarpeta en Google Drive
-                const folderId = await createDriveFolder(title, DRIVE_FOLDER_ID);
-                
-                // 2. Subir Portada
-                const coverUrl = await uploadFileToDrive(coverFile, folderId);
-
-                // 3. Subir Galería Secundaria
-                const galleryUrls = [];
-                for (let file of galleryFiles) {
-                    const url = await uploadFileToDrive(file, folderId);
-                    galleryUrls.push(url);
+                let folderId = null;
+                if (coverFile || galleryFiles.length > 0) {
+                    folderId = await createDriveFolder(title, DRIVE_FOLDER_ID);
                 }
 
-                // 4. Construir Objeto Proyecto
-                const newProject = {
-                    id: 'proj-' + Date.now(),
+                // 1. Manejo Portada
+                let finalCoverUrl = existingCoverUrl;
+                if (coverFile) {
+                    finalCoverUrl = await uploadFileToDrive(coverFile, folderId);
+                }
+
+                // 2. Manejo Galería
+                let finalGalleryUrls = [...existingGalleryUrls];
+                for (let file of galleryFiles) {
+                    const url = await uploadFileToDrive(file, folderId);
+                    finalGalleryUrls.push(url);
+                }
+
+                // 3. Objeto Proyecto
+                const projectData = {
+                    id: currentEditingId || ('proj-' + Date.now()),
                     title: title,
                     subtitle: document.getElementById('txtSubtitle').value,
                     year: document.getElementById('selYear').value,
                     category: document.getElementById('selCategory').value,
                     standard: document.getElementById('selStandard').value,
                     software: document.getElementById('selSoftware').value,
-                    coverUrl: coverUrl,
-                    galleryUrls: galleryUrls,
+                    coverUrl: finalCoverUrl,
+                    galleryUrls: finalGalleryUrls,
                     scope: document.getElementById('txtScope').value,
                     tools: document.getElementById('txtTools').value
                 };
 
-                // 5. Actualizar JSON en GitHub
-                showStatus('Actualizando proyectos.json en GitHub...', 'success');
-                await updateGitHubJSON(newProject, token, repo);
+                // Actualizar lista local
+                if (currentEditingId) {
+                    const idx = loadedProjects.findIndex(p => p.id === currentEditingId);
+                    if (idx !== -1) loadedProjects[idx] = projectData;
+                } else {
+                    loadedProjects.unshift(projectData);
+                }
 
-                showStatus('¡Proyecto publicado exitosamente en el portafolio!', 'success');
+                // 4. Guardar en GitHub
+                showStatus('Guardando cambios en GitHub...', 'success');
+                await saveAllProjectsToGitHub(loadedProjects, token, repo, `${currentEditingId ? 'Actualizar' : 'Agregar'} proyecto: ${title}`);
+
+                renderProjectsList();
+                resetForm();
+                showStatus('¡Proyecto guardado y publicado exitosamente!', 'success');
             } catch (err) {
                 console.error(err);
                 showStatus('Error al publicar: ' + err.message, 'error');
@@ -367,7 +551,6 @@
             });
             const data = await res.json();
             
-            // Hacer archivo público para lectura
             await fetch(`https://www.googleapis.com/drive/v3/files/${data.id}/permissions`, {
                 method: 'POST',
                 headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
@@ -378,39 +561,32 @@
         }
 
         /* GITHUB API HELPER */
-        async function updateGitHubJSON(newProject, token, repo) {
+        async function saveAllProjectsToGitHub(projectsArray, token, repo, commitMessage) {
             const path = 'proyectos.json';
             const url = `https://api.github.com/repos/${repo}/contents/${path}`;
 
             let sha = '';
-            let currentData = [];
-
-            // Leer archivo actual de GitHub
             try {
                 const getRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
                 if (getRes.ok) {
                     const fileInfo = await getRes.json();
                     sha = fileInfo.sha;
-                    const content = decodeURIComponent(escape(atob(fileInfo.content)));
-                    currentData = JSON.parse(content);
                 }
             } catch (e) { console.log('Creando proyectos.json por primera vez'); }
 
-            currentData.unshift(newProject);
-
-            const updatedContent = btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2))));
+            const updatedContent = btoa(unescape(encodeURIComponent(JSON.stringify(projectsArray, null, 2))));
 
             const putRes = await fetch(url, {
                 method: 'PUT',
                 headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    message: `Agregar proyecto: ${newProject.title}`,
+                    message: commitMessage,
                     content: updatedContent,
                     sha: sha || undefined
                 })
             });
 
-            if (!putRes.ok) throw new Error('No se pudo escribir en GitHub. Revisa el token y nombre del repositorio.');
+            if (!putRes.ok) throw new Error('No se pudo escribir en GitHub. Revisa permisos del Token.');
         }
 
         function showStatus(msg, type) {
@@ -418,5 +594,7 @@
             box.innerText = msg; box.className = 'status-' + type; box.style.display = 'block';
         }
     </script>
+</body>
+</html>
 </body>
 </html>

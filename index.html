@@ -2582,59 +2582,84 @@
             }
         }
 
-        /* CARGA DINÁMICA DEL PORTAFOLIO DESDE PROYECTOS.JSON */
-        async function cargarPortafolioDinamico() {
-            const contenedor = document.getElementById('portfolioTrack');
-            if (!contenedor) return;
+/* CARGA DINÁMICA DEL PORTAFOLIO Y LÍNEA DE TIEMPO DESDE PROYECTOS.JSON */
+async function cargarPortafolioDinamico() {
+    const contenedor = document.getElementById('portfolioTrack');
+    if (!contenedor) return;
 
-            try {
-                const res = await fetch('proyectos.json?v=' + Date.now());
-                if (!res.ok) throw new Error('No se pudo cargar proyectos.json');
-                
-                proyectosGlobales = await res.json();
-                contenedor.innerHTML = '';
+    try {
+        const res = await fetch('proyectos.json?v=' + Date.now());
+        if (!res.ok) strokeError('No se pudo cargar proyectos.json');
+        
+        proyectosGlobales = await res.json();
+        contenedor.innerHTML = '';
 
-                if (proyectosGlobales.length === 0) {
-                    contenedor.innerHTML = '<p style="color:var(--text-muted); text-align:center; width:100%; padding:2rem;">No hay proyectos publicados actualmente.</p>';
-                    return;
-                }
-
-                proyectosGlobales.forEach((proj, idx) => {
-                    const slide = document.createElement('div');
-                    slide.className = `portfolio-slide ${idx === 0 ? 'active-slide' : ''}`;
-                    slide.setAttribute('data-year', proj.year || '2026');
-                    slide.setAttribute('data-category', proj.category || 'bim');
-
-                    const hasCover = proj.coverUrl && proj.coverUrl.trim() !== '';
-
-                    slide.innerHTML = `
-                        ${hasCover ? `<div class="slide-card-bg" style="background-image: url('${proj.coverUrl}');"></div>` : `
-                        <div class="slide-card-placeholder">
-                            <i data-lucide="box" style="width: 48px; height: 48px; stroke-width: 1.5;"></i>
-                            <span style="font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 1px;">[ RENDER / PROYECTO 3D ]</span>
-                        </div>`}
-                        <div class="slide-card-overlay"></div>
-                        <div class="slide-content">
-                            <div class="portfolio-tags">
-                                <span class="tag">${proj.year || ''}</span>
-                                <span class="tag">${proj.standard || ''}</span>
-                                <span class="tag">${proj.software || ''}</span>
-                            </div>
-                            <h3>${proj.title}</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">${proj.subtitle || ''}</p>
-                            <button class="btn-slide-action" onclick="openPortfolioModal('${proj.id}')">Ver Caso de Estudio <i data-lucide="arrow-right"></i></button>
-                        </div>
-                    `;
-                    contenedor.appendChild(slide);
-                });
-
-                if (window.lucide) lucide.createIcons();
-                goToSlide('portfolioTrack', 'portfolio-slide', 0);
-
-            } catch (err) {
-                console.error('Error al renderizar el portafolio dinámico:', err);
-            }
+        if (proyectosGlobales.length === 0) {
+            contenedor.innerHTML = '<p style="color:var(--text-muted); text-align:center; width:100%; padding:2rem;">No hay proyectos publicados actualmente.</p>';
+            return;
         }
+
+        // 1. GENERAR LÍNEA DE TIEMPO DINÁMICA SEGÚN LOS AÑOS PRESENTES EN PROYECTOS.JSON
+        renderizarLineaTiempoDinamica();
+
+        // 2. RENDERIZAR FICHAS DEL CARRUSEL CON TODAS SUS ETIQUETAS
+        proyectosGlobales.forEach((proj, idx) => {
+            const slide = document.createElement('div');
+            slide.className = `portfolio-slide ${idx === 0 ? 'active-slide' : ''}`;
+            slide.setAttribute('data-year', proj.year || '');
+            slide.setAttribute('data-category', proj.category || '');
+
+            const hasCover = proj.coverUrl && proj.coverUrl.trim() !== '';
+
+            // Obtener texto legible de la categoría si está disponible
+            const categoriaTexto = proj.categoryLabel || proj.categoryName || proj.category || '';
+
+            slide.innerHTML = `
+                ${hasCover ? `<div class="slide-card-bg" style="background-image: url('${proj.coverUrl}');"></div>` : `
+                <div class="slide-card-placeholder">
+                    <i data-lucide="box" style="width: 48px; height: 48px; stroke-width: 1.5;"></i>
+                    <span style="font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 1px;">[ RENDER / PROYECTO 3D ]</span>
+                </div>`}
+                <div class="slide-card-overlay"></div>
+                <div class="slide-content">
+                    <div class="portfolio-tags">
+                        ${proj.year ? `<span class="tag">${proj.year}</span>` : ''}
+                        ${categoriaTexto ? `<span class="tag" style="background: rgba(217, 119, 6, 0.2); color: #fff;">${categoriaTexto}</span>` : ''}
+                        ${proj.standard ? `<span class="tag">${proj.standard}</span>` : ''}
+                        ${proj.software ? `<span class="tag">${proj.software}</span>` : ''}
+                    </div>
+                    <h3>${proj.title}</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">${proj.subtitle || ''}</p>
+                    <button class="btn-slide-action" onclick="openPortfolioModal('${proj.id}')">Ver Caso de Estudio <i data-lucide="arrow-right"></i></button>
+                </div>
+            `;
+            contenedor.appendChild(slide);
+        });
+
+        if (window.lucide) lucide.createIcons();
+        goToSlide('portfolioTrack', 'portfolio-slide', 0);
+
+    } catch (err) {
+        console.error('Error al renderizar el portafolio dinámico:', err);
+    }
+}
+
+/* FUNCIÓN PARA CONSTRUIR LA LÍNEA DE TIEMPO SEGÚN LOS AÑOS REALES */
+function renderizarLineaTiempoDinamica() {
+    const timelineNodes = document.querySelector('.timeline-nodes');
+    if (!timelineNodes) return;
+
+    // Extraer años únicos y ordenarlos de menor a mayor
+    const anosUnicos = [...new Set(proyectosGlobales.map(p => p.year).filter(Boolean))].sort((a, b) => a - b);
+
+    let html = `<div class="time-node active" onclick="filterYear('all', this)"><span class="node-dot"></span><span>Todos</span></div>`;
+
+    anosUnicos.forEach(ano => {
+        html += `<div class="time-node" onclick="filterYear('${ano}', this)"><span class="node-dot"></span><span>${ano}</span></div>`;
+    });
+
+    timelineNodes.innerHTML = html;
+}
 
         function openPortfolioModal(id) {
             const proj = proyectosGlobales.find(p => p.id === id);

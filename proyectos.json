@@ -1,5 +1,18 @@
 [
   {
+    "id": "proj-1787559767848",
+    "title": "Módulo de Control & Estructura Metálica",
+    "subtitle": "Tumaco, Colombia — Consultoría & Coordinación OpenBIM",
+    "year": "2023",
+    "category": "bim",
+    "standard": "ISO 19650",
+    "software": "Software APU",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1a5iBdoMwiFzi5ovuW5xVuW3D9V0nqSfZ",
+    "galleryUrls": [],
+    "scope": "Modelado técnico detallado, estructuración de presupuesto base e integración APU para módulo de control en infraestructura municipal. Incluye optimización de cuantificación de materiales, predimensionamiento estructural y coordinación bajo estándares de modelado abierto para control de costos e interventoría.",
+    "tools": "• Modelado & Estructuras: Autodesk Revit + Dynamo Scripting\n• Costos & APU: Análisis de Precios Unitarios integrados\n• Coordinación & Intercambio: Entorno Común de Datos (CDE) / IFC (OpenBIM)"
+  },
+  {
     "id": "proj-1787559388715",
     "title": "Mantenimiento & Estabilización de Corredor Vial",
     "subtitle": "Ricaurte, Nariño — Interventoría, Control Técnico & Gestión de Contingencias",

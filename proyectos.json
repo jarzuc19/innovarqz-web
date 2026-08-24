@@ -1,5 +1,18 @@
 [
   {
+    "id": "proj-1787559877067",
+    "title": "Cubierta & Estructura para Auditorio Municipal",
+    "subtitle": "Tumaco, Nariño — Interventoría & Control Técnico de Obra",
+    "year": "2026",
+    "category": "obra",
+    "standard": "NSR-10",
+    "software": "Autodesk Revit",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1o6L2xpGgR3VHAUSxvlWVoRas9ojVudKM",
+    "galleryUrls": [],
+    "scope": "Modelado estructural de cerchas de cubierta, revisión de paneles de cielo raso y auditoría de APU para equipamiento público e institucional. Levantamiento de interferencias constructivas previa instalación y verificación de especificaciones de norma sismorresistente colombiana.",
+    "tools": "• Estructura & Detalles: Autodesk Revit\n• Detección de Interferencias: Navisworks Manage\n• Presupuesto & Metrados: Hojas de cálculo automatizadas en Python / APU"
+  },
+  {
     "id": "proj-1787559767848",
     "title": "Módulo de Control & Estructura Metálica",
     "subtitle": "Tumaco, Colombia — Consultoría & Coordinación OpenBIM",

@@ -228,9 +228,9 @@
         const DRIVE_FOLDER_ID = '10ZTEUOmCPC3SpoBsK1VrDi4CHbc6YPxp';
         let accessToken = null;
         let coverFile = null;
-        let galleryFiles = []; // Para nuevos archivos subidos
-        let existingGalleryUrls = []; // Para URLs existentes al editar
-        let existingCoverUrl = null; // Para URL existente al editar
+        let galleryFiles = [];
+        let existingGalleryUrls = [];
+        let existingCoverUrl = null;
         let currentEditingId = null;
         let loadedProjects = [];
 
@@ -285,7 +285,6 @@
             const grid = document.getElementById('galleryGrid');
             grid.innerHTML = '';
             
-            // Mostrar imágenes existentes (si se está editando)
             existingGalleryUrls.forEach((url, index) => {
                 const div = document.createElement('div');
                 div.className = 'thumb-item';
@@ -294,7 +293,6 @@
                 grid.appendChild(div);
             });
 
-            // Mostrar nuevas imágenes a subir
             galleryFiles.forEach((file, index) => {
                 const reader = new FileReader();
                 reader.onload = (e) => {
@@ -501,7 +499,6 @@
                     tools: document.getElementById('txtTools').value
                 };
 
-                // Actualizar lista local
                 if (currentEditingId) {
                     const idx = loadedProjects.findIndex(p => p.id === currentEditingId);
                     if (idx !== -1) loadedProjects[idx] = projectData;
@@ -522,7 +519,7 @@
             }
         }
 
-        /* DRIVE API HELPERS */
+        /* DRIVE API HELPERS OPTIMIZADOS */
         async function createDriveFolder(folderName, parentId) {
             const metadata = {
                 name: folderName,
@@ -531,33 +528,69 @@
             };
             const res = await fetch('https://www.googleapis.com/drive/v3/files', {
                 method: 'POST',
-                headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
+                headers: { 
+                    'Authorization': 'Bearer ' + accessToken, 
+                    'Content-Type': 'application/json' 
+                },
                 body: JSON.stringify(metadata)
             });
+            if (!res.ok) {
+                const errData = await res.json();
+                throw new Error('Error al crear carpeta en Drive: ' + (errData.error?.message || res.statusText));
+            }
             const data = await res.json();
             return data.id;
         }
 
         async function uploadFileToDrive(file, folderId) {
-            const metadata = { name: file.name, parents: [folderId] };
-            const form = new FormData();
-            form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
-            form.append('file', file);
-
-            const res = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', {
-                method: 'POST',
-                headers: { 'Authorization': 'Bearer ' + accessToken },
-                body: form
-            });
-            const data = await res.json();
+            const fileBuffer = await file.arrayBuffer();
             
-            await fetch(`https://www.googleapis.com/drive/v3/files/${data.id}/permissions`, {
+            const metadata = { 
+                name: file.name, 
+                mimeType: file.type || 'image/jpeg',
+                parents: [folderId] 
+            };
+
+            const metaRes = await fetch('https://www.googleapis.com/drive/v3/files', {
                 method: 'POST',
-                headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(metadata)
+            });
+            
+            if (!metaRes.ok) {
+                const errData = await metaRes.json();
+                throw new Error('Error al inicializar archivo en Drive: ' + (errData.error?.message || metaRes.statusText));
+            }
+            
+            const fileData = await metaRes.json();
+            const fileId = fileData.id;
+
+            const uploadRes = await fetch(`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken,
+                    'Content-Type': file.type || 'image/jpeg'
+                },
+                body: fileBuffer
+            });
+
+            if (!uploadRes.ok) {
+                throw new Error('Error al subir el contenido binario de la imagen a Drive.');
+            }
+
+            await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}/permissions`, {
+                method: 'POST',
+                headers: { 
+                    'Authorization': 'Bearer ' + accessToken, 
+                    'Content-Type': 'application/json' 
+                },
                 body: JSON.stringify({ role: 'reader', type: 'anyone' })
             });
 
-            return `https://lh3.googleusercontent.com/d/${data.id}`;
+            return `https://lh3.googleusercontent.com/d/${fileId}`;
         }
 
         /* GITHUB API HELPER */
@@ -594,7 +627,5 @@
             box.innerText = msg; box.className = 'status-' + type; box.style.display = 'block';
         }
     </script>
-</body>
-</html>
 </body>
 </html>

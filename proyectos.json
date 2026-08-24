@@ -1,5 +1,18 @@
 [
   {
+    "id": "proj-1787559388715",
+    "title": "Mantenimiento & Estabilización de Corredor Vial •\tSubtítulo / Ubicación: Ricaurte, Nariño — Interventoría, Control Técnico & Gestión de Contingencias 2. Detalle del Modal (Ficha Técnica) •\tAlcance del Proyecto & Desglose Técnico: Interventoría técnica, supervisión de obra y control de imprevistos para la estabilización y mantenimiento de corredor vial rural. Incluye el levantamiento altimétrico de tramos críticos, diseño de obras de drenaje (cunetas y alcantarillados), remoción y estabilización de taludes afectados por la temporada invernal, y verificación de memorias de cálculo y APU de contingencia para la entrega formal a la comunidad. •\tHerramientas & Ecosistema Tecnológico: • Modelado Altitudinal & Vial: AutoCAD Civil 3D • Control de Ejecución & Imprevistos",
+    "subtitle": "Ricaurte, Nariño — Interventoría, Control Técnico & Gestión de Contingencias",
+    "year": "2024",
+    "category": "obra",
+    "standard": "NSR-10",
+    "software": "AutoCAD Civil 3D",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1b81fHiRTdp8DyOeuK7UuWFdEx_15EuiB",
+    "galleryUrls": [],
+    "scope": "Interventoría técnica, supervisión de obra y control de imprevistos para la estabilización y mantenimiento de corredor vial rural. Incluye el levantamiento altimétrico de tramos críticos, diseño de obras de drenaje (cunetas y alcantarillados), remoción y estabilización de taludes afectados por la temporada invernal, y verificación de memorias de cálculo y APU de contingencia para la entrega formal a la comunidad.",
+    "tools": "• Modelado Altitudinal & Vial: AutoCAD Civil 3D\n• Control de Ejecución & Imprevistos: Presupuesto APU + Bitácora de Campo\n• Gestión Territorial: Cartografía GIS / Integración con Esquemas de Ordenamiento (EOT\n"
+  },
+  {
     "id": "proj-1787557454169",
     "title": "Análisis Territorio & Riesgo Urbano",
     "subtitle": "Ricaurte, Nariño — Análisis Geoespacial & Resiliencia Urbana",

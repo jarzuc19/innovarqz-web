@@ -1,5 +1,23 @@
 [
   {
+    "id": "proj-1787726993434",
+    "title": "Asistencia Técnica en Obras Civiles & Equipamiento Municipal",
+    "subtitle": "Ricaurte, Nariño — Secretaría de Obras Públicas",
+    "year": "2021",
+    "category": "bim",
+    "standard": "NSR-10",
+    "software": "AutoCAD / Sketchup",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1D8MRis_VUuQguUUHIeEKsPbe7G5xsnTu",
+    "galleryUrls": [
+      "https://lh3.googleusercontent.com/d/1VcGgJlRpoX6Sn4rbMzRkJHDaswgzGld7",
+      "https://lh3.googleusercontent.com/d/1bMiJKsJvsBj67vgh8qstEIoo0O98yu5M",
+      "https://lh3.googleusercontent.com/d/1ldHn9y6Ge6sbauJv4aS0RY6MYVUvcqKJ",
+      "https://lh3.googleusercontent.com/d/1fzcqk7MOLgLTSgXP1xuOesNTJu_hRyGQ"
+    ],
+    "scope": "[TRAYECTORIA TÉCNICA Y FORMACIÓN DE CAMPO] Prestación de servicios de apoyo a la gestión en la Secretaría de Obras Públicas. Formulación, diseño arquitectónico, memorias de cálculo y estructuración de presupuestos APU para proyectos urbanos y rurales.",
+    "tools": "• Desarrollo Dibujo: AutoCAD 2D/3D - Sketchup - Twinmotion\n• Presupuestación: Análisis de Precios Unitarios (APUs)\n• Documentación: Memorias de Cálculo y Fichas MGA\n"
+  },
+  {
     "id": "proj-1787726450073",
     "title": "Mejoramiento Vial Terciario & Reforzamiento Estructural de Puente Peatonal",
     "subtitle": "Llorente, Tumaco — Residencia de Obra Civil",

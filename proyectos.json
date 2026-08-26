@@ -1,5 +1,24 @@
 [
   {
+    "id": "proj-1787720510039",
+    "title": "Infraestructura Habitacional, Hídrica & Finca Agroecológica Awá Su",
+    "subtitle": "Tumaco — Asistente de Diseño UNIPA",
+    "year": "2015",
+    "category": "bim",
+    "standard": "NSR-10",
+    "software": "Archicad",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1HLOgkN8OZ6Zv9ioHBi2d_LpABR2sih_l",
+    "galleryUrls": [
+      "https://lh3.googleusercontent.com/d/1Am_dTT_nByrmpxTagrlcRZoMbztWmSqj",
+      "https://lh3.googleusercontent.com/d/1-kGQltI6ffTIdF06UXeBInDiDqqJUqTI",
+      "https://lh3.googleusercontent.com/d/1WMTuPPFhZcWTu3RKhNGDaj_hYtQpEreA",
+      "https://lh3.googleusercontent.com/d/1ZyEKK_OOMef48xH_DQX1Lvo_RP_97FRx",
+      "https://lh3.googleusercontent.com/d/1HTZS4EAPvefjbpRcV_BMavuaDHcpdXqx"
+    ],
+    "scope": "[TRAYECTORIA TÉCNICA Y FORMACIÓN DE CAMPO] Diseño arquitectónico y presupuestación para viviendas saludables, sistemas de captación de aguas lluvias, pozos sépticos y salón comunal. Diseño integral de equipamientos para la Finca Agroecológica Awá Su (oficinas, bodegas, maloca, galpones y porquerizas).",
+    "tools": "- Diseño Arquitectónico: AutoCAD 2D  \n- Saneamiento Rural: Sistemas Hídricos y Pozos Sépticos  \n- Presupuestos: Modelación y Cuantificación de Costos  "
+  },
+  {
     "id": "proj-1787559877067",
     "title": "Cubierta & Estructura para Auditorio Municipal",
     "subtitle": "Tumaco, Nariño — Interventoría & Control Técnico de Obra",

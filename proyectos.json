@@ -56,18 +56,5 @@
     "galleryUrls": [],
     "scope": "Interventoría técnica, supervisión de obra y control de imprevistos para la estabilización y mantenimiento de corredor vial rural. Incluye el levantamiento altimétrico de tramos críticos, diseño de obras de drenaje (cunetas y alcantarillados), remoción y estabilización de taludes afectados por la temporada invernal, y verificación de memorias de cálculo y APU de contingencia para la entrega formal a la comunidad.",
     "tools": "• Modelado Altitudinal & Vial: AutoCAD Civil 3D\n• Control de Ejecución & Imprevistos: Presupuesto APU + Bitácora de Campo\n• Gestión Territorial: Cartografía GIS / Integración con Esquemas de Ordenamiento (EOT)\n"
-  },
-  {
-    "id": "proj-1787557454169",
-    "title": "Análisis Territorio & Riesgo Urbano",
-    "subtitle": "Ricaurte, Nariño — Análisis Geoespacial & Resiliencia Urbana",
-    "year": "2025",
-    "category": "cim",
-    "standard": "EOT / GIS",
-    "software": "ArcGIS / QGIS",
-    "coverUrl": "https://lh3.googleusercontent.com/d/1bg69Ne4ly_mwiYK4LXhcETLh1iPYxfYd",
-    "galleryUrls": [],
-    "scope": "Integración de datos geoespaciales (GIS) con parámetros territoriales para esquemas de ordenamiento territorial (EOT), delimitación de zonas de riesgo y gestión técnica de licencias urbanísticas. Levantamiento y estructuración vectorial del componente urbano-rural.",
-    "tools": "• Análisis Geoespacial: ArcGIS Pro / QGIS\n• Captura & Terreno: LiDAR / Infraworks\n• Automatización de Datos: Python Scripting para procesamiento espacial"
   }
 ]

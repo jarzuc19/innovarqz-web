@@ -617,7 +617,7 @@
             width: 56px;
         }
 
-        /* NAVEGACIÓN INTELIGENTE PARA PORTAFOLIO */
+        /* NAVEGACIÓN PORTAFOLIO */
         .portfolio-counter-container {
             display: flex;
             flex-direction: column;
@@ -690,7 +690,7 @@
             transition: width 0.4s ease;
         }
 
-        /* LÍNEA DE TIEMPO DE PORTAFOLIO */
+        /* LÍNEA DE TIEMPO */
         .timeline-container {
             margin: 2rem 0 2.5rem;
             position: relative;
@@ -1213,7 +1213,7 @@
         .modal-description { color: var(--text-muted); font-size: 0.98rem; line-height: 1.7; }
         .modal-description h5 { color: var(--text-main); font-size: 1.1rem; margin: 1.25rem 0 0.5rem; }
 
-        /* NOSOTROS: REESTRUCTURADO Y LIMPIO */
+        /* NOSOTROS & ESENCIA DIGITAL */
         .about-section {
             position: relative;
             background-color: var(--bg-dark);
@@ -1280,178 +1280,109 @@
             pointer-events: none;
         }
 
-        /* 2 COLUMNAS SIN MARCOS SOBRANTES (CONSERVANDO LA TARJETA IMPECABLE ORIGINAL) */
-        .about-dual-dashboard {
+        /* GRID DE 4 COLUMNAS ADN DIGITAL */
+        .adn-cards-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
-            margin-bottom: 3.5rem;
-            align-items: stretch;
-        }
-
-        .dash-column {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .dash-header {
-            margin-bottom: 1.25rem;
-        }
-
-        .dash-header h3 {
-            font-size: 1.5rem;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-weight: 700;
-        }
-
-        .dash-header h3 i { color: var(--accent-copper); }
-
-        .dash-header p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: 0.3rem;
-        }
-
-        /* ADN DIGITAL: MÓDULO PERMUTABLE ESTILO ORIGINAL */
-        .adn-interactive-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 95px;
+            grid-template-columns: repeat(4, 1fr);
             gap: 1.25rem;
-            flex-grow: 1;
-            align-items: stretch;
+            margin-bottom: 3.5rem;
         }
 
-        .esencia-card-single {
+        .esencia-card-compact {
             background-color: rgba(30, 41, 59, 0.75);
             backdrop-filter: blur(8px);
-            padding: 2.2rem;
+            padding: 1.5rem 1.25rem;
             border-radius: 12px;
             border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            transition: all 0.35 ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            justify-content: flex-start;
+            min-height: 230px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        .esencia-card-single .esencia-badge {
-            font-size: 2.6rem;
+        .esencia-card-compact:hover {
+            border-color: rgba(217, 119, 6, 0.6);
+            transform: translateY(-4px);
+        }
+
+        .esencia-card-compact .esencia-badge {
+            font-size: 2.2rem;
             font-weight: 800;
-            color: rgba(217, 119, 6, 0.14);
+            color: rgba(255, 255, 255, 0.05);
             position: absolute;
-            top: 14px;
-            right: 18px;
+            top: 10px;
+            right: 12px;
             letter-spacing: -0.5px;
             user-select: none;
             pointer-events: none;
         }
 
-        .esencia-tag-pill {
+        .esencia-card-compact .esencia-tag-pill {
             display: inline-block;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
             color: var(--accent-copper);
             background-color: rgba(217, 119, 6, 0.14);
-            padding: 0.2rem 0.6rem;
+            padding: 0.18rem 0.55rem;
             border-radius: 4px;
-            margin-bottom: 1rem;
-            letter-spacing: 0.5px;
+            margin-bottom: 0.85rem;
+            letter-spacing: 0.4px;
             align-self: flex-start;
         }
 
-        .esencia-card-single h4 {
-            font-size: 1.35rem;
+        .esencia-card-compact h4 {
+            font-size: 1.1rem;
             color: #fff;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             font-weight: 700;
+            line-height: 1.3;
         }
 
-        .esencia-card-single p {
+        .esencia-card-compact p {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 0.85rem;
+            line-height: 1.5;
         }
 
-        /* THUMBS ADN VERTICALES */
-        .adn-thumbs-column {
-            display: flex;
-            flex-direction: column;
-            gap: 0.65rem;
-        }
-
-        .adn-thumb-btn {
-            background-color: rgba(30, 41, 59, 0.75);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 0.75rem 0.4rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text-muted);
+        /* FICHA PROFESIONAL CON PROPORCIÓN CONTROLADA Y BOTONES REDONDOS */
+        .team-section-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            flex-grow: 1;
+            margin-bottom: 3.5rem;
         }
 
-        .adn-thumb-btn:hover, .adn-thumb-btn.active {
-            border-color: var(--accent-copper);
-            background-color: rgba(217, 119, 6, 0.15);
-            color: #fff;
-        }
-
-        .adn-thumb-btn.active {
-            box-shadow: 0 0 12px rgba(217, 119, 6, 0.35);
-        }
-
-        .adn-thumb-btn span {
-            font-size: 0.92rem;
-            font-weight: 800;
-            color: var(--accent-copper);
-            line-height: 1.1;
-        }
-
-        .adn-thumb-btn small {
-            font-size: 0.65rem;
-            font-weight: 600;
-            margin-top: 2px;
-            opacity: 0.85;
-        }
-
-        /* EQUIPO INTEGRAL (TARJETA VERTICAL IMPECABLE EXACTA A LA MÓVIL) */
-        .team-card-vertical {
+        .team-card-proportioned {
             background-color: rgba(30, 41, 59, 0.75);
             backdrop-filter: blur(8px);
-            border-radius: 12px;
+            border-radius: 14px;
             border: 1px solid var(--border-color);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-            position: relative;
-            flex-grow: 1;
+            max-width: 420px;
+            width: 100%;
+            margin: 0 auto;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
 
-        .team-vertical-avatar {
+        .team-portrait-header {
             width: 100%;
-            height: 200px;
-            background-color: #0f172a;
+            height: 270px;
             position: relative;
             overflow: hidden;
+            background-color: #0f172a;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .team-vertical-avatar img {
+        .team-portrait-header img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center top;
+            object-position: center 15%;
         }
 
         .team-avatar-bg-full {
@@ -1465,45 +1396,31 @@
             color: var(--accent-copper);
         }
 
-        .team-vertical-body {
-            padding: 1.75rem;
+        .team-card-content {
+            padding: 1.5rem 1.75rem;
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
         }
 
-        .team-vertical-body h4 {
-            font-size: 1.2rem;
+        .team-card-content h4 {
+            font-size: 1.25rem;
             color: #fff;
-            margin-bottom: 0.2rem;
             font-weight: 700;
+            margin-bottom: 0.25rem;
         }
 
-        .team-vertical-body .team-role {
+        .team-card-content .team-role {
             color: var(--accent-copper);
             font-size: 0.88rem;
             font-weight: 600;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.85rem;
         }
 
-        .team-vertical-body p {
+        .team-card-content p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             line-height: 1.55;
             margin-bottom: 1.25rem;
-            flex-grow: 1;
-        }
-
-        .team-footer-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1rem;
-        }
-
-        .team-nav-arrows {
-            display: flex;
-            gap: 0.5rem;
         }
 
         .btn-modal-trigger {
@@ -1521,13 +1438,40 @@
             gap: 0.4rem;
             transition: all 0.3s;
             width: 100%;
-            margin-top: 0.5rem;
         }
 
         .btn-modal-trigger:hover {
             background-color: var(--accent-copper);
             border-color: var(--accent-copper);
             color: #fff;
+        }
+
+        .team-footer-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .team-round-nav-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: rgba(30, 41, 59, 0.9);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+        }
+
+        .team-round-nav-btn:hover {
+            background-color: var(--accent-copper);
+            border-color: var(--accent-copper);
+            color: #fff;
+            transform: scale(1.08);
         }
 
         /* MISIÓN Y VISIÓN ABAJO DE ANCHO COMPLETO */
@@ -1659,7 +1603,8 @@
         footer a { color: var(--accent-copper); text-decoration: none; }
 
         @media (max-width: 1024px) {
-            .about-dual-dashboard, .adn-digital-box, .contact-grid { grid-template-columns: 1fr; }
+            .adn-cards-grid { grid-template-columns: repeat(2, 1fr); }
+            .adn-digital-box, .contact-grid { grid-template-columns: 1fr; }
             .adn-divider { display: none; }
         }
 
@@ -1689,9 +1634,10 @@
             .lightbox-arrow { width: 40px; height: 40px; }
             .lightbox-prev { left: 0.5rem; }
             .lightbox-next { right: 0.5rem; }
+        }
 
-            .adn-interactive-wrapper { grid-template-columns: 1fr; }
-            .adn-thumbs-column { flex-direction: row; justify-content: space-between; }
+        @media (max-width: 640px) {
+            .adn-cards-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -2188,7 +2134,7 @@
         </div>
     </div>
 
-    <!-- NOSOTROS: 2 COLUMNAS PURAS RESTAURADAS CON DISEÑO IMPECABLE ORIGINAL -->
+    <!-- NOSOTROS & ESENCIA DIGITAL -->
     <section class="about-section" id="nosotros">
         <div class="about-3d-bg">
             <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -2223,96 +2169,89 @@
                 <div class="standard-badge"><span>GIS</span> + CIM</div>
             </div>
 
+            <!-- BANNER ESTRUCTURAL DE FACHADA 3D -->
             <div class="esencia-banner-container">
                 <img src="esencia-digital-innovarqz.jpg" alt="InnovArqZ Esencia Digital BIM CIM" class="esencia-banner-img">
                 <div class="esencia-banner-overlay"></div>
             </div>
 
-            <!-- 2 COLUMNAS PURAS SIN RECUADROS SOBRANTES -->
-            <div class="about-dual-dashboard">
-                <!-- COLUMNA IZQUIERDA: ADN DIGITAL (TARJETA LIMPIA CON THUMBS AL COSTADO) -->
-                <div class="dash-column">
-                    <div class="dash-header">
-                        <h3><i data-lucide="dna"></i> ADN Digital</h3>
-                        <p>Haz clic en los pilares para explorar nuestro enfoque técnico.</p>
-                    </div>
-
-                    <div class="adn-interactive-wrapper">
-                        <div class="esencia-card-single" id="adnActiveCard">
-                            <span class="esencia-badge" id="adnActiveBadge">INNOV</span>
-                            <span class="esencia-tag-pill" id="adnActiveTag">Tec + Data</span>
-                            <h4 id="adnActiveTitle">Innovación Conectada</h4>
-                            <p id="adnActiveDesc">Adoptamos la tecnología como eje transversal. Implementamos metodologías predictivas para prever contingencias y optimizar presupuestos.</p>
-                        </div>
-
-                        <div class="adn-thumbs-column">
-                            <div class="adn-thumb-btn active" onclick="switchAdnCard(0, this)">
-                                <span>INNOV</span>
-                                <small>Tecnología</small>
-                            </div>
-                            <div class="adn-thumb-btn" onclick="switchAdnCard(1, this)">
-                                <span>ARQ</span>
-                                <small>Arquitectura</small>
-                            </div>
-                            <div class="adn-thumb-btn" onclick="switchAdnCard(2, this)">
-                                <span>IN</span>
-                                <small>Ingeniería</small>
-                            </div>
-                            <div class="adn-thumb-btn" onclick="switchAdnCard(3, this)">
-                                <span>Z</span>
-                                <small>Control A-Z</small>
-                            </div>
-                        </div>
-                    </div>
+            <!-- ADN DIGITAL: 4 TARJETAS COMPACTAS ORIGINALES -->
+            <div class="adn-cards-grid">
+                <div class="esencia-card-compact">
+                    <span class="esencia-badge">INNOV</span>
+                    <span class="esencia-tag-pill">Tec + Data</span>
+                    <h4>Innovación Conectada</h4>
+                    <p>Adoptamos la tecnología como eje transversal. Implementamos metodologías predictivas para prever contingencias y optimizar presupuestos.</p>
                 </div>
 
-                <!-- COLUMNA DERECHA: EQUIPO INTEGRAL (TARJETA VERTICAL EXACTA DE LA VERSIÓN ORIGINAL) -->
-                <div class="dash-column">
-                    <div class="dash-header">
-                        <h3><i data-lucide="users"></i> Equipo Integral</h3>
-                        <p>Profesionales al frente del desarrollo digital, consultoría e interventoría técnica.</p>
-                    </div>
+                <div class="esencia-card-compact">
+                    <span class="esencia-badge">ARQ</span>
+                    <span class="esencia-tag-pill">Entorno + Hábitat</span>
+                    <h4>Diseño Funcional & Resiliente</h4>
+                    <p>La arquitectura responde al entorno mediante planes ambientales rigurosos, adaptabilidad al cambio climático y pertenencia comunitaria.</p>
+                </div>
 
-                    <div class="team-card-vertical">
-                        <div class="team-vertical-avatar" id="teamActiveAvatar">
-                            <img src="james-zuniga.jpg" alt="Arq. James Ramiro Zúñiga Caipe">
-                        </div>
+                <div class="esencia-card-compact">
+                    <span class="esencia-badge">IN</span>
+                    <span class="esencia-tag-pill">Criterio + Estructura</span>
+                    <h4>Rigor Técnico & Estructural</h4>
+                    <p>La ingeniería civil representa solidez. Aplicamos análisis y cálculos computacionales de vanguardia para obras perdurables.</p>
+                </div>
+
+                <div class="esencia-card-compact">
+                    <span class="esencia-badge">Z</span>
+                    <span class="esencia-tag-pill">Control + Activo</span>
+                    <h4>Compromiso de A a Z</h4>
+                    <p>Nuestra promesa concluye con la entrega exacta. Acompañamos desde la formulación conceptual (A) hasta la liquidación del activo (Z).</p>
+                </div>
+            </div>
+
+            <!-- EQUIPO INTEGRAL: FICHA CON PROPORCIÓN CONTROLADA Y BOTONES REDONDOS SUTILES -->
+            <div class="team-section-wrapper">
+                <div class="section-title" style="margin-bottom: 1.5rem;">
+                    <h2><i data-lucide="users" style="color: var(--accent-copper); vertical-align: middle; margin-right: 0.4rem;"></i> Equipo Integral</h2>
+                    <p>Profesionales al frente del desarrollo digital, consultoría e interventoría técnica.</p>
+                </div>
+
+                <div class="team-card-proportioned">
+                    <div class="team-portrait-header" id="teamActiveAvatar">
+                        <img src="james-zuniga.jpg" alt="Arq. James Ramiro Zúñiga Caipe">
+                    </div>
+                    
+                    <div class="team-card-content">
+                        <h4 id="teamActiveName">Arq. James Ramiro Zúñiga Caipe</h4>
+                        <div class="team-role" id="teamActiveRole">Director General & Coordinador BIM / CIM</div>
+                        <p id="teamActiveDesc">Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.</p>
                         
-                        <div class="team-vertical-body">
-                            <h4 id="teamActiveName">Arq. James Ramiro Zúñiga Caipe</h4>
-                            <div class="team-role" id="teamActiveRole">Director General & Coordinador BIM / CIM</div>
-                            <p id="teamActiveDesc">Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.</p>
-                            
-                            <div class="portfolio-tags" id="teamActiveTags">
-                                <span class="tag">Arq. UDENAR</span>
-                                <span class="tag">buildingSMART</span>
-                                <span class="tag">BIM 5D</span>
+                        <div class="portfolio-tags" id="teamActiveTags" style="margin-bottom: 1.25rem;">
+                            <span class="tag">Arq. UDENAR</span>
+                            <span class="tag">buildingSMART</span>
+                            <span class="tag">BIM 5D</span>
+                        </div>
+
+                        <button class="btn-modal-trigger" id="teamActiveBtn" onclick="openModal('modal-perfil-james')" style="margin-bottom: 1.25rem;">
+                            <i data-lucide="user"></i> Ver Perfil Técnico
+                        </button>
+
+                        <div class="team-footer-controls">
+                            <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">
+                                Miembro <span id="teamCurrentIndex">1</span> de 3
                             </div>
 
-                            <button class="btn-modal-trigger" id="teamActiveBtn" onclick="openModal('modal-perfil-james')">
-                                <i data-lucide="user"></i> Ver Perfil Técnico
-                            </button>
-
-                            <div class="team-footer-controls">
-                                <div style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">
-                                    Miembro <span id="teamCurrentIndex">1</span> de 3
-                                </div>
-
-                                <div class="team-nav-arrows">
-                                    <button class="team-nav-btn" onclick="prevTeamMember()" aria-label="Anterior">
-                                        <i data-lucide="chevron-left"></i>
-                                    </button>
-                                    <button class="team-nav-btn" onclick="nextTeamMember()" aria-label="Siguiente">
-                                        <i data-lucide="chevron-right"></i>
-                                    </button>
-                                </div>
+                            <div style="display: flex; gap: 0.6rem;">
+                                <button class="team-round-nav-btn" onclick="prevTeamMember()" aria-label="Anterior">
+                                    <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
+                                </button>
+                                <button class="team-round-nav-btn" onclick="nextTeamMember()" aria-label="Siguiente">
+                                    <i data-lucide="chevron-right" style="width: 18px; height: 18px;"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- MISIÓN Y VISIÓN AL PIE DE ANCHO COMPLETO -->
+            <!-- BLOQUE INFERIOR: MISIÓN Y VISIÓN 2031 -->
             <div class="adn-digital-box">
                 <div class="adn-column">
                     <h3><i data-lucide="compass"></i> Misión</h3>
@@ -2324,6 +2263,7 @@
                     <p>Consolidarnos como la firma referente en transformación digital arquitectónica y ordenamiento territorial en Colombia. Pioneros en el desarrollo de <strong>Gemelos Digitales</strong> y modelos CIM aplicados a Smart Cities.</p>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -2673,56 +2613,6 @@
 
             carouselIndices['portfolioTrack'] = 0;
             goToSlide('portfolioTrack', 'portfolio-slide', 0);
-        }
-
-        /* LÓGICA DE INTERACCIÓN NOSOTROS */
-        const adnData = [
-            {
-                badge: "INNOV",
-                tag: "Tec + Data",
-                title: "Innovación Conectada",
-                desc: "Adoptamos la tecnología como eje transversal. Implementamos metodologías predictivas para prever contingencias y optimizar presupuestos."
-            },
-            {
-                badge: "ARQ",
-                tag: "Entorno + Hábitat",
-                title: "Diseño Funcional & Resiliente",
-                desc: "La arquitectura responde al entorno mediante planes ambientales rigurosos, adaptabilidad al cambio climático y pertenencia comunitaria."
-            },
-            {
-                badge: "IN",
-                tag: "Criterio + Estructura",
-                title: "Rigor Técnico & Estructural",
-                desc: "La ingeniería civil representa solidez. Aplicamos análisis y cálculos computacionales de vanguardia para obras perdurables."
-            },
-            {
-                badge: "Z",
-                tag: "Control + Activo",
-                title: "Compromiso de A a Z",
-                desc: "Nuestra promesa concluye con la entrega exacta. Acompañamos desde la formulación conceptual (A) hasta la liquidación del activo (Z)."
-            }
-        ];
-
-        function switchAdnCard(idx, btnEl) {
-            const data = adnData[idx];
-            if (!data) return;
-
-            document.querySelectorAll('.adn-thumb-btn').forEach(b => b.classList.remove('active'));
-            if (btnEl) btnEl.classList.add('active');
-
-            const card = document.getElementById('adnActiveCard');
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(6px)';
-
-            setTimeout(() => {
-                document.getElementById('adnActiveBadge').innerText = data.badge;
-                document.getElementById('adnActiveTag').innerText = data.tag;
-                document.getElementById('adnActiveTitle').innerText = data.title;
-                document.getElementById('adnActiveDesc').innerText = data.desc;
-
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, 180);
         }
 
         const teamMembers = [

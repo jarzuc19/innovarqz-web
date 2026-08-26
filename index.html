@@ -1072,7 +1072,7 @@
             padding-bottom: 1rem;
         }
 
-        /* AJUSTE DE GRILLA A 2 COLUMNAS EN MODAL */
+        /* GRILLA EN MODAL */
         .modal-gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr) !important;
@@ -1160,7 +1160,7 @@
             transform: scale(1);
         }
 
-        /* ESTILOS DEL LIGHTBOX FULLSCREEN */
+        /* LIGHTBOX FULLSCREEN */
         .lightbox-overlay {
             position: fixed;
             top: 0;
@@ -2540,7 +2540,7 @@
         <p style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">&copy; 2026 InnovArqZ. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- JAVASCRIPT GLOBAL -->
+    <!-- JAVASCRIPT GLOBAL CON MEJORA DE ORDENAMIENTO CRONOLÓGICO -->
     <script>
         let proyectosGlobales = [];
         let currentGallery = [];
@@ -2837,7 +2837,6 @@
             }
         }
 
-        /* MAPEO DE CATEGORÍAS A TEXTO COMPLETO Y COMPATIBILIDAD DIRECTA */
         const nombresCategorias = {
             'bim': 'Diseño & BIM',
             'obra': 'Infraestructura & Obra',
@@ -2854,6 +2853,10 @@
                 if (!res.ok) throw new Error('No se pudo cargar proyectos.json');
                 
                 proyectosGlobales = await res.json();
+
+                // MEJORA: ORDENAMIENTO CRONOLÓGICO DESCENDENTE (MÁS RECIENTE A MÁS ANTIGUO)
+                proyectosGlobales.sort((a, b) => parseInt(b.year || 0) - parseInt(a.year || 0));
+
                 contenedor.innerHTML = '';
 
                 if (proyectosGlobales.length === 0) {
@@ -2902,7 +2905,6 @@
             }
         }
 
-        /* LÓGICA DE NAVEGACIÓN DESLIZANTE DE LÍNEA DE TIEMPO */
         let timelineOffset = 0;
         const VISIBLE_YEARS = 5;
         const NODE_WIDTH = 95;
@@ -2911,7 +2913,9 @@
             const trackInner = document.getElementById('timelineTrackInner');
             if (!trackInner) return;
 
-            const anosUnicos = [...new Set(proyectosGlobales.map(p => p.year).filter(Boolean))].sort((a, b) => a - b);
+            // MEJORA: AÑOS ÚNICOS ORDENADOS TAMBIÉN DE FORMA DESCENDENTE
+            const anosUnicos = [...new Set(proyectosGlobales.map(p => p.year).filter(Boolean))]
+                                .sort((a, b) => parseInt(b) - parseInt(a));
 
             let html = '';
             anosUnicos.forEach(ano => {
@@ -2997,7 +3001,6 @@
             }
         }
 
-        // FUNCIONES NUEVAS DEL LIGHTBOX
         function openLightbox(index) {
             if (!currentGallery || currentGallery.length === 0) return;
             currentImageIndex = index;
@@ -3032,7 +3035,6 @@
             updateLightboxContent();
         }
 
-        // SOPORTE DE TECLAS (ESC, FLECHA IZQ, FLECHA DER)
         window.addEventListener('keydown', (e) => {
             const lb = document.getElementById('lightbox-modal');
             if (lb && lb.classList.contains('active')) {

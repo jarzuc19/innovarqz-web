@@ -1,5 +1,25 @@
 [
   {
+    "id": "proj-1787731119176",
+    "title": "Adecuación Infraestructura Educativa C.E. Asociados (I.E. Sindagua)",
+    "subtitle": "Ricaurte, Nariño — Residencia de Dirección de Obra",
+    "year": "2026",
+    "category": "obra",
+    "standard": "NSR-10",
+    "software": "Control de APU / Presupuesto",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1ndZ37H7oli6lYNzqT2cbQTJgjteXrx8M",
+    "galleryUrls": [
+      "https://lh3.googleusercontent.com/d/1qhET1RgJSlFw-i_wgFSwJCd7ijc9LbiV",
+      "https://lh3.googleusercontent.com/d/1Oj6wlaJ6V66NajQ9c7BrdWOfEEvYfHYm",
+      "https://lh3.googleusercontent.com/d/1a8SQweR0tfE8aWP3_nmBB9BlK5eU4Bcy",
+      "https://lh3.googleusercontent.com/d/10FPcOpd4gEaeP_Ym7R3dpH8jrtq3OeVR",
+      "https://lh3.googleusercontent.com/d/1tyYl05GbSge8c4YS_9ppL1NB4GFQoxrZ",
+      "https://lh3.googleusercontent.com/d/1fc-tUf6QxP29kadi4NMm4S-Lh__Qw57w"
+    ],
+    "scope": "[EJERCICIO PROFESIONAL / RESIDENCIA DE OBRA] Residencia técnica y control de ejecución física en campo (100% dedicación) para el mejoramiento de las sedes San Luis Nulpe Medio, Chical, Aguacate, Chicandina y Quembi. Control cualitativo y cuantitativo según plan de inversión financiado con recursos de Formación Integral y SGP por un valor de $141.204.117,00 M/CTE (Contrato No. MC 2025-010).",
+    "tools": "• Control de Cantidades: Excel Avanzado\n• Supervisión Técnica: NSR-10 & Especificaciones de Obra\n• Gestión Contractual: Memorias de Cantidades y Actas Parciales"
+  },
+  {
     "id": "proj-1787730245535",
     "title": "Infraestructura Educativa & Estructuras Metálicas Sector Río Güiza",
     "subtitle": "Ricaurte, Nariño — Residencia Técnica de Campo",

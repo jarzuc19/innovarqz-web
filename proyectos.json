@@ -1,5 +1,23 @@
 [
   {
+    "id": "proj-1787734600992",
+    "title": "Gemelo Digital Estructural & Marco de Gobernanza Bloque Udenar (Caso de Estudio)",
+    "subtitle": "Pasto, Nariño, Colombia — Coordinación BIM",
+    "year": "2026",
+    "category": "obra",
+    "standard": "ISO 19650",
+    "software": "Autodesk Revit",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1hZdTD3JTU2Tn7JgNfm5F-xWZ2mwa3xMQ",
+    "galleryUrls": [
+      "https://lh3.googleusercontent.com/d/1uHvdT0I5UP74KU0wRajEcNyqWDGssgnT",
+      "https://lh3.googleusercontent.com/d/1nfaZILEiFEZL3ae9VGi4LSNx2_jJCpIu",
+      "https://lh3.googleusercontent.com/d/19EucR2YtF6H_By6SCwnmwO_tWrXqj14J",
+      "https://lh3.googleusercontent.com/d/1s3ENMQ3-4uDolSr7GptNBCNGm1hKhTBD"
+    ],
+    "scope": "Metodología para la creación de un Gemelo Digital (Digital Twin) estructural de alta fidelidad para mantenimiento predictivo y gestión de activos de infraestructura universitaria. Definición y liderazgo del Plan de Ejecución BIM (BEP) estructurado en 5 fases. Establecimiento de estándares semánticos con sintaxis rígida (DISC_CATEGORY_DESCRIPTION_DIMENSIONS) y gestión de parámetros compartidos de instancia. Auditoría de calidad, modelado de aceros de refuerzo (LOD 350), codificación de 8 bloques independientes y formalización de un protocolo de comunicación técnica mediante Notas Informativas (NI) y Notas Técnicas (NT).",
+    "tools": "•  Modelado Estructural & Datos: Autodesk Revit + Parámetros Compartidos \n•  Gobernanza & Auditoría: Plan de Ejecución BIM (BEP) + Protocolos QA/QC + Informes NT/NI \n•  Interoperabilidad & Gestión: OpenBIM / IFC / Integración 4D-5D\n"
+  },
+  {
     "id": "proj-1787733492524",
     "title": "Implementación Práctica de Vivienda Multifamiliar (Trabajo de Grado)",
     "subtitle": "Cali, Valle del Cauca, Colombia — Coordinación BIM Interdisciplinaria",

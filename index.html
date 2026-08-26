@@ -617,7 +617,7 @@
             width: 56px;
         }
 
-        /* NAVEGACIÓN INTELIGENTE PARA PORTAFOLIO MULTI-PROYECTO */
+        /* NAVEGACIÓN INTELIGENTE PARA PORTAFOLIO */
         .portfolio-counter-container {
             display: flex;
             flex-direction: column;
@@ -690,7 +690,7 @@
             transition: width 0.4s ease;
         }
 
-        /* LÍNEA DE TIEMPO CON CARRUSEL INTERNO */
+        /* LÍNEA DE TIEMPO DE PORTAFOLIO */
         .timeline-container {
             margin: 2rem 0 2.5rem;
             position: relative;
@@ -722,9 +722,7 @@
             z-index: 2;
         }
 
-        .timeline-fixed-node {
-            flex-shrink: 0;
-        }
+        .timeline-fixed-node { flex-shrink: 0; }
 
         .timeline-nav-btn {
             background-color: var(--bg-card);
@@ -756,14 +754,9 @@
             max-width: 100%;
         }
 
-        .timeline-viewport::-webkit-scrollbar {
-            display: none;
-        }
+        .timeline-viewport::-webkit-scrollbar { display: none; }
 
-        .timeline-track-inner {
-            display: flex;
-            gap: 0.6rem;
-        }
+        .timeline-track-inner { display: flex; gap: 0.6rem; }
 
         .timeline-track-inner .time-node {
             flex-shrink: 0;
@@ -793,9 +786,7 @@
             box-shadow: 0 0 12px rgba(217, 119, 6, 0.3);
         }
 
-        .time-node.active .node-dot {
-            background-color: var(--accent-copper);
-        }
+        .time-node.active .node-dot { background-color: var(--accent-copper); }
 
         .node-dot {
             width: 8px;
@@ -866,11 +857,7 @@
             pointer-events: none;
         }
 
-        .bim-3d-bg svg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .bim-3d-bg svg { width: 100%; height: 100%; object-fit: cover; }
 
         .bim-overlay {
             position: absolute;
@@ -903,12 +890,7 @@
             position: relative;
         }
 
-        .gears-svg {
-            width: 100%;
-            height: auto;
-            display: block;
-            overflow: visible;
-        }
+        .gears-svg { width: 100%; height: auto; display: block; overflow: visible; }
 
         .gear-item {
             cursor: pointer;
@@ -933,8 +915,7 @@
             user-select: none;
         }
 
-        .gear-item:hover,
-        .gear-item.active {
+        .gear-item:hover, .gear-item.active {
             filter: drop-shadow(0 0 12px rgba(217, 119, 6, 0.9));
         }
 
@@ -979,7 +960,7 @@
         .dim-benefits ul li { color: var(--text-muted); font-size: 0.9rem; position: relative; padding-left: 1.25rem; margin-bottom: 0.4rem; }
         .dim-benefits ul li::before { content: "✓"; color: var(--accent-copper); position: absolute; left: 0; font-weight: bold; }
 
-        /* BLOQUE COMPARATIVO */
+        /* BARRAS COMPARATIVAS */
         .comparison-block-inner {
             margin-top: 4.5rem;
             padding-top: 3.5rem;
@@ -993,20 +974,8 @@
             margin-bottom: 2.5rem;
         }
 
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .legend-color {
-            width: 14px;
-            height: 14px;
-            border-radius: 3px;
-        }
-
+        .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; }
+        .legend-color { width: 14px; height: 14px; border-radius: 3px; }
         .legend-color.trad { background-color: var(--trad-color); }
         .legend-color.bim { background-color: var(--bim-color); }
 
@@ -1019,54 +988,13 @@
             backdrop-filter: blur(8px);
         }
 
-        .metric-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.85rem;
-        }
-
-        .metric-title {
-            font-size: 0.98rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .metric-sub {
-            font-size: 0.8rem;
-            color: var(--accent-copper);
-            font-weight: 600;
-        }
-
-        .bar-pair {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-
-        .bar-row {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .bar-label {
-            width: 110px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            flex-shrink: 0;
-        }
-
-        .bar-track {
-            flex-grow: 1;
-            height: 22px;
-            background-color: rgba(15, 23, 42, 0.7);
-            border-radius: 11px;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid var(--border-color);
-        }
+        .metric-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; }
+        .metric-title { font-size: 0.98rem; font-weight: 700; color: var(--text-main); }
+        .metric-sub { font-size: 0.8rem; color: var(--accent-copper); font-weight: 600; }
+        .bar-pair { display: flex; flex-direction: column; gap: 0.6rem; }
+        .bar-row { display: flex; align-items: center; gap: 1rem; }
+        .bar-label { width: 110px; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); flex-shrink: 0; }
+        .bar-track { flex-grow: 1; height: 22px; background-color: rgba(15, 23, 42, 0.7); border-radius: 11px; overflow: hidden; position: relative; border: 1px solid var(--border-color); }
 
         .bar-fill {
             height: 100%;
@@ -1087,7 +1015,7 @@
         .bar-fill.trad { background: linear-gradient(90deg, #b91c1c, var(--trad-color)); }
         .bar-fill.bim { background: linear-gradient(90deg, #059669, var(--bim-color)); }
 
-        /* MODALES GENERALES */
+        /* MODALES */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1106,10 +1034,7 @@
             transition: opacity 0.3s ease;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
         .modal-content {
             background-color: var(--bg-card);
@@ -1151,7 +1076,6 @@
             padding-bottom: 1rem;
         }
 
-        /* GRILLA EN MODAL */
         .modal-gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr) !important;
@@ -1188,17 +1112,10 @@
         .gallery-item::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(180deg, rgba(15,23,42,0.1) 0%, rgba(15,23,42,0.85) 100%);
             z-index: 1;
             transition: background 0.3s ease;
-        }
-
-        .gallery-item:hover::before {
-            background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.7) 100%);
         }
 
         .gallery-item-badge {
@@ -1218,63 +1135,41 @@
 
         .gallery-item-zoom-icon {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 10px; right: 10px;
             z-index: 2;
             background: rgba(217, 119, 6, 0.9);
             color: #fff;
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transform: scale(0.8);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transform: scale(0.8);
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
-        .gallery-item:hover .gallery-item-zoom-icon {
-            opacity: 1;
-            transform: scale(1);
-        }
+        .gallery-item:hover .gallery-item-zoom-icon { opacity: 1; transform: scale(1); }
 
-        /* LIGHTBOX FULLSCREEN */
+        /* LIGHTBOX */
         .lightbox-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(11, 17, 32, 0.96);
             backdrop-filter: blur(12px);
             z-index: 3000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
             transition: opacity 0.3s ease;
         }
 
-        .lightbox-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .lightbox-overlay.active { opacity: 1; pointer-events: auto; }
 
         .lightbox-content {
-            max-width: 90vw;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            max-width: 90vw; max-height: 85vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
             position: relative;
         }
 
         .lightbox-content img {
-            max-width: 100%;
-            max-height: 78vh;
+            max-width: 100%; max-height: 78vh;
             object-fit: contain;
             border-radius: 8px;
             border: 1px solid var(--border-color);
@@ -1282,79 +1177,43 @@
         }
 
         .lightbox-caption {
-            margin-top: 1rem;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            font-weight: 600;
+            margin-top: 1rem; color: var(--text-main);
+            font-size: 0.95rem; font-weight: 600;
             background: rgba(30, 41, 59, 0.8);
-            padding: 6px 16px;
-            border-radius: 20px;
+            padding: 6px 16px; border-radius: 20px;
             border: 1px solid var(--border-color);
         }
 
         .lightbox-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
+            position: absolute; top: 1.5rem; right: 1.5rem;
             background: rgba(30, 41, 59, 0.8);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 44px; height: 44px; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
             transition: all 0.3s ease;
         }
 
-        .lightbox-close:hover {
-            background-color: var(--accent-copper);
-            color: #fff;
-            transform: scale(1.1);
-        }
+        .lightbox-close:hover { background-color: var(--accent-copper); color: #fff; transform: scale(1.1); }
 
         .lightbox-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            position: absolute; top: 50%; transform: translateY(-50%);
             background: rgba(30, 41, 59, 0.85);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 3010;
+            width: 50px; height: 50px; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; z-index: 3010;
         }
 
-        .lightbox-arrow:hover {
-            background-color: var(--accent-copper);
-            color: #fff;
-            transform: translateY(-50%) scale(1.1);
-        }
-
+        .lightbox-arrow:hover { background-color: var(--accent-copper); color: #fff; transform: translateY(-50%) scale(1.1); }
         .lightbox-prev { left: 1.5rem; }
         .lightbox-next { right: 1.5rem; }
 
-        .modal-description {
-            color: var(--text-muted);
-            font-size: 0.98rem;
-            line-height: 1.7;
-        }
+        .modal-description { color: var(--text-muted); font-size: 0.98rem; line-height: 1.7; }
+        .modal-description h5 { color: var(--text-main); font-size: 1.1rem; margin: 1.25rem 0 0.5rem; }
 
-        .modal-description h5 {
-            color: var(--text-main);
-            font-size: 1.1rem;
-            margin: 1.25rem 0 0.5rem;
-        }
-
-        /* NOSOTROS & DASHBOARD DINÁMICO */
+        /* NOSOTROS: REESTRUCTURADO Y LIMPIO */
         .about-section {
             position: relative;
             background-color: var(--bg-dark);
@@ -1366,179 +1225,159 @@
         }
 
         .about-3d-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
         }
 
-        .about-3d-bg svg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .about-3d-bg svg { width: 100%; height: 100%; object-fit: cover; }
 
         .about-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, transparent 20%, var(--bg-dark) 92%);
         }
 
         .about-container {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            margin: 0 auto;
+            position: relative; z-index: 2;
+            max-width: 1200px; margin: 0 auto;
         }
 
         .standards-pills {
-            display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            margin: 1rem 0 2.5rem 0;
+            display: flex; justify-content: center; gap: 0.75rem;
+            flex-wrap: wrap; margin: 1rem 0 2.5rem 0;
         }
 
         .standard-badge {
             background-color: rgba(30, 41, 59, 0.85);
             border: 1px solid var(--border-color);
             color: var(--text-muted);
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 0.35rem 0.9rem;
-            border-radius: 20px;
+            font-size: 0.8rem; font-weight: 600;
+            padding: 0.35rem 0.9rem; border-radius: 20px;
             backdrop-filter: blur(4px);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
+            display: inline-flex; align-items: center; gap: 0.4rem;
         }
 
         .standard-badge span { color: var(--accent-copper); }
 
         .esencia-banner-container {
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto 3rem;
-            border-radius: 16px;
+            width: 100%; max-width: 1000px;
+            margin: 0 auto 3rem; border-radius: 16px;
             border: 1px solid var(--border-color);
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-            position: relative;
-            aspect-ratio: 21 / 9;
+            overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            position: relative; aspect-ratio: 21 / 9;
             background-color: #0b1120;
         }
 
         .esencia-banner-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+            width: 100%; height: 100%; object-fit: cover; display: block;
             transition: transform 0.6s ease;
         }
 
         .esencia-banner-container:hover .esencia-banner-img { transform: scale(1.03); }
 
         .esencia-banner-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(180deg, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.5) 100%);
             pointer-events: none;
         }
 
-        /* DOS COLUMNAS PRINCIPALES DE NOSOTROS */
+        /* 2 COLUMNAS SIN MARCOS SOBRANTES (CONSERVANDO LA TARJETA IMPECABLE ORIGINAL) */
         .about-dual-dashboard {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2.5rem;
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
             align-items: stretch;
         }
 
         .dash-column {
-            background-color: rgba(30, 41, 59, 0.65);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 2rem;
-            backdrop-filter: blur(8px);
             display: flex;
             flex-direction: column;
         }
 
         .dash-header {
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1rem;
+            margin-bottom: 1.25rem;
         }
 
         .dash-header h3 {
-            font-size: 1.35rem;
+            font-size: 1.5rem;
             color: #fff;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
+            font-weight: 700;
         }
 
         .dash-header h3 i { color: var(--accent-copper); }
 
         .dash-header p {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            margin-top: 0.25rem;
+            margin-top: 0.3rem;
         }
 
-        /* ADN DIGITAL INTERACTIVO */
+        /* ADN DIGITAL: MÓDULO PERMUTABLE ESTILO ORIGINAL */
         .adn-interactive-wrapper {
             display: grid;
-            grid-template-columns: 1fr 110px;
+            grid-template-columns: 1fr 95px;
             gap: 1.25rem;
             flex-grow: 1;
-            align-items: center;
+            align-items: stretch;
         }
 
-        .adn-active-card {
-            background-color: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--accent-copper);
+        .esencia-card-single {
+            background-color: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(8px);
+            padding: 2.2rem;
             border-radius: 12px;
-            padding: 1.75rem;
-            box-shadow: 0 10px 25px rgba(217, 119, 6, 0.15);
-            transition: all 0.4s ease;
+            border: 1px solid var(--border-color);
             position: relative;
-            min-height: 240px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            transition: all 0.35 ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
         }
 
-        .adn-active-card .esencia-badge {
-            font-size: 2.2rem;
+        .esencia-card-single .esencia-badge {
+            font-size: 2.6rem;
             font-weight: 800;
-            color: rgba(217, 119, 6, 0.15);
+            color: rgba(217, 119, 6, 0.14);
             position: absolute;
-            top: 10px;
-            right: 14px;
+            top: 14px;
+            right: 18px;
+            letter-spacing: -0.5px;
+            user-select: none;
+            pointer-events: none;
         }
 
-        .adn-active-card h4 {
-            font-size: 1.25rem;
+        .esencia-tag-pill {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-copper);
+            background-color: rgba(217, 119, 6, 0.14);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+            align-self: flex-start;
+        }
+
+        .esencia-card-single h4 {
+            font-size: 1.35rem;
             color: #fff;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
         }
 
-        .adn-active-card p {
-            font-size: 0.92rem;
+        .esencia-card-single p {
             color: var(--text-muted);
+            font-size: 0.95rem;
             line-height: 1.6;
         }
 
+        /* THUMBS ADN VERTICALES */
         .adn-thumbs-column {
             display: flex;
             flex-direction: column;
@@ -1546,14 +1385,19 @@
         }
 
         .adn-thumb-btn {
-            background-color: rgba(15, 23, 42, 0.6);
+            background-color: rgba(30, 41, 59, 0.75);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 0.6rem 0.4rem;
+            padding: 0.75rem 0.4rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
             color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
         }
 
         .adn-thumb-btn:hover, .adn-thumb-btn.active {
@@ -1563,79 +1407,98 @@
         }
 
         .adn-thumb-btn.active {
-            box-shadow: 0 0 10px rgba(217, 119, 6, 0.3);
+            box-shadow: 0 0 12px rgba(217, 119, 6, 0.35);
         }
 
         .adn-thumb-btn span {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             font-weight: 800;
-            display: block;
             color: var(--accent-copper);
+            line-height: 1.1;
         }
 
         .adn-thumb-btn small {
             font-size: 0.65rem;
             font-weight: 600;
+            margin-top: 2px;
+            opacity: 0.85;
         }
 
-        /* EQUIPO INTEGRAL CON NAVEGACIÓN FLUIDA */
-        .team-carousel-wrapper {
-            position: relative;
-            flex-grow: 1;
+        /* EQUIPO INTEGRAL (TARJETA VERTICAL IMPECABLE EXACTA A LA MÓVIL) */
+        .team-card-vertical {
+            background-color: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            position: relative;
+            flex-grow: 1;
         }
 
-        .team-card-active {
-            background-color: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            display: flex;
-            gap: 1.25rem;
-            align-items: center;
-            transition: border-color 0.3s;
-        }
-
-        .team-card-active:hover { border-color: var(--accent-copper); }
-
-        .team-avatar-box {
-            width: 100px;
-            height: 100px;
-            border-radius: 10px;
-            overflow: hidden;
-            flex-shrink: 0;
-            border: 1px solid var(--border-color);
+        .team-vertical-avatar {
+            width: 100%;
+            height: 200px;
             background-color: #0f172a;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .team-avatar-box img {
+        .team-vertical-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center top;
         }
 
-        .team-avatar-placeholder {
+        .team-avatar-bg-full {
             width: 100%;
             height: 100%;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: var(--accent-copper);
-            background: linear-gradient(135deg, #1e293b, #0f172a);
         }
 
-        .team-info-box { flex-grow: 1; }
-        .team-info-box h4 { font-size: 1.15rem; color: #fff; }
-        .team-info-box .team-role { color: var(--accent-copper); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; }
-        .team-info-box p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem; line-height: 1.4; }
+        .team-vertical-body {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
 
-        .team-controls-row {
+        .team-vertical-body h4 {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 0.2rem;
+            font-weight: 700;
+        }
+
+        .team-vertical-body .team-role {
+            color: var(--accent-copper);
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .team-vertical-body p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.55;
+            margin-bottom: 1.25rem;
+            flex-grow: 1;
+        }
+
+        .team-footer-controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1.25rem;
+            margin-top: 1rem;
         }
 
         .team-nav-arrows {
@@ -1643,27 +1506,31 @@
             gap: 0.5rem;
         }
 
-        .team-nav-btn {
-            background-color: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--border-color);
+        .btn-modal-trigger {
+            background-color: transparent;
             color: var(--text-main);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            gap: 0.4rem;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 0.5rem;
         }
 
-        .team-nav-btn:hover {
+        .btn-modal-trigger:hover {
             background-color: var(--accent-copper);
             border-color: var(--accent-copper);
             color: #fff;
         }
 
-        /* MISIÓN Y VISIÓN INFERIOR DE ANCHO COMPLETO */
+        /* MISIÓN Y VISIÓN ABAJO DE ANCHO COMPLETO */
         .adn-digital-box {
             background-color: rgba(30, 41, 59, 0.75);
             backdrop-filter: blur(8px);
@@ -1698,36 +1565,20 @@
         }
 
         .contact-vector-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-            transform: scaleX(-1);
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none; transform: scaleX(-1);
         }
 
-        .contact-vector-bg svg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .contact-vector-bg svg { width: 100%; height: 100%; object-fit: cover; }
 
         .contact-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, transparent 20%, #0b1120 92%);
         }
 
         .contact-container {
-            position: relative;
-            z-index: 2;
-            max-width: 1150px;
-            margin: 0 auto;
+            position: relative; z-index: 2;
+            max-width: 1150px; margin: 0 auto;
         }
 
         .contact-grid {
@@ -1737,138 +1588,72 @@
             align-items: center;
         }
 
-        .contact-info h3 {
-            font-size: 1.6rem;
-            color: #fff;
-            margin-bottom: 1rem;
-        }
+        .contact-info h3 { font-size: 1.6rem; color: #fff; margin-bottom: 1rem; }
 
         .contact-collab-phrase {
             color: var(--accent-copper);
-            font-size: 1.65rem;
-            font-weight: 800;
-            line-height: 1.3;
-            margin-bottom: 1.5rem;
-            padding-left: 1.25rem;
+            font-size: 1.65rem; font-weight: 800; line-height: 1.3;
+            margin-bottom: 1.5rem; padding-left: 1.25rem;
             border-left: 4px solid var(--accent-copper);
             letter-spacing: -0.3px;
             text-shadow: 0 0 20px rgba(217, 119, 6, 0.25);
         }
 
-        .contact-info p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.65;
-        }
-
-        .contact-details {
-            list-style: none;
-            margin: 2rem 0;
-        }
+        .contact-info p { color: var(--text-muted); font-size: 1rem; line-height: 1.65; }
+        .contact-details { list-style: none; margin: 2rem 0; }
 
         .contact-details li {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.25rem;
-            color: var(--text-main);
-            font-size: 0.98rem;
+            display: flex; align-items: center; gap: 1rem;
+            margin-bottom: 1.25rem; color: var(--text-main); font-size: 0.98rem;
         }
 
         .contact-details i { color: var(--accent-copper); }
 
         .contact-form-card {
-            position: relative;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
+            position: relative; border-radius: 16px;
+            border: 1px solid var(--border-color); overflow: hidden;
             box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
-            background-color: #1e293b;
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
+            background-color: #1e293b; width: 100%; max-width: 480px; margin: 0 auto;
         }
 
         .form-bg-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            z-index: 1;
-            opacity: 0.25;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: center; z-index: 1; opacity: 0.25;
         }
 
         .form-overlay-dark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.94) 0%, rgba(30, 41, 59, 0.9) 100%);
             z-index: 2;
         }
 
-        .contact-form-inner {
-            position: relative;
-            z-index: 3;
-            padding: 2.25rem;
-        }
+        .contact-form-inner { position: relative; z-index: 3; padding: 2.25rem; }
 
         .form-group {
-            margin-bottom: 1.25rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
+            margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem;
         }
 
-        .form-group label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-main);
+        .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; background-color: rgba(15, 23, 42, 0.75);
+            border: 1px solid var(--border-color); border-radius: 8px;
+            padding: 0.75rem 1rem; color: var(--text-main); font-size: 0.92rem;
+            outline: none; transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            background-color: rgba(15, 23, 42, 0.75);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            color: var(--text-main);
-            font-size: 0.92rem;
-            outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             border-color: var(--accent-copper);
             box-shadow: 0 0 12px rgba(217, 119, 6, 0.25);
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 110px;
-        }
-
-        .form-group select option {
-            background-color: #0f172a;
-            color: var(--text-main);
-        }
+        .form-group textarea { resize: vertical; min-height: 110px; }
+        .form-group select option { background-color: #0f172a; color: var(--text-main); }
 
         /* FOOTER */
         footer {
-            padding: 3rem 5%;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            background-color: #0b1120;
-            border-top: 1px solid var(--border-color);
+            padding: 3rem 5%; text-align: center; color: var(--text-muted);
+            font-size: 0.9rem; background-color: #0b1120; border-top: 1px solid var(--border-color);
         }
 
         footer a { color: var(--accent-copper); text-decoration: none; }
@@ -1883,30 +1668,15 @@
             .hero h1 { font-size: 2.2rem; }
             nav { display: none; }
 
-            .sliding-text-container {
-                padding: 0;
-                height: 3.2em;
-            }
+            .sliding-text-container { padding: 0; height: 3.2em; }
 
             .slide-item {
-                height: 3.2em;
-                line-height: 1.25em;
-                white-space: normal;
-                word-break: break-word;
-                text-align: center;
-                font-size: 0.85em;
+                height: 3.2em; line-height: 1.25em; white-space: normal;
+                word-break: break-word; text-align: center; font-size: 0.85em;
             }
 
-            .service-slide, .portfolio-slide { 
-                flex: 0 0 100%; 
-                aspect-ratio: auto; 
-                min-height: 360px; 
-            }
-            
-            .carousel-track {
-                gap: 0;
-            }
-
+            .service-slide, .portfolio-slide { flex: 0 0 100%; aspect-ratio: auto; min-height: 360px; }
+            .carousel-track { gap: 0; }
             .prev-arrow { left: 0.2rem; }
             .next-arrow { right: 0.2rem; }
             .bar-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
@@ -1914,18 +1684,12 @@
             .bar-track { width: 100%; }
             .timeline-wrapper { max-width: 100%; }
 
-            .modal-gallery-grid {
-                grid-template-columns: 1fr !important;
-            }
-            .gallery-item {
-                height: 180px !important;
-            }
-            .lightbox-arrow {
-                width: 40px;
-                height: 40px;
-            }
+            .modal-gallery-grid { grid-template-columns: 1fr !important; }
+            .gallery-item { height: 180px !important; }
+            .lightbox-arrow { width: 40px; height: 40px; }
             .lightbox-prev { left: 0.5rem; }
             .lightbox-next { right: 0.5rem; }
+
             .adn-interactive-wrapper { grid-template-columns: 1fr; }
             .adn-thumbs-column { flex-direction: row; justify-content: space-between; }
         }
@@ -2238,7 +2002,6 @@
                 </div>
             </div>
 
-            <!-- BARRAS COMPARATIVAS ANIMADAS -->
             <div class="comparison-block-inner" id="animatedBarsContainer">
                 <div class="section-title" style="margin-bottom: 2rem;">
                     <h3 style="font-size: 1.6rem; color: #fff;">Impacto Comparativo: Tradicional vs. BIM / CIM</h3>
@@ -2425,7 +2188,7 @@
         </div>
     </div>
 
-    <!-- NOSOTROS REESTRUCTURADO -->
+    <!-- NOSOTROS: 2 COLUMNAS PURAS RESTAURADAS CON DISEÑO IMPECABLE ORIGINAL -->
     <section class="about-section" id="nosotros">
         <div class="about-3d-bg">
             <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -2465,9 +2228,9 @@
                 <div class="esencia-banner-overlay"></div>
             </div>
 
-            <!-- DASHBOARD DINÁMICO DE 2 COLUMNAS -->
+            <!-- 2 COLUMNAS PURAS SIN RECUADROS SOBRANTES -->
             <div class="about-dual-dashboard">
-                <!-- COLUMNA IZQUIERDA: ADN DIGITAL PERMUTABLE -->
+                <!-- COLUMNA IZQUIERDA: ADN DIGITAL (TARJETA LIMPIA CON THUMBS AL COSTADO) -->
                 <div class="dash-column">
                     <div class="dash-header">
                         <h3><i data-lucide="dna"></i> ADN Digital</h3>
@@ -2475,7 +2238,7 @@
                     </div>
 
                     <div class="adn-interactive-wrapper">
-                        <div class="adn-active-card" id="adnActiveCard">
+                        <div class="esencia-card-single" id="adnActiveCard">
                             <span class="esencia-badge" id="adnActiveBadge">INNOV</span>
                             <span class="esencia-tag-pill" id="adnActiveTag">Tec + Data</span>
                             <h4 id="adnActiveTitle">Innovación Conectada</h4>
@@ -2503,49 +2266,53 @@
                     </div>
                 </div>
 
-                <!-- COLUMNA DERECHA: EQUIPO INTEGRAL CON NAVEGACIÓN -->
+                <!-- COLUMNA DERECHA: EQUIPO INTEGRAL (TARJETA VERTICAL EXACTA DE LA VERSIÓN ORIGINAL) -->
                 <div class="dash-column">
                     <div class="dash-header">
                         <h3><i data-lucide="users"></i> Equipo Integral</h3>
                         <p>Profesionales al frente del desarrollo digital, consultoría e interventoría técnica.</p>
                     </div>
 
-                    <div class="team-carousel-wrapper">
-                        <div class="team-card-active">
-                            <div class="team-avatar-box" id="teamActiveAvatar">
-                                <img src="james-zuniga.jpg" alt="Arq. James Ramiro Zúñiga Caipe">
-                            </div>
-                            <div class="team-info-box">
-                                <h4 id="teamActiveName">Arq. James Ramiro Zúñiga Caipe</h4>
-                                <div class="team-role" id="teamActiveRole">Director General & Coordinador BIM / CIM</div>
-                                <p id="teamActiveDesc">Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.</p>
-                                <button class="btn-modal-trigger" id="teamActiveBtn" onclick="openModal('modal-perfil-james')">
-                                    <i data-lucide="user"></i> Ver Perfil Técnico
-                                </button>
-                            </div>
+                    <div class="team-card-vertical">
+                        <div class="team-vertical-avatar" id="teamActiveAvatar">
+                            <img src="james-zuniga.jpg" alt="Arq. James Ramiro Zúñiga Caipe">
                         </div>
-
-                        <div class="team-controls-row">
+                        
+                        <div class="team-vertical-body">
+                            <h4 id="teamActiveName">Arq. James Ramiro Zúñiga Caipe</h4>
+                            <div class="team-role" id="teamActiveRole">Director General & Coordinador BIM / CIM</div>
+                            <p id="teamActiveDesc">Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.</p>
+                            
                             <div class="portfolio-tags" id="teamActiveTags">
                                 <span class="tag">Arq. UDENAR</span>
                                 <span class="tag">buildingSMART</span>
                                 <span class="tag">BIM 5D</span>
                             </div>
 
-                            <div class="team-nav-arrows">
-                                <button class="team-nav-btn" onclick="prevTeamMember()" aria-label="Miembro anterior">
-                                    <i data-lucide="chevron-left"></i>
-                                </button>
-                                <button class="team-nav-btn" onclick="nextTeamMember()" aria-label="Miembro siguiente">
-                                    <i data-lucide="chevron-right"></i>
-                                </button>
+                            <button class="btn-modal-trigger" id="teamActiveBtn" onclick="openModal('modal-perfil-james')">
+                                <i data-lucide="user"></i> Ver Perfil Técnico
+                            </button>
+
+                            <div class="team-footer-controls">
+                                <div style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">
+                                    Miembro <span id="teamCurrentIndex">1</span> de 3
+                                </div>
+
+                                <div class="team-nav-arrows">
+                                    <button class="team-nav-btn" onclick="prevTeamMember()" aria-label="Anterior">
+                                        <i data-lucide="chevron-left"></i>
+                                    </button>
+                                    <button class="team-nav-btn" onclick="nextTeamMember()" aria-label="Siguiente">
+                                        <i data-lucide="chevron-right"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- MISIÓN Y VISIÓN AL PIE DE LAS DOS COLUMNAS -->
+            <!-- MISIÓN Y VISIÓN AL PIE DE ANCHO COMPLETO -->
             <div class="adn-digital-box">
                 <div class="adn-column">
                     <h3><i data-lucide="compass"></i> Misión</h3>
@@ -2581,7 +2348,6 @@
                 • <strong>Certificación Internacional:</strong> buildingSMART Professional Certification — Entry Level.<br>
                 • <strong>Máster BIM Manager Internacional (+IA y VR):</strong> Espacio BIM / ATC Autodesk (En Curso).<br>
                 • <strong>Diplomado BIM Civil (Infraestructuras):</strong> Universidad de Nariño.<br>
-                • <strong>Diplomado BIM Arquitectura e Ingeniería:</strong> Universidad de Nariño.<br>
                 • <strong>Diplomado Ordenamiento Territorial (PBOT/EOT):</strong> ESAP.</p>
             </div>
         </div>
@@ -2909,7 +2675,7 @@
             goToSlide('portfolioTrack', 'portfolio-slide', 0);
         }
 
-        /* LÓGICA DE INTERACCIÓN NOSOTROS (ADN DIGITAL Y EQUIPO) */
+        /* LÓGICA DE INTERACCIÓN NOSOTROS */
         const adnData = [
             {
                 badge: "INNOV",
@@ -2956,7 +2722,7 @@
 
                 card.style.opacity = '1';
                 card.style.transform = 'translateY(0)';
-            }, 200);
+            }, 180);
         }
 
         const teamMembers = [
@@ -2998,12 +2764,13 @@
             document.getElementById('teamActiveName').innerText = member.name;
             document.getElementById('teamActiveRole').innerText = member.role;
             document.getElementById('teamActiveDesc').innerText = member.desc;
+            document.getElementById('teamCurrentIndex').innerText = idx + 1;
 
             const avatarContainer = document.getElementById('teamActiveAvatar');
             if (member.hasImg) {
                 avatarContainer.innerHTML = `<img src="${member.avatar}" alt="${member.name}">`;
             } else {
-                avatarContainer.innerHTML = `<div class="team-avatar-placeholder"><i data-lucide="${member.icon}"></i></div>`;
+                avatarContainer.innerHTML = `<div class="team-avatar-bg-full"><i data-lucide="${member.icon}" style="width: 48px; height: 48px;"></i></div>`;
             }
 
             const tagsContainer = document.getElementById('teamActiveTags');
@@ -3015,7 +2782,7 @@
                 btn.innerHTML = `<i data-lucide="user"></i> Ver Perfil Técnico`;
             } else {
                 btn.setAttribute('onclick', `openPortfolioModalByPosition(${member.portfolioPos})`);
-                btn.innerHTML = `<i data-lucide="file-text"></i> Ver Alcance`;
+                btn.innerHTML = `<i data-lucide="file-text"></i> Ver Alcance Operativo`;
             }
 
             if (window.lucide) lucide.createIcons();
@@ -3171,7 +2938,6 @@
                 if (!res.ok) throw new Error('No se pudo cargar proyectos.json');
                 
                 proyectosGlobales = await res.json();
-
                 proyectosGlobales.sort((a, b) => parseInt(b.year || 0) - parseInt(a.year || 0));
 
                 contenedor.innerHTML = '';

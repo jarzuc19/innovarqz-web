@@ -1323,7 +1323,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.25rem;
-            margin-top: 2.65rem; /* Alinea perfectamente el borde superior de las tarjetas de ADN con la tarjeta profesional */
+            margin-top: 2.65rem;
         }
 
         .esencia-card-2x2 {
@@ -1591,6 +1591,16 @@
 
         .contact-details i { color: var(--accent-copper); }
 
+        .contact-details a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-details a:hover {
+            color: var(--accent-copper);
+        }
+
         .contact-form-card {
             position: relative; border-radius: 16px;
             border: 1px solid var(--border-color); overflow: hidden;
@@ -1749,9 +1759,9 @@
         </div>
     </section>
 
-    <!-- FABs -->
+    <!-- FABs (Botón flotante modificado a mailto) -->
     <div class="floating-actions" id="floatingActions">
-        <a href="#contacto" class="fab-btn fab-contact" title="Solicitar Cotización">
+        <a href="mailto:infobim@innovarqzsas.com" class="fab-btn fab-contact" title="Enviar Correo de Cotización">
             <i data-lucide="mail"></i>
             <span class="fab-tooltip">Cotizar</span>
         </a>
@@ -2221,7 +2231,7 @@
                 <div class="adn-divider"></div>
                 <div class="adn-column">
                     <h3><i data-lucide="cpu"></i> Visión 2031</h3>
-                    <p>Consolidarnos como la firma referente en transformación digital arquitectónica y ordenamiento territorial en Colombia. Pioneros en el desarrollo de <strong>Gemelos Digitales</strong> y modelos CIM aplicados a Smart Cities.</p>
+                    <p>Consolidarnos como la firma referente en transformación digital arquitectónica y ordenamiento territorial en Colombia. Pioneros en el desarrollo de <strong>Gemelos Digitales</strong> y modelos CIM aplicados na Smart Cities.</p>
                 </div>
             </div>
 
@@ -2304,7 +2314,7 @@
                     <p>Ya sea para una consultoría BIM, una licitación pública, supervisión de obra o estructuración de proyectos, nuestro equipo está listo para acompañarte en cada paso del proceso.</p>
 
                     <ul class="contact-details">
-                        <li><i data-lucide="mail"></i> <span>infobim@innovarqzsas.com</span></li>
+                        <li><i data-lucide="mail"></i> <a href="mailto:infobim@innovarqzsas.com">infobim@innovarqzsas.com</a></li>
                         <li><i data-lucide="phone"></i> <span>(+57) 315 850 5885</span></li>
                         <li><i data-lucide="map-pin"></i> <span>Ricaurte, Nariño, Colombia</span></li>
                     </ul>

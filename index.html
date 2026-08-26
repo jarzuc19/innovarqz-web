@@ -617,6 +617,47 @@
             width: 56px;
         }
 
+        /* NAVEGACIÓN INTELIGENTE PARA PORTAFOLIO MULTI-PROYECTO */
+        .portfolio-counter-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 1.75rem;
+        }
+
+        .portfolio-counter-badge {
+            background-color: rgba(30, 41, 59, 0.85);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .portfolio-counter-badge span { color: var(--accent-copper); }
+
+        .portfolio-progress-bar {
+            width: 100%;
+            max-width: 220px;
+            height: 4px;
+            background-color: var(--border-color);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .portfolio-progress-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--accent-copper);
+            transition: width 0.4s ease;
+        }
+
         /* LÍNEA DE TIEMPO CON CARRUSEL INTERNO */
         .timeline-container {
             margin: 2rem 0 2.5rem;
@@ -2225,7 +2266,15 @@
                 <!-- EL CONTENEDOR DEL CARRUSEL SE LLENA DINÁMICAMENTE DESDE PROYECTOS.JSON -->
                 <div class="carousel-track" id="portfolioTrack"></div>
 
-                <div class="carousel-indicators" id="portfolioIndicators"></div>
+                <!-- INDICADOR INTELIGENTE (CONTADOR NUMÉRICO + BARRA PROGRESIVA FLUIDA) -->
+                <div class="portfolio-counter-container" id="portfolioIndicators">
+                    <div class="portfolio-counter-badge">
+                        PROYECTO <span id="portfolioActiveIndex">01</span> / <span id="portfolioTotalCount">01</span>
+                    </div>
+                    <div class="portfolio-progress-bar">
+                        <div class="portfolio-progress-fill" id="portfolioProgressFill"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2546,7 +2595,7 @@
         <p style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">&copy; 2026 InnovArqZ. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- JAVASCRIPT GLOBAL CON NAVEGACIÓN DE LÍNEA DE TIEMPO AJUSTADA -->
+    <!-- JAVASCRIPT GLOBAL CON CONTADOR Y NAVEGACIÓN DINÁMICA DE PORTAFOLIO -->
     <script>
         let proyectosGlobales = [];
         let currentGallery = [];
@@ -2653,19 +2702,34 @@
                 visibleSlides[activeIdx].classList.add('active-slide');
             }
 
-            const indicatorContainer = document.getElementById(
-                trackId === 'servicesTrack' ? 'servicesIndicators' : 'portfolioIndicators'
-            );
+            // ACTUALIZACIÓN DE INDICADORES SEGÚN EL TIPO DE CARRUSEL
+            if (trackId === 'servicesTrack') {
+                const indicatorContainer = document.getElementById('servicesIndicators');
+                if (indicatorContainer) {
+                    indicatorContainer.innerHTML = '';
+                    visibleSlides.forEach((_, idx) => {
+                        const btn = document.createElement('button');
+                        btn.className = `indicator-pill ${idx === activeIdx ? 'active' : ''}`;
+                        btn.type = 'button';
+                        btn.onclick = () => goToSlide(trackId, slideClass, idx);
+                        indicatorContainer.appendChild(btn);
+                    });
+                }
+            } else if (trackId === 'portfolioTrack') {
+                // ACTUALIZACIÓN INTELIGENTE DEL CONTADOR Y BARRA DE PROGRESO
+                const activeEl = document.getElementById('portfolioActiveIndex');
+                const totalEl = document.getElementById('portfolioTotalCount');
+                const fillEl = document.getElementById('portfolioProgressFill');
 
-            if (indicatorContainer) {
-                indicatorContainer.innerHTML = '';
-                visibleSlides.forEach((_, idx) => {
-                    const btn = document.createElement('button');
-                    btn.className = `indicator-pill ${idx === activeIdx ? 'active' : ''}`;
-                    btn.type = 'button';
-                    btn.onclick = () => goToSlide(trackId, slideClass, idx);
-                    indicatorContainer.appendChild(btn);
-                });
+                if (activeEl && totalEl && fillEl) {
+                    const currentNum = String(activeIdx + 1).padStart(2, '0');
+                    const totalNum = String(visibleSlides.length).padStart(2, '0');
+                    const progressPercent = ((activeIdx + 1) / visibleSlides.length) * 100;
+
+                    activeEl.innerText = currentNum;
+                    totalEl.innerText = totalNum;
+                    fillEl.style.width = `${progressPercent}%`;
+                }
             }
         }
 

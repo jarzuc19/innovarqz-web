@@ -877,7 +877,7 @@
 
         .bim-interactive-grid {
             display: grid;
-            grid-template-columns: 1fr 1.1fr;
+            grid-template-columns: 1fr 1.15fr;
             gap: 2.5rem;
             align-items: center;
             margin-top: 2rem;
@@ -943,18 +943,18 @@
             to { transform: rotate(-360deg); }
         }
 
-        /* FICHA PANEL DINÁMICA DE DIMENSIONES / COMPARATIVO */
+        /* FICHA PANEL DINÁMICA DE DIMENSIONES / COMPARATIVO INTEGRADO */
         .dim-panel {
             background-color: rgba(30, 41, 59, 0.75);
             border: 1px solid var(--border-color);
             border-left: 4px solid var(--accent-copper);
             border-radius: 14px;
-            padding: 2.25rem;
+            padding: 2rem 2.25rem;
             backdrop-filter: blur(10px);
-            min-height: 420px;
+            min-height: 450px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
@@ -963,60 +963,64 @@
             display: inline-block;
             background-color: rgba(217, 119, 6, 0.15);
             color: var(--accent-copper);
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 700;
             padding: 0.25rem 0.75rem;
             border-radius: 4px;
-            margin-bottom: 0.85rem;
+            margin-bottom: 0.75rem;
             letter-spacing: 1px;
             align-self: flex-start;
         }
 
-        .dim-panel h3 { font-size: 1.45rem; color: #fff; margin-bottom: 0.75rem; font-weight: 700; line-height: 1.3; }
-        .dim-panel p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.25rem; }
+        .dim-panel h3 { font-size: 1.35rem; color: #fff; margin-bottom: 0.5rem; font-weight: 700; line-height: 1.3; }
+        .dim-panel p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.25rem; }
         .dim-benefits h4 { font-size: 0.92rem; color: #fff; margin-bottom: 0.6rem; font-weight: 700; }
         .dim-benefits ul { list-style: none; }
         .dim-benefits ul li { color: var(--text-muted); font-size: 0.88rem; position: relative; padding-left: 1.2rem; margin-bottom: 0.45rem; line-height: 1.45; }
         .dim-benefits ul li::before { content: "✓"; color: var(--accent-copper); position: absolute; left: 0; font-weight: bold; }
 
-        /* COMPONENTES COMPACTOS DE BARRAS EN LA FICHA DEL MARCO RECTOR */
+        /* BARRAS INTEGRADAS SIN CAJAS CONTENEDORAS */
         .dim-bars-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 1.1rem;
-            margin-top: 0.5rem;
+            gap: 0.75rem;
+            margin-top: 0.2rem;
         }
 
         .dim-bar-group {
-            background-color: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 0.85rem 1rem;
+            background-color: transparent;
+            border: none;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+        }
+        
+        .dim-bar-group:last-child {
+            border-bottom: none;
         }
 
         .dim-bar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.35rem;
         }
 
-        .dim-bar-title { font-size: 0.84rem; font-weight: 700; color: #fff; }
-        .dim-bar-sub { font-size: 0.75rem; color: var(--accent-copper); font-weight: 700; }
-        .dim-bar-pair { display: flex; flex-direction: column; gap: 0.4rem; }
+        .dim-bar-title { font-size: 0.82rem; font-weight: 700; color: #fff; }
+        .dim-bar-sub { font-size: 0.72rem; color: var(--accent-copper); font-weight: 700; }
+        .dim-bar-pair { display: flex; flex-direction: column; gap: 0.3rem; }
         .dim-bar-row { display: flex; align-items: center; gap: 0.6rem; }
-        .dim-bar-lbl { width: 75px; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); flex-shrink: 0; }
-        .dim-bar-track { flex-grow: 1; height: 16px; background-color: rgba(15, 23, 42, 0.8); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); }
+        .dim-bar-lbl { width: 75px; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); flex-shrink: 0; }
+        .dim-bar-track { flex-grow: 1; height: 14px; background-color: rgba(15, 23, 42, 0.8); border-radius: 7px; overflow: hidden; border: 1px solid var(--border-color); }
         
         .dim-bar-fill {
             height: 100%;
             width: 0%;
-            border-radius: 8px;
+            border-radius: 7px;
             display: flex;
             align-items: center;
             justify-content: flex-end;
             padding-right: 6px;
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             font-weight: 800;
             color: #fff;
             opacity: 0;
@@ -1314,17 +1318,12 @@
             font-weight: 700;
         }
 
-        .dash-header-block p {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            margin-top: 0.3rem;
-        }
-
-        /* GRID 2x2 PARA ADN DIGITAL CON ACRÓNIMO PROTAGÓNICO */
+        /* GRID 2x2 PARA ADN DIGITAL CON ACRÓNIMO PROTAGÓNICO (ALINEADO SUPERIORMENTE) */
         .adn-cards-2x2 {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.25rem;
+            margin-top: 2.65rem; /* Alinea perfectamente el borde superior de las tarjetas de ADN con la tarjeta profesional */
         }
 
         .esencia-card-2x2 {
@@ -1645,6 +1644,7 @@
             .about-dual-grid { grid-template-columns: 1fr; }
             .adn-digital-box, .contact-grid { grid-template-columns: 1fr; }
             .adn-divider { display: none; }
+            .adn-cards-2x2 { margin-top: 0; }
         }
 
         @media (max-width: 900px) {
@@ -1975,11 +1975,11 @@
                 <!-- PANEL INTERACTIVO DINÁMICO (DESPLIEGA MARCO RECTOR O DIMENSIONES) -->
                 <div class="dim-panel" id="dimPanel">
                     <div class="dim-badge" id="dimBadge">ESTÁNDAR GENERAL ISO 19650</div>
-                    <h3 id="dimTitle">Impacto Comparativo: Tradicional vs. BIM / CIM</h3>
-                    <p id="dimDesc">Análisis cuantitativo de eficiencia, precisión en presupuestos y mitigación de riesgos operativos frente a la metodología CAD tradicional.</p>
+                    <h3 id="dimTitle">Tradicional Vs. BIM/CIM</h3>
+                    <p id="dimDesc">Gráfica de impacto comparativo que analiza de manera cuantitativa la eficiencia operativa, la precisión presupuestal y la mitigación de riesgos frente al modelado CAD tradicional.</p>
                     
                     <div id="dimContentArea">
-                        <!-- LAS BARRAS ANIMADAS SE RENDERIZAN DINÁMICAMENTE AQUÍ AL ESTAR EN ISO -->
+                        <!-- LAS 4 BARRAS ANIMADAS SE RENDERIZAN DINÁMICAMENTE AQUÍ AL ESTAR EN ISO -->
                     </div>
                 </div>
             </div>
@@ -2132,7 +2132,6 @@
                 <div>
                     <div class="dash-header-block">
                         <h3><i data-lucide="dna" style="color: var(--accent-copper);"></i> ADN Digital</h3>
-                        <p>Haz clic en los pilares para explorar nuestro enfoque técnico.</p>
                     </div>
 
                     <div class="adn-cards-2x2">
@@ -2403,7 +2402,7 @@
             goToSlide('servicesTrack', 'service-slide', 0);
             cargarPortafolioDinamico();
             
-            // INICIALIZA EL ESTADO 0 EN LA SECCIÓN BIM (MARCO RECTOR ISO Y BARRAS COMPARATIVAS)
+            // INICIALIZA EL ESTADO 0 EN LA SECCIÓN BIM (MARCO RECTOR ISO Y 4 BARRAS COMPARATIVAS)
             selectDimension('iso');
         });
 
@@ -2732,7 +2731,7 @@
             }
         ];
 
-        /* SELECCIÓN DINÁMICA: MARCO RECTOR ISO O DIMENSIÓN ESPECÍFICA */
+        /* SELECCIÓN DINÁMICA: MARCO RECTOR ISO O DIMENSIÓN ESPECÍFICA CON LAS 4 BARRAS INTEGRADAS */
         function selectDimension(index) {
             const gears = document.querySelectorAll('.gear-item');
             const isoOuter = document.getElementById('isoOuterRing');
@@ -2742,13 +2741,12 @@
             const descEl = document.getElementById('dimDesc');
 
             if (index === 'iso') {
-                // ACTIVAR ANILLO RECTOR ISO GRANDE Y DESACTIVAR ENGRANAJES
                 gears.forEach(g => g.classList.remove('active'));
                 if (isoOuter) isoOuter.classList.add('active-iso');
 
                 badgeEl.innerText = "ESTÁNDAR GENERAL ISO 19650";
-                titleEl.innerText = "Impacto Comparativo: Tradicional vs. BIM / CIM";
-                descEl.innerText = "Análisis cuantitativo de eficiencia, precisión en presupuestos y mitigación de riesgos operativos frente a la metodología CAD tradicional.";
+                titleEl.innerText = "Tradicional Vs. BIM/CIM";
+                descEl.innerText = "Gráfica de impacto comparativo que analiza de manera cuantitativa la eficiencia operativa, la precisión presupuestal y la mitigación de riesgos frente al modelado CAD tradicional.";
 
                 contentArea.innerHTML = `
                     <div class="dim-bars-wrapper">
@@ -2802,10 +2800,26 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="dim-bar-group">
+                            <div class="dim-bar-header">
+                                <span class="dim-bar-title">Efectividad en Operación (BIM 7D)</span>
+                                <span class="dim-bar-sub">Información As-Built Digitalizada</span>
+                            </div>
+                            <div class="dim-bar-pair">
+                                <div class="dim-bar-row">
+                                    <span class="dim-bar-lbl">Tradicional</span>
+                                    <div class="dim-bar-track"><div class="dim-bar-fill trad" data-val="15%">15%</div></div>
+                                </div>
+                                <div class="dim-bar-row">
+                                    <span class="dim-bar-lbl">BIM / CIM</span>
+                                    <div class="dim-bar-track"><div class="dim-bar-fill bim" data-val="88%">88%</div></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 `;
 
-                // ANIMAR BARRAS LUEGO DE INSERTAR EN EL DOM
                 setTimeout(() => {
                     const fills = contentArea.querySelectorAll('.dim-bar-fill');
                     fills.forEach(f => {
@@ -2815,7 +2829,6 @@
                 }, 50);
 
             } else {
-                // ACTIVAR ENGRANAJE PEQUEÑO DE DIMENSIÓN ESPECÍFICA
                 if (isoOuter) isoOuter.classList.remove('active-iso');
                 gears.forEach((g, idx) => {
                     if (idx === index) g.classList.add('active');

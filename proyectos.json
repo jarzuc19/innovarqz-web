@@ -30,18 +30,5 @@
     "galleryUrls": [],
     "scope": "Modelado estructural de cerchas de cubierta, revisión de paneles de cielo raso y auditoría de APU para equipamiento público e institucional. Levantamiento de interferencias constructivas previa instalación y verificación de especificaciones de norma sismorresistente colombiana.",
     "tools": "• Estructura & Detalles: Autodesk Revit\n• Detección de Interferencias: Navisworks Manage\n• Presupuesto & Metrados: Hojas de cálculo automatizadas en Python / APU"
-  },
-  {
-    "id": "proj-1787559767848",
-    "title": "Módulo de Control & Estructura Metálica",
-    "subtitle": "Tumaco, Colombia — Consultoría & Coordinación OpenBIM",
-    "year": "2023",
-    "category": "bim",
-    "standard": "ISO 19650",
-    "software": "Software APU",
-    "coverUrl": "https://lh3.googleusercontent.com/d/1a5iBdoMwiFzi5ovuW5xVuW3D9V0nqSfZ",
-    "galleryUrls": [],
-    "scope": "Modelado técnico detallado, estructuración de presupuesto base e integración APU para módulo de control en infraestructura municipal. Incluye optimización de cuantificación de materiales, predimensionamiento estructural y coordinación bajo estándares de modelado abierto para control de costos e interventoría.",
-    "tools": "• Modelado & Estructuras: Autodesk Revit + Dynamo Scripting\n• Costos & APU: Análisis de Precios Unitarios integrados\n• Coordinación & Intercambio: Entorno Común de Datos (CDE) / IFC (OpenBIM)"
   }
 ]

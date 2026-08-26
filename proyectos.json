@@ -1,5 +1,23 @@
 [
   {
+    "id": "proj-1787729210726",
+    "title": "Mantenimiento Vial Vereda San Pablo - Cuaiquer",
+    "subtitle": "Ricaurte, Nariño — Residencia Técnica ORA Constructores",
+    "year": "2026",
+    "category": "obra",
+    "standard": "BIM 5D",
+    "software": "AutoCAD Civil 3D",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1DqvV6xv5u45IhHuV81z0G3KdZwDoQCpP",
+    "galleryUrls": [
+      "https://lh3.googleusercontent.com/d/1DYNHAunbJdbr7-zoP5OebNjBhy_BLUUu",
+      "https://lh3.googleusercontent.com/d/1pvyOIR4kBgEQmL-vCZ0ctLzYp0YFt5VE",
+      "https://lh3.googleusercontent.com/d/1ncNCR1uJ9KMlIWJtzqQ350GhGLpkIETX",
+      "https://lh3.googleusercontent.com/d/157d0E-8ijFOy3_CjqlaQQZWaf_GcaZI5"
+    ],
+    "scope": "[EJERCICIO PROFESIONAL / RESIDENCIA Y CONTROL CONTRACTUAL] Gestión integral técnica y administrativa de obra vial en el Contrato SAMC-0122025. Elaboración de preactas, actas parciales, finales y numéricas. Control financiero: seguimiento a balances de mayores/menores cantidades, análisis de APUs y formulación de actas de modificación contractual.",
+    "tools": "• Control de Cantidades: Excel Avanzado\n• Control Financiero: Análisis de Precios Unitarios (APU)\n• Gestión de Proyecto: Control de Cronogramas y Balance de Cantidades"
+  },
+  {
     "id": "proj-1787728149312",
     "title": "Casa de Pensamiento Awá & Sistemas de Saneamiento Básico",
     "subtitle": "Tumaco, Nariño — Residencia de Obra Red ADELCO",

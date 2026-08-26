@@ -838,7 +838,7 @@
             font-weight: 600;
         }
 
-        /* METODOLOGÍA BIM/CIM */
+        /* METODOLOGÍA BIM/CIM CON INTERACCIÓN TOTAL */
         .bim-section {
             position: relative;
             background-color: var(--bg-dark);
@@ -871,16 +871,16 @@
         .bim-container {
             position: relative;
             z-index: 2;
-            max-width: 1050px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         .bim-interactive-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 2.5rem;
             align-items: center;
-            margin-top: 2.5rem;
+            margin-top: 2rem;
         }
 
         .gears-container {
@@ -892,6 +892,23 @@
 
         .gears-svg { width: 100%; height: auto; display: block; overflow: visible; }
 
+        /* INTERACCIÓN MARCO RECTOR ANILLO GRANDE */
+        .gear-iso-outer {
+            transform-origin: 260px 260px;
+            animation: rotateClockwise 60s linear infinite;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+        }
+
+        .gear-iso-outer:hover, .gear-iso-outer.active-iso {
+            filter: drop-shadow(0 0 16px rgba(217, 119, 6, 0.85));
+        }
+
+        .gear-iso-outer.active-iso circle:nth-child(3) {
+            stroke: var(--accent-copper);
+            stroke-width: 3px;
+        }
+
         .gear-item {
             cursor: pointer;
             transition: filter 0.3s;
@@ -901,11 +918,6 @@
 
         .gear-item:nth-child(odd) { animation: rotateClockwise 25s linear infinite; }
         .gear-item:nth-child(even) { animation: rotateCounterClockwise 25s linear infinite; }
-
-        .gear-iso-outer {
-            transform-origin: 260px 260px;
-            animation: rotateClockwise 60s linear infinite;
-        }
 
         .gear-text {
             fill: #ffffff;
@@ -931,14 +943,20 @@
             to { transform: rotate(-360deg); }
         }
 
+        /* FICHA PANEL DINÁMICA DE DIMENSIONES / COMPARATIVO */
         .dim-panel {
-            background-color: rgba(30, 41, 59, 0.65);
+            background-color: rgba(30, 41, 59, 0.75);
             border: 1px solid var(--border-color);
             border-left: 4px solid var(--accent-copper);
-            border-radius: 12px;
-            padding: 2.5rem;
-            backdrop-filter: blur(8px);
-            min-height: 320px;
+            border-radius: 14px;
+            padding: 2.25rem;
+            backdrop-filter: blur(10px);
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .dim-badge {
@@ -949,71 +967,65 @@
             font-weight: 700;
             padding: 0.25rem 0.75rem;
             border-radius: 4px;
-            margin-bottom: 1rem;
+            margin-bottom: 0.85rem;
             letter-spacing: 1px;
+            align-self: flex-start;
         }
 
-        .dim-panel h3 { font-size: 1.5rem; color: #fff; margin-bottom: 0.8rem; }
-        .dim-panel p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
-        .dim-benefits h4 { font-size: 0.95rem; color: #fff; margin-bottom: 0.6rem; }
+        .dim-panel h3 { font-size: 1.45rem; color: #fff; margin-bottom: 0.75rem; font-weight: 700; line-height: 1.3; }
+        .dim-panel p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.25rem; }
+        .dim-benefits h4 { font-size: 0.92rem; color: #fff; margin-bottom: 0.6rem; font-weight: 700; }
         .dim-benefits ul { list-style: none; }
-        .dim-benefits ul li { color: var(--text-muted); font-size: 0.9rem; position: relative; padding-left: 1.25rem; margin-bottom: 0.4rem; }
+        .dim-benefits ul li { color: var(--text-muted); font-size: 0.88rem; position: relative; padding-left: 1.2rem; margin-bottom: 0.45rem; line-height: 1.45; }
         .dim-benefits ul li::before { content: "✓"; color: var(--accent-copper); position: absolute; left: 0; font-weight: bold; }
 
-        /* BARRAS COMPARATIVAS */
-        .comparison-block-inner {
-            margin-top: 4.5rem;
-            padding-top: 3.5rem;
-            border-top: 1px solid rgba(51, 65, 85, 0.6);
-        }
-
-        .comparison-legend {
+        /* COMPONENTES COMPACTOS DE BARRAS EN LA FICHA DEL MARCO RECTOR */
+        .dim-bars-wrapper {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2.5rem;
+            flex-direction: column;
+            gap: 1.1rem;
+            margin-top: 0.5rem;
         }
 
-        .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; }
-        .legend-color { width: 14px; height: 14px; border-radius: 3px; }
-        .legend-color.trad { background-color: var(--trad-color); }
-        .legend-color.bim { background-color: var(--bim-color); }
-
-        .bar-metric-group {
-            margin-bottom: 1.75rem;
-            background-color: rgba(30, 41, 59, 0.65);
+        .dim-bar-group {
+            background-color: rgba(15, 23, 42, 0.6);
             border: 1px solid var(--border-color);
-            padding: 1.35rem 1.6rem;
-            border-radius: 10px;
-            backdrop-filter: blur(8px);
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
         }
 
-        .metric-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; }
-        .metric-title { font-size: 0.98rem; font-weight: 700; color: var(--text-main); }
-        .metric-sub { font-size: 0.8rem; color: var(--accent-copper); font-weight: 600; }
-        .bar-pair { display: flex; flex-direction: column; gap: 0.6rem; }
-        .bar-row { display: flex; align-items: center; gap: 1rem; }
-        .bar-label { width: 110px; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); flex-shrink: 0; }
-        .bar-track { flex-grow: 1; height: 22px; background-color: rgba(15, 23, 42, 0.7); border-radius: 11px; overflow: hidden; position: relative; border: 1px solid var(--border-color); }
+        .dim-bar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
 
-        .bar-fill {
+        .dim-bar-title { font-size: 0.84rem; font-weight: 700; color: #fff; }
+        .dim-bar-sub { font-size: 0.75rem; color: var(--accent-copper); font-weight: 700; }
+        .dim-bar-pair { display: flex; flex-direction: column; gap: 0.4rem; }
+        .dim-bar-row { display: flex; align-items: center; gap: 0.6rem; }
+        .dim-bar-lbl { width: 75px; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); flex-shrink: 0; }
+        .dim-bar-track { flex-grow: 1; height: 16px; background-color: rgba(15, 23, 42, 0.8); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); }
+        
+        .dim-bar-fill {
             height: 100%;
             width: 0%;
-            border-radius: 11px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            padding-right: 10px;
-            font-size: 0.75rem;
+            padding-right: 6px;
+            font-size: 0.68rem;
             font-weight: 800;
             color: #fff;
             opacity: 0;
-            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+            transition: width 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
         }
 
-        .bar-fill.active-fill { opacity: 1; }
-        .bar-fill.trad { background: linear-gradient(90deg, #b91c1c, var(--trad-color)); }
-        .bar-fill.bim { background: linear-gradient(90deg, #059669, var(--bim-color)); }
+        .dim-bar-fill.active-fill { opacity: 1; }
+        .dim-bar-fill.trad { background: linear-gradient(90deg, #b91c1c, var(--trad-color)); }
+        .dim-bar-fill.bim { background: linear-gradient(90deg, #059669, var(--bim-color)); }
 
         /* MODALES */
         .modal-overlay {
@@ -1651,9 +1663,6 @@
             .carousel-track { gap: 0; }
             .prev-arrow { left: 0.2rem; }
             .next-arrow { right: 0.2rem; }
-            .bar-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
-            .bar-label { width: 100%; }
-            .bar-track { width: 100%; }
             .timeline-wrapper { max-width: 100%; }
 
             .modal-gallery-grid { grid-template-columns: 1fr !important; }
@@ -1874,7 +1883,7 @@
         </div>
     </section>
 
-    <!-- Metodología BIM/CIM -->
+    <!-- Metodología BIM/CIM CON NAVEGACIÓN COMPLETA DESDE EL MARCO RECTOR -->
     <section id="bim-cim" class="bim-section">
         <div class="bim-3d-bg">
             <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -1900,23 +1909,26 @@
         <div class="bim-container">
             <div class="section-title">
                 <h2>Ecosistema Metodológico BIM / CIM</h2>
-                <p>Sincronización de procesos y gestión de información bajo el marco ISO 19650.</p>
+                <p>Haz clic en el anillo rector o en cualquier dimensión para explorar el alcance y métricas comparativas.</p>
             </div>
 
             <div class="bim-interactive-grid">
+                <!-- GRÁFICO INTERACTIVO SVG -->
                 <div class="gears-container">
                     <svg viewBox="0 -20 520 540" class="gears-svg">
                         <text x="260" y="-2" text-anchor="middle" fill="var(--accent-copper)" font-size="15" font-weight="800" letter-spacing="4">MARCO RECTOR ISO 19650</text>
 
-                        <g class="gear-iso-outer">
-                            <circle cx="260" cy="260" r="250" fill="none" stroke="rgba(217, 119, 6, 0.2)" stroke-width="2" />
-                            <circle cx="260" cy="260" r="240" fill="none" stroke="rgba(59, 130, 246, 0.3)" stroke-width="12" stroke-dasharray="10, 14" />
+                        <!-- MARCO RECTOR: ANILLO EXTERIOR GRANDE INTERACTIVO (ESTADO 0) -->
+                        <g class="gear-iso-outer active-iso" id="isoOuterRing" onclick="selectDimension('iso')">
+                            <circle cx="260" cy="260" r="250" fill="none" stroke="rgba(217, 119, 6, 0.25)" stroke-width="2" />
+                            <circle cx="260" cy="260" r="240" fill="none" stroke="rgba(59, 130, 246, 0.35)" stroke-width="12" stroke-dasharray="10, 14" />
                             <circle cx="260" cy="260" r="228" fill="#0f172a" stroke="rgba(217, 119, 6, 0.4)" stroke-width="2" />
                         </g>
 
                         <path d="M 80 180 C 160 100, 240 320, 320 200 C 370 120, 430 300, 440 340" fill="none" stroke="rgba(217, 119, 6, 0.15)" stroke-width="1.5" stroke-dasharray="4, 6" />
 
-                        <g class="gear-item active" id="gear-0" onclick="selectDimension(0)">
+                        <!-- ENGRANAJES INDIVIDUALES (1D A 7D) -->
+                        <g class="gear-item" id="gear-0" onclick="selectDimension(0)">
                             <circle cx="95" cy="180" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
                             <circle cx="95" cy="180" r="43" fill="#1e293b" stroke="var(--accent-copper)" stroke-width="2" />
                             <circle cx="95" cy="180" r="16" fill="#0f172a" stroke="var(--border-color)" stroke-width="1.5" />
@@ -1960,103 +1972,14 @@
                     </svg>
                 </div>
 
+                <!-- PANEL INTERACTIVO DINÁMICO (DESPLIEGA MARCO RECTOR O DIMENSIONES) -->
                 <div class="dim-panel" id="dimPanel">
-                    <div class="dim-badge" id="dimBadge">DIMENSIÓN 1D / 2D</div>
-                    <h3 id="dimTitle">Estructuración, Ideas & Planimetría Base</h3>
-                    <p id="dimDesc">Definición inicial del proyecto, condicionantes normativos, factibilidad técnica y generación de documentación bidimensional estandarizada para trámites y licencias.</p>
-                    <div class="dim-benefits">
-                        <h4>Beneficios Clave:</h4>
-                        <ul id="dimList">
-                            <li>Línea base documental bajo estándares de intercambio CDE.</li>
-                            <li>Estudios de cabida y viabilidad legal/urbanística.</li>
-                            <li>Definición de Términos de Referencia y Plan de Ejecución BIM (BEP).</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="comparison-block-inner" id="animatedBarsContainer">
-                <div class="section-title" style="margin-bottom: 2rem;">
-                    <h3 style="font-size: 1.6rem; color: #fff;">Impacto Comparativo: Tradicional vs. BIM / CIM</h3>
-                    <p>Análisis cuantitativo de eficiencia, precisión y control de riesgos operativos.</p>
-                </div>
-
-                <div class="comparison-legend">
-                    <div class="legend-item">
-                        <div class="legend-color trad"></div>
-                        <span>Metodología Tradicional (2D / CAD)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color bim"></div>
-                        <span>Metodología BIM / CIM (InnovArqZ)</span>
-                    </div>
-                </div>
-
-                <div class="bar-metric-group">
-                    <div class="metric-header">
-                        <span class="metric-title">Precisión en Cómputos Métricos y Presupuestos (BIM 5D)</span>
-                        <span class="metric-sub">+60% de Exactitud Financiera</span>
-                    </div>
-                    <div class="bar-pair">
-                        <div class="bar-row">
-                            <span class="bar-label">Tradicional</span>
-                            <div class="bar-track"><div class="bar-fill trad" data-target="35%">35%</div></div>
-                        </div>
-                        <div class="bar-row">
-                            <span class="bar-label">BIM / CIM</span>
-                            <div class="bar-track"><div class="bar-fill bim" data-target="95%">95%</div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bar-metric-group">
-                    <div class="metric-header">
-                        <span class="metric-title">Detección y Mitigación de Interferencias en Diseño</span>
-                        <span class="metric-sub">Reducción drástica de re-trabajos</span>
-                    </div>
-                    <div class="bar-pair">
-                        <div class="bar-row">
-                            <span class="bar-label">Tradicional</span>
-                            <div class="bar-track"><div class="bar-fill trad" data-target="20%">20%</div></div>
-                        </div>
-                        <div class="bar-row">
-                            <span class="bar-label">BIM / CIM</span>
-                            <div class="bar-track"><div class="bar-fill bim" data-target="90%">90%</div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bar-metric-group">
-                    <div class="metric-header">
-                        <span class="metric-title">Optimización del Tiempo en Planificación y Obra</span>
-                        <span class="metric-sub">Cumplimiento de Cronogramas (BIM 4D)</span>
-                    </div>
-                    <div class="bar-pair">
-                        <div class="bar-row">
-                            <span class="bar-label">Tradicional</span>
-                            <div class="bar-track"><div class="bar-fill trad" data-target="40%">40%</div></div>
-                        </div>
-                        <div class="bar-row">
-                            <span class="bar-label">BIM / CIM</span>
-                            <div class="bar-track"><div class="bar-fill bim" data-target="85%">85%</div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bar-metric-group">
-                    <div class="metric-header">
-                        <span class="metric-title">Efectividad en Mantenimiento y Operación (BIM 7D)</span>
-                        <span class="metric-sub">Información As-Built Digitalizada</span>
-                    </div>
-                    <div class="bar-pair">
-                        <div class="bar-row">
-                            <span class="bar-label">Tradicional</span>
-                            <div class="bar-track"><div class="bar-fill trad" data-target="15%">15%</div></div>
-                        </div>
-                        <div class="bar-row">
-                            <span class="bar-label">BIM / CIM</span>
-                            <div class="bar-track"><div class="bar-fill bim" data-target="88%">88%</div></div>
-                        </div>
+                    <div class="dim-badge" id="dimBadge">ESTÁNDAR GENERAL ISO 19650</div>
+                    <h3 id="dimTitle">Impacto Comparativo: Tradicional vs. BIM / CIM</h3>
+                    <p id="dimDesc">Análisis cuantitativo de eficiencia, precisión en presupuestos y mitigación de riesgos operativos frente a la metodología CAD tradicional.</p>
+                    
+                    <div id="dimContentArea">
+                        <!-- LAS BARRAS ANIMADAS SE RENDERIZAN DINÁMICAMENTE AQUÍ AL ESTAR EN ISO -->
                     </div>
                 </div>
             </div>
@@ -2447,7 +2370,7 @@
         <p style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">&copy; 2026 InnovArqZ. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- JAVASCRIPT GLOBAL -->
+    <!-- JAVASCRIPT GLOBAL CON NAVEGACIÓN TOTAL ISO DE BARRAS METRICAS -->
     <script>
         let proyectosGlobales = [];
         let currentGallery = [];
@@ -2473,37 +2396,15 @@
                         });
                     }
                 });
-            }, {
-                rootMargin: '-25% 0px -55% 0px'
-            });
+            }, { rootMargin: '-25% 0px -55% 0px' });
 
             sections.forEach(section => sectionObserver.observe(section));
 
-            const animatedContainer = document.getElementById('animatedBarsContainer');
-            if (animatedContainer) {
-                const barObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        const barFills = entry.target.querySelectorAll('.bar-fill');
-                        if (entry.isIntersecting) {
-                            barFills.forEach(bar => {
-                                const targetWidth = bar.getAttribute('data-target');
-                                bar.style.width = targetWidth;
-                                bar.classList.add('active-fill');
-                            });
-                        } else {
-                            barFills.forEach(bar => {
-                                bar.style.width = '0%';
-                                bar.classList.remove('active-fill');
-                            });
-                        }
-                    });
-                }, { threshold: 0.2 });
-
-                barObserver.observe(animatedContainer);
-            }
-
             goToSlide('servicesTrack', 'service-slide', 0);
             cargarPortafolioDinamico();
+            
+            // INICIALIZA EL ESTADO 0 EN LA SECCIÓN BIM (MARCO RECTOR ISO Y BARRAS COMPARATIVAS)
+            selectDimension('iso');
         });
 
         const carouselIndices = {
@@ -2767,6 +2668,7 @@
             }
         });
 
+        /* DATOS DE DIMENSIONES E IMPACTO COMPARATIVO */
         const dimData = [
             {
                 badge: "DIMENSIÓN 1D / 2D",
@@ -2830,24 +2732,111 @@
             }
         ];
 
+        /* SELECCIÓN DINÁMICA: MARCO RECTOR ISO O DIMENSIÓN ESPECÍFICA */
         function selectDimension(index) {
             const gears = document.querySelectorAll('.gear-item');
-            gears.forEach((g, idx) => {
-                if (idx === index) {
-                    g.classList.add('active');
-                } else {
-                    g.classList.remove('active');
-                }
-            });
+            const isoOuter = document.getElementById('isoOuterRing');
+            const contentArea = document.getElementById('dimContentArea');
+            const badgeEl = document.getElementById('dimBadge');
+            const titleEl = document.getElementById('dimTitle');
+            const descEl = document.getElementById('dimDesc');
 
-            const data = dimData[index];
-            if (data) {
-                document.getElementById('dimBadge').innerText = data.badge;
-                document.getElementById('dimTitle').innerText = data.title;
-                document.getElementById('dimDesc').innerText = data.desc;
-                
-                const listContainer = document.getElementById('dimList');
-                listContainer.innerHTML = data.benefits.map(b => `<li>${b}</li>`).join('');
+            if (index === 'iso') {
+                // ACTIVAR ANILLO RECTOR ISO GRANDE Y DESACTIVAR ENGRANAJES
+                gears.forEach(g => g.classList.remove('active'));
+                if (isoOuter) isoOuter.classList.add('active-iso');
+
+                badgeEl.innerText = "ESTÁNDAR GENERAL ISO 19650";
+                titleEl.innerText = "Impacto Comparativo: Tradicional vs. BIM / CIM";
+                descEl.innerText = "Análisis cuantitativo de eficiencia, precisión en presupuestos y mitigación de riesgos operativos frente a la metodología CAD tradicional.";
+
+                contentArea.innerHTML = `
+                    <div class="dim-bars-wrapper">
+                        <div class="dim-bar-group">
+                            <div class="dim-bar-header">
+                                <span class="dim-bar-title">Precisión Presupuestal (BIM 5D)</span>
+                                <span class="dim-bar-sub">+60% Exactitud Financiera</span>
+                            </div>
+                            <div class="dim-bar-pair">
+                                <div class="dim-bar-row">
+                                    <span class="dim-bar-lbl">Tradicional</span>
+                                    <div class="dim-bar-track"><div class="dim-bar-fill trad" data-val="35%">35%</div></div>
+                                </div>
+                                <div class="dim-bar-row">
+                                    <span class="dim-bar-lbl">BIM / CIM</span>
+                                    <div class="dim-bar-track"><div class="dim-bar-fill bim" data-val="95%">95%</div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dim-bar-group">
+                            <div class="dim-bar-header">
+                                <span class="dim-bar-title">Mitigación de Colisiones / Interferencias</span>
+                                <span class="dim-bar-sub">-90% de Re-trabajos</span>
+                            </div>
+                            <div class="dim-bar-pair">
+                                <div class="dim-bar-row">
+                                    <span class="dim-bar-lbl">Tradicional</span>
+                                    <div class="dim-bar-track"><div class="dim-bar-fill trad" data-val="20%">20%</div></div>
+                                </div>
+                                <div class="dim-bar-row">
+                                    <span class="dim-bar-lbl">BIM / CIM</span>
+                                    <div class="dim-bar-track"><div class="dim-bar-fill bim" data-val="90%">90%</div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dim-bar-group">
+                            <div class="dim-bar-header">
+                                <span class="dim-bar-title">Cumplimiento de Plazos (BIM 4D)</span>
+                                <span class="dim-bar-sub">+45% Eficiencia Temporal</span>
+                            </div>
+                            <div class="dim-bar-pair">
+                                <div class="dim-bar-row">
+                                    <span class="dim-bar-lbl">Tradicional</span>
+                                    <div class="dim-bar-track"><div class="dim-bar-fill trad" data-val="40%">40%</div></div>
+                                </div>
+                                <div class="dim-bar-row">
+                                    <span class="dim-bar-lbl">BIM / CIM</span>
+                                    <div class="dim-bar-track"><div class="dim-bar-fill bim" data-val="85%">85%</div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // ANIMAR BARRAS LUEGO DE INSERTAR EN EL DOM
+                setTimeout(() => {
+                    const fills = contentArea.querySelectorAll('.dim-bar-fill');
+                    fills.forEach(f => {
+                        f.style.width = f.getAttribute('data-val');
+                        f.classList.add('active-fill');
+                    });
+                }, 50);
+
+            } else {
+                // ACTIVAR ENGRANAJE PEQUEÑO DE DIMENSIÓN ESPECÍFICA
+                if (isoOuter) isoOuter.classList.remove('active-iso');
+                gears.forEach((g, idx) => {
+                    if (idx === index) g.classList.add('active');
+                    else g.classList.remove('active');
+                });
+
+                const data = dimData[index];
+                if (data) {
+                    badgeEl.innerText = data.badge;
+                    titleEl.innerText = data.title;
+                    descEl.innerText = data.desc;
+
+                    contentArea.innerHTML = `
+                        <div class="dim-benefits">
+                            <h4>Beneficios Clave:</h4>
+                            <ul>
+                                ${data.benefits.map(b => `<li>${b}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
             }
         }
 

@@ -2192,17 +2192,17 @@
                         </div>
                     </div>
 
-                    <button class="timeline-nav-btn" onclick="scrollTimeline(-1)" type="button" aria-label="Año anterior">
+                    <button class="timeline-nav-btn" onclick="scrollTimeline('left')" type="button" aria-label="Año anterior">
                         <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
                     </button>
 
-                    <div class="timeline-viewport">
+                    <div class="timeline-viewport" id="timelineViewport">
                         <div class="timeline-track-inner" id="timelineTrackInner">
                             <!-- Se renderizan los años dinámicamente desde JS -->
                         </div>
                     </div>
 
-                    <button class="timeline-nav-btn" onclick="scrollTimeline(1)" type="button" aria-label="Año siguiente">
+                    <button class="timeline-nav-btn" onclick="scrollTimeline('right')" type="button" aria-label="Año siguiente">
                         <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
                     </button>
                 </div>

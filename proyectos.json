@@ -20,7 +20,7 @@
   {
     "id": "proj-1787733492524",
     "title": "Implementación de Metodología BIM en Vivienda Multifamiliar",
-    "subtitle": "Cali, Valle del Cauca, Colombia — Trabajo de Grado de Coordinación BIM Interdisciplinaria",
+    "subtitle": "Cali, Valle del Cauca, Colombia — Trabajo de Grado de Coordinación BIM Interdisciplinaria para el título de Arquitecto",
     "year": "2026",
     "category": "bim",
     "standard": "ISO 19650",
@@ -32,7 +32,7 @@
       "https://lh3.googleusercontent.com/d/1C4nWu0aS931EBpWXO51X20H2_hAqMXpi",
       "https://lh3.googleusercontent.com/d/10kOtSE6MJZmZTIWc5sRzAYk0-s_i0aJR"
     ],
-    "scope": "Gestión e integración multidisciplinar de una edificación multifamiliar de 4 niveles y terraza. Desarrollo del modelo federado articulando las especialidades de Estructura (NSR-10, secuencias de fases constructivas), Arquitectura paramétrica (zonificación y acabados) e Instalaciones MEP (redes eléctricas, HVAC e hidrosanitarias con librerías comerciales). Implementación del Entorno Común de Datos (CDE), protocolos ISO 19650 y OpenBIM (IFC). Detección automatizada de colisiones (Clash Detection) por niveles y especialidades, generación de reportes HTML de interferencias y extracción de cómputos métricos.",
+    "scope": "Gestión e integración multidisciplinar de una edificación multifamiliar de 4 niveles y terraza como práctica del Diplomado BIM para la Arquitectura y la Ingeniería, Primera promoción 2023. Desarrollo del modelo federado articulando las especialidades de Estructura (NSR-10, secuencias de fases constructivas), Arquitectura paramétrica (zonificación y acabados) e Instalaciones MEP (redes eléctricas, HVAC e hidrosanitarias con librerías comerciales). Implementación del Entorno Común de Datos (CDE), protocolos ISO 19650 y OpenBIM (IFC). Detección automatizada de colisiones (Clash Detection) por niveles y especialidades, generación de reportes HTML de interferencias y extracción de cómputos métricos.",
     "tools": "•Modelado & Documentación: Autodesk Revit (Estructura, Arquitectura, MEP) \n•Coordinación & Interferencias: Navisworks Manage (Clash Detective) + CDE \n•Interoperabilidad & Estándares: OpenBIM (IFC) / ISO 19650\n"
   },
   {

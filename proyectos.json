@@ -1,5 +1,25 @@
 [
   {
+    "id": "proj-1787730245535",
+    "title": "Infraestructura Educativa & Estructuras Metálicas Sector Río Güiza",
+    "subtitle": "Ricaurte, Nariño — Residencia Técnica de Campo",
+    "year": "2025",
+    "category": "obra",
+    "standard": "NSR-10",
+    "software": "Control de APU / Presupuesto",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1wcLV1o26yTUDf5l30YjabIfdIrZAIpQN",
+    "galleryUrls": [
+      "https://lh3.googleusercontent.com/d/13bQguUxovy7vGnHlvOuQCNOK6YqAujbA",
+      "https://lh3.googleusercontent.com/d/12sNvUrCo5JQ8P6ocZimrDO39S8JyWP4y",
+      "https://lh3.googleusercontent.com/d/1nz5GV7LlnWw8DqoTnD2jYndw5vueM4D_",
+      "https://lh3.googleusercontent.com/d/1NYejotqIR0xxUIMnLKnmXUpUh-5JXVVN",
+      "https://lh3.googleusercontent.com/d/1EnmH5yN9GLT6G03UVowoRxoIFJgBfcJx",
+      "https://lh3.googleusercontent.com/d/1-rm1JVOzygxgDV3yjDfvCnS8pk4V8WFm"
+    ],
+    "scope": "[EJERCICIO PROFESIONAL / RESIDENCIA TÉCNICA] Supervisión operativa en campo para la ejecución del Contrato No. MC 2025-007 por $144.522.501,00 M/CTE. Inspección en montaje de cubiertas metálicas, tejas galvanizadas prepintadas, carpintería metálica, pañetes, enchapes y redes hidroeléctricas en restaurante escolar y aulas. Elaboración de memorias de cantidades y actas parciales.",
+    "tools": "• Control de Calidad: Verificación de Especificaciones Técnicas NSR-10\n• Medición de Obra: Memorias de Cálculo de Cantidades\n• Gestión Presupuestal: Sistema de Precios Unitarios"
+  },
+  {
     "id": "proj-1787729210726",
     "title": "Mantenimiento Vial Vereda San Pablo - Cuaiquer",
     "subtitle": "Ricaurte, Nariño — Residencia Técnica ORA Constructores",

@@ -675,15 +675,21 @@
         }
 
         .timeline-viewport {
-            overflow: hidden;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
             width: calc(5 * 95px);
             max-width: 100%;
+        }
+
+        .timeline-viewport::-webkit-scrollbar {
+            display: none;
         }
 
         .timeline-track-inner {
             display: flex;
             gap: 0.6rem;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .timeline-track-inner .time-node {
@@ -2540,7 +2546,7 @@
         <p style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">&copy; 2026 InnovArqZ. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- JAVASCRIPT GLOBAL CON MEJORA DE ORDENAMIENTO CRONOLÓGICO -->
+    <!-- JAVASCRIPT GLOBAL CON NAVEGACIÓN DE LÍNEA DE TIEMPO AJUSTADA -->
     <script>
         let proyectosGlobales = [];
         let currentGallery = [];
@@ -2854,7 +2860,7 @@
                 
                 proyectosGlobales = await res.json();
 
-                // MEJORA: ORDENAMIENTO CRONOLÓGICO DESCENDENTE (MÁS RECIENTE A MÁS ANTIGUO)
+                // ORDENAMIENTO CRONOLÓGICO DESCENDENTE (MÁS RECIENTE A MÁS ANTIGUO)
                 proyectosGlobales.sort((a, b) => parseInt(b.year || 0) - parseInt(a.year || 0));
 
                 contenedor.innerHTML = '';
@@ -2905,15 +2911,11 @@
             }
         }
 
-        let timelineOffset = 0;
-        const VISIBLE_YEARS = 5;
-        const NODE_WIDTH = 95;
-
         function renderizarLineaTiempoDinamica() {
             const trackInner = document.getElementById('timelineTrackInner');
             if (!trackInner) return;
 
-            // MEJORA: AÑOS ÚNICOS ORDENADOS TAMBIÉN DE FORMA DESCENDENTE
+            // AÑOS ÚNICOS ORDENADOS DE FORMA DESCENDENTE
             const anosUnicos = [...new Set(proyectosGlobales.map(p => p.year).filter(Boolean))]
                                 .sort((a, b) => parseInt(b) - parseInt(a));
 
@@ -2927,26 +2929,22 @@
             });
 
             trackInner.innerHTML = html;
-            timelineOffset = 0;
-            trackInner.style.transform = 'translateX(0px)';
+
+            const viewport = document.getElementById('timelineViewport');
+            if (viewport) viewport.scrollLeft = 0;
 
             if (window.lucide) lucide.createIcons();
         }
 
         function scrollTimeline(direction) {
-            const trackInner = document.getElementById('timelineTrackInner');
-            if (!trackInner) return;
+            const viewport = document.getElementById('timelineViewport');
+            if (!viewport) return;
 
-            const totalNodes = trackInner.children.length;
-            const maxOffset = Math.max(0, totalNodes - VISIBLE_YEARS);
-
-            timelineOffset += direction;
-
-            if (timelineOffset < 0) timelineOffset = 0;
-            if (timelineOffset > maxOffset) timelineOffset = maxOffset;
-
-            const shiftPx = timelineOffset * NODE_WIDTH;
-            trackInner.style.transform = `translateX(-${shiftPx}px)`;
+            const scrollAmount = 140; 
+            viewport.scrollBy({
+                left: direction === 'right' ? scrollAmount : -scrollAmount,
+                behavior: 'smooth'
+            });
         }
 
         function openPortfolioModal(id) {

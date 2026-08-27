@@ -31,9 +31,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-dark);
@@ -89,9 +87,7 @@
 
         nav a:hover { color: var(--accent-copper); }
 
-        nav a.nav-active {
-            color: var(--accent-copper);
-        }
+        nav a.nav-active { color: var(--accent-copper); }
 
         nav a.nav-active::after {
             content: '';
@@ -125,11 +121,7 @@
             pointer-events: none;
         }
 
-        .hero-3d-bg svg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .hero-3d-bg svg { width: 100%; height: 100%; object-fit: cover; }
 
         .hero-overlay {
             position: absolute;
@@ -389,11 +381,7 @@
             pointer-events: none;
         }
 
-        .topo-bg svg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .topo-bg svg { width: 100%; height: 100%; object-fit: cover; }
 
         .topo-overlay {
             position: absolute;
@@ -669,10 +657,8 @@
             -webkit-appearance: none;
             margin: 0;
         }
-        
-        .portfolio-counter-badge input[type="number"] {
-            -moz-appearance: textfield;
-        }
+
+        .portfolio-counter-badge input[type="number"] { -moz-appearance: textfield; }
 
         .portfolio-progress-bar {
             width: 100%;
@@ -993,10 +979,8 @@
             padding: 0.4rem 0;
             border-bottom: 1px solid rgba(51, 65, 85, 0.4);
         }
-        
-        .dim-bar-group:last-child {
-            border-bottom: none;
-        }
+
+        .dim-bar-group:last-child { border-bottom: none; }
 
         .dim-bar-header {
             display: flex;
@@ -1011,7 +995,7 @@
         .dim-bar-row { display: flex; align-items: center; gap: 0.6rem; }
         .dim-bar-lbl { width: 75px; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); flex-shrink: 0; }
         .dim-bar-track { flex-grow: 1; height: 14px; background-color: rgba(15, 23, 42, 0.8); border-radius: 7px; overflow: hidden; border: 1px solid var(--border-color); }
-        
+
         .dim-bar-fill {
             height: 100%;
             width: 0%;
@@ -1305,9 +1289,7 @@
             align-items: start;
         }
 
-        .dash-header-block {
-            margin-bottom: 1.25rem;
-        }
+        .dash-header-block { margin-bottom: 1.25rem; }
 
         .dash-header-block h3 {
             font-size: 1.45rem;
@@ -1318,7 +1300,7 @@
             font-weight: 700;
         }
 
-        /* GRID 2x2 PARA ADN DIGITAL CON ACRÓNIMO PROTAGÓNICO (ALINEADO SUPERIORMENTE) */
+        /* GRID 2x2 PARA ADN DIGITAL CON ACRÓNIMO PROTAGÓNICO */
         .adn-cards-2x2 {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -1597,9 +1579,7 @@
             transition: color 0.3s;
         }
 
-        .contact-details a:hover {
-            color: var(--accent-copper);
-        }
+        .contact-details a:hover { color: var(--accent-copper); }
 
         .contact-form-card {
             position: relative; border-radius: 16px;
@@ -1750,16 +1730,16 @@
                 <div class="search-input-wrapper">
                     <i data-lucide="search" class="search-icon"></i>
                     <input type="text" id="projectSearch" placeholder="Buscar proyectos, consultorías o servicios BIM..." autocomplete="off">
-                    <button type="button" class="btn-search">
+                    <button type="button" class="btn-search" onclick="ejecutarBusquedaLocal()">
                         <span>Buscar</span>
                         <i data-lucide="arrow-right"></i>
                     </button>
-                </div>                
+                </div>               
             </div>
         </div>
     </section>
 
-    <!-- FABs (Botón flotante modificado a mailto) -->
+    <!-- FABs -->
     <div class="floating-actions" id="floatingActions">
         <a href="mailto:infobim@innovarqzsas.com" class="fab-btn fab-contact" title="Enviar Correo de Cotización">
             <i data-lucide="mail"></i>
@@ -1883,12 +1863,7 @@
                     </div>
                 </div>
 
-                <div class="carousel-indicators" id="servicesIndicators">
-                    <button class="indicator-pill active" onclick="goToSlide('servicesTrack', 'service-slide', 0)"></button>
-                    <button class="indicator-pill" onclick="goToSlide('servicesTrack', 'service-slide', 1)"></button>
-                    <button class="indicator-pill" onclick="goToSlide('servicesTrack', 'service-slide', 2)"></button>
-                    <button class="indicator-pill" onclick="goToSlide('servicesTrack', 'service-slide', 3)"></button>
-                </div>
+                <div class="carousel-indicators" id="servicesIndicators"></div>
             </div>
         </div>
     </section>
@@ -1928,7 +1903,7 @@
                     <svg viewBox="0 -20 520 540" class="gears-svg">
                         <text x="260" y="-2" text-anchor="middle" fill="var(--accent-copper)" font-size="15" font-weight="800" letter-spacing="4">MARCO RECTOR ISO 19650</text>
 
-                        <!-- MARCO RECTOR: ANILLO EXTERIOR GRANDE INTERACTIVO (ESTADO 0) -->
+                        <!-- MARCO RECTOR: ANILLO EXTERIOR GRANDE INTERACTIVO -->
                         <g class="gear-iso-outer active-iso" id="isoOuterRing" onclick="selectDimension('iso')">
                             <circle cx="260" cy="260" r="250" fill="none" stroke="rgba(217, 119, 6, 0.25)" stroke-width="2" />
                             <circle cx="260" cy="260" r="240" fill="none" stroke="rgba(59, 130, 246, 0.35)" stroke-width="12" stroke-dasharray="10, 14" />
@@ -1982,15 +1957,13 @@
                     </svg>
                 </div>
 
-                <!-- PANEL INTERACTIVO DINÁMICO (DESPLIEGA MARCO RECTOR O DIMENSIONES) -->
+                <!-- PANEL INTERACTIVO DINÁMICO -->
                 <div class="dim-panel" id="dimPanel">
                     <div class="dim-badge" id="dimBadge">ESTÁNDAR GENERAL ISO 19650</div>
                     <h3 id="dimTitle">Tradicional Vs. BIM/CIM</h3>
                     <p id="dimDesc">Gráfica de impacto comparativo que analiza de manera cuantitativa la eficiencia operativa, la precisión presupuestal y la mitigación de riesgos frente al modelado CAD tradicional.</p>
                     
-                    <div id="dimContentArea">
-                        <!-- LAS 4 BARRAS ANIMADAS SE RENDERIZAN DINÁMICAMENTE AQUÍ AL ESTAR EN ISO -->
-                    </div>
+                    <div id="dimContentArea"></div>
                 </div>
             </div>
         </div>
@@ -2129,15 +2102,14 @@
                 <div class="standard-badge"><span>GIS</span> + CIM</div>
             </div>
 
-            <!-- BANNER ESTRUCTURAL DE FACHADA 3D -->
+            <!-- BANNER ESTRUCTURAL -->
             <div class="esencia-banner-container">
                 <img src="esencia-digital-innovarqz.jpg" alt="InnovArqZ Esencia Digital BIM CIM" class="esencia-banner-img">
                 <div class="esencia-banner-overlay"></div>
             </div>
 
-            <!-- LAYOUT DE 2 COLUMNAS: ADN DIGITAL (GRID 2x2) VS EQUIPO INTEGRAL -->
+            <!-- LAYOUT DE 2 COLUMNAS -->
             <div class="about-dual-grid">
-                
                 <!-- COLUMNA IZQUIERDA: ADN DIGITAL (2x2) -->
                 <div>
                     <div class="dash-header-block">
@@ -2175,7 +2147,7 @@
                     </div>
                 </div>
 
-                <!-- COLUMNA DERECHA: EQUIPO INTEGRAL CON TARJETA PROPORCIONADA Y BOTONES REDONDOS -->
+                <!-- COLUMNA DERECHA: EQUIPO INTEGRAL -->
                 <div>
                     <div class="dash-header-block">
                         <h3><i data-lucide="users" style="color: var(--accent-copper);"></i> Equipo Integral</h3>
@@ -2219,10 +2191,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
-            <!-- BLOQUE INFERIOR: MISIÓN Y VISIÓN 2031 -->
+            <!-- BLOQUE INFERIOR: MISIÓN Y VISIÓN -->
             <div class="adn-digital-box">
                 <div class="adn-column">
                     <h3><i data-lucide="compass"></i> Misión</h3>
@@ -2231,10 +2202,9 @@
                 <div class="adn-divider"></div>
                 <div class="adn-column">
                     <h3><i data-lucide="cpu"></i> Visión 2031</h3>
-                    <p>Consolidarnos como la firma referente en transformación digital arquitectónica y ordenamiento territorial en Colombia. Pioneros en el desarrollo de <strong>Gemelos Digitales</strong> y modelos CIM aplicados na Smart Cities.</p>
+                    <p>Consolidarnos como la firma referente en transformación digital arquitectónica y ordenamiento territorial en Colombia. Pioneros en el desarrollo de <strong>Gemelos Digitales</strong> y modelos CIM aplicados en Smart Cities.</p>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -2264,7 +2234,7 @@
         </div>
     </div>
 
-    <!-- VISOR LIGHTBOX PANTALLA COMPLETA -->
+    <!-- VISOR LIGHTBOX -->
     <div class="lightbox-overlay" id="lightbox-modal">
         <button class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x"></i></button>
         <button class="lightbox-arrow lightbox-prev" onclick="prevLightboxImage()"><i data-lucide="chevron-left"></i></button>
@@ -2379,16 +2349,123 @@
         <p style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">&copy; 2026 InnovArqZ. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- JAVASCRIPT GLOBAL CON NAVEGACIÓN TOTAL ISO DE BARRAS METRICAS -->
+    <!-- JAVASCRIPT GLOBAL -->
     <script>
         let proyectosGlobales = [];
         let currentGallery = [];
         let currentImageIndex = 0;
+        let activeCategory = 'all';
+        let activeYear = 'all';
+
+        const carouselIndices = {
+            'servicesTrack': 0,
+            'portfolioTrack': 0
+        };
+
+        const teamMembers = [
+            {
+                name: "Arq. James Ramiro Zúñiga Caipe",
+                role: "Director General & Coordinador BIM / CIM",
+                desc: "Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.",
+                avatar: "james-zuniga.jpg",
+                hasImg: true,
+                tags: ["Arq. UDENAR", "buildingSMART", "BIM 5D"],
+                modalTarget: "modal-perfil-james"
+            },
+            {
+                name: "Coordinación de Obra & Interventoría",
+                role: "Supervisión Técnica & BIM 5D",
+                desc: "Dirección de residencia operativa, control financiero de contratos públicos/privados y auditoría estricta de APUs en sitio.",
+                icon: "hard-hat",
+                hasImg: false,
+                tags: ["Residencia", "APU", "Control Q"],
+                portfolioPos: 0
+            },
+            {
+                name: "Consultoría Geoespacial & Territorio",
+                role: "Modelado CIM & EOT",
+                desc: "Procesamiento avanzado de topografía de campo, fotogrametría y superficies en Civil 3D como soporte técnico para ordenamiento territorial.",
+                icon: "map",
+                hasImg: false,
+                tags: ["Civil 3D", "GIS", "CIM"],
+                portfolioPos: 0
+            }
+        ];
+
+        let currentTeamIdx = 0;
+
+        const dimData = [
+            {
+                badge: "DIMENSIÓN 1D / 2D",
+                title: "Estructuración, Ideas & Planimetría Base",
+                desc: "Definición inicial del proyecto, condicionantes normativos, factibilidad técnica y generación de documentación bidimensional estandarizada para trámites y licencias.",
+                benefits: [
+                    "Línea base documental bajo estándares de intercambio CDE.",
+                    "Estudios de cabida y viabilidad legal/urbanística.",
+                    "Definición de Términos de Referencia y Plan de Ejecución BIM (BEP)."
+                ]
+            },
+            {
+                badge: "DIMENSIÓN 3D",
+                title: "Modelado Geométrico & Detección de Colisiones",
+                desc: "Construcción del Gemelo Digital tridimensional federado (ARQ, EST, MEP). Identificación y solución de interferencias antes de la fase de obra.",
+                benefits: [
+                    "Coordinación técnica interdisciplinaria sin imprevistos.",
+                    "Visualización hiperrealista para toma de decisiones.",
+                    "Cuantificación de insumos automatizada a partir del modelo."
+                ]
+            },
+            {
+                badge: "DIMENSIÓN 4D",
+                title: "Planificación Temporal & Simulación Constructiva",
+                desc: "Vinculación del modelo 3D con la programación de obra (Gantt). Permite simular virtualmente la secuencia de construcción y optimizar la ruta crítica.",
+                benefits: [
+                    "Control estricto de tiempos y fases de ejecución.",
+                    "Simulación visual de procesos de montaje y logística.",
+                    "Prevención de cuellos de botella e interferencias en sitio."
+                ]
+            },
+            {
+                badge: "DIMENSIÓN 5D",
+                title: "Estimación de Costos & Análisis Financiero (APU)",
+                desc: "Integración del modelo paramétrico con presupuestos, análisis de precios unitarios y flujo de caja en tiempo real.",
+                benefits: [
+                    "Cómputos métricos exactos sin margen de omisión manual.",
+                    "Monitoreo continuo de variaciones presupuestales.",
+                    "Transparencia en el control financiero e interventoría."
+                ]
+            },
+            {
+                badge: "DIMENSIÓN 6D",
+                title: "Sostenibilidad & Eficiencia Energética",
+                desc: "Evaluación del impacto ambiental, análisis del ciclo térmico, huella de carbono y optimización del rendimiento energético del activo.",
+                benefits: [
+                    "Diseño orientado a certificaciones sostenibles.",
+                    "Simulación de consumo de energía e iluminación natural.",
+                    "Selección de materiales de bajo impacto ambiental."
+                ]
+            },
+            {
+                badge: "DIMENSIÓN 7D",
+                title: "Gemelo Digital & Facility Management",
+                desc: "Operación y mantenimiento del activo durante su ciclo de vida. Entrega de modelos As-Built vinculados a sistemas de administración inmobiliaria.",
+                benefits: [
+                    "Gestión eficiente de mantenimiento preventivo/correctivo.",
+                    "Centralización de fichas técnicas y manuales de operación.",
+                    "Maximización del valor del inmueble a largo plazo."
+                ]
+            }
+        ];
+
+        const nombresCategorias = {
+            'bim': 'Diseño & BIM',
+            'obra': 'Infraestructura & Obra',
+            'interventoria': 'Interventoría',
+            'cim': 'Modelado Urbano (CIM)'
+        };
 
         document.addEventListener('DOMContentLoaded', () => {
-            if (window.lucide) {
-                lucide.createIcons();
-            }
+            if (window.lucide) lucide.createIcons();
 
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('nav a');
@@ -2411,15 +2488,13 @@
 
             goToSlide('servicesTrack', 'service-slide', 0);
             cargarPortafolioDinamico();
-            
-            // INICIALIZA EL ESTADO 0 EN LA SECCIÓN BIM (MARCO RECTOR ISO Y 4 BARRAS COMPARATIVAS)
             selectDimension('iso');
-        });
 
-        const carouselIndices = {
-            'servicesTrack': 0,
-            'portfolioTrack': 0
-        };
+            const searchInput = document.getElementById('projectSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => ejecutarBusquedaLocal(e.target.value));
+            }
+        });
 
         function normalizeClass(slideClass) {
             if (slideClass === 'serviceSlide') return 'service-slide';
@@ -2448,7 +2523,6 @@
             }
 
             carouselIndices[trackId] = activeIdx;
-
             const isMobile = window.innerWidth <= 900;
 
             if (isMobile) {
@@ -2504,12 +2578,8 @@
             if (visibleSlides.length === 0) return;
 
             let parsedVal = parseInt(val, 10);
-
-            if (isNaN(parsedVal) || parsedVal < 1) {
-                parsedVal = 1;
-            } else if (parsedVal > visibleSlides.length) {
-                parsedVal = visibleSlides.length;
-            }
+            if (isNaN(parsedVal) || parsedVal < 1) parsedVal = 1;
+            else if (parsedVal > visibleSlides.length) parsedVal = visibleSlides.length;
 
             goToSlide('portfolioTrack', 'portfolio-slide', parsedVal - 1);
         }
@@ -2523,9 +2593,6 @@
             const current = carouselIndices[trackId] || 0;
             goToSlide(trackId, slideClass, current - 1);
         }
-
-        let activeCategory = 'all';
-        let activeYear = 'all';
 
         function filterCategory(category, btnElement) {
             activeCategory = category;
@@ -2564,37 +2631,22 @@
             goToSlide('portfolioTrack', 'portfolio-slide', 0);
         }
 
-        const teamMembers = [
-            {
-                name: "Arq. James Ramiro Zúñiga Caipe",
-                role: "Director General & Coordinador BIM / CIM",
-                desc: "Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.",
-                avatar: "james-zuniga.jpg",
-                hasImg: true,
-                tags: ["Arq. UDENAR", "buildingSMART", "BIM 5D"],
-                modalTarget: "modal-perfil-james"
-            },
-            {
-                name: "Coordinación de Obra & Interventoría",
-                role: "Supervisión Técnica & BIM 5D",
-                desc: "Dirección de residencia operativa, control financiero de contratos públicos/privados y auditoría estricta de APUs en sitio.",
-                icon: "hard-hat",
-                hasImg: false,
-                tags: ["Residencia", "APU", "Control Q"],
-                portfolioPos: 0
-            },
-            {
-                name: "Consultoría Geoespacial & Territorio",
-                role: "Modelado CIM & EOT",
-                desc: "Procesamiento avanzado de topografía de campo, fotogrametría y superficies en Civil 3D como soporte técnico para ordenamiento territorial.",
-                icon: "map",
-                hasImg: false,
-                tags: ["Civil 3D", "GIS", "CIM"],
-                portfolioPos: 0
-            }
-        ];
+        function ejecutarBusquedaLocal(queryOverride) {
+            const query = (queryOverride !== undefined ? queryOverride : document.getElementById('projectSearch').value).toLowerCase().trim();
+            const slides = document.querySelectorAll('.portfolio-slide');
 
-        let currentTeamIdx = 0;
+            slides.forEach(slide => {
+                const text = slide.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    slide.style.setProperty('display', 'flex', 'important');
+                } else {
+                    slide.style.setProperty('display', 'none', 'important');
+                }
+            });
+
+            carouselIndices['portfolioTrack'] = 0;
+            goToSlide('portfolioTrack', 'portfolio-slide', 0);
+        }
 
         function renderTeamMember(idx) {
             const member = teamMembers[idx];
@@ -2677,71 +2729,6 @@
             }
         });
 
-        /* DATOS DE DIMENSIONES E IMPACTO COMPARATIVO */
-        const dimData = [
-            {
-                badge: "DIMENSIÓN 1D / 2D",
-                title: "Estructuración, Ideas & Planimetría Base",
-                desc: "Definición inicial del proyecto, condicionantes normativos, factibilidad técnica y generación de documentación bidimensional estandarizada para trámites y licencias.",
-                benefits: [
-                    "Línea base documental bajo estándares de intercambio CDE.",
-                    "Estudios de cabida y viabilidad legal/urbanística.",
-                    "Definición de Términos de Referencia y Plan de Ejecución BIM (BEP)."
-                ]
-            },
-            {
-                badge: "DIMENSIÓN 3D",
-                title: "Modelado Geométrico & Detección de Colisiones",
-                desc: "Construcción del Gemelo Digital tridimensional federado (ARQ, EST, MEP). Identificación y solución de interferencias antes de la fase de obra.",
-                benefits: [
-                    "Coordinación técnica interdisciplinaria sin imprevistos.",
-                    "Visualización hiperrealista para toma de decisiones.",
-                    "Cuantificación de insumos automatizada a partir del modelo."
-                ]
-            },
-            {
-                badge: "DIMENSIÓN 4D",
-                title: "Planificación Temporal & Simulación Constructiva",
-                desc: "Vinculación del modelo 3D con la programación de obra (Gantt). Permite simular virtualmente la secuencia de construcción y optimizar la ruta crítica.",
-                benefits: [
-                    "Control estricto de tiempos y fases de ejecución.",
-                    "Simulación visual de procesos de montaje y logística.",
-                    "Prevención de cuellos de botella e interferencias en sitio."
-                ]
-            },
-            {
-                badge: "DIMENSIÓN 5D",
-                title: "Estimación de Costos & Análisis Financiero (APU)",
-                desc: "Integración del modelo paramétrico con presupuestos, análisis de precios unitarios y flujo de caja en tiempo real.",
-                benefits: [
-                    "Cómputos métricos exactos sin margen de omisión manual.",
-                    "Monitoreo continuo de variaciones presupuestales.",
-                    "Transparencia en el control financiero e interventoría."
-                ]
-            },
-            {
-                badge: "DIMENSIÓN 6D",
-                title: "Sostenibilidad & Eficiencia Energética",
-                desc: "Evaluación del impacto ambiental, análisis del ciclo térmico, huella de carbono y optimización del rendimiento energético del activo.",
-                benefits: [
-                    "Diseño orientado a certificaciones sostenibles.",
-                    "Simulación de consumo de energía e iluminación natural.",
-                    "Selección de materiales de bajo impacto ambiental."
-                ]
-            },
-            {
-                badge: "DIMENSIÓN 7D",
-                title: "Gemelo Digital & Facility Management",
-                desc: "Operación y mantenimiento del activo durante su ciclo de vida. Entrega de modelos As-Built vinculados a sistemas de administración inmobiliaria.",
-                benefits: [
-                    "Gestión eficiente de mantenimiento preventivo/correctivo.",
-                    "Centralización de fichas técnicas y manuales de operación.",
-                    "Maximización del valor del inmueble a largo plazo."
-                ]
-            }
-        ];
-
-        /* SELECCIÓN DINÁMICA: MARCO RECTOR ISO O DIMENSIÓN ESPECÍFICA CON LAS 4 BARRAS INTEGRADAS */
         function selectDimension(index) {
             const gears = document.querySelectorAll('.gear-item');
             const isoOuter = document.getElementById('isoOuterRing');
@@ -2863,13 +2850,6 @@
             }
         }
 
-        const nombresCategorias = {
-            'bim': 'Diseño & BIM',
-            'obra': 'Infraestructura & Obra',
-            'interventoria': 'Interventoría',
-            'cim': 'Modelado Urbano (CIM)'
-        };
-
         async function cargarPortafolioDinamico() {
             const contenedor = document.getElementById('portfolioTrack');
             if (!contenedor) return;
@@ -2925,7 +2905,7 @@
                 goToSlide('portfolioTrack', 'portfolio-slide', 0);
 
             } catch (err) {
-                console.error('Error al renderizar el portafolio dinámico:', err);
+                console.warn('Carga dinámica omitida o archivo de proyectos no detectado:', err);
             }
         }
 
@@ -2946,10 +2926,8 @@
             });
 
             trackInner.innerHTML = html;
-
             const viewport = document.getElementById('timelineViewport');
             if (viewport) viewport.scrollLeft = 0;
-
             if (window.lucide) lucide.createIcons();
         }
 

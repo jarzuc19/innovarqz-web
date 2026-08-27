@@ -4,14 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InnovArqZ Soluciones Integrales S.A.S. | BIM, CIM e Ingeniería</title>
+    
+    <!-- Metadatos Open Graph para compartir con miniatura -->
+    <meta property="og:title" content="InnovArqZ Soluciones Integrales S.A.S.">
+    <meta property="og:description" content="Innovación Tecnológica y Control Técnico en Ingeniería, Arquitectura & BIM / CIM.">
+    <meta property="og:image" content="https://www.innovarqzsas.com/esencia-digital-innovarqz.jpg">
+    <meta property="og:url" content="https://www.innovarqzsas.com">
+    <meta property="og:type" content="website">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
             --bg-dark: #0f172a;
             --bg-card: #1e293b;
+            --bg-section-alt: #0b1120;
             --accent-copper: #d97706;
             --accent-copper-hover: #b45309;
             --accent-blue: #3b82f6;
@@ -22,6 +31,22 @@
             --whatsapp-hover: #1da851;
             --trad-color: #ef4444;
             --bim-color: #10b981;
+            --header-bg: rgba(15, 23, 42, 0.95);
+            --modal-bg: #1e293b;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* TEMA CLARO DINÁMICO */
+        body.light-mode {
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-section-alt: #f1f5f9;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --header-bg: rgba(248, 250, 252, 0.95);
+            --modal-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -29,6 +54,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         html { scroll-behavior: smooth; }
@@ -44,9 +70,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.25rem 5%;
+            padding: 1rem 5%;
             border-bottom: 1px solid var(--border-color);
-            background-color: rgba(15, 23, 42, 0.95);
+            background-color: var(--header-bg);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -74,6 +100,17 @@
             margin-top: 3px;
         }
 
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
         nav a {
             color: var(--text-muted);
             text-decoration: none;
@@ -86,7 +123,6 @@
         }
 
         nav a:hover { color: var(--accent-copper); }
-
         nav a.nav-active { color: var(--accent-copper); }
 
         nav a.nav-active::after {
@@ -101,6 +137,72 @@
             box-shadow: 0 0 8px rgba(217, 119, 6, 0.6);
         }
 
+        /* BOTÓN DE TEMA / MODO CLARO Y OSCURO */
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--accent-copper);
+            color: var(--accent-copper);
+            transform: scale(1.05);
+        }
+
+        /* MENÚ MÓVIL DE HAMBURGUESA */
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .mobile-nav-drawer {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 5%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            box-shadow: 0 10px 25px var(--shadow-color);
+            transform: translateY(-150%);
+            transition: transform 0.4s ease;
+            z-index: 999;
+        }
+
+        .mobile-nav-drawer.active {
+            transform: translateY(0);
+        }
+
+        .mobile-nav-drawer a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         /* HERO SECTION */
         .hero {
             position: relative;
@@ -113,22 +215,15 @@
 
         .hero-3d-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
         }
 
         .hero-3d-bg svg { width: 100%; height: 100%; object-fit: cover; }
 
         .hero-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, transparent 20%, var(--bg-dark) 90%);
         }
 
@@ -203,7 +298,7 @@
             width: 100%;
             display: flex;
             align-items: center;
-            background-color: rgba(30, 41, 59, 0.85);
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 0.35rem 0.35rem 0.35rem 1.25rem;
@@ -262,9 +357,31 @@
             align-items: center;
             gap: 0.5rem;
             transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
         }
 
         .btn-primary:hover { background-color: var(--accent-copper-hover); }
+
+        .btn-secondary {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-copper);
+            color: var(--accent-copper);
+        }
 
         .btn-whatsapp {
             background-color: var(--whatsapp-color);
@@ -281,7 +398,7 @@
 
         .btn-whatsapp:hover { background-color: var(--whatsapp-hover); }
 
-        /* FABs FLOATING ACTIONS */
+        /* FABs FLOATING ACTIONS (CON TERCER BOTÓN COMPARTIR) */
         .floating-actions {
             position: fixed;
             bottom: 2rem;
@@ -309,13 +426,16 @@
             justify-content: center;
             color: #fff;
             text-decoration: none;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 24px var(--shadow-color);
             position: relative;
             transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
         }
 
         .fab-btn:hover { transform: scale(1.1); }
         .fab-contact { background-color: var(--accent-copper); }
+        .fab-share { background-color: var(--accent-blue); }
         .fab-whatsapp { background-color: var(--whatsapp-color); }
 
         .fab-tooltip {
@@ -362,7 +482,7 @@
 
         /* SERVICIOS Y PORTAFOLIO */
         .tech-section {
-            background-color: #0b1120;
+            background-color: var(--bg-section-alt);
             border-top: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
             position: relative;
@@ -373,23 +493,16 @@
 
         .topo-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
         }
 
         .topo-bg svg { width: 100%; height: 100%; object-fit: cover; }
 
         .topo-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, transparent 30%, #0b1120 95%);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, transparent 30%, var(--bg-section-alt) 95%);
         }
 
         .tech-container {
@@ -430,13 +543,14 @@
             opacity: 0.65;
             transform: scale(0.96);
             background-color: var(--bg-card);
+            cursor: pointer;
         }
 
         .service-slide.active-slide, .portfolio-slide.active-slide {
             opacity: 1;
             transform: scale(1);
             border-color: rgba(217, 119, 6, 0.7);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 35px var(--shadow-color);
         }
 
         .service-slide:hover, .portfolio-slide:hover {
@@ -445,41 +559,26 @@
 
         .slide-card-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            z-index: 1;
-            transition: transform 0.6s ease;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            z-index: 1; transition: transform 0.6s ease;
         }
 
         .slide-card-placeholder {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-copper);
-            opacity: 0.4;
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-dark));
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: var(--accent-copper); opacity: 0.4;
         }
 
         .portfolio-slide:hover .slide-card-bg { transform: scale(1.06); }
 
         .slide-card-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.25) 0%, rgba(15, 23, 42, 0.94) 75%);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.92) 80%);
             z-index: 2;
         }
 
@@ -518,7 +617,7 @@
         }
 
         .slide-content ul li {
-            color: var(--text-muted);
+            color: #cbd5e1;
             font-size: 0.88rem;
             position: relative;
             padding-left: 1.2rem;
@@ -561,7 +660,7 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background-color: rgba(30, 41, 59, 0.9);
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-main);
             display: flex;
@@ -615,7 +714,7 @@
         }
 
         .portfolio-counter-badge {
-            background-color: rgba(30, 41, 59, 0.85);
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-main);
             font-size: 0.85rem;
@@ -688,9 +787,7 @@
 
         .timeline-track-line {
             position: absolute;
-            top: 50%;
-            left: 5%;
-            right: 5%;
+            top: 50%; left: 5%; right: 5%;
             height: 2px;
             background-color: var(--border-color);
             z-index: 1;
@@ -767,7 +864,7 @@
 
         .time-node:hover, .time-node.active {
             border-color: var(--accent-copper);
-            color: #fff;
+            color: var(--text-main);
             background-color: rgba(217, 119, 6, 0.15);
             box-shadow: 0 0 12px rgba(217, 119, 6, 0.3);
         }
@@ -816,7 +913,7 @@
         }
 
         .tag {
-            background-color: rgba(148, 163, 184, 0.15);
+            background-color: rgba(217, 119, 6, 0.15);
             color: var(--accent-copper);
             font-size: 0.75rem;
             padding: 0.15rem 0.5rem;
@@ -824,7 +921,7 @@
             font-weight: 600;
         }
 
-        /* METODOLOGÍA BIM/CIM CON INTERACCIÓN TOTAL */
+        /* METODOLOGÍA BIM/CIM */
         .bim-section {
             position: relative;
             background-color: var(--bg-dark);
@@ -835,22 +932,15 @@
 
         .bim-3d-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
         }
 
         .bim-3d-bg svg { width: 100%; height: 100%; object-fit: cover; }
 
         .bim-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, transparent 30%, var(--bg-dark) 95%);
         }
 
@@ -878,7 +968,6 @@
 
         .gears-svg { width: 100%; height: auto; display: block; overflow: visible; }
 
-        /* INTERACCIÓN MARCO RECTOR ANILLO GRANDE */
         .gear-iso-outer {
             transform-origin: 260px 260px;
             animation: rotateClockwise 60s linear infinite;
@@ -929,9 +1018,9 @@
             to { transform: rotate(-360deg); }
         }
 
-        /* FICHA PANEL DINÁMICA DE DIMENSIONES / COMPARATIVO INTEGRADO */
+        /* FICHA PANEL DINÁMICA DE DIMENSIONES */
         .dim-panel {
-            background-color: rgba(30, 41, 59, 0.75);
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-left: 4px solid var(--accent-copper);
             border-radius: 14px;
@@ -941,7 +1030,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 15px 35px var(--shadow-color);
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
@@ -958,14 +1047,13 @@
             align-self: flex-start;
         }
 
-        .dim-panel h3 { font-size: 1.35rem; color: #fff; margin-bottom: 0.5rem; font-weight: 700; line-height: 1.3; }
+        .dim-panel h3 { font-size: 1.35rem; color: var(--text-main); margin-bottom: 0.5rem; font-weight: 700; line-height: 1.3; }
         .dim-panel p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.25rem; }
-        .dim-benefits h4 { font-size: 0.92rem; color: #fff; margin-bottom: 0.6rem; font-weight: 700; }
+        .dim-benefits h4 { font-size: 0.92rem; color: var(--text-main); margin-bottom: 0.6rem; font-weight: 700; }
         .dim-benefits ul { list-style: none; }
         .dim-benefits ul li { color: var(--text-muted); font-size: 0.88rem; position: relative; padding-left: 1.2rem; margin-bottom: 0.45rem; line-height: 1.45; }
         .dim-benefits ul li::before { content: "✓"; color: var(--accent-copper); position: absolute; left: 0; font-weight: bold; }
 
-        /* BARRAS INTEGRADAS SIN CAJAS CONTENEDORAS */
         .dim-bars-wrapper {
             display: flex;
             flex-direction: column;
@@ -977,7 +1065,7 @@
             background-color: transparent;
             border: none;
             padding: 0.4rem 0;
-            border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .dim-bar-group:last-child { border-bottom: none; }
@@ -989,12 +1077,12 @@
             margin-bottom: 0.35rem;
         }
 
-        .dim-bar-title { font-size: 0.82rem; font-weight: 700; color: #fff; }
+        .dim-bar-title { font-size: 0.82rem; font-weight: 700; color: var(--text-main); }
         .dim-bar-sub { font-size: 0.72rem; color: var(--accent-copper); font-weight: 700; }
         .dim-bar-pair { display: flex; flex-direction: column; gap: 0.3rem; }
         .dim-bar-row { display: flex; align-items: center; gap: 0.6rem; }
         .dim-bar-lbl { width: 75px; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); flex-shrink: 0; }
-        .dim-bar-track { flex-grow: 1; height: 14px; background-color: rgba(15, 23, 42, 0.8); border-radius: 7px; overflow: hidden; border: 1px solid var(--border-color); }
+        .dim-bar-track { flex-grow: 1; height: 14px; background-color: var(--bg-dark); border-radius: 7px; overflow: hidden; border: 1px solid var(--border-color); }
 
         .dim-bar-fill {
             height: 100%;
@@ -1008,7 +1096,7 @@
             font-weight: 800;
             color: #fff;
             opacity: 0;
-            transition: width 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
         }
 
         .dim-bar-fill.active-fill { opacity: 1; }
@@ -1018,26 +1106,20 @@
         /* MODALES */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(8px);
             z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             padding: 2rem 5%;
-            opacity: 0;
-            pointer-events: none;
+            opacity: 0; pointer-events: none;
             transition: opacity 0.3s ease;
         }
 
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
         .modal-content {
-            background-color: var(--bg-card);
+            background-color: var(--modal-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             max-width: 900px;
@@ -1046,13 +1128,12 @@
             overflow-y: auto;
             position: relative;
             padding: 2.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 40px var(--shadow-color);
         }
 
         .modal-close {
             position: absolute;
-            top: 1.25rem;
-            right: 1.25rem;
+            top: 1.25rem; right: 1.25rem;
             background: transparent;
             border: none;
             color: var(--text-muted);
@@ -1066,12 +1147,9 @@
         .modal-subtitle { color: var(--accent-copper); font-weight: 600; font-size: 1.05rem; margin-bottom: 0.75rem; }
 
         .modal-meta {
-            display: flex;
-            gap: 1.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
+            display: flex; gap: 1.5rem;
+            color: var(--text-muted); font-size: 0.9rem;
+            flex-wrap: wrap; margin-bottom: 1.5rem;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 1rem;
         }
@@ -1085,21 +1163,14 @@
 
         .gallery-item {
             height: 220px !important;
-            background-color: #0f172a;
+            background-color: var(--bg-dark);
             border-radius: 10px;
             border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: flex-end;
-            color: var(--text-main);
-            font-size: 0.85rem;
-            padding: 0.75rem;
-            background-size: cover;
-            background-position: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            display: flex; flex-direction: column;
+            align-items: flex-start; justify-content: flex-end;
+            color: var(--text-main); font-size: 0.85rem; padding: 0.75rem;
+            background-size: cover; background-position: center;
+            cursor: pointer; position: relative; overflow: hidden;
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -1111,42 +1182,63 @@
 
         .gallery-item::before {
             content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(180deg, rgba(15,23,42,0.1) 0%, rgba(15,23,42,0.85) 100%);
-            z-index: 1;
-            transition: background 0.3s ease;
+            z-index: 1; transition: background 0.3s ease;
         }
 
         .gallery-item-badge {
-            position: relative;
-            z-index: 2;
-            background: rgba(15, 23, 42, 0.85);
+            position: relative; z-index: 2;
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            padding: 4px 10px; border-radius: 6px;
+            font-size: 0.78rem; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 6px;
             color: var(--text-main);
         }
 
         .gallery-item-zoom-icon {
-            position: absolute;
-            top: 10px; right: 10px;
-            z-index: 2;
-            background: rgba(217, 119, 6, 0.9);
-            color: #fff;
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+            position: absolute; top: 10px; right: 10px;
+            z-index: 2; background: rgba(217, 119, 6, 0.9);
+            color: #fff; width: 32px; height: 32px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
             opacity: 0; transform: scale(0.8);
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .gallery-item:hover .gallery-item-zoom-icon { opacity: 1; transform: scale(1); }
+
+        /* MODAL COMPARTIR */
+        .share-card-preview {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            background-color: var(--bg-dark);
+        }
+
+        .share-card-img {
+            width: 100%; height: 180px;
+            object-fit: cover; display: block;
+        }
+
+        .share-card-info { padding: 1.25rem; }
+        .share-card-info h4 { font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.3rem; }
+        .share-card-info p { font-size: 0.85rem; color: var(--text-muted); }
+
+        .copy-alert-box {
+            background-color: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--bim-color);
+            color: var(--bim-color);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
 
         /* LIGHTBOX */
         .lightbox-overlay {
@@ -1170,26 +1262,23 @@
 
         .lightbox-content img {
             max-width: 100%; max-height: 78vh;
-            object-fit: contain;
-            border-radius: 8px;
+            object-fit: contain; border-radius: 8px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 25px 50px var(--shadow-color);
         }
 
         .lightbox-caption {
             margin-top: 1rem; color: var(--text-main);
             font-size: 0.95rem; font-weight: 600;
-            background: rgba(30, 41, 59, 0.8);
+            background: var(--bg-card);
             padding: 6px 16px; border-radius: 20px;
             border: 1px solid var(--border-color);
         }
 
         .lightbox-close {
             position: absolute; top: 1.5rem; right: 1.5rem;
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            width: 44px; height: 44px; border-radius: 50%;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            color: var(--text-main); width: 44px; height: 44px; border-radius: 50%;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             transition: all 0.3s ease;
         }
@@ -1198,10 +1287,8 @@
 
         .lightbox-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(30, 41, 59, 0.85);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            width: 50px; height: 50px; border-radius: 50%;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            color: var(--text-main); width: 50px; height: 50px; border-radius: 50%;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             transition: all 0.3s ease; z-index: 3010;
         }
@@ -1247,7 +1334,7 @@
         }
 
         .standard-badge {
-            background-color: rgba(30, 41, 59, 0.85);
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-muted);
             font-size: 0.8rem; font-weight: 600;
@@ -1262,9 +1349,9 @@
             width: 100%; max-width: 1000px;
             margin: 0 auto 3rem; border-radius: 16px;
             border: 1px solid var(--border-color);
-            overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            overflow: hidden; box-shadow: 0 20px 40px var(--shadow-color);
             position: relative; aspect-ratio: 21 / 9;
-            background-color: #0b1120;
+            background-color: var(--bg-card);
         }
 
         .esencia-banner-img {
@@ -1276,11 +1363,10 @@
 
         .esencia-banner-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.5) 100%);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.4) 100%);
             pointer-events: none;
         }
 
-        /* LAYOUT GENERAL 2 COLUMNAS SIMÉTRICAS */
         .about-dual-grid {
             display: grid;
             grid-template-columns: 1.15fr 0.85fr;
@@ -1293,14 +1379,13 @@
 
         .dash-header-block h3 {
             font-size: 1.45rem;
-            color: #fff;
+            color: var(--text-main);
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-weight: 700;
         }
 
-        /* GRID 2x2 PARA ADN DIGITAL CON ACRÓNIMO PROTAGÓNICO */
         .adn-cards-2x2 {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -1309,7 +1394,7 @@
         }
 
         .esencia-card-2x2 {
-            background-color: rgba(30, 41, 59, 0.75);
+            background-color: var(--bg-card);
             backdrop-filter: blur(8px);
             padding: 1.6rem 1.35rem;
             border-radius: 12px;
@@ -1326,15 +1411,14 @@
         .esencia-card-2x2:hover {
             border-color: rgba(217, 119, 6, 0.6);
             transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 12px 28px var(--shadow-color);
         }
 
         .esencia-card-2x2 .esencia-badge-hero {
             font-size: 2.8rem;
             font-weight: 900;
             position: absolute;
-            top: 6px;
-            right: 10px;
+            top: 6px; right: 10px;
             letter-spacing: -1px;
             user-select: none;
             pointer-events: none;
@@ -1358,25 +1442,22 @@
 
         .esencia-card-2x2 h4 {
             font-size: 1.12rem;
-            color: #fff;
+            color: var(--text-main);
             margin-bottom: 0.65rem;
             font-weight: 700;
             line-height: 1.3;
-            position: relative;
-            z-index: 2;
+            position: relative; z-index: 2;
         }
 
         .esencia-card-2x2 p {
             color: var(--text-muted);
             font-size: 0.86rem;
             line-height: 1.55;
-            position: relative;
-            z-index: 2;
+            position: relative; z-index: 2;
         }
 
-        /* FICHA PROFESIONAL CON PROPORCIÓN CONTROLADA Y BOTONES REDONDOS */
         .team-card-proportioned {
-            background-color: rgba(30, 41, 59, 0.75);
+            background-color: var(--bg-card);
             backdrop-filter: blur(8px);
             border-radius: 14px;
             border: 1px solid var(--border-color);
@@ -1386,7 +1467,7 @@
             max-width: 420px;
             width: 100%;
             margin: 0 auto;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 35px var(--shadow-color);
         }
 
         .team-portrait-header {
@@ -1394,37 +1475,30 @@
             height: 270px;
             position: relative;
             overflow: hidden;
-            background-color: #0f172a;
+            background-color: var(--bg-dark);
             border-bottom: 1px solid var(--border-color);
         }
 
         .team-portrait-header img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 15%;
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center 15%;
         }
 
         .team-avatar-bg-full {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-dark));
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
             color: var(--accent-copper);
         }
 
         .team-card-content {
             padding: 1.5rem 1.75rem;
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
         }
 
         .team-card-content h4 {
             font-size: 1.25rem;
-            color: #fff;
+            color: var(--text-main);
             font-weight: 700;
             margin-bottom: 0.25rem;
         }
@@ -1453,8 +1527,7 @@
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            align-items: center; justify-content: center;
             gap: 0.4rem;
             transition: all 0.3s;
             width: 100%;
@@ -1473,17 +1546,13 @@
         }
 
         .team-round-nav-btn {
-            width: 38px;
-            height: 38px;
+            width: 38px; height: 38px;
             border-radius: 50%;
-            background-color: rgba(30, 41, 59, 0.9);
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; backdrop-filter: blur(4px);
             transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
         }
 
@@ -1494,9 +1563,8 @@
             transform: scale(1.08);
         }
 
-        /* MISIÓN Y VISIÓN ABAJO DE ANCHO COMPLETO */
         .adn-digital-box {
-            background-color: rgba(30, 41, 59, 0.75);
+            background-color: var(--bg-card);
             backdrop-filter: blur(8px);
             border: 1px solid var(--border-color);
             border-radius: 12px;
@@ -1507,21 +1575,19 @@
             align-items: center;
         }
 
-        .adn-column h3 { font-size: 1.35rem; color: #fff; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+        .adn-column h3 { font-size: 1.35rem; color: var(--text-main); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
         .adn-column h3 i { color: var(--accent-copper); }
         .adn-column p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
         .adn-divider {
-            width: 2px;
-            height: 100%;
-            min-height: 120px;
+            width: 2px; height: 100%; min-height: 120px;
             background: linear-gradient(180deg, transparent, var(--accent-copper), transparent);
         }
 
         /* CONTACTO */
         .contact-section {
             position: relative;
-            background-color: #0b1120;
+            background-color: var(--bg-section-alt);
             border-top: 1px solid var(--border-color);
             padding: 5rem 5%;
             overflow: hidden;
@@ -1537,7 +1603,7 @@
 
         .contact-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 20%, #0b1120 92%);
+            background: radial-gradient(circle at center, transparent 20%, var(--bg-section-alt) 92%);
         }
 
         .contact-container {
@@ -1552,7 +1618,7 @@
             align-items: center;
         }
 
-        .contact-info h3 { font-size: 1.6rem; color: #fff; margin-bottom: 1rem; }
+        .contact-info h3 { font-size: 1.6rem; color: var(--text-main); margin-bottom: 1rem; }
 
         .contact-collab-phrase {
             color: var(--accent-copper);
@@ -1581,22 +1647,28 @@
 
         .contact-details a:hover { color: var(--accent-copper); }
 
+        .contact-buttons-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
         .contact-form-card {
             position: relative; border-radius: 16px;
             border: 1px solid var(--border-color); overflow: hidden;
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
-            background-color: #1e293b; width: 100%; max-width: 480px; margin: 0 auto;
+            box-shadow: 0 20px 45px var(--shadow-color);
+            background-color: var(--bg-card); width: 100%; max-width: 480px; margin: 0 auto;
         }
 
         .form-bg-img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; object-position: center; z-index: 1; opacity: 0.25;
+            object-fit: cover; object-position: center; z-index: 1; opacity: 0.18;
         }
 
         .form-overlay-dark {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.94) 0%, rgba(30, 41, 59, 0.9) 100%);
-            z-index: 2;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+            z-index: 2; opacity: 0.9;
         }
 
         .contact-form-inner { position: relative; z-index: 3; padding: 2.25rem; }
@@ -1608,7 +1680,7 @@
         .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
 
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%; background-color: rgba(15, 23, 42, 0.75);
+            width: 100%; background-color: var(--bg-dark);
             border: 1px solid var(--border-color); border-radius: 8px;
             padding: 0.75rem 1rem; color: var(--text-main); font-size: 0.92rem;
             outline: none; transition: border-color 0.3s, box-shadow 0.3s;
@@ -1620,12 +1692,12 @@
         }
 
         .form-group textarea { resize: vertical; min-height: 110px; }
-        .form-group select option { background-color: #0f172a; color: var(--text-main); }
+        .form-group select option { background-color: var(--bg-dark); color: var(--text-main); }
 
         /* FOOTER */
         footer {
             padding: 3rem 5%; text-align: center; color: var(--text-muted);
-            font-size: 0.9rem; background-color: #0b1120; border-top: 1px solid var(--border-color);
+            font-size: 0.9rem; background-color: var(--bg-section-alt); border-top: 1px solid var(--border-color);
         }
 
         footer a { color: var(--accent-copper); text-decoration: none; }
@@ -1638,9 +1710,10 @@
         }
 
         @media (max-width: 900px) {
+            nav { display: none; }
+            .mobile-menu-btn { display: flex; }
             .bim-interactive-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.2rem; }
-            nav { display: none; }
 
             .sliding-text-container { padding: 0; height: 3.2em; }
 
@@ -1660,6 +1733,7 @@
             .lightbox-arrow { width: 40px; height: 40px; }
             .lightbox-prev { left: 0.5rem; }
             .lightbox-next { right: 0.5rem; }
+            .contact-buttons-group { flex-direction: column; }
         }
 
         @media (max-width: 640px) {
@@ -1675,15 +1749,38 @@
             <div>Innov<span>ArqZ</span></div>
             <small>Soluciones Integrales</small>
         </div>
-        <nav>
-            <a href="#inicio" class="nav-active">Inicio</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#bim-cim">Metodología BIM/CIM</a>
-            <a href="#portafolio">Portafolio</a>
-            <a href="#nosotros">Nosotros</a>
-            <a href="#contacto">Contacto</a>
-        </nav>
+        
+        <div class="nav-container">
+            <nav>
+                <a href="#inicio" class="nav-active">Inicio</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#bim-cim">Metodología BIM/CIM</a>
+                <a href="#portafolio">Portafolio</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+
+            <!-- CONMUTADOR TEMA (SOL/LUNA) -->
+            <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Cambiar Tema (Claro/Oscuro)" aria-label="Cambiar Tema">
+                <i data-lucide="sun" id="themeIcon"></i>
+            </button>
+
+            <!-- MENÚ HAMBURGUESA MÓVIL -->
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menú Principal">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
     </header>
+
+    <!-- DRAWER / DESPLEGABLE MÓVIL -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+        <a href="#inicio" onclick="closeMobileMenu()"><span>Inicio</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#servicios" onclick="closeMobileMenu()"><span>Servicios</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#bim-cim" onclick="closeMobileMenu()"><span>Metodología BIM/CIM</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#portafolio" onclick="closeMobileMenu()"><span>Portafolio</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#nosotros" onclick="closeMobileMenu()"><span>Nosotros</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#contacto" onclick="closeMobileMenu()"><span>Contacto</span> <i data-lucide="chevron-right"></i></a>
+    </div>
 
     <!-- Hero -->
     <section class="hero" id="inicio">
@@ -1730,7 +1827,7 @@
                 <div class="search-input-wrapper">
                     <i data-lucide="search" class="search-icon"></i>
                     <input type="text" id="projectSearch" placeholder="Buscar proyectos, consultorías o servicios BIM..." autocomplete="off">
-                    <button type="button" class="btn-search" onclick="ejecutarBusquedaLocal()">
+                    <button type="button" class="btn-search" onclick="ejecutarBusquedaGlobal()">
                         <span>Buscar</span>
                         <i data-lucide="arrow-right"></i>
                     </button>
@@ -1739,12 +1836,16 @@
         </div>
     </section>
 
-    <!-- FABs -->
+    <!-- FABs (INCLUYE BOTÓN COMPARTIR EN TERCER LUGAR) -->
     <div class="floating-actions" id="floatingActions">
         <a href="mailto:infobim@innovarqzsas.com" class="fab-btn fab-contact" title="Enviar Correo de Cotización">
             <i data-lucide="mail"></i>
             <span class="fab-tooltip">Cotizar</span>
         </a>
+        <button type="button" class="fab-btn fab-share" onclick="ejecutarCompartir()" title="Compartir Sitio Web">
+            <i data-lucide="share-2"></i>
+            <span class="fab-tooltip">Compartir</span>
+        </button>
         <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20los%20servicios%20de%20InnovArqZ" target="_blank" class="fab-btn fab-whatsapp" title="WhatsApp Directo">
             <i data-lucide="message-square"></i>
             <span class="fab-tooltip">WhatsApp</span>
@@ -1781,7 +1882,7 @@
                 <p>Especialización técnica respaldada por la metodología OpenBIM (ISO 19650).</p>
             </div>
 
-            <div class="carousel-wrapper">
+            <div class="carousel-wrapper" id="servicesWrapper">
                 <button class="nav-arrow prev-arrow" onclick="prevSlide('servicesTrack', 'service-slide')" aria-label="Anterior">
                     <i data-lucide="chevron-left"></i>
                 </button>
@@ -1868,7 +1969,7 @@
         </div>
     </section>
 
-    <!-- Metodología BIM/CIM CON NAVEGACIÓN COMPLETA DESDE EL MARCO RECTOR -->
+    <!-- Metodología BIM/CIM CON REANIMACIÓN DE BARRAS -->
     <section id="bim-cim" class="bim-section">
         <div class="bim-3d-bg">
             <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -1898,66 +1999,62 @@
             </div>
 
             <div class="bim-interactive-grid">
-                <!-- GRÁFICO INTERACTIVO SVG -->
                 <div class="gears-container">
                     <svg viewBox="0 -20 520 540" class="gears-svg">
                         <text x="260" y="-2" text-anchor="middle" fill="var(--accent-copper)" font-size="15" font-weight="800" letter-spacing="4">MARCO RECTOR ISO 19650</text>
 
-                        <!-- MARCO RECTOR: ANILLO EXTERIOR GRANDE INTERACTIVO -->
                         <g class="gear-iso-outer active-iso" id="isoOuterRing" onclick="selectDimension('iso')">
                             <circle cx="260" cy="260" r="250" fill="none" stroke="rgba(217, 119, 6, 0.25)" stroke-width="2" />
                             <circle cx="260" cy="260" r="240" fill="none" stroke="rgba(59, 130, 246, 0.35)" stroke-width="12" stroke-dasharray="10, 14" />
-                            <circle cx="260" cy="260" r="228" fill="#0f172a" stroke="rgba(217, 119, 6, 0.4)" stroke-width="2" />
+                            <circle cx="260" cy="260" r="228" fill="var(--bg-dark)" stroke="rgba(217, 119, 6, 0.4)" stroke-width="2" />
                         </g>
 
                         <path d="M 80 180 C 160 100, 240 320, 320 200 C 370 120, 430 300, 440 340" fill="none" stroke="rgba(217, 119, 6, 0.15)" stroke-width="1.5" stroke-dasharray="4, 6" />
 
-                        <!-- ENGRANAJES INDIVIDUALES (1D A 7D) -->
                         <g class="gear-item" id="gear-0" onclick="selectDimension(0)">
                             <circle cx="95" cy="180" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="95" cy="180" r="43" fill="#1e293b" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="95" cy="180" r="16" fill="#0f172a" stroke="var(--border-color)" stroke-width="1.5" />
+                            <circle cx="95" cy="180" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
+                            <circle cx="95" cy="180" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
                             <text x="95" y="184" text-anchor="middle" class="gear-text">1D / 2D</text>
                         </g>
 
                         <g class="gear-item" id="gear-1" onclick="selectDimension(1)">
                             <circle cx="178" cy="140" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="178" cy="140" r="43" fill="#1e293b" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="178" cy="140" r="16" fill="#0f172a" stroke="var(--border-color)" stroke-width="1.5" />
+                            <circle cx="178" cy="140" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
+                            <circle cx="178" cy="140" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
                             <text x="178" y="144" text-anchor="middle" class="gear-text">3D</text>
                         </g>
 
                         <g class="gear-item" id="gear-2" onclick="selectDimension(2)">
                             <circle cx="235" cy="218" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="235" cy="218" r="43" fill="#1e293b" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="235" cy="218" r="16" fill="#0f172a" stroke="var(--border-color)" stroke-width="1.5" />
+                            <circle cx="235" cy="218" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
+                            <circle cx="235" cy="218" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
                             <text x="235" y="222" text-anchor="middle" class="gear-text">4D</text>
                         </g>
 
                         <g class="gear-item" id="gear-3" onclick="selectDimension(3)">
                             <circle cx="310" cy="285" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="310" cy="285" r="43" fill="#1e293b" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="310" cy="285" r="16" fill="#0f172a" stroke="var(--border-color)" stroke-width="1.5" />
+                            <circle cx="310" cy="285" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
+                            <circle cx="310" cy="285" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
                             <text x="310" y="289" text-anchor="middle" class="gear-text">5D</text>
                         </g>
 
                         <g class="gear-item" id="gear-4" onclick="selectDimension(4)">
                             <circle cx="380" cy="225" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="380" cy="225" r="43" fill="#1e293b" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="380" cy="225" r="16" fill="#0f172a" stroke="var(--border-color)" stroke-width="1.5" />
+                            <circle cx="380" cy="225" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
+                            <circle cx="380" cy="225" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
                             <text x="380" y="229" text-anchor="middle" class="gear-text">6D</text>
                         </g>
 
                         <g class="gear-item" id="gear-5" onclick="selectDimension(5)">
                             <circle cx="425" cy="305" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="425" cy="305" r="43" fill="#1e293b" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="425" cy="305" r="16" fill="#0f172a" stroke="var(--border-color)" stroke-width="1.5" />
+                            <circle cx="425" cy="305" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
+                            <circle cx="425" cy="305" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
                             <text x="425" y="309" text-anchor="middle" class="gear-text">7D</text>
                         </g>
                     </svg>
                 </div>
 
-                <!-- PANEL INTERACTIVO DINÁMICO -->
                 <div class="dim-panel" id="dimPanel">
                     <div class="dim-badge" id="dimBadge">ESTÁNDAR GENERAL ISO 19650</div>
                     <h3 id="dimTitle">Tradicional Vs. BIM/CIM</h3>
@@ -2020,7 +2117,7 @@
                 </div>
             </div>
 
-            <div class="carousel-wrapper">
+            <div class="carousel-wrapper" id="portfolioWrapper">
                 <button class="nav-arrow prev-arrow" onclick="prevSlide('portfolioTrack', 'portfolio-slide')" aria-label="Anterior">
                     <i data-lucide="chevron-left"></i>
                 </button>
@@ -2067,6 +2164,30 @@
         </div>
     </div>
 
+    <!-- MODAL COMPARTIR (DESKTOP) -->
+    <div class="modal-overlay" id="modal-share">
+        <div class="modal-content" style="max-width: 520px;">
+            <button class="modal-close" onclick="closeModal('modal-share')"><i data-lucide="x"></i></button>
+            <div class="modal-header" style="margin-bottom: 0.5rem;">
+                <h3>Compartir InnovArqZ</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Copia el enlace para compartirlo en cualquier plataforma.</p>
+            </div>
+
+            <div class="share-card-preview">
+                <img src="esencia-digital-innovarqz.jpg" alt="Vista previa InnovArqZ" class="share-card-img">
+                <div class="share-card-info">
+                    <h4>InnovArqZ Soluciones Integrales S.A.S.</h4>
+                    <p>https://www.innovarqzsas.com</p>
+                </div>
+            </div>
+
+            <div class="copy-alert-box">
+                <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
+                <span>¡Enlace copiado en el portapapeles!</span>
+            </div>
+        </div>
+    </div>
+
     <!-- NOSOTROS & ESENCIA DIGITAL -->
     <section class="about-section" id="nosotros">
         <div class="about-3d-bg">
@@ -2102,15 +2223,12 @@
                 <div class="standard-badge"><span>GIS</span> + CIM</div>
             </div>
 
-            <!-- BANNER ESTRUCTURAL -->
             <div class="esencia-banner-container">
                 <img src="esencia-digital-innovarqz.jpg" alt="InnovArqZ Esencia Digital BIM CIM" class="esencia-banner-img">
                 <div class="esencia-banner-overlay"></div>
             </div>
 
-            <!-- LAYOUT DE 2 COLUMNAS -->
             <div class="about-dual-grid">
-                <!-- COLUMNA IZQUIERDA: ADN DIGITAL (2x2) -->
                 <div>
                     <div class="dash-header-block">
                         <h3><i data-lucide="dna" style="color: var(--accent-copper);"></i> ADN Digital</h3>
@@ -2147,7 +2265,6 @@
                     </div>
                 </div>
 
-                <!-- COLUMNA DERECHA: EQUIPO INTEGRAL -->
                 <div>
                     <div class="dash-header-block">
                         <h3><i data-lucide="users" style="color: var(--accent-copper);"></i> Equipo Integral</h3>
@@ -2193,7 +2310,6 @@
                 </div>
             </div>
 
-            <!-- BLOQUE INFERIOR: MISIÓN Y VISIÓN -->
             <div class="adn-digital-box">
                 <div class="adn-column">
                     <h3><i data-lucide="compass"></i> Misión</h3>
@@ -2289,9 +2405,15 @@
                         <li><i data-lucide="map-pin"></i> <span>Ricaurte, Nariño, Colombia</span></li>
                     </ul>
 
-                    <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20los%20servicios%20de%20InnovArqZ" target="_blank" class="btn-whatsapp">
-                        <i data-lucide="message-square"></i> Iniciar Chat en WhatsApp
-                    </a>
+                    <div class="contact-buttons-group">
+                        <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20los%20servicios%20de%20InnovArqZ" target="_blank" class="btn-whatsapp">
+                            <i data-lucide="message-square"></i> Iniciar Chat en WhatsApp
+                        </a>
+
+                        <button type="button" class="btn-secondary" onclick="ejecutarCompartir()">
+                            <i data-lucide="share-2"></i> Compartir
+                        </button>
+                    </div>
                 </div>
 
                 <div class="contact-form-card">
@@ -2332,7 +2454,7 @@
                                 <textarea id="mensaje" name="mensaje" placeholder="Describa brevemente el alcance del proyecto, ubicación o requerimientos..." required></textarea>
                             </div>
 
-                            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; border: none; cursor: pointer;">
+                            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
                                 <i data-lucide="send"></i> Enviar Mensaje
                             </button>
                         </form>
@@ -2346,7 +2468,7 @@
     <footer>
         <p><strong>InnovArqZ Soluciones Integrales S.A.S.</strong></p>
         <p>Ricaurte, Nariño - Colombia | <a href="mailto:infobim@innovarqzsas.com">infobim@innovarqzsas.com</a></p>
-        <p style="margin-top: 1rem; font-size: 0.8rem; color: #64748b;">&copy; 2026 InnovArqZ. Todos los derechos reservados.</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">&copy; 2026 InnovArqZ. Todos los derechos reservados.</p>
     </footer>
 
     <!-- JAVASCRIPT GLOBAL -->
@@ -2356,6 +2478,7 @@
         let currentImageIndex = 0;
         let activeCategory = 'all';
         let activeYear = 'all';
+        let isIsoStateActive = true;
 
         const carouselIndices = {
             'servicesTrack': 0,
@@ -2468,7 +2591,7 @@
             if (window.lucide) lucide.createIcons();
 
             const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('nav a');
+            const navLinks = document.querySelectorAll('nav a, .mobile-nav-drawer a');
 
             const sectionObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -2490,11 +2613,141 @@
             cargarPortafolioDinamico();
             selectDimension('iso');
 
+            // OBSERVADOR DE INTERSECCIÓN PARA ANIMACIÓN CÍCLICA DE BARRAS BIM/CIM
+            const bimSection = document.getElementById('bim-cim');
+            if (bimSection) {
+                const bimObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            if (isIsoStateActive) {
+                                selectDimension('iso');
+                            }
+                        } else {
+                            // Reinicia las barras a 0 cuando sale de pantalla
+                            const fills = document.querySelectorAll('.dim-bar-fill');
+                            fills.forEach(f => {
+                                f.style.width = '0%';
+                                f.classList.remove('active-fill');
+                            });
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                bimObserver.observe(bimSection);
+            }
+
+            // GESTOS TÁCTILES (SWIPE) PARA CARRUSELES
+            setupSwipe('servicesWrapper', 'servicesTrack', 'service-slide');
+            setupSwipe('portfolioWrapper', 'portfolioTrack', 'portfolio-slide');
+
             const searchInput = document.getElementById('projectSearch');
             if (searchInput) {
-                searchInput.addEventListener('input', (e) => ejecutarBusquedaLocal(e.target.value));
+                searchInput.addEventListener('input', (e) => ejecutarBusquedaGlobal(e.target.value));
             }
         });
+
+        /* CONMUTADOR DE TEMA CLARO / OSCURO */
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const themeIcon = document.getElementById('themeIcon');
+            const isLight = document.body.classList.contains('light-mode');
+
+            if (themeIcon) {
+                themeIcon.setAttribute('data-lucide', isLight ? 'moon' : 'sun');
+                if (window.lucide) lucide.createIcons();
+            }
+        }
+
+        /* MENÚ MÓVIL */
+        function toggleMobileMenu() {
+            const drawer = document.getElementById('mobileNavDrawer');
+            if (drawer) drawer.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const drawer = document.getElementById('mobileNavDrawer');
+            if (drawer) drawer.classList.remove('active');
+        }
+
+        /* COMPARTIR INTELIGENTE (DESKTOP VS MÓVIL) */
+        function ejecutarCompartir() {
+            const shareData = {
+                title: 'InnovArqZ Soluciones Integrales S.A.S.',
+                text: 'Innovación Tecnológica y Control Técnico en Ingeniería, Arquitectura & BIM / CIM.',
+                url: window.location.href
+            };
+
+            const isMobile = window.innerWidth <= 900 || /Android|iPhone|iPad/i.test(navigator.userAgent);
+
+            if (isMobile && navigator.share) {
+                navigator.share(shareData).catch((err) => console.log('Compartir cancelado o no soportado:', err));
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    openModal('modal-share');
+                }).catch(() => {
+                    openModal('modal-share');
+                });
+            }
+        }
+
+        /* BUSCADOR GLOBAL */
+        function ejecutarBusquedaGlobal(queryOverride) {
+            const query = (queryOverride !== undefined ? queryOverride : document.getElementById('projectSearch').value).toLowerCase().trim();
+            if (!query) return;
+
+            // Busca en portafolio
+            const slides = document.querySelectorAll('.portfolio-slide');
+            let foundPortfolio = false;
+
+            slides.forEach(slide => {
+                const text = slide.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    slide.style.setProperty('display', 'flex', 'important');
+                    foundPortfolio = true;
+                } else {
+                    slide.style.setProperty('display', 'none', 'important');
+                }
+            });
+
+            if (foundPortfolio) {
+                carouselIndices['portfolioTrack'] = 0;
+                goToSlide('portfolioTrack', 'portfolio-slide', 0);
+                document.getElementById('portafolio').scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+
+            // Si no está en portafolio, busca en las secciones principales
+            const sections = document.querySelectorAll('section[id]');
+            for (let sec of sections) {
+                if (sec.innerText.toLowerCase().includes(query)) {
+                    sec.scrollIntoView({ behavior: 'smooth' });
+                    break;
+                }
+            }
+        }
+
+        /* SWIPE / DESLIZAR EN CELULARES */
+        function setupSwipe(wrapperId, trackId, slideClass) {
+            const wrapper = document.getElementById(wrapperId);
+            if (!wrapper) return;
+
+            let startX = 0;
+            let endX = 0;
+
+            wrapper.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            }, { passive: true });
+
+            wrapper.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                const diff = startX - endX;
+
+                if (Math.abs(diff) > 40) {
+                    if (diff > 0) nextSlide(trackId, slideClass);
+                    else prevSlide(trackId, slideClass);
+                }
+            }, { passive: true });
+        }
 
         function normalizeClass(slideClass) {
             if (slideClass === 'serviceSlide') return 'service-slide';
@@ -2631,23 +2884,6 @@
             goToSlide('portfolioTrack', 'portfolio-slide', 0);
         }
 
-        function ejecutarBusquedaLocal(queryOverride) {
-            const query = (queryOverride !== undefined ? queryOverride : document.getElementById('projectSearch').value).toLowerCase().trim();
-            const slides = document.querySelectorAll('.portfolio-slide');
-
-            slides.forEach(slide => {
-                const text = slide.innerText.toLowerCase();
-                if (text.includes(query)) {
-                    slide.style.setProperty('display', 'flex', 'important');
-                } else {
-                    slide.style.setProperty('display', 'none', 'important');
-                }
-            });
-
-            carouselIndices['portfolioTrack'] = 0;
-            goToSlide('portfolioTrack', 'portfolio-slide', 0);
-        }
-
         function renderTeamMember(idx) {
             const member = teamMembers[idx];
             if (!member) return;
@@ -2738,6 +2974,7 @@
             const descEl = document.getElementById('dimDesc');
 
             if (index === 'iso') {
+                isIsoStateActive = true;
                 gears.forEach(g => g.classList.remove('active'));
                 if (isoOuter) isoOuter.classList.add('active-iso');
 
@@ -2826,6 +3063,7 @@
                 }, 50);
 
             } else {
+                isIsoStateActive = false;
                 if (isoOuter) isoOuter.classList.remove('active-iso');
                 gears.forEach((g, idx) => {
                     if (idx === index) g.classList.add('active');
@@ -2875,6 +3113,7 @@
                     slide.className = `portfolio-slide ${idx === 0 ? 'active-slide' : ''}`;
                     slide.setAttribute('data-year', proj.year || '');
                     slide.setAttribute('data-category', proj.category || '');
+                    slide.setAttribute('onclick', `openPortfolioModal('${proj.id}')`);
 
                     const hasCover = proj.coverUrl && proj.coverUrl.trim() !== '';
                     const textoCategoria = proj.categoryLabel || proj.categoryName || nombresCategorias[proj.category] || proj.category || '';
@@ -2894,8 +3133,8 @@
                                 ${proj.software ? `<span class="tag">${proj.software}</span>` : ''}
                             </div>
                             <h3>${proj.title}</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">${proj.subtitle || ''}</p>
-                            <button class="btn-slide-action" onclick="openPortfolioModal('${proj.id}')">Ver Proyecto <i data-lucide="arrow-right"></i></button>
+                            <p style="font-size: 0.85rem; color: #cbd5e1; margin: 0.4rem 0 1rem;">${proj.subtitle || ''}</p>
+                            <button type="button" class="btn-slide-action">Ver Proyecto <i data-lucide="arrow-right"></i></button>
                         </div>
                     `;
                     contenedor.appendChild(slide);
@@ -2964,7 +3203,7 @@
                     const item = document.createElement('div');
                     item.className = 'gallery-item';
                     item.style.backgroundImage = `url('${url}')`;
-                    item.onclick = () => openLightbox(i);
+                    item.onclick = (e) => { e.stopPropagation(); openLightbox(i); };
                     item.innerHTML = `
                         <div class="gallery-item-zoom-icon"><i data-lucide="maximize-2" style="width:16px; height:16px;"></i></div>
                         <span class="gallery-item-badge"><i data-lucide="image" style="width:14px; height:14px;"></i> Entregable ${i + 1}</span>
@@ -2973,10 +3212,10 @@
                 });
             } else {
                 galleryGrid.innerHTML = `
-                    <div class="gallery-item" style="background:#0f172a; cursor:default;">
+                    <div class="gallery-item" style="cursor:default;">
                         <span class="gallery-item-badge">Render 3D Exterior</span>
                     </div>
-                    <div class="gallery-item" style="background:#0f172a; cursor:default;">
+                    <div class="gallery-item" style="cursor:default;">
                         <span class="gallery-item-badge">Coordinación MEP / ARQ</span>
                     </div>
                 `;

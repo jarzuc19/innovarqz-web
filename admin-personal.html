@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador de Personal | InnovArqZ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --accent-copper: #d97706;
+            --accent-copper-hover: #b45309;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --danger-color: #ef4444;
+            --success-color: #10b981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); padding: 2rem 5%; line-height: 1.5; }
+
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);
+        }
+
+        .title-area h1 { font-size: 1.8rem; font-weight: 800; }
+        .title-area h1 span { color: var(--accent-copper); }
+        .title-area p { color: var(--text-muted); font-size: 0.9rem; }
+
+        .top-actions { display: flex; gap: 0.75rem; }
+
+        .btn {
+            background-color: var(--bg-card); color: var(--text-main);
+            border: 1px solid var(--border-color); padding: 0.6rem 1.2rem;
+            border-radius: 8px; font-weight: 600; font-size: 0.88rem;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem;
+            transition: all 0.3s ease; text-decoration: none;
+        }
+
+        .btn:hover { border-color: var(--accent-copper); color: var(--accent-copper); }
+        .btn-primary { background-color: var(--accent-copper); color: #fff; border: none; }
+        .btn-primary:hover { background-color: var(--accent-copper-hover); color: #fff; }
+        .btn-success { background-color: var(--success-color); color: #fff; border: none; }
+        .btn-danger { background-color: var(--danger-color); color: #fff; border: none; }
+
+        .admin-layout { display: grid; grid-template-columns: 320px 1fr; gap: 2rem; }
+
+        .sidebar-list {
+            background-color: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;
+            max-height: 82vh; overflow-y: auto;
+        }
+
+        .sidebar-title { font-size: 1rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .member-item {
+            padding: 0.85rem 1rem; border-radius: 8px; background-color: var(--bg-dark);
+            border: 1px solid var(--border-color); cursor: pointer; transition: all 0.2s ease;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .member-item:hover, .member-item.active {
+            border-color: var(--accent-copper); background-color: rgba(217, 119, 6, 0.1);
+        }
+
+        .member-info h4 { font-size: 0.92rem; font-weight: 700; color: var(--text-main); }
+        .member-info p { font-size: 0.75rem; color: var(--accent-copper); }
+
+        .form-card {
+            background-color: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;
+        }
+
+        .form-section-title {
+            font-size: 1.1rem; font-weight: 700; color: var(--accent-copper);
+            border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+        .full-width { grid-column: span 2; }
+
+        .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+        .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-main); }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            background-color: var(--bg-dark); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 0.7rem 1rem; color: var(--text-main);
+            font-size: 0.9rem; outline: none; transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent-copper); }
+        .form-group textarea { resize: vertical; min-height: 90px; }
+
+        .checkbox-group { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+        .checkbox-group input { width: auto; cursor: pointer; }
+
+        .metadata-row { display: grid; grid-template-columns: 140px 1fr 40px; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+
+        @media (max-width: 900px) {
+            .admin-layout { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="title-area">
+            <h1>Innov<span>ArqZ</span> — Panel de Personal</h1>
+            <p>Gestión dinámica del equipo técnico, perfiles profesionales y modales integrados.</p>
+        </div>
+
+        <div class="top-actions">
+            <label class="btn">
+                <i data-lucide="upload"></i> Cargar personal.json
+                <input type="file" id="jsonFileInput" accept=".json" style="display: none;" onchange="cargarArchivoJSON(event)">
+            </label>
+
+            <button type="button" class="btn btn-success" onclick="descargarJSON()">
+                <i data-lucide="download"></i> Descargar personal.json
+            </button>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <div class="sidebar-list">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span class="sidebar-title">Integrantes</span>
+                <button type="button" class="btn btn-primary" style="padding: 0.4rem 0.7rem; font-size: 0.8rem;" onclick="crearNuevoMiembro()">
+                    <i data-lucide="plus"></i> Nuevo
+                </button>
+            </div>
+            <div id="membersContainer"></div>
+        </div>
+
+        <div class="form-card">
+            <form id="memberForm">
+                <div class="form-section-title"><i data-lucide="user"></i> Información de la Ficha Principal</div>
+                
+                <div class="form-grid" style="margin-top: 1rem;">
+                    <div class="form-group">
+                        <label for="memberId">ID Único (sin espacios)</label>
+                        <input type="text" id="memberId" required placeholder="ej: james-zuniga">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memberName">Nombre Profesional Completo</label>
+                        <input type="text" id="memberName" required placeholder="ej: Arq. James Ramiro Zúñiga Caipe">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memberRole">Cargo Principal (Ficha)</label>
+                        <input type="text" id="memberRole" required placeholder="ej: Director General & Coordinador BIM / CIM">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memberImg">Fotografía / Avatar (Nombre de archivo)</label>
+                        <input type="text" id="memberImg" placeholder="ej: james-zuniga.jpg">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="memberShortDesc">Descripción Corta (Ficha del carrusel)</label>
+                        <textarea id="memberShortDesc" required placeholder="Líder ejecutivo en metodologías OpenBIM..."></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="memberTags">Etiquetas / Badges (separadas por coma)</label>
+                        <input type="text" id="memberTags" placeholder="ej: Arq. UDENAR, buildingSMART, BIM 5D">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memberBtnText">Texto del Botón Acción</label>
+                        <input type="text" id="memberBtnText" value="Ver Perfil Técnico">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memberActionType">Tipo de Acción al Clic</label>
+                        <select id="memberActionType" onchange="toggleActionFields()">
+                            <option value="modal">Abrir Modal de Perfil Detallado</option>
+                            <option value="portfolio">Abrir Proyecto del Portafolio</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="modalSectionArea" style="margin-top: 1.5rem;">
+                    <div class="form-section-title"><i data-lucide="file-text"></i> Contenido del Modal Detallado</div>
+
+                    <div class="form-grid" style="margin-top: 1rem;">
+                        <div class="form-group full-width">
+                            <label for="modalSubtitle">Subtítulo del Modal</label>
+                            <input type="text" id="modalSubtitle" placeholder="ej: Fundador & Principal Manager">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Metadatos del Encabezado (Icono Lucide + Texto)</label>
+                            <div id="metadataContainer"></div>
+                            <button type="button" class="btn" style="align-self: flex-start; margin-top: 0.4rem; font-size: 0.78rem;" onclick="agregarFilaMetadato()">
+                                <i data-lucide="plus"></i> Agregar Metadato
+                            </button>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="modalExecDesc">Perfil Ejecutivo & Dirección Técnica (Párrafo largo)</label>
+                            <textarea id="modalExecDesc" style="min-height: 110px;"></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="modalEducation">Formación Académica & Certificaciones (Una por línea)</label>
+                            <textarea id="modalEducation" style="min-height: 120px;" placeholder="Arquitecto: Universidad de Nariño.&#10;Certificación Internacional: buildingSMART..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                    <button type="button" class="btn btn-danger" onclick="eliminarMiembroActual()"><i data-lucide="trash-2"></i> Eliminar Integrante</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarMiembroActual()"><i data-lucide="save"></i> Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script>
+    let personalData = [
+        {
+            "id": "james-zuniga",
+            "nombre": "Arq. James Ramiro Zúñiga Caipe",
+            "cargoFicha": "Director General & Coordinador BIM / CIM",
+            "descripcionCorta": "Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.",
+            "imagen": "james-zuniga.jpg",
+            "tieneImagen": true,
+            "etiquetas": ["Arq. UDENAR", "buildingSMART", "BIM 5D"],
+            "textoBoton": "Ver Perfil Técnico",
+            "tipoAccion": "modal",
+            "modalDetalle": {
+                "subtitulo": "Fundador & Principal Manager",
+                "metadatos": [
+                    { "icono": "award", "texto": "Matrícula Profesional CPNAA" },
+                    { "icono": "shield-check", "texto": "buildingSMART Certified" },
+                    { "icono": "map-pin", "texto": "Nariño, Colombia" }
+                ],
+                "seccionPerfil": {
+                    "titulo": "Perfil Ejecutivo & Dirección Técnica",
+                    "descripcion": "Arquitecto egresado de la Universidad de Nariño, al frente del ecosistema técnico de InnovArqZ. Amplia trayectoria en la coordinación de modelos multidisciplinares (ARQ/EST/MEP), federación digital, detección de interferencias y control financiero presupuestal (BIM 5D) bajo la norma internacional ISO 19650 y estándares OpenBIM."
+                },
+                "seccionFormacion": {
+                    "titulo": "Formación Académica & Certificaciones",
+                    "items": [
+                        "Arquitecto: Universidad de Nariño.",
+                        "Certificación Internacional: buildingSMART Professional Certification — Entry Level.",
+                        "Máster BIM Manager Internacional (+IA y VR): Espacio BIM / ATC Autodesk (En Curso).",
+                        "Diplomado BIM Civil (Infraestructuras): Universidad de Nariño.",
+                        "Diplomado Ordenamiento Territorial (PBOT/EOT): ESAP."
+                    ]
+                }
+            }
+        }
+    ];
+
+    let currentSelectedIndex = 0;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) lucide.createIcons();
+        renderizarListaMiembros();
+        cargarMiembroEnFormulario(0);
+    });
+
+    function renderizarListaMiembros() {
+        const container = document.getElementById('membersContainer');
+        container.innerHTML = '';
+
+        personalData.forEach((m, idx) => {
+            const item = document.createElement('div');
+            item.className = `member-item ${idx === currentSelectedIndex ? 'active' : ''}`;
+            item.onclick = () => { guardarMiembroSilencioso(); currentSelectedIndex = idx; renderizarListaMiembros(); cargarMiembroEnFormulario(idx); };
+            item.innerHTML = `
+                <div class="member-info">
+                    <h4>${m.nombre || 'Sin nombre'}</h4>
+                    <p>${m.cargoFicha || 'Sin cargo'}</p>
+                </div>
+                <i data-lucide="chevron-right" style="width: 16px; height: 16px; color: var(--text-muted);"></i>
+            `;
+            container.appendChild(item);
+        });
+
+        if (window.lucide) lucide.createIcons();
+    }
+
+    function cargarMiembroEnFormulario(idx) {
+        const m = personalData[idx];
+        if (!m) return;
+
+        document.getElementById('memberId').value = m.id || '';
+        document.getElementById('memberName').value = m.nombre || '';
+        document.getElementById('memberRole').value = m.cargoFicha || '';
+        document.getElementById('memberImg').value = m.imagen || '';
+        document.getElementById('memberShortDesc').value = m.descripcionCorta || '';
+        document.getElementById('memberTags').value = (m.etiquetas || []).join(', ');
+        document.getElementById('memberBtnText').value = m.textoBoton || 'Ver Perfil Técnico';
+        document.getElementById('memberActionType').value = m.tipoAccion || 'modal';
+
+        const modalArea = document.getElementById('modalSectionArea');
+        if (m.tipoAccion === 'modal' && m.modalDetalle) {
+            modalArea.style.display = 'block';
+            document.getElementById('modalSubtitle').value = m.modalDetalle.subtitulo || '';
+            document.getElementById('modalExecDesc').value = m.modalDetalle.seccionPerfil ? m.modalDetalle.seccionPerfil.descripcion : '';
+            document.getElementById('modalEducation').value = m.modalDetalle.seccionFormacion ? (m.modalDetalle.seccionFormacion.items || []).join('\n') : '';
+            
+            renderMetadatos(m.modalDetalle.metadatos || []);
+        } else {
+            modalArea.style.display = 'none';
+        }
+
+        toggleActionFields();
+    }
+
+    function renderMetadatos(metas) {
+        const container = document.getElementById('metadataContainer');
+        container.innerHTML = '';
+
+        metas.forEach((m, i) => {
+            const row = document.createElement('div');
+            row.className = 'metadata-row';
+            row.innerHTML = `
+                <input type="text" placeholder="Icono (ej: award)" value="${m.icono || ''}" class="meta-icon-input">
+                <input type="text" placeholder="Texto descriptivo" value="${m.texto || ''}" class="meta-text-input">
+                <button type="button" class="btn btn-danger" style="padding: 0.4rem;" onclick="eliminarMetadato(${i})"><i data-lucide="x" style="width: 14px; height: 14px;"></i></button>
+            `;
+            container.appendChild(row);
+        });
+
+        if (window.lucide) lucide.createIcons();
+    }
+
+    function agregarFilaMetadato() {
+        const container = document.getElementById('metadataContainer');
+        const row = document.createElement('div');
+        row.className = 'metadata-row';
+        row.innerHTML = `
+            <input type="text" placeholder="Icono (ej: map-pin)" value="map-pin" class="meta-icon-input">
+            <input type="text" placeholder="Texto descriptivo" value="" class="meta-text-input">
+            <button type="button" class="btn btn-danger" style="padding: 0.4rem;" onclick="this.parentElement.remove()"><i data-lucide="x" style="width: 14px; height: 14px;"></i></button>
+        `;
+        container.appendChild(row);
+        if (window.lucide) lucide.createIcons();
+    }
+
+    function eliminarMetadato(index) {
+        const m = personalData[currentSelectedIndex];
+        if (m && m.modalDetalle && m.modalDetalle.metadatos) {
+            m.modalDetalle.metadatos.splice(index, 1);
+            renderMetadatos(m.modalDetalle.metadatos);
+        }
+    }
+
+    function toggleActionFields() {
+        const type = document.getElementById('memberActionType').value;
+        const modalArea = document.getElementById('modalSectionArea');
+        modalArea.style.display = type === 'modal' ? 'block' : 'none';
+    }
+
+    function guardarMiembroSilencioso() {
+        const m = personalData[currentSelectedIndex];
+        if (!m) return;
+
+        m.id = document.getElementById('memberId').value.trim();
+        m.nombre = document.getElementById('memberName').value.trim();
+        m.cargoFicha = document.getElementById('memberRole').value.trim();
+        m.imagen = document.getElementById('memberImg').value.trim();
+        m.tieneImagen = m.imagen !== '';
+        m.descripcionCorta = document.getElementById('memberShortDesc').value.trim();
+        m.etiquetas = document.getElementById('memberTags').value.split(',').map(t => t.trim()).filter(Boolean);
+        m.textoBoton = document.getElementById('memberBtnText').value.trim();
+        m.tipoAccion = document.getElementById('memberActionType').value;
+
+        if (m.tipoAccion === 'modal') {
+            const metaRows = document.querySelectorAll('.metadata-row');
+            const metas = [];
+            metaRows.forEach(r => {
+                const icon = r.querySelector('.meta-icon-input').value.trim();
+                const text = r.querySelector('.meta-text-input').value.trim();
+                if (text) metas.push({ icono: icon, texto: text });
+            });
+
+            m.modalDetalle = {
+                subtitulo: document.getElementById('modalSubtitle').value.trim(),
+                metadatos: metas,
+                seccionPerfil: {
+                    titulo: "Perfil Ejecutivo & Dirección Técnica",
+                    descripcion: document.getElementById('modalExecDesc').value.trim()
+                },
+                seccionFormacion: {
+                    titulo: "Formación Académica & Certificaciones",
+                    items: document.getElementById('modalEducation').value.split('\n').map(i => i.trim()).filter(Boolean)
+                }
+            };
+        } else {
+            delete m.modalDetalle;
+        }
+    }
+
+    function guardarMiembroActual() {
+        guardarMiembroSilencioso();
+        renderizarListaMiembros();
+        alert('¡Datos guardados correctamente en la lista temporal!');
+    }
+
+    function crearNuevoMiembro() {
+        guardarMiembroSilencioso();
+        const newObj = {
+            id: "nuevo-miembro-" + Date.now(),
+            nombre: "Nuevo Profesional",
+            cargoFicha: "Especialista / Consultor",
+            descripcionCorta: "Descripción del cargo...",
+            imagen: "",
+            tieneImagen: false,
+            etiquetas: ["Especialidad"],
+            textoBoton: "Ver Perfil Técnico",
+            tipoAccion: "modal",
+            modalDetalle: {
+                subtitulo: "Cargo / Rol",
+                metadatos: [{ icono: "award", texto: "Certificación" }],
+                seccionPerfil: { titulo: "Perfil Ejecutivo & Dirección Técnica", descripcion: "Trayectoria profesional..." },
+                seccionFormacion: { titulo: "Formación Académica & Certificaciones", items: ["Título / Diplomado"] }
+            }
+        };
+
+        personalData.push(newObj);
+        currentSelectedIndex = personalData.length - 1;
+        renderizarListaMiembros();
+        cargarMiembroEnFormulario(currentSelectedIndex);
+    }
+
+    function eliminarMiembroActual() {
+        if (personalData.length <= 1) {
+            alert('Debe existir al menos un miembro en la base de datos.');
+            return;
+        }
+
+        if (confirm('¿Está seguro de eliminar este integrante?')) {
+            personalData.splice(currentSelectedIndex, 1);
+            currentSelectedIndex = Math.max(0, currentSelectedIndex - 1);
+            renderizarListaMiembros();
+            cargarMiembroEnFormulario(currentSelectedIndex);
+        }
+    }
+
+    function cargarArchivoJSON(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const parsed = JSON.parse(e.target.result);
+                if (Array.isArray(parsed)) {
+                    personalData = parsed;
+                    currentSelectedIndex = 0;
+                    renderizarListaMiembros();
+                    cargarMiembroEnFormulario(0);
+                    alert('¡Archivo personal.json cargado exitosamente!');
+                } else {
+                    alert('El archivo no contiene un arreglo válido.');
+                }
+            } catch (err) {
+                alert('Error al leer el archivo JSON: ' + err.message);
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function descargarJSON() {
+        guardarMiembroSilencioso();
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(personalData, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", "personal.json");
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+    }
+</script>
+</body>
+</html>

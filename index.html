@@ -2778,6 +2778,32 @@
             bimObserver.observe(bimSection);
         }
 
+        // CONTROL DE VISIBILIDAD DE SECCIONES CON CARRUSEL PARA REANUDAR AUTOPLAY AL SALIR
+        const carouselSectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    iniciarAutoplayCarruseles();
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const secServicios = document.getElementById('servicios');
+        const secPortafolio = document.getElementById('portafolio');
+        if (secServicios) carouselSectionObserver.observe(secServicios);
+        if (secPortafolio) carouselSectionObserver.observe(secPortafolio);
+
+        // REANUDAR AUTOPLAY AL HACER CLIC FUERA DE LOS CARRUSELES O FICHAS
+        document.addEventListener('click', (e) => {
+            const insideServices = e.target.closest('#servicesWrapper');
+            const insidePortfolio = e.target.closest('#portfolioWrapper');
+            const insideTimeline = e.target.closest('.timeline-container');
+            const insideTabs = e.target.closest('.portfolio-tabs');
+
+            if (!insideServices && !insidePortfolio && !insideTimeline && !insideTabs) {
+                iniciarAutoplayCarruseles();
+            }
+        });
+
         goToSlide('servicesTrack', 'service-slide', 0);
         cargarPortafolioDinamico();
         selectDimension('iso');
@@ -2787,21 +2813,24 @@
 
         iniciarAutoplayCarruseles();
 
-        // DESPLIEGUE DEL MODAL DE LANZAMIENTO (Se muestra siempre tras 1.5s)
+        // DESPLIEGUE DEL MODAL DE LANZAMIENTO
         setTimeout(() => {
             openModal('modal-launch');
         }, 1500);
     });
 
     function iniciarAutoplayCarruseles() {
-        detenerAutoplayCarruseles();
-        autoPlayServices = setInterval(() => {
-            nextSlide('servicesTrack', 'service-slide');
-        }, 3000);
+        if (!autoPlayServices) {
+            autoPlayServices = setInterval(() => {
+                nextSlide('servicesTrack', 'service-slide');
+            }, 3000);
+        }
 
-        autoPlayPortfolio = setInterval(() => {
-            nextSlide('portfolioTrack', 'portfolio-slide');
-        }, 3000);
+        if (!autoPlayPortfolio) {
+            autoPlayPortfolio = setInterval(() => {
+                nextSlide('portfolioTrack', 'portfolio-slide');
+            }, 3000);
+        }
     }
 
     function detenerAutoplayCarruseles() {
@@ -3205,6 +3234,7 @@
     }
 
     function filterCategory(category, btnElement) {
+        detenerAutoplayCarruseles();
         activeCategory = category;
         const buttons = btnElement.parentElement.querySelectorAll('.tab-btn');
         buttons.forEach(b => b.classList.remove('active'));
@@ -3213,6 +3243,7 @@
     }
 
     function filterYear(year, btnElement) {
+        detenerAutoplayCarruseles();
         activeYear = year;
         const nodes = document.querySelectorAll('.time-node');
         nodes.forEach(n => n.classList.remove('active'));
@@ -3521,6 +3552,7 @@
     }
 
     function scrollTimeline(direction) {
+        detenerAutoplayCarruseles();
         const viewport = document.getElementById('timelineViewport');
         if (!viewport) return;
 

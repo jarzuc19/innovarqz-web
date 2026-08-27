@@ -137,7 +137,6 @@
             box-shadow: 0 0 8px rgba(217, 119, 6, 0.6);
         }
 
-        /* BOTÓN DE TEMA / MODO CLARO Y OSCURO */
         .theme-toggle-btn {
             background: transparent;
             border: 1px solid var(--border-color);
@@ -158,7 +157,6 @@
             transform: scale(1.05);
         }
 
-        /* MENÚ MÓVIL DE HAMBURGUESA */
         .mobile-menu-btn {
             display: none;
             background: transparent;
@@ -210,13 +208,14 @@
             text-align: center;
             max-width: 100%;
             margin: 0 auto;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .hero-3d-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1; pointer-events: none;
+            overflow: hidden;
         }
 
         .hero-3d-bg svg { width: 100%; height: 100%; object-fit: cover; }
@@ -284,7 +283,7 @@
             margin-bottom: 2rem;
         }
 
-        /* BUSCADOR HERO */
+        /* BUSCADOR HERO & PANEL FLOTANTE DE RESULTADOS */
         .search-box-container {
             max-width: 680px;
             margin: 2rem auto 0;
@@ -292,6 +291,7 @@
             flex-direction: column;
             gap: 1.25rem;
             align-items: center;
+            position: relative;
         }
 
         .search-input-wrapper {
@@ -344,6 +344,91 @@
         }
 
         .btn-search:hover { background-color: var(--accent-copper-hover); }
+
+        /* LISTA DESPLEGABLE DE RESULTADOS (DESKTOP FLOTANTE) */
+        .search-results-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            margin-top: 0.6rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px var(--shadow-color);
+            max-height: 380px;
+            overflow-y: auto;
+            z-index: 1200;
+            display: none;
+            text-align: left;
+            padding: 0.5rem;
+        }
+
+        .search-results-dropdown.active { display: block; }
+
+        .search-result-item {
+            padding: 0.85rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+        }
+
+        .search-result-item:last-child { border-bottom: none; }
+        .search-result-item:hover { background-color: rgba(217, 119, 6, 0.12); }
+
+        .result-icon-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background-color: rgba(217, 119, 6, 0.15);
+            color: var(--accent-copper);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .result-info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .result-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.25;
+        }
+
+        .result-type {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-copper);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .result-snippet {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 480px;
+        }
+
+        .no-results-msg {
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
 
         /* BUTTONS GENERAL */
         .btn-primary {
@@ -398,7 +483,7 @@
 
         .btn-whatsapp:hover { background-color: var(--whatsapp-hover); }
 
-        /* FABs FLOATING ACTIONS (CON TERCER BOTÓN COMPARTIR) */
+        /* FABs FLOATING ACTIONS */
         .floating-actions {
             position: fixed;
             bottom: 2rem;
@@ -995,7 +1080,7 @@
         .gear-item:nth-child(even) { animation: rotateCounterClockwise 25s linear infinite; }
 
         .gear-text {
-            fill: var(--text-main); /* Cambia automáticamente a negro en modo claro y a blanco en modo oscuro */
+            fill: var(--text-main);
             font-size: 13px;
             font-weight: 800;
             pointer-events: none;
@@ -1103,7 +1188,7 @@
         .dim-bar-fill.trad { background: linear-gradient(90deg, #b91c1c, var(--trad-color)); }
         .dim-bar-fill.bim { background: linear-gradient(90deg, #059669, var(--bim-color)); }
 
-        /* MODALES */
+        /* MODALES ESTRUCTURALES */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -1734,6 +1819,18 @@
             .lightbox-prev { left: 0.5rem; }
             .lightbox-next { right: 0.5rem; }
             .contact-buttons-group { flex-direction: column; }
+
+            /* RESULTADOS DE BÚSQUEDA MÓVIL EN MODAL PANTALLA COMPLETA */
+            .search-results-dropdown {
+                position: fixed;
+                top: 0; left: 0; width: 100vw; height: 100vh;
+                max-height: 100vh;
+                margin-top: 0;
+                border-radius: 0;
+                z-index: 2500;
+                padding: 1.5rem 1rem;
+                background-color: var(--bg-card);
+            }
         }
 
         @media (max-width: 640px) {
@@ -1760,12 +1857,10 @@
                 <a href="#contacto">Contacto</a>
             </nav>
 
-            <!-- CONMUTADOR TEMA (SOL/LUNA) -->
             <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Cambiar Tema (Claro/Oscuro)" aria-label="Cambiar Tema">
                 <i data-lucide="sun" id="themeIcon"></i>
             </button>
 
-            <!-- MENÚ HAMBURGUESA MÓVIL -->
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menú Principal">
                 <i data-lucide="menu"></i>
             </button>
@@ -1827,16 +1922,18 @@
                 <div class="search-input-wrapper">
                     <i data-lucide="search" class="search-icon"></i>
                     <input type="text" id="projectSearch" placeholder="Buscar proyectos, consultorías o servicios BIM..." autocomplete="off">
-                    <button type="button" class="btn-search" onclick="ejecutarBusquedaGlobal()">
+                    <button type="button" class="btn-search" onclick="ejecutarBusquedaInteligente()">
                         <span>Buscar</span>
                         <i data-lucide="arrow-right"></i>
                     </button>
-                </div>               
+                </div>
+                <!-- PANEL FLOTANTE / DESPLEGABLE DE RESULTADOS -->
+                <div class="search-results-dropdown" id="searchResultsDropdown"></div>
             </div>
         </div>
     </section>
 
-    <!-- FABs (INCLUYE BOTÓN COMPARTIR EN TERCER LUGAR) -->
+    <!-- FABs -->
     <div class="floating-actions" id="floatingActions">
         <a href="mailto:infobim@innovarqzsas.com" class="fab-btn fab-contact" title="Enviar Correo de Cotización">
             <i data-lucide="mail"></i>
@@ -1969,7 +2066,7 @@
         </div>
     </section>
 
-    <!-- Metodología BIM/CIM CON REANIMACIÓN DE BARRAS -->
+    <!-- Metodología BIM/CIM -->
     <section id="bim-cim" class="bim-section">
         <div class="bim-3d-bg">
             <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -2471,7 +2568,7 @@
         <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">&copy; 2026 InnovArqZ. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- JAVASCRIPT GLOBAL -->
+    <!-- JAVASCRIPT GLOBAL CON CONTROL DE HISTORIAL Y TECLA ESC -->
     <script>
         let proyectosGlobales = [];
         let currentGallery = [];
@@ -2479,6 +2576,7 @@
         let activeCategory = 'all';
         let activeYear = 'all';
         let isIsoStateActive = true;
+        let activeModalId = null;
 
         const carouselIndices = {
             'servicesTrack': 0,
@@ -2587,6 +2685,15 @@
             'cim': 'Modelado Urbano (CIM)'
         };
 
+        const seccionesEstructura = [
+            { id: 'inicio', title: 'Inicio / Presentación Principal', icon: 'home', snippet: 'Innovación Tecnológica y Control Técnico' },
+            { id: 'servicios', title: 'Nuestros Pilares de Servicio', icon: 'layers', snippet: 'OpenBIM ISO 19650, Interventoría, FM y Suministros' },
+            { id: 'bim-cim', title: 'Metodología BIM / CIM', icon: 'cpu', snippet: 'Dimensiones del modelo virtual (1D a 7D)' },
+            { id: 'portafolio', title: 'Portafolio de Proyectos', icon: 'box', snippet: 'Casos de estudio, licitaciones y consultorías' },
+            { id: 'nosotros', title: 'Esencia Digital & ADN InnovArqZ', icon: 'dna', snippet: 'Misión, Visión y Equipo Directivo' },
+            { id: 'contacto', title: 'Contacto & Formulario Directo', icon: 'mail', snippet: 'Solicita cotización o información de proyectos' }
+        ];
+
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) lucide.createIcons();
 
@@ -2613,17 +2720,14 @@
             cargarPortafolioDinamico();
             selectDimension('iso');
 
-            // OBSERVADOR DE INTERSECCIÓN PARA ANIMACIÓN CÍCLICA DE BARRAS BIM/CIM
+            // OBSERVADOR DE INTERSECCIÓN PARA REANIMACIÓN DE BARRAS METODOLÓGICAS
             const bimSection = document.getElementById('bim-cim');
             if (bimSection) {
                 const bimObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            if (isIsoStateActive) {
-                                selectDimension('iso');
-                            }
+                            if (isIsoStateActive) selectDimension('iso');
                         } else {
-                            // Reinicia las barras a 0 cuando sale de pantalla
                             const fills = document.querySelectorAll('.dim-bar-fill');
                             fills.forEach(f => {
                                 f.style.width = '0%';
@@ -2636,15 +2740,177 @@
                 bimObserver.observe(bimSection);
             }
 
-            // GESTOS TÁCTILES (SWIPE) PARA CARRUSELES
             setupSwipe('servicesWrapper', 'servicesTrack', 'service-slide');
             setupSwipe('portfolioWrapper', 'portfolioTrack', 'portfolio-slide');
 
+            // CONTROL DEL BUSCADOR FLOTANTE
             const searchInput = document.getElementById('projectSearch');
             if (searchInput) {
-                searchInput.addEventListener('input', (e) => ejecutarBusquedaGlobal(e.target.value));
+                searchInput.addEventListener('input', (e) => ejecutarBusquedaInteligente(e.target.value));
+                searchInput.addEventListener('focus', () => {
+                    if (searchInput.value.trim() !== '') ejecutarBusquedaInteligente(searchInput.value);
+                });
+            }
+
+            // OCULTAR BUSCADOR AL HACER CLIC FUERA
+            document.addEventListener('click', (e) => {
+                const container = document.querySelector('.search-box-container');
+                const dropdown = document.getElementById('searchResultsDropdown');
+                if (container && !container.contains(e.target) && dropdown) {
+                    dropdown.classList.remove('active');
+                }
+            });
+        });
+
+        /* ESCUCHADOR GLOBAL PARA BOTÓN "ATRÁS" DEL NAVEGADOR (MÓVILES) Y TECLA ESC (ESCRITORIO) */
+        window.addEventListener('popstate', (event) => {
+            closeAllModalsWithoutHistory();
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAllModals();
             }
         });
+
+        function closeAllModals() {
+            if (activeModalId) {
+                closeModal(activeModalId);
+            }
+            closeLightbox();
+            const dropdown = document.getElementById('searchResultsDropdown');
+            if (dropdown) dropdown.classList.remove('active');
+        }
+
+        function closeAllModalsWithoutHistory() {
+            const modals = document.querySelectorAll('.modal-overlay.active');
+            modals.forEach(m => m.classList.remove('active'));
+            const lb = document.getElementById('lightbox-modal');
+            if (lb) lb.classList.remove('active');
+            const dropdown = document.getElementById('searchResultsDropdown');
+            if (dropdown) dropdown.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            activeModalId = null;
+        }
+
+        /* MANEJO DE MODALES CON CONTROL DE HISTORIAL */
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                activeModalId = modalId;
+                history.pushState({ modalOpen: true, modalId: modalId }, "");
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                if (activeModalId === modalId) activeModalId = null;
+                if (history.state && history.state.modalOpen) {
+                    history.back();
+                }
+            }
+        }
+
+        /* BUSCADOR INTELIGENTE DESPLEGABLE DE OPCIONES */
+        function ejecutarBusquedaInteligente(queryOverride) {
+            const query = (queryOverride !== undefined ? queryOverride : document.getElementById('projectSearch').value).toLowerCase().trim();
+            const dropdown = document.getElementById('searchResultsDropdown');
+
+            if (!dropdown) return;
+
+            if (query === '') {
+                dropdown.classList.remove('active');
+                dropdown.innerHTML = '';
+                return;
+            }
+
+            let htmlResults = '';
+            let totalCoincidencias = 0;
+
+            // 1. Escanea Secciones del sitio
+            seccionesEstructura.forEach(sec => {
+                if (sec.title.toLowerCase().includes(query) || sec.snippet.toLowerCase().includes(query)) {
+                    totalCoincidencias++;
+                    htmlResults += `
+                        <div class="search-result-item" onclick="seleccionarResultadoBusqueda('seccion', '${sec.id}')">
+                            <div class="result-icon-badge"><i data-lucide="${sec.icon}"></i></div>
+                            <div class="result-info">
+                                <span class="result-title">${sec.title}</span>
+                                <span class="result-type">Sección Principal</span>
+                                <span class="result-snippet">${sec.snippet}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            // 2. Escanea Equipo de Trabajo
+            teamMembers.forEach(mem => {
+                if (mem.name.toLowerCase().includes(query) || mem.role.toLowerCase().includes(query) || mem.desc.toLowerCase().includes(query)) {
+                    totalCoincidencias++;
+                    htmlResults += `
+                        <div class="search-result-item" onclick="seleccionarResultadoBusqueda('perfil', '${mem.modalTarget || 0}')">
+                            <div class="result-icon-badge"><i data-lucide="user"></i></div>
+                            <div class="result-info">
+                                <span class="result-title">${mem.name}</span>
+                                <span class="result-type">Perfil de Personal / Equipo</span>
+                                <span class="result-snippet">${mem.role} - ${mem.desc}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            // 3. Escanea Proyectos del Portafolio
+            proyectosGlobales.forEach(proj => {
+                const searchPool = `${proj.title} ${proj.subtitle || ''} ${proj.scope || ''} ${proj.tools || ''} ${proj.standard || ''} ${proj.software || ''}`.toLowerCase();
+                if (searchPool.includes(query)) {
+                    totalCoincidencias++;
+                    htmlResults += `
+                        <div class="search-result-item" onclick="seleccionarResultadoBusqueda('proyecto', '${proj.id}')">
+                            <div class="result-icon-badge"><i data-lucide="box"></i></div>
+                            <div class="result-info">
+                                <span class="result-title">${proj.title}</span>
+                                <span class="result-type">Caso de Estudio (${proj.year || '2026'})</span>
+                                <span class="result-snippet">${proj.subtitle || proj.scope || ''}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            if (totalCoincidencias > 0) {
+                dropdown.innerHTML = htmlResults;
+            } else {
+                dropdown.innerHTML = `<div class="no-results-msg">Sin coincidencias para "<strong>${query}</strong>". Intenta con otro término (ej. BIM, Obra, Tumaco, CPNAA).</div>`;
+            }
+
+            dropdown.classList.add('active');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function seleccionarResultadoBusqueda(tipo, destinoId) {
+            const dropdown = document.getElementById('searchResultsDropdown');
+            if (dropdown) dropdown.classList.remove('active');
+
+            if (tipo === 'seccion') {
+                const el = document.getElementById(destinoId);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            } else if (tipo === 'proyecto') {
+                openPortfolioModal(destinoId);
+            } else if (tipo === 'perfil') {
+                if (destinoId && destinoId !== '0') openModal(destinoId);
+                else {
+                    const el = document.getElementById('nosotros');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
 
         /* CONMUTADOR DE TEMA CLARO / OSCURO */
         function toggleTheme() {
@@ -2658,7 +2924,6 @@
             }
         }
 
-        /* MENÚ MÓVIL */
         function toggleMobileMenu() {
             const drawer = document.getElementById('mobileNavDrawer');
             if (drawer) drawer.classList.toggle('active');
@@ -2669,7 +2934,6 @@
             if (drawer) drawer.classList.remove('active');
         }
 
-        /* COMPARTIR INTELIGENTE (DESKTOP VS MÓVIL) */
         function ejecutarCompartir() {
             const shareData = {
                 title: 'InnovArqZ Soluciones Integrales S.A.S.',
@@ -2690,43 +2954,6 @@
             }
         }
 
-        /* BUSCADOR GLOBAL */
-        function ejecutarBusquedaGlobal(queryOverride) {
-            const query = (queryOverride !== undefined ? queryOverride : document.getElementById('projectSearch').value).toLowerCase().trim();
-            if (!query) return;
-
-            // Busca en portafolio
-            const slides = document.querySelectorAll('.portfolio-slide');
-            let foundPortfolio = false;
-
-            slides.forEach(slide => {
-                const text = slide.innerText.toLowerCase();
-                if (text.includes(query)) {
-                    slide.style.setProperty('display', 'flex', 'important');
-                    foundPortfolio = true;
-                } else {
-                    slide.style.setProperty('display', 'none', 'important');
-                }
-            });
-
-            if (foundPortfolio) {
-                carouselIndices['portfolioTrack'] = 0;
-                goToSlide('portfolioTrack', 'portfolio-slide', 0);
-                document.getElementById('portafolio').scrollIntoView({ behavior: 'smooth' });
-                return;
-            }
-
-            // Si no está en portafolio, busca en las secciones principales
-            const sections = document.querySelectorAll('section[id]');
-            for (let sec of sections) {
-                if (sec.innerText.toLowerCase().includes(query)) {
-                    sec.scrollIntoView({ behavior: 'smooth' });
-                    break;
-                }
-            }
-        }
-
-        /* SWIPE / DESLIZAR EN CELULARES */
         function setupSwipe(wrapperId, trackId, slideClass) {
             const wrapper = document.getElementById(wrapperId);
             if (!wrapper) return;
@@ -2942,26 +3169,9 @@
             observer.observe(contactSection);
         }
 
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        }
-
         window.addEventListener('click', (event) => {
             if (event.target.classList.contains('modal-overlay')) {
-                event.target.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                closeModal(event.target.id);
             }
         });
 
@@ -3238,7 +3448,10 @@
             currentImageIndex = index;
             updateLightboxContent();
             const lb = document.getElementById('lightbox-modal');
-            if (lb) lb.classList.add('active');
+            if (lb) {
+                lb.classList.add('active');
+                history.pushState({ modalOpen: true, modalType: 'lightbox' }, "");
+            }
         }
 
         function closeLightbox() {
@@ -3266,15 +3479,6 @@
             currentImageIndex = (currentImageIndex - 1 + currentGallery.length) % currentGallery.length;
             updateLightboxContent();
         }
-
-        window.addEventListener('keydown', (e) => {
-            const lb = document.getElementById('lightbox-modal');
-            if (lb && lb.classList.contains('active')) {
-                if (e.key === 'Escape') closeLightbox();
-                if (e.key === 'ArrowRight') nextLightboxImage();
-                if (e.key === 'ArrowLeft') prevLightboxImage();
-            }
-        });
     </script>
 </body>
 </html>

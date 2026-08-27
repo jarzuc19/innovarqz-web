@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InnovArqZ Soluciones Integrales S.A.S. | BIM, CIM e Ingeniería</title>
     
-    <!-- Metadatos Open Graph para compartir con miniatura -->
     <meta property="og:title" content="InnovArqZ Soluciones Integrales S.A.S.">
     <meta property="og:description" content="Innovación Tecnológica y Control Técnico en Ingeniería, Arquitectura & BIM / CIM.">
     <meta property="og:image" content="https://www.innovarqzsas.com/esencia-digital-innovarqz.jpg">
@@ -36,7 +35,6 @@
             --shadow-color: rgba(0, 0, 0, 0.5);
         }
 
-        /* TEMA CLARO DINÁMICO */
         body.light-mode {
             --bg-dark: #f8fafc;
             --bg-card: #ffffff;
@@ -65,7 +63,6 @@
             line-height: 1.6;
         }
 
-        /* HEADER & NAVEGACIÓN */
         header {
             display: flex;
             justify-content: space-between;
@@ -187,9 +184,7 @@
             z-index: 999;
         }
 
-        .mobile-nav-drawer.active {
-            transform: translateY(0);
-        }
+        .mobile-nav-drawer.active { transform: translateY(0); }
 
         .mobile-nav-drawer a {
             color: var(--text-main);
@@ -201,21 +196,19 @@
             justify-content: space-between;
         }
 
-        /* HERO SECTION */
         .hero {
             position: relative;
             padding: 6rem 5% 4rem;
             text-align: center;
             max-width: 100%;
             margin: 0 auto;
-            overflow: visible;
+            overflow: hidden;
         }
 
         .hero-3d-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1; pointer-events: none;
-            overflow: hidden;
         }
 
         .hero-3d-bg svg { width: 100%; height: 100%; object-fit: cover; }
@@ -283,7 +276,6 @@
             margin-bottom: 2rem;
         }
 
-        /* BUSCADOR HERO & PANEL FLOTANTE DE RESULTADOS */
         .search-box-container {
             max-width: 680px;
             margin: 2rem auto 0;
@@ -291,7 +283,6 @@
             flex-direction: column;
             gap: 1.25rem;
             align-items: center;
-            position: relative;
         }
 
         .search-input-wrapper {
@@ -345,44 +336,52 @@
 
         .btn-search:hover { background-color: var(--accent-copper-hover); }
 
-        /* LISTA DESPLEGABLE DE RESULTADOS (DESKTOP FLOTANTE) */
-        .search-results-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            margin-top: 0.6rem;
-            background-color: var(--bg-card);
+        /* MODAL DEDICADO DE RESULTADOS DE BÚSQUEDA (SISTEMA AISLADO) */
+        .search-modal-content {
+            background-color: var(--modal-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: 0 15px 35px var(--shadow-color);
-            max-height: 380px;
-            overflow-y: auto;
-            z-index: 1200;
-            display: none;
-            text-align: left;
-            padding: 0.5rem;
+            border-radius: 14px;
+            max-width: 680px;
+            width: 100%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: 1.75rem;
+            box-shadow: 0 25px 50px var(--shadow-color);
         }
 
-        .search-results-dropdown.active { display: block; }
+        .search-results-list {
+            margin-top: 1rem;
+            overflow-y: auto;
+            max-height: 52vh;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding-right: 0.25rem;
+        }
 
-        .search-result-item {
-            padding: 0.85rem 1rem;
-            border-radius: 8px;
+        .search-result-card {
+            padding: 0.9rem 1.1rem;
+            border-radius: 10px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            gap: 0.85rem;
+            gap: 1rem;
             cursor: pointer;
-            transition: background-color 0.2s;
-            border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+            transition: all 0.2s ease;
         }
 
-        .search-result-item:last-child { border-bottom: none; }
-        .search-result-item:hover { background-color: rgba(217, 119, 6, 0.12); }
+        .search-result-card:hover, .search-result-card.selected-item {
+            border-color: var(--accent-copper);
+            background-color: rgba(217, 119, 6, 0.12);
+            transform: translateX(3px);
+        }
 
-        .result-icon-badge {
-            width: 36px;
-            height: 36px;
+        .result-badge-icon {
+            width: 40px;
+            height: 40px;
             border-radius: 8px;
             background-color: rgba(217, 119, 6, 0.15);
             color: var(--accent-copper);
@@ -392,45 +391,34 @@
             flex-shrink: 0;
         }
 
-        .result-info {
+        .result-text-body {
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
-        .result-title {
-            font-size: 0.95rem;
+        .result-item-title {
+            font-size: 0.98rem;
             font-weight: 700;
             color: var(--text-main);
-            line-height: 1.25;
         }
 
-        .result-type {
-            font-size: 0.75rem;
-            font-weight: 600;
+        .result-item-cat {
+            font-size: 0.72rem;
+            font-weight: 700;
             color: var(--accent-copper);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-top: 2px;
         }
 
-        .result-snippet {
+        .result-item-desc {
             font-size: 0.82rem;
             color: var(--text-muted);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 480px;
+            line-height: 1.35;
+            margin-top: 2px;
         }
 
-        .no-results-msg {
-            padding: 1.5rem;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.92rem;
-        }
-
-        /* BUTTONS GENERAL */
         .btn-primary {
             background-color: var(--accent-copper);
             color: #fff;
@@ -483,7 +471,6 @@
 
         .btn-whatsapp:hover { background-color: var(--whatsapp-hover); }
 
-        /* FABs FLOATING ACTIONS */
         .floating-actions {
             position: fixed;
             bottom: 2rem;
@@ -541,7 +528,6 @@
 
         .fab-btn:hover .fab-tooltip { opacity: 1; }
 
-        /* SECCIONES Y TITULOS */
         section {
             padding: 5rem 5%;
             max-width: 1200px;
@@ -565,7 +551,6 @@
             font-size: 1.05rem;
         }
 
-        /* SERVICIOS Y PORTAFOLIO */
         .tech-section {
             background-color: var(--bg-section-alt);
             border-top: 1px solid var(--border-color);
@@ -789,7 +774,6 @@
             width: 56px;
         }
 
-        /* NAVEGACIÓN PORTAFOLIO */
         .portfolio-counter-container {
             display: flex;
             flex-direction: column;
@@ -860,7 +844,6 @@
             transition: width 0.4s ease;
         }
 
-        /* LÍNEA DE TIEMPO */
         .timeline-container {
             margin: 2rem 0 2.5rem;
             position: relative;
@@ -1006,7 +989,6 @@
             font-weight: 600;
         }
 
-        /* METODOLOGÍA BIM/CIM */
         .bim-section {
             position: relative;
             background-color: var(--bg-dark);
@@ -1103,7 +1085,6 @@
             to { transform: rotate(-360deg); }
         }
 
-        /* FICHA PANEL DINÁMICA DE DIMENSIONES */
         .dim-panel {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -1188,13 +1169,12 @@
         .dim-bar-fill.trad { background: linear-gradient(90deg, #b91c1c, var(--trad-color)); }
         .dim-bar-fill.bim { background: linear-gradient(90deg, #059669, var(--bim-color)); }
 
-        /* MODALES ESTRUCTURALES */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(8px);
-            z-index: 2000;
+            z-index: 3500;
             display: flex; align-items: center; justify-content: center;
             padding: 2rem 5%;
             opacity: 0; pointer-events: none;
@@ -1293,7 +1273,6 @@
 
         .gallery-item:hover .gallery-item-zoom-icon { opacity: 1; transform: scale(1); }
 
-        /* MODAL COMPARTIR */
         .share-card-preview {
             border: 1px solid var(--border-color);
             border-radius: 12px;
@@ -1325,13 +1304,12 @@
             margin-top: 1rem;
         }
 
-        /* LIGHTBOX */
         .lightbox-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(11, 17, 32, 0.96);
             backdrop-filter: blur(12px);
-            z-index: 3000;
+            z-index: 4000;
             display: flex; align-items: center; justify-content: center;
             opacity: 0; pointer-events: none;
             transition: opacity 0.3s ease;
@@ -1375,7 +1353,7 @@
             background: var(--bg-card); border: 1px solid var(--border-color);
             color: var(--text-main); width: 50px; height: 50px; border-radius: 50%;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s ease; z-index: 3010;
+            transition: all 0.3s ease; z-index: 4010;
         }
 
         .lightbox-arrow:hover { background-color: var(--accent-copper); color: #fff; transform: translateY(-50%) scale(1.1); }
@@ -1385,7 +1363,6 @@
         .modal-description { color: var(--text-muted); font-size: 0.98rem; line-height: 1.7; }
         .modal-description h5 { color: var(--text-main); font-size: 1.1rem; margin: 1.25rem 0 0.5rem; }
 
-        /* NOSOTROS & ESENCIA DIGITAL */
         .about-section {
             position: relative;
             background-color: var(--bg-dark);
@@ -1669,7 +1646,6 @@
             background: linear-gradient(180deg, transparent, var(--accent-copper), transparent);
         }
 
-        /* CONTACTO */
         .contact-section {
             position: relative;
             background-color: var(--bg-section-alt);
@@ -1779,7 +1755,6 @@
         .form-group textarea { resize: vertical; min-height: 110px; }
         .form-group select option { background-color: var(--bg-dark); color: var(--text-main); }
 
-        /* FOOTER */
         footer {
             padding: 3rem 5%; text-align: center; color: var(--text-muted);
             font-size: 0.9rem; background-color: var(--bg-section-alt); border-top: 1px solid var(--border-color);
@@ -1819,18 +1794,6 @@
             .lightbox-prev { left: 0.5rem; }
             .lightbox-next { right: 0.5rem; }
             .contact-buttons-group { flex-direction: column; }
-
-            /* RESULTADOS DE BÚSQUEDA MÓVIL EN MODAL PANTALLA COMPLETA */
-            .search-results-dropdown {
-                position: fixed;
-                top: 0; left: 0; width: 100vw; height: 100vh;
-                max-height: 100vh;
-                margin-top: 0;
-                border-radius: 0;
-                z-index: 2500;
-                padding: 1.5rem 1rem;
-                background-color: var(--bg-card);
-            }
         }
 
         @media (max-width: 640px) {
@@ -1840,7 +1803,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <div class="logo">
             <div>Innov<span>ArqZ</span></div>
@@ -1867,7 +1829,6 @@
         </div>
     </header>
 
-    <!-- DRAWER / DESPLEGABLE MÓVIL -->
     <div class="mobile-nav-drawer" id="mobileNavDrawer">
         <a href="#inicio" onclick="closeMobileMenu()"><span>Inicio</span> <i data-lucide="chevron-right"></i></a>
         <a href="#servicios" onclick="closeMobileMenu()"><span>Servicios</span> <i data-lucide="chevron-right"></i></a>
@@ -1877,7 +1838,6 @@
         <a href="#contacto" onclick="closeMobileMenu()"><span>Contacto</span> <i data-lucide="chevron-right"></i></a>
     </div>
 
-    <!-- Hero -->
     <section class="hero" id="inicio">
         <div class="hero-3d-bg">
             <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -1894,11 +1854,7 @@
                     <polygon points="500,180 650,250 650,420 500,350" />
                     <polygon points="500,180 350,250 350,420 500,350" />
                     <polygon points="500,180 650,250 500,320 350,250" />
-                    <polygon points="300,280 450,350 450,520 300,450" />
-                    <polygon points="300,280 150,350 150,520 300,450" />
-                    <polygon points="300,280 450,350 300,420 150,350" />
                     <line x1="500" y1="0" x2="500" y2="600" stroke-dasharray="4,4" />
-                    <line x1="300" y1="0" x2="300" y2="600" stroke-dasharray="4,4" />
                 </g>
             </svg>
             <div class="hero-overlay"></div>
@@ -1921,19 +1877,28 @@
             <div class="search-box-container">
                 <div class="search-input-wrapper">
                     <i data-lucide="search" class="search-icon"></i>
-                    <input type="text" id="projectSearch" placeholder="Buscar proyectos, consultorías o servicios BIM..." autocomplete="off">
-                    <button type="button" class="btn-search" onclick="ejecutarBusquedaInteligente()">
+                    <input type="text" id="projectSearch" placeholder="Buscar proyectos, consultorías o servicios BIM..." autocomplete="off" onkeydown="if(event.key==='Enter') abrirModalResultadosBusqueda()">
+                    <button type="button" class="btn-search" onclick="abrirModalResultadosBusqueda()">
                         <span>Buscar</span>
                         <i data-lucide="arrow-right"></i>
                     </button>
                 </div>
-                <!-- PANEL FLOTANTE / DESPLEGABLE DE RESULTADOS -->
-                <div class="search-results-dropdown" id="searchResultsDropdown"></div>
             </div>
         </div>
     </section>
 
-    <!-- FABs -->
+    <!-- MODAL DEDICADO PARA MOSTRAR RESULTADOS DE BÚSQUEDA -->
+    <div class="modal-overlay" id="modal-search-results">
+        <div class="search-modal-content">
+            <button class="modal-close" onclick="closeModal('modal-search-results')"><i data-lucide="x"></i></button>
+            <div class="modal-header" style="margin-bottom: 0.5rem;">
+                <h3>Resultados de Búsqueda</h3>
+                <p style="color: var(--text-muted); font-size: 0.88rem;" id="searchModalSubtitle">Usa el clic, dedo o las flechas (▲/▼) + Enter para navegar.</p>
+            </div>
+            <div class="search-results-list" id="searchResultsContainer"></div>
+        </div>
+    </div>
+
     <div class="floating-actions" id="floatingActions">
         <a href="mailto:infobim@innovarqzsas.com" class="fab-btn fab-contact" title="Enviar Correo de Cotización">
             <i data-lucide="mail"></i>
@@ -1949,7 +1914,6 @@
         </a>
     </div>
 
-    <!-- Servicios -->
     <section id="servicios" class="tech-section">
         <div class="topo-bg">
             <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -1965,9 +1929,6 @@
                     <path d="M-100,300 C250,220 450,400 750,280 C1050,160 1150,350 1300,300" />
                     <path d="M-100,400 C300,300 500,500 800,380 C1100,260 1200,450 1300,400" />
                     <path d="M-100,500 C350,380 550,600 850,480 C1150,360 1250,550 1300,500" />
-                    <path d="M-100,600 C400,460 600,700 900,580 C1200,460 1300,650 1300,600" />
-                    <line x1="200" y1="0" x2="1000" y2="800" stroke-dasharray="6,6" opacity="0.4" />
-                    <line x1="0" y1="600" x2="1200" y2="200" stroke-dasharray="6,6" opacity="0.4" />
                 </g>
             </svg>
             <div class="topo-overlay"></div>
@@ -2066,7 +2027,6 @@
         </div>
     </section>
 
-    <!-- Metodología BIM/CIM -->
     <section id="bim-cim" class="bim-section">
         <div class="bim-3d-bg">
             <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -2081,8 +2041,6 @@
                     <path d="M-100,500 L500,-100 M100,600 L700,-100 M300,600 L900,0 M500,600 L1100,0" />
                     <path d="M1100,500 L500,-100 M900,600 L300,-100 M700,600 L100,-100 M500,600 L-100,0" />
                     <polygon points="500,180 650,250 650,420 500,350" />
-                    <polygon points="500,180 350,250 350,420 500,350" />
-                    <polygon points="500,180 650,250 500,320 350,250" />
                     <line x1="500" y1="0" x2="500" y2="600" stroke-dasharray="4,4" />
                 </g>
             </svg>
@@ -2163,7 +2121,6 @@
         </div>
     </section>
 
-    <!-- PORTAFOLIO -->
     <section id="portafolio" class="tech-section">
         <div class="topo-bg">
             <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -2171,7 +2128,6 @@
                     <path d="M-100,150 C250,100 450,250 750,130 C1050,10 1150,200 1300,150" />
                     <path d="M-100,250 C300,180 500,350 800,230 C1100,110 1200,300 1300,250" />
                     <path d="M-100,350 C350,280 550,450 850,330 C1150,210 1250,400 1300,350" />
-                    <path d="M-100,450 C400,380 600,550 900,430 C1200,310 1300,500 1300,450" />
                 </g>
             </svg>
             <div class="topo-overlay"></div>
@@ -2261,7 +2217,6 @@
         </div>
     </div>
 
-    <!-- MODAL COMPARTIR (DESKTOP) -->
     <div class="modal-overlay" id="modal-share">
         <div class="modal-content" style="max-width: 520px;">
             <button class="modal-close" onclick="closeModal('modal-share')"><i data-lucide="x"></i></button>
@@ -2285,7 +2240,6 @@
         </div>
     </div>
 
-    <!-- NOSOTROS & ESENCIA DIGITAL -->
     <section class="about-section" id="nosotros">
         <div class="about-3d-bg">
             <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -2300,7 +2254,6 @@
                     <path d="M-100,500 L500,-100 M100,600 L700,-100 M300,600 L900,0 M500,600 L1100,0" />
                     <path d="M1100,500 L500,-100 M900,600 L300,-100 M700,600 L100,-100 M500,600 L-100,0" />
                     <polygon points="500,180 650,250 650,420 500,350" />
-                    <polygon points="500,180 350,250 350,420 500,350" />
                     <line x1="500" y1="0" x2="500" y2="600" stroke-dasharray="4,4" />
                 </g>
             </svg>
@@ -2421,7 +2374,6 @@
         </div>
     </section>
 
-    <!-- Modal James Zúñiga -->
     <div class="modal-overlay" id="modal-perfil-james">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('modal-perfil-james')"><i data-lucide="x"></i></button>
@@ -2447,7 +2399,6 @@
         </div>
     </div>
 
-    <!-- VISOR LIGHTBOX -->
     <div class="lightbox-overlay" id="lightbox-modal">
         <button class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x"></i></button>
         <button class="lightbox-arrow lightbox-prev" onclick="prevLightboxImage()"><i data-lucide="chevron-left"></i></button>
@@ -2458,7 +2409,6 @@
         </div>
     </div>
 
-    <!-- CONTACTO -->
     <section class="contact-section" id="contacto">
         <div class="contact-vector-bg">
             <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -2473,11 +2423,6 @@
                     <path d="M50,150 Q200,80 350,200 T650,150 T950,250" stroke-dasharray="8,8" />
                     <path d="M50,300 Q250,400 450,250 T750,350 T950,150" />
                     <path d="M50,450 Q180,520 380,400 T680,450 T950,400" stroke-dasharray="6,6" />
-                    <polygon points="750,180 850,220 850,350 750,310" opacity="0.8" stroke-width="2" />
-                    <polygon points="800,140 900,180 900,310 800,270" opacity="0.6" stroke-width="1.5" />
-                    <polygon points="750,180 850,220 900,180 800,140" opacity="0.7" stroke-width="1.5" />
-                    <line x1="750" y1="180" x2="800" y2="140" stroke-width="2" />
-                    <line x1="850" y1="220" x2="900" y2="180" stroke-width="2" />
                 </g>
             </svg>
             <div class="contact-overlay"></div>
@@ -2561,14 +2506,13 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p><strong>InnovArqZ Soluciones Integrales S.A.S.</strong></p>
         <p>Ricaurte, Nariño - Colombia | <a href="mailto:infobim@innovarqzsas.com">infobim@innovarqzsas.com</a></p>
         <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">&copy; 2026 InnovArqZ. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- JAVASCRIPT GLOBAL CON CONTROL DE HISTORIAL Y TECLA ESC -->
+    <!-- JAVASCRIPT GLOBAL -->
     <script>
         let proyectosGlobales = [];
         let currentGallery = [];
@@ -2577,11 +2521,9 @@
         let activeYear = 'all';
         let isIsoStateActive = true;
         let activeModalId = null;
+        let selectedSearchIndex = -1;
 
-        const carouselIndices = {
-            'servicesTrack': 0,
-            'portfolioTrack': 0
-        };
+        const carouselIndices = { 'servicesTrack': 0, 'portfolioTrack': 0 };
 
         const teamMembers = [
             {
@@ -2686,12 +2628,12 @@
         };
 
         const seccionesEstructura = [
-            { id: 'inicio', title: 'Inicio / Presentación Principal', icon: 'home', snippet: 'Innovación Tecnológica y Control Técnico' },
-            { id: 'servicios', title: 'Nuestros Pilares de Servicio', icon: 'layers', snippet: 'OpenBIM ISO 19650, Interventoría, FM y Suministros' },
-            { id: 'bim-cim', title: 'Metodología BIM / CIM', icon: 'cpu', snippet: 'Dimensiones del modelo virtual (1D a 7D)' },
-            { id: 'portafolio', title: 'Portafolio de Proyectos', icon: 'box', snippet: 'Casos de estudio, licitaciones y consultorías' },
-            { id: 'nosotros', title: 'Esencia Digital & ADN InnovArqZ', icon: 'dna', snippet: 'Misión, Visión y Equipo Directivo' },
-            { id: 'contacto', title: 'Contacto & Formulario Directo', icon: 'mail', snippet: 'Solicita cotización o información de proyectos' }
+            { id: 'inicio', title: 'Inicio / Presentación Principal', icon: 'home', snippet: 'Innovación Tecnológica y Control Técnico en Arquitectura e Ingeniería' },
+            { id: 'servicios', title: 'Nuestros Pilares de Servicio', icon: 'layers', snippet: 'OpenBIM ISO 19650, Interventoría de Obra, FM y Suministros' },
+            { id: 'bim-cim', title: 'Metodología BIM / CIM', icon: 'cpu', snippet: 'Dimensiones del modelo virtual (1D a 7D) y simulación' },
+            { id: 'portafolio', title: 'Portafolio de Proyectos', icon: 'box', snippet: 'Casos de estudio, licitaciones y consultorías técnicas' },
+            { id: 'nosotros', title: 'Esencia Digital & ADN InnovArqZ', icon: 'dna', snippet: 'Misión, Visión 2031 y Equipo Directivo' },
+            { id: 'contacto', title: 'Contacto & Formulario Directo', icon: 'mail', snippet: 'Solicita cotización de servicios o asesoría técnica' }
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -2720,66 +2662,55 @@
             cargarPortafolioDinamico();
             selectDimension('iso');
 
-            // OBSERVADOR DE INTERSECCIÓN PARA REANIMACIÓN DE BARRAS METODOLÓGICAS
-            const bimSection = document.getElementById('bim-cim');
-            if (bimSection) {
-                const bimObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            if (isIsoStateActive) selectDimension('iso');
-                        } else {
-                            const fills = document.querySelectorAll('.dim-bar-fill');
-                            fills.forEach(f => {
-                                f.style.width = '0%';
-                                f.classList.remove('active-fill');
-                            });
-                        }
-                    });
-                }, { threshold: 0.3 });
-
-                bimObserver.observe(bimSection);
-            }
-
             setupSwipe('servicesWrapper', 'servicesTrack', 'service-slide');
             setupSwipe('portfolioWrapper', 'portfolioTrack', 'portfolio-slide');
-
-            // CONTROL DEL BUSCADOR FLOTANTE
-            const searchInput = document.getElementById('projectSearch');
-            if (searchInput) {
-                searchInput.addEventListener('input', (e) => ejecutarBusquedaInteligente(e.target.value));
-                searchInput.addEventListener('focus', () => {
-                    if (searchInput.value.trim() !== '') ejecutarBusquedaInteligente(searchInput.value);
-                });
-            }
-
-            // OCULTAR BUSCADOR AL HACER CLIC FUERA
-            document.addEventListener('click', (e) => {
-                const container = document.querySelector('.search-box-container');
-                const dropdown = document.getElementById('searchResultsDropdown');
-                if (container && !container.contains(e.target) && dropdown) {
-                    dropdown.classList.remove('active');
-                }
-            });
         });
 
-        /* ESCUCHADOR GLOBAL PARA BOTÓN "ATRÁS" DEL NAVEGADOR (MÓVILES) Y TECLA ESC (ESCRITORIO) */
-        window.addEventListener('popstate', (event) => {
+        /* NAVEGACIÓN TECLA ATRÁS (MÓVILES) Y ESC (ESCRITORIO) */
+        window.addEventListener('popstate', () => {
             closeAllModalsWithoutHistory();
         });
 
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeAllModals();
+            } else {
+                // NAVEGACIÓN TECLADO EN RESULTADOS DE BÚSQUEDA
+                const searchModal = document.getElementById('modal-search-results');
+                if (searchModal && searchModal.classList.contains('active')) {
+                    const cards = document.querySelectorAll('.search-result-card');
+                    if (cards.length === 0) return;
+
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        selectedSearchIndex = (selectedSearchIndex + 1) % cards.length;
+                        actualizarSeleccionTarjeta(cards);
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        selectedSearchIndex = (selectedSearchIndex - 1 + cards.length) % cards.length;
+                        actualizarSeleccionTarjeta(cards);
+                    } else if (e.key === 'Enter' && selectedSearchIndex >= 0 && selectedSearchIndex < cards.length) {
+                        e.preventDefault();
+                        cards[selectedSearchIndex].click();
+                    }
+                }
             }
         });
 
+        function actualizarSeleccionTarjeta(cards) {
+            cards.forEach((c, idx) => {
+                if (idx === selectedSearchIndex) {
+                    c.classList.add('selected-item');
+                    c.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                } else {
+                    c.classList.remove('selected-item');
+                }
+            });
+        }
+
         function closeAllModals() {
-            if (activeModalId) {
-                closeModal(activeModalId);
-            }
+            if (activeModalId) closeModal(activeModalId);
             closeLightbox();
-            const dropdown = document.getElementById('searchResultsDropdown');
-            if (dropdown) dropdown.classList.remove('active');
         }
 
         function closeAllModalsWithoutHistory() {
@@ -2787,13 +2718,10 @@
             modals.forEach(m => m.classList.remove('active'));
             const lb = document.getElementById('lightbox-modal');
             if (lb) lb.classList.remove('active');
-            const dropdown = document.getElementById('searchResultsDropdown');
-            if (dropdown) dropdown.classList.remove('active');
             document.body.style.overflow = 'auto';
             activeModalId = null;
         }
 
-        /* MANEJO DE MODALES CON CONTROL DE HISTORIAL */
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
@@ -2816,103 +2744,107 @@
             }
         }
 
-        /* BUSCADOR INTELIGENTE DESPLEGABLE DE OPCIONES */
-        function ejecutarBusquedaInteligente(queryOverride) {
-            const query = (queryOverride !== undefined ? queryOverride : document.getElementById('projectSearch').value).toLowerCase().trim();
-            const dropdown = document.getElementById('searchResultsDropdown');
+        /* LÓGICA DE BÚSQUEDA DEDICADA EN MODAL */
+        function abrirModalResultadosBusqueda() {
+            const query = document.getElementById('projectSearch').value.toLowerCase().trim();
+            const container = document.getElementById('searchResultsContainer');
+            const subtitle = document.getElementById('searchModalSubtitle');
 
-            if (!dropdown) return;
+            if (!container) return;
 
             if (query === '') {
-                dropdown.classList.remove('active');
-                dropdown.innerHTML = '';
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:2rem;">Por favor escribe una palabra clave (ej. BIM, Tumaco, CPNAA, Obra) para buscar.</p>`;
+                openModal('modal-search-results');
                 return;
             }
 
             let htmlResults = '';
-            let totalCoincidencias = 0;
+            let count = 0;
+            selectedSearchIndex = -1;
 
-            // 1. Escanea Secciones del sitio
+            // 1. Escanea Secciones
             seccionesEstructura.forEach(sec => {
                 if (sec.title.toLowerCase().includes(query) || sec.snippet.toLowerCase().includes(query)) {
-                    totalCoincidencias++;
+                    count++;
                     htmlResults += `
-                        <div class="search-result-item" onclick="seleccionarResultadoBusqueda('seccion', '${sec.id}')">
-                            <div class="result-icon-badge"><i data-lucide="${sec.icon}"></i></div>
-                            <div class="result-info">
-                                <span class="result-title">${sec.title}</span>
-                                <span class="result-type">Sección Principal</span>
-                                <span class="result-snippet">${sec.snippet}</span>
+                        <div class="search-result-card" onclick="ejecutarAccionResultado('seccion', '${sec.id}')">
+                            <div class="result-badge-icon"><i data-lucide="${sec.icon}"></i></div>
+                            <div class="result-text-body">
+                                <span class="result-item-title">${sec.title}</span>
+                                <span class="result-item-cat">Sección del Sitio</span>
+                                <span class="result-item-desc">${sec.snippet}</span>
                             </div>
                         </div>
                     `;
                 }
             });
 
-            // 2. Escanea Equipo de Trabajo
+            // 2. Escanea Equipo
             teamMembers.forEach(mem => {
                 if (mem.name.toLowerCase().includes(query) || mem.role.toLowerCase().includes(query) || mem.desc.toLowerCase().includes(query)) {
-                    totalCoincidencias++;
+                    count++;
                     htmlResults += `
-                        <div class="search-result-item" onclick="seleccionarResultadoBusqueda('perfil', '${mem.modalTarget || 0}')">
-                            <div class="result-icon-badge"><i data-lucide="user"></i></div>
-                            <div class="result-info">
-                                <span class="result-title">${mem.name}</span>
-                                <span class="result-type">Perfil de Personal / Equipo</span>
-                                <span class="result-snippet">${mem.role} - ${mem.desc}</span>
+                        <div class="search-result-card" onclick="ejecutarAccionResultado('perfil', '${mem.modalTarget || 0}')">
+                            <div class="result-badge-icon"><i data-lucide="user"></i></div>
+                            <div class="result-text-body">
+                                <span class="result-item-title">${mem.name}</span>
+                                <span class="result-item-cat">Perfil del Equipo</span>
+                                <span class="result-item-desc">${mem.role} - ${mem.desc}</span>
                             </div>
                         </div>
                     `;
                 }
             });
 
-            // 3. Escanea Proyectos del Portafolio
+            // 3. Escanea Proyectos
             proyectosGlobales.forEach(proj => {
                 const searchPool = `${proj.title} ${proj.subtitle || ''} ${proj.scope || ''} ${proj.tools || ''} ${proj.standard || ''} ${proj.software || ''}`.toLowerCase();
                 if (searchPool.includes(query)) {
-                    totalCoincidencias++;
+                    count++;
                     htmlResults += `
-                        <div class="search-result-item" onclick="seleccionarResultadoBusqueda('proyecto', '${proj.id}')">
-                            <div class="result-icon-badge"><i data-lucide="box"></i></div>
-                            <div class="result-info">
-                                <span class="result-title">${proj.title}</span>
-                                <span class="result-type">Caso de Estudio (${proj.year || '2026'})</span>
-                                <span class="result-snippet">${proj.subtitle || proj.scope || ''}</span>
+                        <div class="search-result-card" onclick="ejecutarAccionResultado('proyecto', '${proj.id}')">
+                            <div class="result-badge-icon"><i data-lucide="box"></i></div>
+                            <div class="result-text-body">
+                                <span class="result-item-title">${proj.title}</span>
+                                <span class="result-item-cat">Caso de Estudio (${proj.year || '2026'})</span>
+                                <span class="result-item-desc">${proj.subtitle || proj.scope || ''}</span>
                             </div>
                         </div>
                     `;
                 }
             });
 
-            if (totalCoincidencias > 0) {
-                dropdown.innerHTML = htmlResults;
+            if (count > 0) {
+                subtitle.innerText = `Se encontraron ${count} coincidencia(s) para "${query}". Elige una opción:`;
+                container.innerHTML = htmlResults;
             } else {
-                dropdown.innerHTML = `<div class="no-results-msg">Sin coincidencias para "<strong>${query}</strong>". Intenta con otro término (ej. BIM, Obra, Tumaco, CPNAA).</div>`;
+                subtitle.innerText = `Sin resultados para "${query}".`;
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:2rem;">No encontramos coincidencias exactas. Intenta con otros términos como <strong>BIM, Obra, Tumaco, ESAP o CPNAA</strong>.</p>`;
             }
 
-            dropdown.classList.add('active');
             if (window.lucide) lucide.createIcons();
+            openModal('modal-search-results');
         }
 
-        function seleccionarResultadoBusqueda(tipo, destinoId) {
-            const dropdown = document.getElementById('searchResultsDropdown');
-            if (dropdown) dropdown.classList.remove('active');
+        function ejecutarAccionResultado(tipo, destinoId) {
+            closeModal('modal-search-results');
 
-            if (tipo === 'seccion') {
-                const el = document.getElementById(destinoId);
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-            } else if (tipo === 'proyecto') {
-                openPortfolioModal(destinoId);
-            } else if (tipo === 'perfil') {
-                if (destinoId && destinoId !== '0') openModal(destinoId);
-                else {
-                    const el = document.getElementById('nosotros');
+            setTimeout(() => {
+                if (tipo === 'seccion') {
+                    const el = document.getElementById(destinoId);
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
+                } else if (tipo === 'proyecto') {
+                    openPortfolioModal(destinoId);
+                } else if (tipo === 'perfil') {
+                    if (destinoId && destinoId !== '0') openModal(destinoId);
+                    else {
+                        const el = document.getElementById('nosotros');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }
                 }
-            }
+            }, 150);
         }
 
-        /* CONMUTADOR DE TEMA CLARO / OSCURO */
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
             const themeIcon = document.getElementById('themeIcon');

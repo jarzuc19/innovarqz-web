@@ -2744,88 +2744,118 @@
             }
         }
 
-        /* LÓGICA DE BÚSQUEDA DEDICADA EN MODAL */
-        function abrirModalResultadosBusqueda() {
-            const query = document.getElementById('projectSearch').value.toLowerCase().trim();
-            const container = document.getElementById('searchResultsContainer');
-            const subtitle = document.getElementById('searchModalSubtitle');
+/* LÓGICA DE BÚSQUEDA DEDICADA EN MODAL (AMPLIADA & EXCLUSIONES APLICADAS) */
+function abrirModalResultadosBusqueda() {
+    const query = document.getElementById('projectSearch').value.toLowerCase().trim();
+    const container = document.getElementById('searchResultsContainer');
+    const subtitle = document.getElementById('searchModalSubtitle');
 
-            if (!container) return;
+    if (!container) return;
 
-            if (query === '') {
-                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:2rem;">Por favor escribe una palabra clave (ej. BIM, Tumaco, CPNAA, Obra) para buscar.</p>`;
-                openModal('modal-search-results');
-                return;
-            }
+    if (query === '') {
+        container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:2rem;">Por favor escribe una palabra clave para buscar.</p>`;
+        openModal('modal-search-results');
+        return;
+    }
 
-            let htmlResults = '';
-            let count = 0;
-            selectedSearchIndex = -1;
+    let htmlResults = '';
+    let count = 0;
+    selectedSearchIndex = -1;
 
-            // 1. Escanea Secciones
-            seccionesEstructura.forEach(sec => {
-                if (sec.title.toLowerCase().includes(query) || sec.snippet.toLowerCase().includes(query)) {
-                    count++;
-                    htmlResults += `
-                        <div class="search-result-card" onclick="ejecutarAccionResultado('seccion', '${sec.id}')">
-                            <div class="result-badge-icon"><i data-lucide="${sec.icon}"></i></div>
-                            <div class="result-text-body">
-                                <span class="result-item-title">${sec.title}</span>
-                                <span class="result-item-cat">Sección del Sitio</span>
-                                <span class="result-item-desc">${sec.snippet}</span>
-                            </div>
-                        </div>
-                    `;
-                }
-            });
-
-            // 2. Escanea Equipo
-            teamMembers.forEach(mem => {
-                if (mem.name.toLowerCase().includes(query) || mem.role.toLowerCase().includes(query) || mem.desc.toLowerCase().includes(query)) {
-                    count++;
-                    htmlResults += `
-                        <div class="search-result-card" onclick="ejecutarAccionResultado('perfil', '${mem.modalTarget || 0}')">
-                            <div class="result-badge-icon"><i data-lucide="user"></i></div>
-                            <div class="result-text-body">
-                                <span class="result-item-title">${mem.name}</span>
-                                <span class="result-item-cat">Perfil del Equipo</span>
-                                <span class="result-item-desc">${mem.role} - ${mem.desc}</span>
-                            </div>
-                        </div>
-                    `;
-                }
-            });
-
-            // 3. Escanea Proyectos
-            proyectosGlobales.forEach(proj => {
-                const searchPool = `${proj.title} ${proj.subtitle || ''} ${proj.scope || ''} ${proj.tools || ''} ${proj.standard || ''} ${proj.software || ''}`.toLowerCase();
-                if (searchPool.includes(query)) {
-                    count++;
-                    htmlResults += `
-                        <div class="search-result-card" onclick="ejecutarAccionResultado('proyecto', '${proj.id}')">
-                            <div class="result-badge-icon"><i data-lucide="box"></i></div>
-                            <div class="result-text-body">
-                                <span class="result-item-title">${proj.title}</span>
-                                <span class="result-item-cat">Caso de Estudio (${proj.year || '2026'})</span>
-                                <span class="result-item-desc">${proj.subtitle || proj.scope || ''}</span>
-                            </div>
-                        </div>
-                    `;
-                }
-            });
-
-            if (count > 0) {
-                subtitle.innerText = `Se encontraron ${count} coincidencia(s) para "${query}". Elige una opción:`;
-                container.innerHTML = htmlResults;
-            } else {
-                subtitle.innerText = `Sin resultados para "${query}".`;
-                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:2rem;">No encontramos coincidencias exactas. Intenta con otros términos como <strong>BIM, Obra, Tumaco, ESAP o CPNAA</strong>.</p>`;
-            }
-
-            if (window.lucide) lucide.createIcons();
-            openModal('modal-search-results');
+    // 1. Escanea Secciones del Sitio (EXCLUYENDO INICIO Y CONTACTO)
+    const seccionesPermitidas = seccionesEstructura.filter(sec => sec.id !== 'inicio' && sec.id !== 'contacto');
+    seccionesPermitidas.forEach(sec => {
+        if (sec.title.toLowerCase().includes(query) || sec.snippet.toLowerCase().includes(query)) {
+            count++;
+            htmlResults += `
+                <div class="search-result-card" onclick="ejecutarAccionResultado('seccion', '${sec.id}')">
+                    <div class="result-badge-icon"><i data-lucide="${sec.icon}"></i></div>
+                    <div class="result-text-body">
+                        <span class="result-item-title">${sec.title}</span>
+                        <span class="result-item-cat">Sección del Sitio</span>
+                        <span class="result-item-desc">${sec.snippet}</span>
+                    </div>
+                </div>
+            `;
         }
+    });
 
+    // 2. Escanea Perfiles Profesionales, Equipo y Modales de Personal (Búsqueda Completa)
+    const perfilesProfesionales = [
+        {
+            idModal: 'modal-perfil-james',
+            nombre: 'Arq. James Ramiro Zúñiga Caipe',
+            cargo: 'Director General & Coordinador BIM / CIM',
+            textoCompleto: 'arquitecto universidad de nariño udenar cpnaa buildingsmart espacio bim autodesk máster bim manager iso 19650 openbim civil esap pbot eot diplomado ordenamiento territorial'
+        }
+    ];
+
+    // Evaluamos perfiles definidos con texto extendido
+    perfilesProfesionales.forEach(perf => {
+        const poolPerfil = `${perf.nombre} ${perf.cargo} ${perf.textoCompleto}`.toLowerCase();
+        if (poolPerfil.includes(query)) {
+            count++;
+            htmlResults += `
+                <div class="search-result-card" onclick="ejecutarAccionResultado('perfil', '${perf.idModal}')">
+                    <div class="result-badge-icon"><i data-lucide="user"></i></div>
+                    <div class="result-text-body">
+                        <span class="result-item-title">${perf.nombre}</span>
+                        <span class="result-item-cat">Perfil Profesional / Formación Técnica</span>
+                        <span class="result-item-desc">${perf.cargo} - Experiencia, Certificaciones y Estudios</span>
+                    </div>
+                </div>
+            `;
+        }
+    });
+
+    // Evaluamos el resto de miembros de equipo
+    teamMembers.forEach(mem => {
+        const poolTeam = `${mem.name} ${mem.role} ${mem.desc} ${mem.tags ? mem.tags.join(' ') : ''}`.toLowerCase();
+        // Evitamos duplicar a James si ya hizo match arriba
+        if (poolTeam.includes(query) && (!mem.modalTarget || mem.modalTarget !== 'modal-perfil-james')) {
+            count++;
+            htmlResults += `
+                <div class="search-result-card" onclick="ejecutarAccionResultado('perfil', '${mem.modalTarget || 0}')">
+                    <div class="result-badge-icon"><i data-lucide="users"></i></div>
+                    <div class="result-text-body">
+                        <span class="result-item-title">${mem.name}</span>
+                        <span class="result-item-cat">Equipo & Consultoría</span>
+                        <span class="result-item-desc">${mem.role} - ${mem.desc}</span>
+                    </div>
+                </div>
+            `;
+        }
+    });
+
+    // 3. Escanea Proyectos, Casos de Estudio y Modales de Portafolio
+    proyectosGlobales.forEach(proj => {
+        const searchPool = `${proj.title} ${proj.subtitle || ''} ${proj.scope || ''} ${proj.tools || ''} ${proj.standard || ''} ${proj.software || ''} ${proj.category || ''} ${proj.year || ''}`.toLowerCase();
+        if (searchPool.includes(query)) {
+            count++;
+            htmlResults += `
+                <div class="search-result-card" onclick="ejecutarAccionResultado('proyecto', '${proj.id}')">
+                    <div class="result-badge-icon"><i data-lucide="box"></i></div>
+                    <div class="result-text-body">
+                        <span class="result-item-title">${proj.title}</span>
+                        <span class="result-item-cat">Caso de Estudio / Proyecto (${proj.year || '2026'})</span>
+                        <span class="result-item-desc">${proj.subtitle || proj.scope || ''}</span>
+                    </div>
+                </div>
+            `;
+        }
+    });
+
+    if (count > 0) {
+        subtitle.innerText = `Se encontraron ${count} coincidencia(s) para "${query}". Elige una opción:`;
+        container.innerHTML = htmlResults;
+    } else {
+        subtitle.innerText = `Sin resultados para "${query}".`;
+        container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:2rem;">No encontramos coincidencias para "${query}". Intenta con otros términos técnicos.</p>`;
+    }
+
+    if (window.lucide) lucide.createIcons();
+    openModal('modal-search-results');
+}
         function ejecutarAccionResultado(tipo, destinoId) {
             closeModal('modal-search-results');
 

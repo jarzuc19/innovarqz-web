@@ -418,70 +418,80 @@
             margin-top: 2px;
         }
 
-        .launch-modal-card {
-            background-color: var(--modal-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            max-width: 580px;
-            width: 100%;
+        /* BANNER / MODAL DE LANZAMIENTO OPTIMIZADO CON IMAGEN DE FONDO */
+        .launch-modal-card-bg {
             position: relative;
-            padding: 2.25rem;
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
             box-shadow: 0 25px 50px var(--shadow-color);
+        }
+
+        .launch-modal-overlay-dark {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.82) 0%, rgba(15, 23, 42, 0.96) 100%);
+            backdrop-filter: blur(6px);
+            z-index: 1;
+        }
+
+        .launch-modal-inner {
+            position: relative;
+            z-index: 2;
+            padding: 2.5rem 2.25rem;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .launch-badge {
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            background-color: rgba(217, 119, 6, 0.15);
+            background-color: rgba(217, 119, 6, 0.2);
+            border: 1px solid rgba(217, 119, 6, 0.4);
             color: var(--accent-copper);
-            padding: 0.3rem 0.85rem;
+            padding: 0.35rem 0.9rem;
             border-radius: 20px;
             font-size: 0.78rem;
             font-weight: 700;
             letter-spacing: 1px;
-            margin-bottom: 1rem;
+            margin-bottom: 1.1rem;
         }
 
         .launch-title {
-            font-size: 1.75rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 0.6rem;
+            color: #fff;
+            margin-bottom: 1rem;
             line-height: 1.25;
+            letter-spacing: -0.3px;
         }
 
-        .launch-subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.55;
-            margin-bottom: 1.5rem;
+        .launch-body-text {
+            color: #cbd5e1;
+            font-size: 1.02rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 500px;
         }
 
-        .launch-cta-box {
-            background-color: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-
-        .launch-cta-box h4 {
-            color: var(--text-main);
-            font-size: 0.98rem;
+        .launch-body-text strong {
+            color: var(--accent-copper);
             font-weight: 700;
-            margin-bottom: 0.4rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
-        .launch-cta-box p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            line-height: 1.45;
+        .launch-buttons-row {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
         }
 
         .btn-primary {
@@ -1269,6 +1279,7 @@
             color: var(--text-muted);
             cursor: pointer;
             transition: color 0.3s;
+            z-index: 10;
         }
 
         .modal-close:hover { color: var(--accent-copper); }
@@ -1952,26 +1963,30 @@
         </div>
     </section>
 
-    <!-- MODAL DE LANZAMIENTO / LEAD MAGNET -->
+    <!-- MODAL DE LANZAMIENTO OPTIMIZADO (CON IMAGEN DE FONDO & REDIRECCIÓN DIRECTA A CONTACTO) -->
     <div class="modal-overlay" id="modal-launch">
-        <div class="launch-modal-card">
+        <div class="launch-modal-card-bg" style="background-image: url('esencia-digital-innovarqz.jpg');">
+            <div class="launch-modal-overlay-dark"></div>
             <button class="modal-close" onclick="closeModal('modal-launch')"><i data-lucide="x"></i></button>
-            <div class="launch-badge">
-                <i data-lucide="sparkles" style="width:14px; height:14px;"></i> LANZAMIENTO OFICIAL 2026
-            </div>
-            <h3 class="launch-title">¡Bienvenido al Futuro de la Transformación Digital Arquitectónica!</h3>
-            <p class="launch-subtitle">InnovArqZ abre sus puertas para revolucionar la gestión de edificación, infraestructura e interventoría bajo la norma <strong>ISO 19650</strong>.</p>
             
-            <div class="launch-cta-box">
-                <h4><i data-lucide="award" style="color:var(--accent-copper);"></i> Asesoría Inicial Sin Costo</h4>
-                <p>Por motivo de nuestro lanzamiento, agende una <strong>sesión de valoración técnica de 20 minutos</strong> para la estructuración BIM de su próximo proyecto o licitación pública.</p>
-            </div>
+            <div class="launch-modal-inner">
+                <div class="launch-badge">
+                    <i data-lucide="sparkles" style="width:14px; height:14px;"></i> LANZAMIENTO OFICIAL 2026
+                </div>
+                <h3 class="launch-title">¡Bienvenido al Futuro de la Transformación Digital Arquitectónica!</h3>
+                
+                <p class="launch-body-text">
+                    Por motivo de nuestro lanzamiento, agende una <strong>sesión de valoración técnica de 20 minutos</strong> sin costo para la estructuración BIM de su próximo proyecto o licitación pública.
+                </p>
 
-            <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-                <a href="https://wa.me/573158505885?text=Hola,%20deseo%20aprovechar%20la%20sesión%20de%20valoración%20técnica%20gratuita%20por%20lanzamiento" target="_blank" class="btn-whatsapp" onclick="closeModal('modal-launch')">
-                    <i data-lucide="message-square"></i> Solicitar Asesoría por WhatsApp
-                </a>
-                <button type="button" class="btn-secondary" onclick="closeModal('modal-launch')">Explorar Sitio</button>
+                <div class="launch-buttons-row">
+                    <a href="https://wa.me/573158505885?text=Hola,%20deseo%20aprovechar%20la%20sesión%20de%20valoración%20técnica%20gratuita%20por%20lanzamiento" target="_blank" class="btn-whatsapp" onclick="closeModal('modal-launch')">
+                        <i data-lucide="message-square"></i> Asesoría por WhatsApp
+                    </a>
+                    <button type="button" class="btn-primary" onclick="irAFormularioContacto()">
+                        <i data-lucide="mail"></i> Asesoría Sin Costo
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -2612,6 +2627,9 @@
         let activeModalId = null;
         let selectedSearchIndex = -1;
 
+        let autoPlayServices = null;
+        let autoPlayPortfolio = null;
+
         const carouselIndices = { 'servicesTrack': 0, 'portfolioTrack': 0 };
 
         const teamMembers = [
@@ -2747,7 +2765,6 @@
 
             sections.forEach(section => sectionObserver.observe(section));
 
-            // OBSERVER ESPECÍFICO PARA REINICIO Y LLENADO DE BARRAS BIM/CIM
             const bimSection = document.getElementById('bim-cim');
             if (bimSection) {
                 const bimObserver = new IntersectionObserver((entries) => {
@@ -2769,6 +2786,9 @@
             setupSwipe('servicesWrapper', 'servicesTrack', 'service-slide');
             setupSwipe('portfolioWrapper', 'portfolioTrack', 'portfolio-slide');
 
+            // AUTOPLAY CADA 3 SEGUNDOS PARA PILARES Y PORTAFOLIO
+            iniciarAutoplayCarruseles();
+
             // DESPLIEGUE INTELIGENTE DE MODAL DE LANZAMIENTO (A LOS 3 SEGUNDOS)
             const hasSeenLaunch = localStorage.getItem('innovarqz_launch_seen');
             if (!hasSeenLaunch) {
@@ -2778,6 +2798,34 @@
                 }, 3000);
             }
         });
+
+        function iniciarAutoplayCarruseles() {
+            detenerAutoplayCarruseles();
+            autoPlayServices = setInterval(() => {
+                nextSlide('servicesTrack', 'service-slide');
+            }, 3000);
+
+            autoPlayPortfolio = setInterval(() => {
+                nextSlide('portfolioTrack', 'portfolio-slide');
+            }, 3000);
+        }
+
+        function detenerAutoplayCarruseles() {
+            if (autoPlayServices) clearInterval(autoPlayServices);
+            if (autoPlayPortfolio) clearInterval(autoPlayPortfolio);
+        }
+
+        function irAFormularioContacto() {
+            closeModal('modal-launch');
+            setTimeout(() => {
+                const contactEl = document.getElementById('contacto');
+                if (contactEl) {
+                    contactEl.scrollIntoView({ behavior: 'smooth' });
+                    const inputNombre = document.getElementById('nombre');
+                    if (inputNombre) inputNombre.focus();
+                }
+            }, 180);
+        }
 
         window.addEventListener('popstate', () => {
             closeAllModalsWithoutHistory();
@@ -2859,7 +2907,6 @@
             }
         }
 
-        /* LÓGICA DE BÚSQUEDA DEDICADA SINCRO HÍBRIDA (TECLADO + MOUSE/DEDO) */
         function abrirModalResultadosBusqueda() {
             const inputSearch = document.getElementById('projectSearch');
             const query = inputSearch.value.toLowerCase().trim();
@@ -2959,7 +3006,6 @@
                 subtitle.innerText = `Se encontraron ${count} coincidencia(s) para "${query}". Elige una opción:`;
                 container.innerHTML = htmlResults;
 
-                // ASIGNACIÓN DE EVENTO MOUSEENTER PARA FOCO ÚNICO
                 const cardsRendered = container.querySelectorAll('.search-result-card');
                 cardsRendered.forEach((card, idx) => {
                     card.addEventListener('mouseenter', () => {

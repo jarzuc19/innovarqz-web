@@ -98,15 +98,47 @@
         .form-group input:focus, .form-group textarea:focus { border-color: var(--accent-copper); }
         .form-group textarea { resize: vertical; min-height: 90px; }
 
-        .checkbox-group { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
-        .checkbox-group input { width: auto; cursor: pointer; }
+        /* Estilo para la caja interactiva de subida de foto */
+        .photo-upload-box {
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            background-color: var(--bg-dark);
+            height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
 
-        .metadata-row { display: grid; grid-template-columns: 140px 1fr 40px; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+        .photo-upload-box:hover { border-color: var(--accent-copper); }
+        
+        .photo-upload-box input[type="file"] {
+            position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 5;
+        }
+
+        .photo-preview-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: center 15%; z-index: 2; display: none;
+        }
+
+        .photo-placeholder-content {
+            position: relative; z-index: 1; text-align: center; color: var(--text-muted); padding: 1rem;
+        }
+
+        .photo-placeholder-content i { color: var(--accent-copper); margin-bottom: 0.5rem; }
+        .photo-placeholder-content span { font-size: 0.85rem; font-weight: 600; }
+
+        .metadata-row { display: grid; grid-template-columns: 200px 1fr 40px; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem; }
 
         @media (max-width: 900px) {
             .admin-layout { grid-template-columns: 1fr; }
             .form-grid { grid-template-columns: 1fr; }
             .full-width { grid-column: span 1; }
+            .metadata-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -162,8 +194,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="memberImg">Fotografía / Avatar (Nombre de archivo)</label>
-                        <input type="text" id="memberImg" placeholder="ej: james-zuniga.jpg">
+                        <label>Fotografía del Integrante (Carruscél / Ficha)</label>
+                        <div class="photo-upload-box" id="photoDropZone">
+                            <input type="file" id="memberPhotoFile" accept="image/*" onchange="procesarFotoLocal(event)">
+                            <img id="photoPreview" class="photo-preview-img" alt="Vista previa de foto">
+                            <div class="photo-placeholder-content" id="photoPlaceholder">
+                                <i data-lucide="image-plus" style="width: 32px; height: 32px;"></i>
+                                <span>Arrastra o haz clic para subir foto</span>
+                            </div>
+                        </div>
+                        <input type="hidden" id="memberImg">
                     </div>
 
                     <div class="form-group full-width">
@@ -200,7 +240,7 @@
                         </div>
 
                         <div class="form-group full-width">
-                            <label>Metadatos del Encabezado (Icono Lucide + Texto)</label>
+                            <label>Metadatos del Encabezado (Selector de Iconos + Texto)</label>
                             <div id="metadataContainer"></div>
                             <button type="button" class="btn" style="align-self: flex-start; margin-top: 0.4rem; font-size: 0.78rem;" onclick="agregarFilaMetadato()">
                                 <i data-lucide="plus"></i> Agregar Metadato
@@ -266,6 +306,19 @@
 
     let currentSelectedIndex = 0;
 
+    // Lista curada de iconos profesionales con sus etiquetas legibles
+    const listaIconosDisponibles = [
+        { valor: "award", etiqueta: "🏆 Medalla / Matrícula Profesional (award)" },
+        { value: "shield-check", etiqueta: "🛡️ Escudo / Certificación (shield-check)" },
+        { value: "map-pin", etiqueta: "📍 Ubicación / Ciudad (map-pin)" },
+        { value: "graduation-cap", etiqueta: "🎓 Grado / Universidad (graduation-cap)" },
+        { value: "briefcase", etiqueta: "💼 Experiencia / Trabajo (briefcase)" },
+        { value: "cpu", etiqueta: "💻 Tecnología / Software (cpu)" },
+        { value: "book-open", etiqueta: "📖 Estudios / Cursos (book-open)" },
+        { value: "check-circle", etiqueta: "✅ Verificado / Aprobado (check-circle)" },
+        { value: "user", etiqueta: "👤 Persona / Perfil (user)" }
+    ];
+
     document.addEventListener('DOMContentLoaded', () => {
         if (window.lucide) lucide.createIcons();
         renderizarListaMiembros();
@@ -306,6 +359,19 @@
         document.getElementById('memberBtnText').value = m.textoBoton || 'Ver Perfil Técnico';
         document.getElementById('memberActionType').value = m.tipoAccion || 'modal';
 
+        // Mostrar previsualización de la foto si existe
+        const imgPreview = document.getElementById('photoPreview');
+        const placeholder = document.getElementById('photoPlaceholder');
+        if (m.imagen) {
+            imgPreview.src = m.imagen;
+            imgPreview.style.display = 'block';
+            placeholder.style.display = 'none';
+        } else {
+            imgPreview.src = '';
+            imgPreview.style.display = 'none';
+            placeholder.style.display = 'block';
+        }
+
         const modalArea = document.getElementById('modalSectionArea');
         if (m.tipoAccion === 'modal' && m.modalDetalle) {
             modalArea.style.display = 'block';
@@ -321,6 +387,24 @@
         toggleActionFields();
     }
 
+    function procesarFotoLocal(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const dataUrl = e.target.result;
+            document.getElementById('memberImg').value = file.name; // Guarda el nombre de archivo sugerido
+            
+            const imgPreview = document.getElementById('photoPreview');
+            const placeholder = document.getElementById('photoPlaceholder');
+            imgPreview.src = dataUrl;
+            imgPreview.style.display = 'block';
+            placeholder.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+    }
+
     function renderMetadatos(metas) {
         const container = document.getElementById('metadataContainer');
         container.innerHTML = '';
@@ -328,9 +412,19 @@
         metas.forEach((m, i) => {
             const row = document.createElement('div');
             row.className = 'metadata-row';
+
+            // Construir opciones del select desplegable
+            let optionsHtml = '';
+            listaIconosDisponibles.forEach(ic => {
+                const selected = ic.valor === m.icono ? 'selected' : '';
+                optionsHtml += `<option value="${ic.valor}" ${selected}>${ic.etiqueta}</option>`;
+            });
+
             row.innerHTML = `
-                <input type="text" placeholder="Icono (ej: award)" value="${m.icono || ''}" class="meta-icon-input">
-                <input type="text" placeholder="Texto descriptivo" value="${m.texto || ''}" class="meta-text-input">
+                <select class="meta-icon-select" style="background-color: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.5rem; border-radius: 6px; font-size: 0.85rem;">
+                    ${optionsHtml}
+                </select>
+                <input type="text" placeholder="Texto descriptivo (ej: Matrícula Profesional CPNAA)" value="${m.texto || ''}" class="meta-text-input">
                 <button type="button" class="btn btn-danger" style="padding: 0.4rem;" onclick="eliminarMetadato(${i})"><i data-lucide="x" style="width: 14px; height: 14px;"></i></button>
             `;
             container.appendChild(row);
@@ -343,8 +437,16 @@
         const container = document.getElementById('metadataContainer');
         const row = document.createElement('div');
         row.className = 'metadata-row';
+
+        let optionsHtml = '';
+        listaIconosDisponibles.forEach(ic => {
+            optionsHtml += `<option value="${ic.valor}">${ic.etiqueta}</option>`;
+        });
+
         row.innerHTML = `
-            <input type="text" placeholder="Icono (ej: map-pin)" value="map-pin" class="meta-icon-input">
+            <select class="meta-icon-select" style="background-color: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.5rem; border-radius: 6px; font-size: 0.85rem;">
+                ${optionsHtml}
+            </select>
             <input type="text" placeholder="Texto descriptivo" value="" class="meta-text-input">
             <button type="button" class="btn btn-danger" style="padding: 0.4rem;" onclick="this.parentElement.remove()"><i data-lucide="x" style="width: 14px; height: 14px;"></i></button>
         `;
@@ -384,7 +486,7 @@
             const metaRows = document.querySelectorAll('.metadata-row');
             const metas = [];
             metaRows.forEach(r => {
-                const icon = r.querySelector('.meta-icon-input').value.trim();
+                const icon = r.querySelector('.meta-icon-select').value;
                 const text = r.querySelector('.meta-text-input').value.trim();
                 if (text) metas.push({ icono: icon, texto: text });
             });

@@ -7,11 +7,11 @@
     "imagen": "james-zuniga.jpg",
     "tieneImagen": true,
     "etiquetas": [
-      "Arq. UDENAR",
+      "ARQ. UDENAR",
       "buildingSMART",
-      "BIM 5D"
+      "MASTER BIM"
     ],
-    "textoBoton": "Ver Perfil Técnico",
+    "textoBoton": "Conoce a Nuestro Lider",
     "tipoAccion": "modal",
     "modalDetalle": {
       "subtitulo": "Fundador & Principal Manager",
@@ -43,7 +43,11 @@
           "Diplomado Ordenamiento Territorial (PBOT/EOT): ESAP."
         ]
       }
-    }
+    },
+    "proyectosAsociados": [
+      "proj-1787734600992",
+      "proj-1787733492524"
+    ]
   },
   {
     "id": "coordinacion-obra",
@@ -57,9 +61,25 @@
       "APU",
       "Control Q"
     ],
-    "textoBoton": "Ver Alcance Operativo",
+    "textoBoton": "Conoce a Nuestro Aliado",
     "tipoAccion": "portafolio",
-    "posicionPortafolio": 0
+    "posicionPortafolio": 0,
+    "imagen": "",
+    "proyectosAsociados": [
+      "proj-1787731119176"
+    ],
+    "modalDetalle": {
+      "subtitulo": "",
+      "metadatos": [],
+      "seccionPerfil": {
+        "titulo": "Perfil Ejecutivo & Dirección Técnica",
+        "descripcion": ""
+      },
+      "seccionFormacion": {
+        "titulo": "Formación Académica & Certificaciones",
+        "items": []
+      }
+    }
   },
   {
     "id": "consultoria-geoespacial",
@@ -73,8 +93,24 @@
       "GIS",
       "CIM"
     ],
-    "textoBoton": "Ver Alcance Operativo",
+    "textoBoton": "Conoce a Nuestro Aliado",
     "tipoAccion": "portafolio",
-    "posicionPortafolio": 0
+    "posicionPortafolio": 0,
+    "imagen": "",
+    "proyectosAsociados": [
+      "proj-1787731307228"
+    ],
+    "modalDetalle": {
+      "subtitulo": "",
+      "metadatos": [],
+      "seccionPerfil": {
+        "titulo": "Perfil Ejecutivo & Dirección Técnica",
+        "descripcion": ""
+      },
+      "seccionFormacion": {
+        "titulo": "Formación Académica & Certificaciones",
+        "items": []
+      }
+    }
   }
 ]

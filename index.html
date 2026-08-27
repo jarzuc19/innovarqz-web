@@ -372,10 +372,10 @@
             transition: all 0.2s ease;
         }
 
-        .search-result-card:hover, .search-result-card.selected-item {
-            border-color: var(--accent-copper);
-            background-color: rgba(217, 119, 6, 0.12);
-            transform: translateX(3px);
+        .search-result-card.selected-item {
+            border-color: var(--accent-copper) !important;
+            background-color: rgba(217, 119, 6, 0.14) !important;
+            transform: translateX(4px);
         }
 
         .result-badge-icon {
@@ -416,6 +416,72 @@
             color: var(--text-muted);
             line-height: 1.35;
             margin-top: 2px;
+        }
+
+        .launch-modal-card {
+            background-color: var(--modal-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            max-width: 580px;
+            width: 100%;
+            position: relative;
+            padding: 2.25rem;
+            box-shadow: 0 25px 50px var(--shadow-color);
+            text-align: center;
+        }
+
+        .launch-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background-color: rgba(217, 119, 6, 0.15);
+            color: var(--accent-copper);
+            padding: 0.3rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .launch-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 0.6rem;
+            line-height: 1.25;
+        }
+
+        .launch-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.55;
+            margin-bottom: 1.5rem;
+        }
+
+        .launch-cta-box {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .launch-cta-box h4 {
+            color: var(--text-main);
+            font-size: 0.98rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .launch-cta-box p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.45;
         }
 
         .btn-primary {
@@ -1886,6 +1952,30 @@
         </div>
     </section>
 
+    <!-- MODAL DE LANZAMIENTO / LEAD MAGNET -->
+    <div class="modal-overlay" id="modal-launch">
+        <div class="launch-modal-card">
+            <button class="modal-close" onclick="closeModal('modal-launch')"><i data-lucide="x"></i></button>
+            <div class="launch-badge">
+                <i data-lucide="sparkles" style="width:14px; height:14px;"></i> LANZAMIENTO OFICIAL 2026
+            </div>
+            <h3 class="launch-title">¡Bienvenido al Futuro de la Transformación Digital Arquitectónica!</h3>
+            <p class="launch-subtitle">InnovArqZ abre sus puertas para revolucionar la gestión de edificación, infraestructura e interventoría bajo la norma <strong>ISO 19650</strong>.</p>
+            
+            <div class="launch-cta-box">
+                <h4><i data-lucide="award" style="color:var(--accent-copper);"></i> Asesoría Inicial Sin Costo</h4>
+                <p>Por motivo de nuestro lanzamiento, agende una <strong>sesión de valoración técnica de 20 minutos</strong> para la estructuración BIM de su próximo proyecto o licitación pública.</p>
+            </div>
+
+            <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+                <a href="https://wa.me/573158505885?text=Hola,%20deseo%20aprovechar%20la%20sesión%20de%20valoración%20técnica%20gratuita%20por%20lanzamiento" target="_blank" class="btn-whatsapp" onclick="closeModal('modal-launch')">
+                    <i data-lucide="message-square"></i> Solicitar Asesoría por WhatsApp
+                </a>
+                <button type="button" class="btn-secondary" onclick="closeModal('modal-launch')">Explorar Sitio</button>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL DEDICADO DE RESULTADOS DE BÚSQUEDA -->
     <div class="modal-overlay" id="modal-search-results">
         <div class="search-modal-content">
@@ -2657,12 +2747,36 @@
 
             sections.forEach(section => sectionObserver.observe(section));
 
+            // OBSERVER ESPECÍFICO PARA REINICIO Y LLENADO DE BARRAS BIM/CIM
+            const bimSection = document.getElementById('bim-cim');
+            if (bimSection) {
+                const bimObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && isIsoStateActive) {
+                            selectDimension('iso');
+                        } else if (!entry.isIntersecting) {
+                            resetBarsToZero();
+                        }
+                    });
+                }, { threshold: 0.35 });
+                bimObserver.observe(bimSection);
+            }
+
             goToSlide('servicesTrack', 'service-slide', 0);
             cargarPortafolioDinamico();
             selectDimension('iso');
 
             setupSwipe('servicesWrapper', 'servicesTrack', 'service-slide');
             setupSwipe('portfolioWrapper', 'portfolioTrack', 'portfolio-slide');
+
+            // DESPLIEGUE INTELIGENTE DE MODAL DE LANZAMIENTO (A LOS 3 SEGUNDOS)
+            const hasSeenLaunch = localStorage.getItem('innovarqz_launch_seen');
+            if (!hasSeenLaunch) {
+                setTimeout(() => {
+                    openModal('modal-launch');
+                    localStorage.setItem('innovarqz_launch_seen', 'true');
+                }, 3000);
+            }
         });
 
         window.addEventListener('popstate', () => {
@@ -2735,15 +2849,20 @@
                 modal.classList.remove('active');
                 document.body.style.overflow = 'auto';
                 if (activeModalId === modalId) activeModalId = null;
+                if (modalId === 'modal-search-results') {
+                    const inputSearch = document.getElementById('projectSearch');
+                    if (inputSearch) inputSearch.value = '';
+                }
                 if (history.state && history.state.modalOpen) {
                     history.back();
                 }
             }
         }
 
-        /* LÓGICA DE BÚSQUEDA CORREGIDA (EXCLUYE INICIO/CONTACTO E INDEXA PERFIL Y MODALES) */
+        /* LÓGICA DE BÚSQUEDA DEDICADA SINCRO HÍBRIDA (TECLADO + MOUSE/DEDO) */
         function abrirModalResultadosBusqueda() {
-            const query = document.getElementById('projectSearch').value.toLowerCase().trim();
+            const inputSearch = document.getElementById('projectSearch');
+            const query = inputSearch.value.toLowerCase().trim();
             const container = document.getElementById('searchResultsContainer');
             const subtitle = document.getElementById('searchModalSubtitle');
 
@@ -2759,13 +2878,12 @@
             let count = 0;
             selectedSearchIndex = -1;
 
-            // 1. Escanea Secciones del Sitio (EXCLUYENDO INICIO Y CONTACTO)
             const seccionesPermitidas = seccionesEstructura.filter(sec => sec.id !== 'inicio' && sec.id !== 'contacto');
             seccionesPermitidas.forEach(sec => {
                 if (sec.title.toLowerCase().includes(query) || sec.snippet.toLowerCase().includes(query)) {
                     count++;
                     htmlResults += `
-                        <div class="search-result-card" onclick="ejecutarAccionResultado('seccion', '${sec.id}')">
+                        <div class="search-result-card" data-index="${count-1}" onclick="ejecutarAccionResultado('seccion', '${sec.id}')">
                             <div class="result-badge-icon"><i data-lucide="${sec.icon}"></i></div>
                             <div class="result-text-body">
                                 <span class="result-item-title">${sec.title}</span>
@@ -2777,7 +2895,6 @@
                 }
             });
 
-            // 2. Escanea Perfiles Profesionales, Equipo y Modales de Personal (Búsqueda Completa)
             const perfilesProfesionales = [
                 {
                     idModal: 'modal-perfil-james',
@@ -2792,7 +2909,7 @@
                 if (poolPerfil.includes(query)) {
                     count++;
                     htmlResults += `
-                        <div class="search-result-card" onclick="ejecutarAccionResultado('perfil', '${perf.idModal}')">
+                        <div class="search-result-card" data-index="${count-1}" onclick="ejecutarAccionResultado('perfil', '${perf.idModal}')">
                             <div class="result-badge-icon"><i data-lucide="user"></i></div>
                             <div class="result-text-body">
                                 <span class="result-item-title">${perf.nombre}</span>
@@ -2809,7 +2926,7 @@
                 if (poolTeam.includes(query) && (!mem.modalTarget || mem.modalTarget !== 'modal-perfil-james')) {
                     count++;
                     htmlResults += `
-                        <div class="search-result-card" onclick="ejecutarAccionResultado('perfil', '${mem.modalTarget || 0}')">
+                        <div class="search-result-card" data-index="${count-1}" onclick="ejecutarAccionResultado('perfil', '${mem.modalTarget || 0}')">
                             <div class="result-badge-icon"><i data-lucide="users"></i></div>
                             <div class="result-text-body">
                                 <span class="result-item-title">${mem.name}</span>
@@ -2821,13 +2938,12 @@
                 }
             });
 
-            // 3. Escanea Proyectos, Casos de Estudio y Modales de Portafolio
             proyectosGlobales.forEach(proj => {
                 const searchPool = `${proj.title} ${proj.subtitle || ''} ${proj.scope || ''} ${proj.tools || ''} ${proj.standard || ''} ${proj.software || ''} ${proj.category || ''} ${proj.year || ''}`.toLowerCase();
                 if (searchPool.includes(query)) {
                     count++;
                     htmlResults += `
-                        <div class="search-result-card" onclick="ejecutarAccionResultado('proyecto', '${proj.id}')">
+                        <div class="search-result-card" data-index="${count-1}" onclick="ejecutarAccionResultado('proyecto', '${proj.id}')">
                             <div class="result-badge-icon"><i data-lucide="box"></i></div>
                             <div class="result-text-body">
                                 <span class="result-item-title">${proj.title}</span>
@@ -2842,6 +2958,16 @@
             if (count > 0) {
                 subtitle.innerText = `Se encontraron ${count} coincidencia(s) para "${query}". Elige una opción:`;
                 container.innerHTML = htmlResults;
+
+                // ASIGNACIÓN DE EVENTO MOUSEENTER PARA FOCO ÚNICO
+                const cardsRendered = container.querySelectorAll('.search-result-card');
+                cardsRendered.forEach((card, idx) => {
+                    card.addEventListener('mouseenter', () => {
+                        selectedSearchIndex = idx;
+                        actualizarSeleccionTarjeta(cardsRendered);
+                    });
+                });
+
             } else {
                 subtitle.innerText = `Sin resultados para "${query}".`;
                 container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:2rem;">No encontramos coincidencias para "${query}". Intenta con otros términos técnicos.</p>`;
@@ -3132,6 +3258,16 @@
             }
         });
 
+        function resetBarsToZero() {
+            const contentArea = document.getElementById('dimContentArea');
+            if (!contentArea) return;
+            const fills = contentArea.querySelectorAll('.dim-bar-fill');
+            fills.forEach(f => {
+                f.style.width = '0%';
+                f.classList.remove('active-fill');
+            });
+        }
+
         function selectDimension(index) {
             const gears = document.querySelectorAll('.gear-item');
             const isoOuter = document.getElementById('isoOuterRing');
@@ -3227,7 +3363,7 @@
                         f.style.width = f.getAttribute('data-val');
                         f.classList.add('active-fill');
                     });
-                }, 50);
+                }, 80);
 
             } else {
                 isIsoStateActive = false;

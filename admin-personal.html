@@ -54,7 +54,7 @@
         .sidebar-list {
             background-color: var(--bg-card); border: 1px solid var(--border-color);
             border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;
-            max-height: 82vh; overflow-y: auto;
+            max-height: 85vh; overflow-y: auto;
         }
 
         .sidebar-title { font-size: 1rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -98,11 +98,20 @@
         .form-group input:focus, .form-group textarea:focus { border-color: var(--accent-copper); }
         .form-group textarea { resize: vertical; min-height: 90px; }
 
+        /* Estructura superior en dos columnas: Foto izquierda (3:4) y Campos derecha */
+        .top-profile-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 1.5rem;
+            align-items: stretch;
+        }
+
         .photo-upload-box {
             border: 2px dashed var(--border-color);
             border-radius: 12px;
             background-color: var(--bg-dark);
-            height: 220px;
+            width: 100%;
+            aspect-ratio: 3 / 4; /* Proporción vertical tipo hoja de vida */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -121,7 +130,7 @@
 
         .photo-preview-img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; object-position: center 15%; z-index: 2; display: none;
+            object-fit: cover; object-position: center 20%; z-index: 2; display: none;
         }
 
         .photo-placeholder-content {
@@ -129,7 +138,14 @@
         }
 
         .photo-placeholder-content i { color: var(--accent-copper); margin-bottom: 0.5rem; }
-        .photo-placeholder-content span { font-size: 0.85rem; font-weight: 600; }
+        .photo-placeholder-content span { font-size: 0.78rem; font-weight: 600; }
+
+        .right-fields-stack {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+        }
 
         .metadata-row { display: grid; grid-template-columns: 200px 1fr 40px; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem; }
         .project-checkbox-list { display: flex; flex-direction: column; gap: 0.5rem; background: var(--bg-dark); border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; max-height: 160px; overflow-y: auto; }
@@ -138,6 +154,7 @@
 
         @media (max-width: 900px) {
             .admin-layout { grid-template-columns: 1fr; }
+            .top-profile-layout { grid-template-columns: 1fr; }
             .form-grid { grid-template-columns: 1fr; }
             .full-width { grid-column: span 1; }
             .metadata-row { grid-template-columns: 1fr; }
@@ -179,46 +196,51 @@
             <form id="memberForm">
                 <div class="form-section-title"><i data-lucide="user"></i> Información de la Ficha Principal</div>
                 
-                <div class="form-grid" style="margin-top: 1rem;">
-                    <div class="form-group">
-                        <label for="memberId">ID Único (sin espacios)</label>
-                        <input type="text" id="memberId" required placeholder="ej: james-zuniga">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="memberName">Nombre Profesional Completo</label>
-                        <input type="text" id="memberName" required placeholder="ej: Arq. James Ramiro Zúñiga Caipe">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="memberRole">Cargo Principal (Ficha)</label>
-                        <input type="text" id="memberRole" required placeholder="ej: Director General & Coordinador BIM / CIM">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Fotografía del Integrante</label>
+                <!-- Bloque reorganizado: Foto a la izquierda (3:4), ID, Nombre y Cargo a la derecha -->
+                <div class="top-profile-layout" style="margin-top: 1rem;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Fotografía (Proporción 3:4)</label>
                         <div class="photo-upload-box" id="photoDropZone">
                             <input type="file" id="memberPhotoFile" accept="image/*" onchange="procesarFotoLocal(event)">
                             <img id="photoPreview" class="photo-preview-img" alt="Vista previa de foto">
                             <div class="photo-placeholder-content" id="photoPlaceholder">
-                                <i data-lucide="image-plus" style="width: 32px; height: 32px;"></i>
-                                <span>Arrastra o haz clic para subir foto</span>
+                                <i data-lucide="image-plus" style="width: 28px; height: 28px;"></i>
+                                <span>Subir foto (3:4)</span>
                             </div>
                         </div>
                         <input type="hidden" id="memberImg">
                     </div>
 
+                    <div class="right-fields-stack">
+                        <div class="form-group">
+                            <label for="memberId">ID Único (sin espacios)</label>
+                            <input type="text" id="memberId" required placeholder="ej: james-zuniga">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="memberName">Nombre Profesional Completo</label>
+                            <input type="text" id="memberName" required placeholder="ej: Arq. James Ramiro Zúñiga Caipe">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="memberRole">Cargo Principal (Ficha)</label>
+                            <input type="text" id="memberRole" required placeholder="ej: Director General & Coordinador BIM / CIM">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid" style="margin-top: 1.25rem;">
                     <div class="form-group full-width">
                         <label for="memberShortDesc">Descripción Corta (Ficha del carrusel)</label>
                         <textarea id="memberShortDesc" required placeholder="Líder ejecutivo en metodologías OpenBIM..."></textarea>
                     </div>
 
-                    <div class="form-group full-width">
+                    <div class="form-group">
                         <label for="memberTags">Etiquetas / Badges (separadas por coma)</label>
                         <input type="text" id="memberTags" placeholder="ej: Arq. UDENAR, buildingSMART, BIM 5D">
                     </div>
 
-                    <div class="form-group full-width">
+                    <div class="form-group">
                         <label for="memberBtnText">Texto del Botón Acción</label>
                         <input type="text" id="memberBtnText" value="Conoce a Nuestro Aliado">
                     </div>

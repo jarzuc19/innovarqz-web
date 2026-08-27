@@ -434,8 +434,8 @@
         .launch-modal-overlay-dark {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.82) 0%, rgba(15, 23, 42, 0.96) 100%);
-            backdrop-filter: blur(6px);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.50) 0%, rgba(15, 23, 42, 0.75) 100%);
+            backdrop-filter: blur(2px);
             z-index: 1;
         }
 
@@ -1963,7 +1963,7 @@
         </div>
     </section>
 
-    <!-- MODAL DE LANZAMIENTO OPTIMIZADO (CON IMAGEN DE FONDO & REDIRECCIÓN DIRECTA A CONTACTO) -->
+    <!-- MODAL DE LANZAMIENTO OPTIMIZADO -->
     <div class="modal-overlay" id="modal-launch">
         <div class="launch-modal-card-bg" style="background-image: url('esencia-digital-innovarqz.jpg');">
             <div class="launch-modal-overlay-dark"></div>
@@ -2045,10 +2045,10 @@
             </div>
 
             <div class="carousel-wrapper" id="servicesWrapper">
-                <button class="nav-arrow prev-arrow" onclick="prevSlide('servicesTrack', 'service-slide')" aria-label="Anterior">
+                <button class="nav-arrow prev-arrow" onclick="detenerAutoplayCarruseles(); prevSlide('servicesTrack', 'service-slide');" aria-label="Anterior">
                     <i data-lucide="chevron-left"></i>
                 </button>
-                <button class="nav-arrow next-arrow" onclick="nextSlide('servicesTrack', 'service-slide')" aria-label="Siguiente">
+                <button class="nav-arrow next-arrow" onclick="detenerAutoplayCarruseles(); nextSlide('servicesTrack', 'service-slide');" aria-label="Siguiente">
                     <i data-lucide="chevron-right"></i>
                 </button>
                 
@@ -2275,10 +2275,10 @@
             </div>
 
             <div class="carousel-wrapper" id="portfolioWrapper">
-                <button class="nav-arrow prev-arrow" onclick="prevSlide('portfolioTrack', 'portfolio-slide')" aria-label="Anterior">
+                <button class="nav-arrow prev-arrow" onclick="detenerAutoplayCarruseles(); prevSlide('portfolioTrack', 'portfolio-slide');" aria-label="Anterior">
                     <i data-lucide="chevron-left"></i>
                 </button>
-                <button class="nav-arrow next-arrow" onclick="nextSlide('portfolioTrack', 'portfolio-slide')" aria-label="Siguiente">
+                <button class="nav-arrow next-arrow" onclick="detenerAutoplayCarruseles(); nextSlide('portfolioTrack', 'portfolio-slide');" aria-label="Siguiente">
                     <i data-lucide="chevron-right"></i>
                 </button>
                 
@@ -2287,7 +2287,7 @@
                 <div class="portfolio-counter-container" id="portfolioIndicators">
                     <div class="portfolio-counter-badge">
                         PROYECTO 
-                        <input type="number" id="portfolioActiveInput" min="1" value="01" aria-label="Número de proyecto activo" onfocus="this.select()" onchange="jumpToPortfolioInput(this.value)" onkeydown="if(event.key==='Enter') this.blur()">
+                        <input type="number" id="portfolioActiveInput" min="1" value="01" aria-label="Número de proyecto activo" onfocus="this.select()" onchange="detenerAutoplayCarruseles(); jumpToPortfolioInput(this.value);" onkeydown="if(event.key==='Enter') this.blur()">
                         / <span id="portfolioTotalCount">01</span>
                     </div>
                     <div class="portfolio-progress-bar">
@@ -2787,13 +2787,9 @@
 
         iniciarAutoplayCarruseles();
 
-        // DESPLIEGUE DEL MODAL DE LANZAMIENTO (Ajustado para pruebas/lanzamiento)
+        // DESPLIEGUE DEL MODAL DE LANZAMIENTO (Se muestra siempre tras 1.5s)
         setTimeout(() => {
-            const hasSeenLaunch = localStorage.getItem('innovarqz_launch_seen');
-            if (!hasSeenLaunch) {
-                openModal('modal-launch');
-                localStorage.setItem('innovarqz_launch_seen', 'true');
-            }
+            openModal('modal-launch');
         }, 1500);
     });
 
@@ -2809,8 +2805,14 @@
     }
 
     function detenerAutoplayCarruseles() {
-        if (autoPlayServices) clearInterval(autoPlayServices);
-        if (autoPlayPortfolio) clearInterval(autoPlayPortfolio);
+        if (autoPlayServices) {
+            clearInterval(autoPlayServices);
+            autoPlayServices = null;
+        }
+        if (autoPlayPortfolio) {
+            clearInterval(autoPlayPortfolio);
+            autoPlayPortfolio = null;
+        }
     }
 
     function irAFormularioContacto() {
@@ -3097,6 +3099,7 @@
             const diff = startX - endX;
 
             if (Math.abs(diff) > 40) {
+                detenerAutoplayCarruseles();
                 if (diff > 0) nextSlide(trackId, slideClass);
                 else prevSlide(trackId, slideClass);
             }
@@ -3153,7 +3156,7 @@
                     const btn = document.createElement('button');
                     btn.className = `indicator-pill ${idx === activeIdx ? 'active' : ''}`;
                     btn.type = 'button';
-                    btn.onclick = () => goToSlide(trackId, slideClass, idx);
+                    btn.onclick = () => { detenerAutoplayCarruseles(); goToSlide(trackId, slideClass, idx); };
                     indicatorContainer.appendChild(btn);
                 });
             }

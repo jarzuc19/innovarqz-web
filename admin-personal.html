@@ -98,7 +98,6 @@
         .form-group input:focus, .form-group textarea:focus { border-color: var(--accent-copper); }
         .form-group textarea { resize: vertical; min-height: 90px; }
 
-        /* Estilo para la caja interactiva de subida de foto */
         .photo-upload-box {
             border: 2px dashed var(--border-color);
             border-radius: 12px;
@@ -133,6 +132,9 @@
         .photo-placeholder-content span { font-size: 0.85rem; font-weight: 600; }
 
         .metadata-row { display: grid; grid-template-columns: 200px 1fr 40px; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem; }
+        .project-checkbox-list { display: flex; flex-direction: column; gap: 0.5rem; background: var(--bg-dark); border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; max-height: 160px; overflow-y: auto; }
+        .project-checkbox-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; color: var(--text-main); cursor: pointer; }
+        .project-checkbox-item input { accent-color: var(--accent-copper); width: 16px; height: 16px; cursor: pointer; }
 
         @media (max-width: 900px) {
             .admin-layout { grid-template-columns: 1fr; }
@@ -147,7 +149,7 @@
     <header>
         <div class="title-area">
             <h1>Innov<span>ArqZ</span> — Panel de Personal</h1>
-            <p>Gestión dinámica del equipo técnico, perfiles profesionales y modales integrados.</p>
+            <p>Gestión dinámica del equipo técnico, perfiles profesionales y proyectos asociados.</p>
         </div>
 
         <div class="top-actions">
@@ -194,7 +196,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Fotografía del Integrante (Carruscél / Ficha)</label>
+                        <label>Fotografía del Integrante</label>
                         <div class="photo-upload-box" id="photoDropZone">
                             <input type="file" id="memberPhotoFile" accept="image/*" onchange="procesarFotoLocal(event)">
                             <img id="photoPreview" class="photo-preview-img" alt="Vista previa de foto">
@@ -216,17 +218,9 @@
                         <input type="text" id="memberTags" placeholder="ej: Arq. UDENAR, buildingSMART, BIM 5D">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group full-width">
                         <label for="memberBtnText">Texto del Botón Acción</label>
-                        <input type="text" id="memberBtnText" value="Ver Perfil Técnico">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="memberActionType">Tipo de Acción al Clic</label>
-                        <select id="memberActionType" onchange="toggleActionFields()">
-                            <option value="modal">Abrir Modal de Perfil Detallado</option>
-                            <option value="portfolio">Abrir Proyecto del Portafolio</option>
-                        </select>
+                        <input type="text" id="memberBtnText" value="Conoce a Nuestro Aliado">
                     </div>
                 </div>
 
@@ -256,6 +250,13 @@
                             <label for="modalEducation">Formación Académica & Certificaciones (Una por línea)</label>
                             <textarea id="modalEducation" style="min-height: 120px;" placeholder="Arquitecto: Universidad de Nariño.&#10;Certificación Internacional: buildingSMART..."></textarea>
                         </div>
+
+                        <div class="form-group full-width">
+                            <label>Proyectos Asociados (Selecciona los proyectos del portafolio en los que participa)</label>
+                            <div class="project-checkbox-list" id="projectsCheckboxContainer">
+                                <span style="color: var(--text-muted); font-size: 0.85rem;">Cargando proyectos desde proyectos.json...</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -277,8 +278,8 @@
             "imagen": "james-zuniga.jpg",
             "tieneImagen": true,
             "etiquetas": ["Arq. UDENAR", "buildingSMART", "BIM 5D"],
-            "textoBoton": "Ver Perfil Técnico",
-            "tipoAccion": "modal",
+            "textoBoton": "Conoce a Nuestro Aliado",
+            "proyectosAsociados": [],
             "modalDetalle": {
                 "subtitulo": "Fundador & Principal Manager",
                 "metadatos": [
@@ -304,26 +305,38 @@
         }
     ];
 
+    let proyectosDisponibles = [];
     let currentSelectedIndex = 0;
 
-    // Lista curada de iconos profesionales con sus etiquetas legibles
     const listaIconosDisponibles = [
         { valor: "award", etiqueta: "🏆 Medalla / Matrícula Profesional (award)" },
-        { value: "shield-check", etiqueta: "🛡️ Escudo / Certificación (shield-check)" },
-        { value: "map-pin", etiqueta: "📍 Ubicación / Ciudad (map-pin)" },
-        { value: "graduation-cap", etiqueta: "🎓 Grado / Universidad (graduation-cap)" },
-        { value: "briefcase", etiqueta: "💼 Experiencia / Trabajo (briefcase)" },
-        { value: "cpu", etiqueta: "💻 Tecnología / Software (cpu)" },
-        { value: "book-open", etiqueta: "📖 Estudios / Cursos (book-open)" },
-        { value: "check-circle", etiqueta: "✅ Verificado / Aprobado (check-circle)" },
-        { value: "user", etiqueta: "👤 Persona / Perfil (user)" }
+        { valor: "shield-check", etiqueta: "🛡️ Escudo / Certificación (shield-check)" },
+        { valor: "map-pin", etiqueta: "📍 Ubicación / Ciudad (map-pin)" },
+        { valor: "graduation-cap", etiqueta: "🎓 Grado / Universidad (graduation-cap)" },
+        { valor: "briefcase", etiqueta: "💼 Experiencia / Trabajo (briefcase)" },
+        { valor: "cpu", etiqueta: "💻 Tecnología / Software (cpu)" },
+        { valor: "book-open", etiqueta: "📖 Estudios / Cursos (book-open)" },
+        { valor: "check-circle", etiqueta: "✅ Verificado / Aprobado (check-circle)" },
+        { valor: "user", etiqueta: "👤 Persona / Perfil (user)" }
     ];
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
         if (window.lucide) lucide.createIcons();
+        await cargarProyectosGlobales();
         renderizarListaMiembros();
         cargarMiembroEnFormulario(0);
     });
+
+    async function cargarProyectosGlobales() {
+        try {
+            const res = await fetch('proyectos.json?v=' + Date.now());
+            if (res.ok) {
+                proyectosDisponibles = await res.json();
+            }
+        } catch (err) {
+            console.warn('No se pudo cargar proyectos.json para vincular:', err);
+        }
+    }
 
     function renderizarListaMiembros() {
         const container = document.getElementById('membersContainer');
@@ -356,10 +369,8 @@
         document.getElementById('memberImg').value = m.imagen || '';
         document.getElementById('memberShortDesc').value = m.descripcionCorta || '';
         document.getElementById('memberTags').value = (m.etiquetas || []).join(', ');
-        document.getElementById('memberBtnText').value = m.textoBoton || 'Ver Perfil Técnico';
-        document.getElementById('memberActionType').value = m.tipoAccion || 'modal';
+        document.getElementById('memberBtnText').value = m.textoBoton || 'Conoce a Nuestro Aliado';
 
-        // Mostrar previsualización de la foto si existe
         const imgPreview = document.getElementById('photoPreview');
         const placeholder = document.getElementById('photoPlaceholder');
         if (m.imagen) {
@@ -372,19 +383,34 @@
             placeholder.style.display = 'block';
         }
 
-        const modalArea = document.getElementById('modalSectionArea');
-        if (m.tipoAccion === 'modal' && m.modalDetalle) {
-            modalArea.style.display = 'block';
+        if (m.modalDetalle) {
             document.getElementById('modalSubtitle').value = m.modalDetalle.subtitulo || '';
             document.getElementById('modalExecDesc').value = m.modalDetalle.seccionPerfil ? m.modalDetalle.seccionPerfil.descripcion : '';
             document.getElementById('modalEducation').value = m.modalDetalle.seccionFormacion ? (m.modalDetalle.seccionFormacion.items || []).join('\n') : '';
-            
             renderMetadatos(m.modalDetalle.metadatos || []);
-        } else {
-            modalArea.style.display = 'none';
         }
 
-        toggleActionFields();
+        renderProyectosCheckbox(m.proyectosAsociados || []);
+    }
+
+    function renderProyectosCheckbox(asociadosIds) {
+        const container = document.getElementById('projectsCheckboxContainer');
+        if (!proyectosDisponibles.length) {
+            container.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem;">No se encontraron proyectos en proyectos.json</span>`;
+            return;
+        }
+
+        let html = '';
+        proyectosDisponibles.forEach(p => {
+            const isChecked = asociadosIds.includes(p.id) ? 'checked' : '';
+            html += `
+                <label class="project-checkbox-item">
+                    <input type="checkbox" value="${p.id}" ${isChecked} class="proj-check-input">
+                    <span>${p.title} (${p.year || '2026'})</span>
+                </label>
+            `;
+        });
+        container.innerHTML = html;
     }
 
     function procesarFotoLocal(event) {
@@ -394,7 +420,7 @@
         const reader = new FileReader();
         reader.onload = (e) => {
             const dataUrl = e.target.result;
-            document.getElementById('memberImg').value = file.name; // Guarda el nombre de archivo sugerido
+            document.getElementById('memberImg').value = file.name;
             
             const imgPreview = document.getElementById('photoPreview');
             const placeholder = document.getElementById('photoPlaceholder');
@@ -413,7 +439,6 @@
             const row = document.createElement('div');
             row.className = 'metadata-row';
 
-            // Construir opciones del select desplegable
             let optionsHtml = '';
             listaIconosDisponibles.forEach(ic => {
                 const selected = ic.valor === m.icono ? 'selected' : '';
@@ -462,12 +487,6 @@
         }
     }
 
-    function toggleActionFields() {
-        const type = document.getElementById('memberActionType').value;
-        const modalArea = document.getElementById('modalSectionArea');
-        modalArea.style.display = type === 'modal' ? 'block' : 'none';
-    }
-
     function guardarMiembroSilencioso() {
         const m = personalData[currentSelectedIndex];
         if (!m) return;
@@ -480,32 +499,31 @@
         m.descripcionCorta = document.getElementById('memberShortDesc').value.trim();
         m.etiquetas = document.getElementById('memberTags').value.split(',').map(t => t.trim()).filter(Boolean);
         m.textoBoton = document.getElementById('memberBtnText').value.trim();
-        m.tipoAccion = document.getElementById('memberActionType').value;
 
-        if (m.tipoAccion === 'modal') {
-            const metaRows = document.querySelectorAll('.metadata-row');
-            const metas = [];
-            metaRows.forEach(r => {
-                const icon = r.querySelector('.meta-icon-select').value;
-                const text = r.querySelector('.meta-text-input').value.trim();
-                if (text) metas.push({ icono: icon, texto: text });
-            });
+        const metaRows = document.querySelectorAll('.metadata-row');
+        const metas = [];
+        metaRows.forEach(r => {
+            const icon = r.querySelector('.meta-icon-select').value;
+            const text = r.querySelector('.meta-text-input').value.trim();
+            if (text) metas.push({ icono: icon, texto: text });
+        });
 
-            m.modalDetalle = {
-                subtitulo: document.getElementById('modalSubtitle').value.trim(),
-                metadatos: metas,
-                seccionPerfil: {
-                    titulo: "Perfil Ejecutivo & Dirección Técnica",
-                    descripcion: document.getElementById('modalExecDesc').value.trim()
-                },
-                seccionFormacion: {
-                    titulo: "Formación Académica & Certificaciones",
-                    items: document.getElementById('modalEducation').value.split('\n').map(i => i.trim()).filter(Boolean)
-                }
-            };
-        } else {
-            delete m.modalDetalle;
-        }
+        const checks = document.querySelectorAll('.proj-check-input:checked');
+        const proyectosSeleccionados = Array.from(checks).map(c => c.value);
+        m.proyectosAsociados = proyectosSeleccionados;
+
+        m.modalDetalle = {
+            subtitulo: document.getElementById('modalSubtitle').value.trim(),
+            metadatos: metas,
+            seccionPerfil: {
+                titulo: "Perfil Ejecutivo & Dirección Técnica",
+                descripcion: document.getElementById('modalExecDesc').value.trim()
+            },
+            seccionFormacion: {
+                titulo: "Formación Académica & Certificaciones",
+                items: document.getElementById('modalEducation').value.split('\n').map(i => i.trim()).filter(Boolean)
+            }
+        };
     }
 
     function guardarMiembroActual() {
@@ -524,8 +542,8 @@
             imagen: "",
             tieneImagen: false,
             etiquetas: ["Especialidad"],
-            textoBoton: "Ver Perfil Técnico",
-            tipoAccion: "modal",
+            textoBoton: "Conoce a Nuestro Aliado",
+            proyectosAsociados: [],
             modalDetalle: {
                 subtitulo: "Cargo / Rol",
                 metadatos: [{ icono: "award", texto: "Certificación" }],

@@ -2,7 +2,7 @@
   {
     "id": "james-zuniga",
     "nombre": "Arq. James Ramiro Zúñiga Caipe",
-    "cargoFicha": "Director General & Coordinador BIM / CIM",
+    "cargoFicha": "Gerente & Coordinador BIM / CIM",
     "descripcionCorta": "Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.",
     "imagen": "james-zuniga.jpg",
     "tieneImagen": true,
@@ -52,7 +52,7 @@
   {
     "id": "coordinacion-obra",
     "nombre": "Coordinación de Obra & Interventoría",
-    "cargoFicha": "Supervisión Técnica & BIM 5D",
+    "cargoFicha": "Supervisión Técnica",
     "descripcionCorta": "Dirección de residencia operativa, control financiero de contratos públicos/privados y auditoría estricta de APUs en sitio.",
     "imagenIcono": "hard-hat",
     "tieneImagen": false,

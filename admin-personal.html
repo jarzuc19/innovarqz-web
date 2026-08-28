@@ -3,324 +3,464 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador de Personal | InnovArqZ</title>
+    <title>Administrador de Personal | InnovArqZ (GitHub Sync)</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --bg-main: #0f172a;
+            --bg-dark: #0f172a;
             --bg-card: #1e293b;
             --bg-input: #0b1120;
+            --accent-copper: #d97706;
+            --accent-copper-hover: #b45309;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: #334155;
-            --accent-cyan: #06b6d4;
-            --accent-cyan-hover: #0891b2;
-            --accent-green: #10b981;
-            --accent-green-hover: #059669;
+            --danger-color: #ef4444;
+            --success-color: #10b981;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
 
         body {
-            background-color: var(--bg-main);
+            background-color: var(--bg-dark);
             color: var(--text-main);
-            padding: 2rem;
             display: flex;
             justify-content: center;
-        }
-
-        .admin-container {
-            width: 100%;
-            max-width: 1000px;
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
             padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            min-height: 100vh;
         }
 
-        .header-title {
-            color: var(--accent-cyan);
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .layout-grid {
+        .container {
+            width: 100%;
+            max-width: 1200px;
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 300px 1fr;
             gap: 2rem;
+            align-items: start;
         }
 
-        /* Sidebar - Lista de Miembros */
-        .sidebar-panel {
-            background-color: var(--bg-main);
+        /* Paneles */
+        .panel {
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
 
-        .sidebar-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
+        h2, h3 { color: var(--text-main); margin-bottom: 1rem; font-weight: 700; }
+        h2 span { color: var(--accent-copper); }
 
-        .btn-add {
-            background-color: #334155;
-            color: white;
-            border: none;
-            padding: 0.6rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s;
+        /* GitHub Config */
+        .github-config { margin-bottom: 1.5rem; }
+        .config-input {
+            width: 100%; background: var(--bg-input); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 0.5rem; border-radius: 6px; margin-bottom: 0.5rem;
+            font-size: 0.85rem; outline: none;
         }
+        .config-input:focus { border-color: var(--accent-copper); }
 
-        .btn-add:hover { background-color: #475569; }
+        /* Sidebar List */
+        .btn-action {
+            width: 100%; background: transparent; border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 0.75rem; border-radius: 6px; cursor: pointer;
+            font-weight: 600; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+        }
+        .btn-action:hover { border-color: var(--accent-copper); color: var(--accent-copper); }
+        .btn-primary { background: var(--accent-copper); color: white; border: none; }
+        .btn-primary:hover { background: var(--accent-copper-hover); color: white; border: none; }
+        .btn-danger { background: var(--danger-color); color: white; border: none; }
 
         .member-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            overflow-y: auto;
-            max-height: 500px;
+            margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem;
+            max-height: 50vh; overflow-y: auto; padding-right: 0.5rem;
         }
-
         .member-item {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 0.75rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: border-color 0.2s;
+            background: var(--bg-dark); border: 1px solid var(--border-color);
+            padding: 0.75rem; border-radius: 6px; cursor: pointer; font-size: 0.9rem;
+            transition: all 0.2s; display: flex; align-items: center; justify-content: space-between;
         }
-
         .member-item:hover, .member-item.active {
-            border-color: var(--accent-cyan);
-            background-color: rgba(6, 182, 212, 0.1);
+            border-color: var(--accent-copper);
+            box-shadow: 0 0 10px rgba(217,119,6,0.2);
         }
+        .member-item.active { color: var(--accent-copper); font-weight: 600; }
 
         /* Formulario */
-        .form-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .form-group label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .form-group input, .form-group textarea {
-            background-color: var(--bg-input);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 0.6rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            border-color: var(--accent-cyan);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .btn-save {
-            background-color: var(--accent-cyan);
-            color: white;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-
-        .btn-save:hover { background-color: var(--accent-cyan-hover); }
-
-        .btn-download {
-            background-color: var(--accent-green);
-            color: white;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-
-        .btn-download:hover { background-color: var(--accent-green-hover); }
-
-        .btn-delete {
-            background-color: #ef4444;
-            color: white;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-left: auto;
-        }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.4rem; grid-column: span 1; }
+        .form-group.full { grid-column: span 2; }
         
-        .btn-delete:hover { background-color: #dc2626; }
+        label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+        input[type="text"], textarea, select {
+            background-color: var(--bg-input); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 0.75rem; border-radius: 6px; font-size: 0.9rem;
+            outline: none; transition: border-color 0.2s; width: 100%;
+        }
+        input:focus, textarea:focus, select:focus { border-color: var(--accent-copper); }
+        textarea { resize: vertical; min-height: 90px; }
+
+        /* Uploader */
+        .image-upload-wrapper {
+            display: flex; gap: 1rem; align-items: flex-end;
+        }
+        .image-preview {
+            width: 60px; height: 60px; border-radius: 8px; background: var(--bg-input);
+            border: 1px dashed var(--border-color); display: flex; align-items: center; justify-content: center;
+            overflow: hidden; flex-shrink: 0;
+        }
+        .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Checkboxes Proyectos */
+        .projects-container {
+            background: var(--bg-input); border: 1px solid var(--border-color);
+            border-radius: 6px; padding: 1rem; max-height: 150px; overflow-y: auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+        }
+        .project-checkbox { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer; }
+        .project-checkbox input { accent-color: var(--accent-copper); cursor: pointer; }
+
+        /* Estado */
+        .status-bar {
+            margin-top: 1.5rem; padding: 1rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;
+            display: none; align-items: center; gap: 0.5rem;
+        }
+        .status-bar.success { background: rgba(16, 185, 129, 0.15); color: var(--success-color); border: 1px solid var(--success-color); display: flex; }
+        .status-bar.error { background: rgba(239, 68, 68, 0.15); color: var(--danger-color); border: 1px solid var(--danger-color); display: flex; }
+        .status-bar.syncing { background: rgba(217, 119, 6, 0.15); color: var(--accent-copper); border: 1px solid var(--accent-copper); display: flex; }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group { grid-column: span 1 !important; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="admin-container">
-        <div class="header-title">Administrador de Personal (`personal.json`)</div>
-        
-        <div class="layout-grid">
-            
-            <!-- Barra Lateral -->
-            <div class="sidebar-panel">
-                <div class="sidebar-title">Miembros Guardados</div>
-                <button class="btn-add" onclick="nuevoMiembro()">+ Agregar Nuevo</button>
-                <div class="member-list" id="listaMiembros">
-                    <!-- Los miembros se cargan aquí -->
-                </div>
-                
-                <!-- Input oculto para cargar JSON existente -->
-                <input type="file" id="fileInput" accept=".json" style="display: none;" onchange="cargarJSON(event)">
-                <button class="btn-add" style="margin-top: auto; background-color: transparent; border: 1px dashed var(--border-color);" onclick="document.getElementById('fileInput').click()">Cargar personal.json existente</button>
+    <div class="container">
+        <!-- Panel Izquierdo: Config & Lista -->
+        <div class="panel">
+            <div class="github-config">
+                <h3><i data-lucide="github"></i> Repositorio</h3>
+                <input type="text" id="gh_owner" class="config-input" placeholder="Usuario (ej. InnovArqZ)">
+                <input type="text" id="gh_repo" class="config-input" placeholder="Repositorio (ej. website)">
+                <input type="text" id="gh_branch" class="config-input" placeholder="Rama (ej. main)" value="main">
+                <input type="password" id="gh_token" class="config-input" placeholder="Personal Access Token (ghp_...)">
+                <button class="btn-action" onclick="sincronizarDesdeGitHub()" style="margin-top: 0.5rem;">
+                    <i data-lucide="refresh-cw"></i> Conectar & Descargar
+                </button>
             </div>
 
-            <!-- Formulario Principal -->
-            <div class="form-panel" id="formularioMiembro">
+            <hr style="border-color: var(--border-color); margin: 1.5rem 0;">
+
+            <h3>Personal Guardado</h3>
+            <button class="btn-action" onclick="nuevoMiembro()">+ Crear Perfil</button>
+            <div class="member-list" id="listaMiembros">
+                <div style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1rem;">
+                    Conecta con GitHub para ver los miembros.
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Derecho: Formulario -->
+        <div class="panel" id="formularioContainer" style="opacity: 0.5; pointer-events: none;">
+            <h2>Ficha del <span>Profesional</span></h2>
+            
+            <div class="form-grid">
                 <div class="form-group">
                     <label>ID Único (sin espacios):</label>
                     <input type="text" id="m_id" placeholder="ej: james-zuniga">
                 </div>
+                
+                <div class="form-group">
+                    <label>Nombre Completo:</label>
+                    <input type="text" id="m_nombre" placeholder="Arq. James Ramiro Zúñiga Caipe">
+                </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nombre Completo:</label>
-                        <input type="text" id="m_nombre" placeholder="Ej: Arq. James Ramiro Zúñiga Caipe">
+                <div class="form-group">
+                    <label>Cargo Principal (Tarjeta):</label>
+                    <input type="text" id="m_cargo" placeholder="Director General & Coordinador BIM">
+                </div>
+
+                <div class="form-group">
+                    <label>Subtítulo (Modal):</label>
+                    <input type="text" id="m_role_modal" placeholder="Fundador & Principal Manager">
+                </div>
+
+                <div class="form-group full image-upload-wrapper">
+                    <div style="flex-grow: 1;">
+                        <label>Foto de Perfil (Auto-subida a GitHub):</label>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 0.4rem;">
+                            <input type="text" id="m_foto" placeholder="Nombre archivo (ej. foto.jpg)" style="flex-grow: 1;" readonly>
+                            <input type="file" id="foto_upload" accept="image/*" style="display: none;" onchange="procesarImagen(event)">
+                            <button type="button" class="btn-action" style="width: auto; padding: 0 1rem;" onclick="document.getElementById('foto_upload').click()">
+                                <i data-lucide="upload-cloud"></i> Cargar Foto
+                            </button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Cargo en Ficha Principal:</label>
-                        <input type="text" id="m_cargo" placeholder="Ej: Director General & Coordinador BIM / CIM">
+                    <div class="image-preview" id="preview_foto">
+                        <i data-lucide="image" style="color: var(--border-color);"></i>
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nombre de Imagen (ej: james-zuniga.jpg):</label>
-                        <input type="text" id="m_foto">
-                    </div>
-                    <div class="form-group">
-                        <label>Subtítulo del Modal (opcional):</label>
-                        <input type="text" id="m_subtitulo" placeholder="Ej: Fundador & Principal Manager">
-                    </div>
+                <div class="form-group">
+                    <label>Ícono de Respaldo (Si no hay foto):</label>
+                    <select id="m_icono">
+                        <option value="user">Usuario (Default)</option>
+                        <option value="hard-hat">Casco / Obra</option>
+                        <option value="map">Mapa / GIS</option>
+                        <option value="monitor">Computadora / BIM</option>
+                        <option value="briefcase">Maletín</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label>Etiquetas en Tarjeta (separadas por coma):</label>
-                    <input type="text" id="m_etiquetas" placeholder="Ej: Arq. UDENAR, buildingSMART, BIM 5D">
+                    <input type="text" id="m_etiquetas" placeholder="Arq. UDENAR, buildingSMART, BIM 5D">
                 </div>
 
-                <div class="form-group">
-                    <label>Metadatos / Credenciales Modal (separados por coma):</label>
-                    <input type="text" id="m_credenciales" placeholder="Ej: Matrícula Profesional CPNAA, buildingSMART Certified, Nariño Colombia">
+                <div class="form-group full">
+                    <label>Credenciales Modal (separadas por coma):</label>
+                    <input type="text" id="m_credenciales" placeholder="Matrícula CPNAA, buildingSMART Certified, Nariño">
                 </div>
 
-                <div class="form-group">
-                    <label>Descripción / Perfil Profesional:</label>
+                <div class="form-group full">
+                    <label>Perfil Ejecutivo & Dirección Técnica:</label>
                     <textarea id="m_biografia" placeholder="Arquitecto egresado de..."></textarea>
                 </div>
 
-                <div class="form-group">
-                    <label>Formación y Certificaciones (una por línea):</label>
-                    <textarea id="m_educacion" placeholder="• Arquitecto: Universidad de Nariño.&#10;• Certificación Internacional: ..."></textarea>
+                <div class="form-group full">
+                    <label>Formación Académica & Certificaciones (Una por línea):</label>
+                    <textarea id="m_educacion" placeholder="• Arquitecto: Universidad de Nariño.&#10;• Certificación Internacional..."></textarea>
                 </div>
 
-                <div class="form-group">
-                    <label>Proyectos Vinculados (Formato: ID|Nombre - uno por línea):</label>
-                    <textarea id="m_proyectos" placeholder="auditorio-tumaco|Auditorio en Tumaco"></textarea>
-                </div>
-
-                <div class="form-actions">
-                    <button class="btn-save" onclick="guardarMiembro()">Guardar Miembro</button>
-                    <button class="btn-download" onclick="descargarJSON()">Descargar personal.json</button>
-                    <button class="btn-delete" id="btnEliminar" onclick="eliminarMiembro()" style="display: none;">Eliminar</button>
+                <div class="form-group full">
+                    <label>Proyectos Vinculados:</label>
+                    <div class="projects-container" id="m_proyectos_container">
+                        <div style="color: var(--text-muted); font-size: 0.85rem; grid-column: span 2;">
+                            Sincroniza con GitHub para cargar la lista de proyectos.
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button class="btn-action btn-primary" onclick="guardarMiembroLocal()"><i data-lucide="save"></i> 1. Guardar en Memoria</button>
+                <button class="btn-action" style="background: var(--bg-dark);" onclick="subirAGitHub()"><i data-lucide="cloud-upload"></i> 2. Subir JSON a GitHub</button>
+                <button class="btn-action btn-danger" id="btnEliminar" style="width: auto; padding: 0 1.5rem; display: none;" onclick="eliminarMiembro()"><i data-lucide="trash-2"></i></button>
+            </div>
+
+            <div class="status-bar" id="statusBar"></div>
         </div>
     </div>
 
 <script>
-    let personal = [];
+    let personalData = [];
+    let proyectosData = [];
+    let fileSha = null;
     let indiceActual = -1;
 
-    // Cargar datos por defecto al iniciar para no empezar en blanco
+    // Inicialización y persistencia de credenciales
     window.onload = () => {
-        personal = [
-            {
-                id: "james-zuniga",
-                nombre: "Arq. James Ramiro Zúñiga Caipe",
-                cargo: "Director General & Coordinador BIM / CIM",
-                role_modal: "Fundador & Principal Manager",
-                biografia: "Arquitecto egresado de la Universidad de Nariño, al frente del ecosistema técnico de InnovArqZ. Amplia trayectoria en la coordinación de modelos multidisciplinares (ARQ/EST/MEP), federación digital, detección de interferencias y control financiero presupuestal (BIM 5D) bajo la norma internacional ISO 19650 y estándares OpenBIM.",
-                foto: "james-zuniga.jpg",
-                etiquetas: ["Arq. UDENAR", "buildingSMART", "BIM 5D"],
-                credenciales: ["Matrícula Profesional CPNAA", "buildingSMART Certified", "Nariño, Colombia"],
-                educacion: "• Arquitecto: Universidad de Nariño.\n• Certificación Internacional: buildingSMART Professional Certification — Entry Level.\n• Máster BIM Manager Internacional (+IA y VR): Espacio BIM / ATC Autodesk (En Curso).\n• Diplomado BIM Civil (Infraestructuras): Universidad de Nariño.\n• Diplomado Ordenamiento Territorial (PBOT/EOT): ESAP.",
-                proyectosAsociados: ["auditorio-tumaco"]
-            }
-        ];
-        renderizarLista();
-        if(personal.length > 0) seleccionarMiembro(0);
+        lucide.createIcons();
+        document.getElementById('gh_owner').value = localStorage.getItem('gh_owner') || '';
+        document.getElementById('gh_repo').value = localStorage.getItem('gh_repo') || '';
+        document.getElementById('gh_branch').value = localStorage.getItem('gh_branch') || 'main';
+        document.getElementById('gh_token').value = localStorage.getItem('gh_token') || '';
     };
 
-    function renderizarLista() {
+    function guardarCredenciales() {
+        localStorage.setItem('gh_owner', document.getElementById('gh_owner').value.trim());
+        localStorage.setItem('gh_repo', document.getElementById('gh_repo').value.trim());
+        localStorage.setItem('gh_branch', document.getElementById('gh_branch').value.trim());
+        localStorage.setItem('gh_token', document.getElementById('gh_token').value.trim());
+    }
+
+    function mostrarEstado(mensaje, tipo) {
+        const bar = document.getElementById('statusBar');
+        bar.className = `status-bar ${tipo}`;
+        
+        let icon = 'info';
+        if(tipo === 'success') icon = 'check-circle';
+        if(tipo === 'error') icon = 'alert-triangle';
+        if(tipo === 'syncing') icon = 'refresh-cw';
+
+        bar.innerHTML = `<i data-lucide="${icon}"></i> ${mensaje}`;
+        lucide.createIcons();
+    }
+
+    // --- LOGICA GITHUB ---
+
+    async function peticionGitHub(ruta, metodo = 'GET', body = null) {
+        guardarCredenciales();
+        const owner = document.getElementById('gh_owner').value.trim();
+        const repo = document.getElementById('gh_repo').value.trim();
+        const branch = document.getElementById('gh_branch').value.trim();
+        const token = document.getElementById('gh_token').value.trim();
+
+        if (!owner || !repo || !token) {
+            mostrarEstado('Faltan credenciales de GitHub', 'error');
+            throw new Error('Credenciales incompletas');
+        }
+
+        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${ruta}?ref=${branch}`;
+        const headers = {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+        };
+
+        const config = { method: metodo, headers: headers };
+        if (body) {
+            body.branch = branch; // Asegurar rama en escrituras
+            config.body = JSON.stringify(body);
+        }
+
+        const response = await fetch(url, config);
+        if (!response.ok && response.status !== 404) {
+            mostrarEstado(`Error HTTP: ${response.status}`, 'error');
+            throw new Error(`Error API: ${response.statusText}`);
+        }
+        return response.status === 404 ? null : await response.json();
+    }
+
+    async function sincronizarDesdeGitHub() {
+        mostrarEstado('Conectando y descargando datos...', 'syncing');
+        
+        try {
+            // 1. Obtener proyectos.json (Para checkboxes)
+            const projRes = await peticionGitHub('proyectos.json');
+            if (projRes) {
+                const content = decodeURIComponent(escape(atob(projRes.content)));
+                proyectosData = JSON.parse(content);
+                renderizarCheckboxesProyectos();
+            }
+
+            // 2. Obtener personal.json
+            const persRes = await peticionGitHub('personal.json');
+            if (persRes) {
+                fileSha = persRes.sha;
+                const content = decodeURIComponent(escape(atob(persRes.content)));
+                personalData = JSON.parse(content);
+            } else {
+                personalData = [];
+                fileSha = null;
+            }
+
+            document.getElementById('formularioContainer').style.opacity = '1';
+            document.getElementById('formularioContainer').style.pointerEvents = 'auto';
+            
+            renderizarListaMiembros();
+            nuevoMiembro();
+            mostrarEstado('Datos sincronizados correctamente.', 'success');
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function subirAGitHub() {
+        if (personalData.length === 0) {
+            mostrarEstado('No hay datos para subir.', 'error');
+            return;
+        }
+
+        mostrarEstado('Subiendo personal.json a GitHub...', 'syncing');
+        try {
+            const contenidoJSON = JSON.stringify(personalData, null, 4);
+            const contenidoB64 = btoa(unescape(encodeURIComponent(contenidoJSON)));
+
+            const body = {
+                message: "Actualización personal.json desde Admin",
+                content: contenidoB64
+            };
+            if (fileSha) body.sha = fileSha;
+
+            const res = await peticionGitHub('personal.json', 'PUT', body);
+            if (res && res.content) {
+                fileSha = res.content.sha;
+                mostrarEstado('personal.json actualizado con éxito en GitHub.', 'success');
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // --- CARGA DE IMAGEN VIA GITHUB ---
+
+    async function procesarImagen(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+            const base64completo = e.target.result;
+            const base64Data = base64completo.split(',')[1];
+            
+            document.getElementById('preview_foto').innerHTML = `<img src="${base64completo}">`;
+            
+            const nombreArchivo = file.name.replace(/\s+/g, '-').toLowerCase();
+            document.getElementById('m_foto').value = nombreArchivo;
+            
+            mostrarEstado(`Subiendo imagen ${nombreArchivo}...`, 'syncing');
+
+            try {
+                // Verificar si existe para obtener SHA y sobrescribir
+                const existingFile = await peticionGitHub(nombreArchivo);
+                const body = {
+                    message: `Subida de foto perfil: ${nombreArchivo}`,
+                    content: base64Data
+                };
+                if (existingFile && existingFile.sha) {
+                    body.sha = existingFile.sha;
+                }
+
+                await peticionGitHub(nombreArchivo, 'PUT', body);
+                mostrarEstado('Imagen subida exitosamente al repositorio.', 'success');
+                
+            } catch (err) {
+                console.error(err);
+                mostrarEstado('Error al subir la imagen.', 'error');
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+
+
+    // --- LOGICA DE FORMULARIO Y UI ---
+
+    function renderizarCheckboxesProyectos() {
+        const container = document.getElementById('m_proyectos_container');
+        container.innerHTML = '';
+        
+        if (proyectosData.length === 0) {
+            container.innerHTML = '<span style="color:var(--text-muted); font-size:0.85rem;">No hay proyectos.</span>';
+            return;
+        }
+
+        proyectosData.forEach(p => {
+            const lbl = document.createElement('label');
+            lbl.className = 'project-checkbox';
+            lbl.innerHTML = `<input type="checkbox" value="${p.id}" class="chk-proyecto"> ${p.title} (${p.year})`;
+            container.appendChild(lbl);
+        });
+    }
+
+    function renderizarListaMiembros() {
         const lista = document.getElementById('listaMiembros');
         lista.innerHTML = '';
         
-        personal.forEach((miembro, index) => {
+        personalData.forEach((miembro, index) => {
             const div = document.createElement('div');
             div.className = `member-item ${index === indiceActual ? 'active' : ''}`;
-            div.innerText = miembro.nombre || 'Sin Nombre';
+            div.innerHTML = `
+                <span>${miembro.nombre || 'Sin Nombre'}</span>
+                <i data-lucide="chevron-right" style="width:16px; height:16px;"></i>
+            `;
             div.onclick = () => seleccionarMiembro(index);
             lista.appendChild(div);
         });
+        lucide.createIcons();
     }
 
     function nuevoMiembro() {
@@ -328,132 +468,93 @@
         document.getElementById('m_id').value = '';
         document.getElementById('m_nombre').value = '';
         document.getElementById('m_cargo').value = '';
+        document.getElementById('m_role_modal').value = '';
         document.getElementById('m_foto').value = '';
-        document.getElementById('m_subtitulo').value = '';
+        document.getElementById('m_icono').value = 'user';
         document.getElementById('m_etiquetas').value = '';
         document.getElementById('m_credenciales').value = '';
         document.getElementById('m_biografia').value = '';
         document.getElementById('m_educacion').value = '';
-        document.getElementById('m_proyectos').value = '';
+        document.getElementById('preview_foto').innerHTML = '<i data-lucide="image" style="color: var(--border-color);"></i>';
+        
+        document.querySelectorAll('.chk-proyecto').forEach(chk => chk.checked = false);
         
         document.getElementById('btnEliminar').style.display = 'none';
-        renderizarLista();
-        document.getElementById('m_id').focus();
+        renderizarListaMiembros();
+        lucide.createIcons();
     }
 
     function seleccionarMiembro(index) {
         indiceActual = index;
-        const m = personal[index];
+        const m = personalData[index];
         
         document.getElementById('m_id').value = m.id || '';
         document.getElementById('m_nombre').value = m.nombre || '';
         document.getElementById('m_cargo').value = m.cargo || '';
+        document.getElementById('m_role_modal').value = m.role_modal || '';
         document.getElementById('m_foto').value = m.foto || '';
-        document.getElementById('m_subtitulo').value = m.role_modal || '';
-        
-        // Unir arrays en strings para los inputs
+        document.getElementById('m_icono').value = m.icono || 'user';
         document.getElementById('m_etiquetas').value = (m.etiquetas || []).join(', ');
         document.getElementById('m_credenciales').value = (m.credenciales || []).join(', ');
         document.getElementById('m_biografia').value = m.biografia || '';
         document.getElementById('m_educacion').value = m.educacion || '';
+
+        document.querySelectorAll('.chk-proyecto').forEach(chk => {
+            chk.checked = (m.proyectosAsociados || []).includes(chk.value);
+        });
+
+        // Intentar mostrar preview si hay nombre de foto
+        if (m.foto) {
+            document.getElementById('preview_foto').innerHTML = `<span style="font-size:0.7rem; color:var(--accent-copper); text-align:center;">En<br>Repo</span>`;
+        } else {
+            document.getElementById('preview_foto').innerHTML = '<i data-lucide="image" style="color: var(--border-color);"></i>';
+            lucide.createIcons();
+        }
         
-        // Mapear proyectos para mostrarlos en el textarea (recuperando solo IDs o ID|Nombre si tuvieras un diccionario, aquí guardaremos solo el ID en el JSON final para el frontend)
-        document.getElementById('m_proyectos').value = (m.proyectosAsociados || []).join('\n');
-        
-        document.getElementById('btnEliminar').style.display = 'block';
-        renderizarLista();
+        document.getElementById('btnEliminar').style.display = 'flex';
+        renderizarListaMiembros();
     }
 
-    function guardarMiembro() {
+    function guardarMiembroLocal() {
         const id = document.getElementById('m_id').value.trim();
         if (!id) {
-            alert('El ID Único es obligatorio.');
+            mostrarEstado('El ID Único es obligatorio', 'error');
             return;
         }
 
-        // Convertir strings separados por coma/salto de línea a Arrays
-        const etiquetasRaw = document.getElementById('m_etiquetas').value.split(',').map(s => s.trim()).filter(s => s);
-        const credencialesRaw = document.getElementById('m_credenciales').value.split(',').map(s => s.trim()).filter(s => s);
-        
-        // Para proyectos, el frontend solo necesita el array de IDs
-        const proyectosRaw = document.getElementById('m_proyectos').value.split('\n')
-            .map(s => s.trim())
-            .filter(s => s)
-            .map(s => s.split('|')[0].trim()); // Si el usuario escribe "id|Nombre", nos quedamos solo con el "id"
+        const projsSeleccionados = Array.from(document.querySelectorAll('.chk-proyecto:checked')).map(chk => chk.value);
 
-        const nuevoObjeto = {
+        const nuevo = {
             id: id,
             nombre: document.getElementById('m_nombre').value.trim(),
             cargo: document.getElementById('m_cargo').value.trim(),
-            role_modal: document.getElementById('m_subtitulo').value.trim(),
-            biografia: document.getElementById('m_biografia').value.trim(),
+            role_modal: document.getElementById('m_role_modal').value.trim(),
             foto: document.getElementById('m_foto').value.trim(),
-            etiquetas: etiquetasRaw,
-            credenciales: credencialesRaw,
+            icono: document.getElementById('m_icono').value,
+            etiquetas: document.getElementById('m_etiquetas').value.split(',').map(s => s.trim()).filter(Boolean),
+            credenciales: document.getElementById('m_credenciales').value.split(',').map(s => s.trim()).filter(Boolean),
+            biografia: document.getElementById('m_biografia').value.trim(),
             educacion: document.getElementById('m_educacion').value.trim(),
-            proyectosAsociados: proyectosRaw
+            proyectosAsociados: projsSeleccionados
         };
 
         if (indiceActual === -1) {
-            personal.push(nuevoObjeto);
-            indiceActual = personal.length - 1;
+            personalData.push(nuevo);
+            indiceActual = personalData.length - 1;
         } else {
-            personal[indiceActual] = nuevoObjeto;
+            personalData[indiceActual] = nuevo;
         }
 
-        renderizarLista();
-        alert('Miembro guardado en memoria. Recuerda descargar el JSON.');
+        renderizarListaMiembros();
+        mostrarEstado('Miembro guardado en memoria. Recuerda presionar "Subir JSON a GitHub".', 'success');
     }
 
     function eliminarMiembro() {
-        if (indiceActual > -1) {
-            if(confirm('¿Estás seguro de eliminar este perfil?')) {
-                personal.splice(indiceActual, 1);
-                nuevoMiembro();
-            }
+        if (indiceActual > -1 && confirm('¿Eliminar este perfil permanentemente?')) {
+            personalData.splice(indiceActual, 1);
+            nuevoMiembro();
+            mostrarEstado('Miembro eliminado en memoria. Sube los cambios a GitHub.', 'success');
         }
-    }
-
-    function descargarJSON() {
-        if (personal.length === 0) {
-            alert('No hay datos para descargar.');
-            return;
-        }
-        
-        const dataStr = JSON.stringify(personal, null, 4);
-        const blob = new Blob([dataStr], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = "personal.json";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
-
-    function cargarJSON(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const parsed = JSON.parse(e.target.result);
-                if (Array.isArray(parsed)) {
-                    personal = parsed;
-                    renderizarLista();
-                    if(personal.length > 0) seleccionarMiembro(0);
-                } else {
-                    alert('El archivo JSON no tiene el formato correcto (debe ser un array).');
-                }
-            } catch (err) {
-                alert('Error al leer el JSON: ' + err.message);
-            }
-        };
-        reader.readAsText(file);
-        event.target.value = ''; // Resetear input
     }
 </script>
 </body>

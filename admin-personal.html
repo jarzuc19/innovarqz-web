@@ -205,7 +205,7 @@
                 <button type="button" class="btn" style="height: 42px;" onclick="guardarConfigGitHub()">Guardar Credenciales</button>
             </div>
 
-            <form id="memberForm">
+            <form id="memberForm" onsubmit="return false;">
                 <div class="form-section-title"><i data-lucide="user"></i> Información de la Ficha Principal</div>
                 
                 <div class="top-profile-layout" style="margin-top: 1rem;">
@@ -225,17 +225,17 @@
                     <div class="right-fields-stack">
                         <div class="form-group">
                             <label for="memberId">ID Único (sin espacios)</label>
-                            <input type="text" id="memberId" required placeholder="ej: james-zuniga">
+                            <input type="text" id="memberId" required placeholder="ej: james-zuniga" oninput="sincronizarCampoEnVivo()">
                         </div>
 
                         <div class="form-group">
                             <label for="memberName">Nombre Profesional Completo</label>
-                            <input type="text" id="memberName" required placeholder="ej: Arq. James Ramiro Zúñiga Caipe">
+                            <input type="text" id="memberName" required placeholder="ej: Arq. James Ramiro Zúñiga Caipe" oninput="sincronizarCampoEnVivo()">
                         </div>
 
                         <div class="form-group">
                             <label for="memberRole">Cargo Principal (Ficha)</label>
-                            <input type="text" id="memberRole" required placeholder="ej: Director General & Coordinador BIM / CIM">
+                            <input type="text" id="memberRole" required placeholder="ej: Director General & Coordinador BIM / CIM" oninput="sincronizarCampoEnVivo()">
                         </div>
                     </div>
                 </div>
@@ -243,17 +243,17 @@
                 <div class="form-grid" style="margin-top: 1.25rem;">
                     <div class="form-group full-width">
                         <label for="memberShortDesc">Descripción Corta (Ficha del carrusel)</label>
-                        <textarea id="memberShortDesc" required placeholder="Líder ejecutivo en metodologías OpenBIM..."></textarea>
+                        <textarea id="memberShortDesc" required placeholder="Líder ejecutivo en metodologías OpenBIM..." oninput="sincronizarCampoEnVivo()"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="memberTags">Etiquetas / Badges (separadas por coma)</label>
-                        <input type="text" id="memberTags" placeholder="ej: Arq. UDENAR, buildingSMART, BIM 5D">
+                        <input type="text" id="memberTags" placeholder="ej: Arq. UDENAR, buildingSMART, BIM 5D" oninput="sincronizarCampoEnVivo()">
                     </div>
 
                     <div class="form-group">
                         <label for="memberBtnText">Texto del Botón Acción</label>
-                        <input type="text" id="memberBtnText" value="Conoce a Nuestro Aliado">
+                        <input type="text" id="memberBtnText" value="Conoce a Nuestro Aliado" oninput="sincronizarCampoEnVivo()">
                     </div>
                 </div>
 
@@ -263,7 +263,7 @@
                     <div class="form-grid" style="margin-top: 1rem;">
                         <div class="form-group full-width">
                             <label for="modalSubtitle">Subtítulo del Modal</label>
-                            <input type="text" id="modalSubtitle" placeholder="ej: Fundador & Principal Manager">
+                            <input type="text" id="modalSubtitle" placeholder="ej: Fundador & Principal Manager" oninput="sincronizarCampoEnVivo()">
                         </div>
 
                         <div class="form-group full-width">
@@ -276,12 +276,12 @@
 
                         <div class="form-group full-width">
                             <label for="modalExecDesc">Perfil Ejecutivo & Dirección Técnica (Párrafo largo)</label>
-                            <textarea id="modalExecDesc" style="min-height: 110px;"></textarea>
+                            <textarea id="modalExecDesc" style="min-height: 110px;" oninput="sincronizarCampoEnVivo()"></textarea>
                         </div>
 
                         <div class="form-group full-width">
                             <label for="modalEducation">Formación Académica & Certificaciones (Una por línea)</label>
-                            <textarea id="modalEducation" style="min-height: 120px;" placeholder="Arquitecto: Universidad de Nariño.&#10;Certificación Internacional: buildingSMART..."></textarea>
+                            <textarea id="modalEducation" style="min-height: 120px;" placeholder="Arquitecto: Universidad de Nariño.&#10;Certificación Internacional: buildingSMART..." oninput="sincronizarCampoEnVivo()"></textarea>
                         </div>
 
                         <div class="form-group full-width">
@@ -305,7 +305,7 @@
     let personalData = [];
     let proyectosDisponibles = [];
     let currentSelectedIndex = 0;
-    let fileSha = ""; // Necesario para la API de GitHub
+    let fileSha = "";
 
     const listaIconosDisponibles = [
         { valor: "award", etiqueta: "🏆 Medalla / Matrícula Profesional (award)" },
@@ -342,38 +342,61 @@
 
     async function cargarDatosAutomaticos() {
         try {
-            // Cargar proyectos.json
             const resProj = await fetch('proyectos.json?v=' + Date.now());
             if (resProj.ok) proyectosDisponibles = await resProj.json();
+        } catch (err) {
+            console.warn('No se pudo cargar proyectos.json:', err);
+        }
 
-            // Cargar personal.json
+        try {
             const resPers = await fetch('personal.json?v=' + Date.now());
             if (resPers.ok) {
                 personalData = await resPers.json();
             } else {
-                personalData = [{
-                    "id": "james-zuniga",
-                    "nombre": "Arq. James Ramiro Zúñiga Caipe",
-                    "cargoFicha": "Director General & Coordinador BIM / CIM",
-                    "descripcionCorta": "Líder ejecutivo en metodologías OpenBIM (ISO 19650)...",
-                    "imagen": "james-zuniga.jpg",
-                    "tieneImagen": true,
-                    "etiquetas": ["Arq. UDENAR", "buildingSMART"],
-                    "textoBoton": "Conoce a Nuestro Aliado",
-                    "proyectosAsociados": [],
-                    "modalDetalle": {
-                        "subtitulo": "Fundador & Principal Manager",
-                        "metadatos": [{"icono": "award", "texto": "Matrícula Profesional CPNAA"}],
-                        "seccionPerfil": { "titulo": "Perfil Ejecutivo", "descripcion": "..." },
-                        "seccionFormacion": { "titulo": "Formación", "items": ["..."] }
-                    }
-                }];
+                throw new Error('Archivo no encontrado');
             }
-
-            renderizarListaMiembros();
-            cargarMiembroEnFormulario(0);
         } catch (err) {
-            console.error('Error al cargar datos automáticos:', err);
+            // Respaldo inicial si personal.json no existe en el repo todavía
+            personalData = [{
+                "id": "james-zuniga",
+                "nombre": "Arq. James Ramiro Zúñiga Caipe",
+                "cargoFicha": "Director General & Coordinador BIM / CIM",
+                "descripcionCorta": "Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.",
+                "imagen": "james-zuniga.jpg",
+                "tieneImagen": true,
+                "etiquetas": ["Arq. UDENAR", "buildingSMART", "BIM 5D"],
+                "textoBoton": "Conoce a Nuestro Aliado",
+                "proyectosAsociados": [],
+                "modalDetalle": {
+                    "subtitulo": "Fundador & Principal Manager",
+                    "metadatos": [
+                        { "icono": "award", "texto": "Matrícula Profesional CPNAA" },
+                        { "icono": "shield-check", "texto": "buildingSMART Certified" },
+                        { "icono": "map-pin", "texto": "Nariño, Colombia" }
+                    ],
+                    "seccionPerfil": {
+                        "titulo": "Perfil Ejecutivo & Dirección Técnica",
+                        "descripcion": "Arquitecto egresado de la Universidad de Nariño, al frente del ecosistema técnico de InnovArqZ."
+                    },
+                    "seccionFormacion": {
+                        "titulo": "Formación Académica & Certificaciones",
+                        "items": [
+                            "Arquitecto: Universidad de Nariño.",
+                            "Certificación Internacional: buildingSMART Professional Certification."
+                        ]
+                    }
+                }
+            }];
+        }
+
+        if (!Array.isArray(personalData) || personalData.length === 0) {
+            personalData = [];
+        }
+
+        currentSelectedIndex = 0;
+        renderizarListaMiembros();
+        if (personalData.length > 0) {
+            cargarMiembroEnFormulario(0);
         }
     }
 
@@ -384,7 +407,12 @@
         personalData.forEach((m, idx) => {
             const item = document.createElement('div');
             item.className = `member-item ${idx === currentSelectedIndex ? 'active' : ''}`;
-            item.onclick = () => { guardarMiembroSilencioso(); currentSelectedIndex = idx; renderizarListaMiembros(); cargarMiembroEnFormulario(idx); };
+            item.onclick = () => { 
+                guardarMiembroSilencioso(); 
+                currentSelectedIndex = idx; 
+                renderizarListaMiembros(); 
+                cargarMiembroEnFormulario(idx); 
+            };
             item.innerHTML = `
                 <div class="member-info">
                     <h4>${m.nombre || 'Sin nombre'}</h4>
@@ -427,6 +455,11 @@
             document.getElementById('modalExecDesc').value = m.modalDetalle.seccionPerfil ? m.modalDetalle.seccionPerfil.descripcion : '';
             document.getElementById('modalEducation').value = m.modalDetalle.seccionFormacion ? (m.modalDetalle.seccionFormacion.items || []).join('\n') : '';
             renderMetadatos(m.modalDetalle.metadatos || []);
+        } else {
+            document.getElementById('modalSubtitle').value = '';
+            document.getElementById('modalExecDesc').value = '';
+            document.getElementById('modalEducation').value = '';
+            renderMetadatos([]);
         }
 
         renderProyectosCheckbox(m.proyectosAsociados || []);
@@ -444,7 +477,7 @@
             const isChecked = asociadosIds.includes(p.id) ? 'checked' : '';
             html += `
                 <label class="project-checkbox-item">
-                    <input type="checkbox" value="${p.id}" ${isChecked} class="proj-check-input">
+                    <input type="checkbox" value="${p.id}" ${isChecked} class="proj-check-input" onchange="guardarMiembroSilencioso()">
                     <span>${p.title} (${p.year || '2026'})</span>
                 </label>
             `;
@@ -466,6 +499,7 @@
             imgPreview.src = dataUrl;
             imgPreview.style.display = 'block';
             placeholder.style.display = 'none';
+            guardarMiembroSilencioso();
         };
         reader.readAsDataURL(file);
     }
@@ -485,10 +519,10 @@
             });
 
             row.innerHTML = `
-                <select class="meta-icon-select" style="background-color: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.5rem; border-radius: 6px; font-size: 0.85rem;">
+                <select class="meta-icon-select" onchange="guardarMiembroSilencioso()" style="background-color: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.5rem; border-radius: 6px; font-size: 0.85rem;">
                     ${optionsHtml}
                 </select>
-                <input type="text" placeholder="Texto descriptivo" value="${m.texto || ''}" class="meta-text-input">
+                <input type="text" placeholder="Texto descriptivo" value="${m.texto || ''}" class="meta-text-input" oninput="guardarMiembroSilencioso()">
                 <button type="button" class="btn btn-danger" style="padding: 0.4rem;" onclick="eliminarMetadato(${i})"><i data-lucide="x" style="width: 14px; height: 14px;"></i></button>
             `;
             container.appendChild(row);
@@ -498,24 +532,13 @@
     }
 
     function agregarFilaMetadato() {
-        const container = document.getElementById('metadataContainer');
-        const row = document.createElement('div');
-        row.className = 'metadata-row';
+        const m = personalData[currentSelectedIndex];
+        if (!m) return;
+        if (!m.modalDetalle) m.modalDetalle = { metadatos: [] };
+        if (!m.modalDetalle.metadatos) m.modalDetalle.metadatos = [];
 
-        let optionsHtml = '';
-        listaIconosDisponibles.forEach(ic => {
-            optionsHtml += `<option value="${ic.valor}">${ic.etiqueta}</option>`;
-        });
-
-        row.innerHTML = `
-            <select class="meta-icon-select" style="background-color: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.5rem; border-radius: 6px; font-size: 0.85rem;">
-                ${optionsHtml}
-            </select>
-            <input type="text" placeholder="Texto descriptivo" value="" class="meta-text-input">
-            <button type="button" class="btn btn-danger" style="padding: 0.4rem;" onclick="this.parentElement.remove()"><i data-lucide="x" style="width: 14px; height: 14px;"></i></button>
-        `;
-        container.appendChild(row);
-        if (window.lucide) lucide.createIcons();
+        m.modalDetalle.metadatos.push({ icono: "award", texto: "" });
+        renderMetadatos(m.modalDetalle.metadatos);
     }
 
     function eliminarMetadato(index) {
@@ -523,7 +546,12 @@
         if (m && m.modalDetalle && m.modalDetalle.metadatos) {
             m.modalDetalle.metadatos.splice(index, 1);
             renderMetadatos(m.modalDetalle.metadatos);
+            guardarMiembroSilencioso();
         }
+    }
+
+    function sincronizarCampoEnVivo() {
+        guardarMiembroSilencioso();
     }
 
     function guardarMiembroSilencioso() {
@@ -551,24 +579,29 @@
         const proyectosSeleccionados = Array.from(checks).map(c => c.value);
         m.proyectosAsociados = proyectosSeleccionados;
 
-        m.modalDetalle = {
-            subtitulo: document.getElementById('modalSubtitle').value.trim(),
-            metadatos: metas,
-            seccionPerfil: {
-                titulo: "Perfil Ejecutivo & Dirección Técnica",
-                descripcion: document.getElementById('modalExecDesc').value.trim()
-            },
-            seccionFormacion: {
-                titulo: "Formación Académica & Certificaciones",
-                items: document.getElementById('modalEducation').value.split('\n').map(i => i.trim()).filter(Boolean)
-            }
+        if (!m.modalDetalle) m.modalDetalle = {};
+        m.modalDetalle.subtitulo = document.getElementById('modalSubtitle').value.trim();
+        m.modalDetalle.metadatos = metas;
+        m.modalDetalle.seccionPerfil = {
+            titulo: "Perfil Ejecutivo & Dirección Técnica",
+            descripcion: document.getElementById('modalExecDesc').value.trim()
         };
+        m.modalDetalle.seccionFormacion = {
+            titulo: "Formación Académica & Certificaciones",
+            items: document.getElementById('modalEducation').value.split('\n').map(i => i.trim()).filter(Boolean)
+        };
+
+        // Actualizar título en tiempo real en la barra lateral izquierda
+        const titleEl = document.querySelectorAll('.member-item')[currentSelectedIndex]?.querySelector('h4');
+        const roleEl = document.querySelectorAll('.member-item')[currentSelectedIndex]?.querySelector('p');
+        if (titleEl) titleEl.textContent = m.nombre || 'Sin nombre';
+        if (roleEl) roleEl.textContent = m.cargoFicha || 'Sin cargo';
     }
 
     function guardarMiembroActual() {
         guardarMiembroSilencioso();
         renderizarListaMiembros();
-        alert('¡Cambios guardados temporalmente en memoria!');
+        alert('¡Cambios guardados temporalmente en memoria listos para publicar!');
     }
 
     function crearNuevoMiembro() {
@@ -577,7 +610,7 @@
             id: "nuevo-miembro-" + Date.now(),
             nombre: "Nuevo Profesional",
             cargoFicha: "Especialista / Consultor",
-            descripcionCorta: "Descripción del cargo...",
+            descripcionCorta: "Descripción breve del integrante...",
             imagen: "",
             tieneImagen: false,
             etiquetas: ["Especialidad"],
@@ -585,9 +618,9 @@
             proyectosAsociados: [],
             modalDetalle: {
                 subtitulo: "Cargo / Rol",
-                metadatos: [{ icono: "award", texto: "Certificación" }],
-                seccionPerfil: { titulo: "Perfil Ejecutivo & Dirección Técnica", descripcion: "Trayectoria profesional..." },
-                seccionFormacion: { titulo: "Formación Académica & Certificaciones", items: ["Título / Diplomado"] }
+                metadatos: [{ icono: "award", texto: "Matrícula Profesional" }],
+                seccionPerfil: { titulo: "Perfil Ejecutivo & Dirección Técnica", descripcion: "Trayectoria profesional detallada..." },
+                seccionFormacion: { titulo: "Formación Académica & Certificaciones", items: ["Título Profesional"] }
             }
         };
 
@@ -622,7 +655,6 @@
         }
 
         try {
-            // 1. Obtener el SHA actual del archivo personal.json en GitHub
             const apiGetUrl = `https://api.github.com/repos/${repo}/contents/personal.json`;
             const resGet = await fetch(apiGetUrl, {
                 headers: { 'Authorization': `token ${token}` }
@@ -633,11 +665,9 @@
                 fileSha = fileData.sha;
             }
 
-            // 2. Codificar el contenido en Base64 UTF-8 seguro
             const jsonString = JSON.stringify(personalData, null, 2);
             const contentBase64 = btoa(unescape(encodeURIComponent(jsonString)));
 
-            // 3. Enviar la actualización (PUT) a la API de GitHub
             const resPut = await fetch(apiGetUrl, {
                 method: 'PUT',
                 headers: {
@@ -652,6 +682,10 @@
             });
 
             if (resPut.ok) {
+                const putData = await resPut.json();
+                if (putData.content && putData.content.sha) {
+                    fileSha = putData.content.sha;
+                }
                 alert('¡Éxito! Cambios publicados directamente en GitHub. Se reflejarán en tu sitio web en unos segundos.');
             } else {
                 const errJson = await resPut.json();

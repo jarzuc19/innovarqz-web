@@ -2452,8 +2452,6 @@
                             <h4 id="teamActiveName">Arq. James Ramiro Zúñiga Caipe</h4>
                             <div class="team-role" id="teamActiveRole">Director General & Coordinador BIM / CIM</div>
                             
-                            <!-- SE HA RETIRADO EL PÁRRAFO DE BIOGRAFÍA DEL INDEX -->
-                            
                             <div class="portfolio-tags" id="teamActiveTags" style="margin-bottom: 1.25rem;">
                                 <span class="tag">Arq. UDENAR</span>
                                 <span class="tag">buildingSMART</span>
@@ -2911,10 +2909,10 @@
         if (Array.isArray(proyectosAsociados) && proyectosAsociados.length > 0 && proyectosGlobales.length > 0) {
             let htmlProjs = '';
             proyectosAsociados.forEach(projId => {
-                const p = proyectosGlobales.find(item => item.id === projId);
+                const p = proyectosGlobales.find(item => item.id === projId || item.title === projId);
                 if (p) {
                     htmlProjs += `
-                        <button type="button" class="btn-proyecto-asociado" onclick="closeModal('modal-perfil-dinamico'); openPortfolioModal('${p.id}');" style="background: var(--bg-card); border: 1px solid var(--border-color); color: var(--accent-copper); padding: 0.6rem 1rem; border-radius: 8px; text-align: left; cursor: pointer; display: flex; align-items: center; justify-content: space-between; width: 100%; transition: border-color 0.3s;">
+                        <button type="button" class="btn-proyecto-asociado" onclick="cambiarAModalPortafolio('${p.id}');" style="background: var(--bg-card); border: 1px solid var(--border-color); color: var(--accent-copper); padding: 0.6rem 1rem; border-radius: 8px; text-align: left; cursor: pointer; display: flex; align-items: center; justify-content: space-between; width: 100%; transition: border-color 0.3s;">
                             <span style="font-weight: 600; font-size: 0.9rem;">${p.title} (${p.year || '2026'})</span>
                             <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
                         </button>
@@ -2933,6 +2931,18 @@
 
         if (window.lucide) lucide.createIcons();
         openModal('modal-perfil-dinamico');
+    }
+
+    function cambiarAModalPortafolio(projId) {
+        const modalPerfil = document.getElementById('modal-perfil-dinamico');
+        if (modalPerfil) {
+            modalPerfil.classList.remove('active');
+        }
+        activeModalId = null;
+        
+        setTimeout(() => {
+            openPortfolioModal(projId);
+        }, 50);
     }
 
     function nextTeamMember() {

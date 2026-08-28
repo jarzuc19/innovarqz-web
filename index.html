@@ -1609,7 +1609,7 @@
 
         .team-portrait-header {
             width: 100%;
-            height: 270px;
+            height: 340px;
             position: relative;
             overflow: hidden;
             background-color: var(--bg-dark);
@@ -1618,7 +1618,7 @@
 
         .team-portrait-header img {
             width: 100%; height: 100%;
-            object-fit: cover; object-position: center 15%;
+            object-fit: cover; object-position: center top;
         }
 
         .team-avatar-bg-full {
@@ -1645,13 +1645,6 @@
             font-size: 0.88rem;
             font-weight: 600;
             margin-bottom: 0.85rem;
-        }
-
-        .team-card-content p {
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            line-height: 1.55;
-            margin-bottom: 1.25rem;
         }
 
         .btn-modal-trigger {
@@ -2327,8 +2320,8 @@
             <div class="modal-header">
                 <h3 id="modalPerfilNombre">Nombre del Profesional</h3>
                 <div class="modal-subtitle" id="modalPerfilCargo">Cargo u Ocupación</div>
-                <div class="modal-meta" id="modalPerfilMeta">
-                    <span><i data-lucide="award"></i> Certificaciones / Credenciales</span>
+                <div class="modal-meta" id="modalPerfilMeta" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                    <!-- Credenciales dinámicas con iconos -->
                 </div>
             </div>
             <div class="modal-description">
@@ -2340,7 +2333,7 @@
                 </div>
                 <div id="modalPerfilProyectosArea" style="margin-top: 1.25rem;">
                     <h5>Proyectos Asociados</h5>
-                    <div id="modalPerfilProyectosLista" class="portfolio-tags"></div>
+                    <div id="modalPerfilProyectosLista" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;"></div>
                 </div>
             </div>
         </div>
@@ -2458,7 +2451,8 @@
                         <div class="team-card-content">
                             <h4 id="teamActiveName">Arq. James Ramiro Zúñiga Caipe</h4>
                             <div class="team-role" id="teamActiveRole">Director General & Coordinador BIM / CIM</div>
-                            <p id="teamActiveDesc">Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.</p>
+                            
+                            <!-- SE HA RETIRADO EL PÁRRAFO DE BIOGRAFÍA DEL INDEX -->
                             
                             <div class="portfolio-tags" id="teamActiveTags" style="margin-bottom: 1.25rem;">
                                 <span class="tag">Arq. UDENAR</span>
@@ -2637,27 +2631,17 @@
             id: "james-zuniga",
             nombre: "Arq. James Ramiro Zúñiga Caipe",
             cargo: "Director General & Coordinador BIM / CIM",
-            biografia: "Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.",
+            role_modal: "Fundador & Principal Manager",
+            biografia: "Arquitecto egresado de la Universidad de Nariño, con amplia experiencia técnica en metodología BIM y gestión de proyectos de infraestructura y ordenamiento territorial.",
             foto: "james-zuniga.jpg",
             etiquetas: ["Arq. UDENAR", "buildingSMART", "BIM 5D"],
-            credenciales: ["Matrícula Profesional CPNAA", "buildingSMART Certified", "Nariño, Colombia"],
-            educacion: "• Arquitecto: Universidad de Nariño.\n• Certificación Internacional: buildingSMART Professional Certification — Entry Level.\n• Máster BIM Manager Internacional (+IA y VR): Espacio BIM / ATC Autodesk (En Curso).\n• Diplomado BIM Civil (Infraestructuras): Universidad de Nariño.\n• Diplomado Ordenamiento Territorial (PBOT/EOT): ESAP."
-        },
-        {
-            id: "obra-interventoria",
-            nombre: "Coordinación de Obra & Interventoría",
-            cargo: "Supervisión Técnica & BIM 5D",
-            biografia: "Dirección de residencia operativa, control financiero de contratos públicos/privados y auditoría estricta de APUs en sitio.",
-            icono: "hard-hat",
-            etiquetas: ["Residencia", "APU", "Control Q"]
-        },
-        {
-            id: "geoespacial-territorio",
-            nombre: "Consultoría Geoespacial & Territorio",
-            cargo: "Modelado CIM & EOT",
-            biografia: "Procesamiento avanzado de topografía de campo, fotogrametría y superficies en Civil 3D como soporte técnico para ordenamiento territorial.",
-            icono: "map",
-            etiquetas: ["Civil 3D", "GIS", "CIM"]
+            credenciales: [
+                { icono: "award", texto: "Matrícula Profesional CPNAA" },
+                { icono: "shield-check", texto: "buildingSMART Certified" },
+                { icono: "map-pin", texto: "Ricaurte, Nariño" }
+            ],
+            educacion: "• Arquitecto: Universidad de Nariño (Grado: Junio de 2026)\n• buildingSMART Professional Certification — Entry Level (2026)\n• Diplomado en Metodología BIM (BIM Civil) — UDENAR (2026)",
+            proyectosAsociados: []
         }
     ];
 
@@ -2803,8 +2787,9 @@
         });
 
         goToSlide('servicesTrack', 'service-slide', 0);
-        cargarPortafolioDinamico();
-        cargarPersonalDinamico();
+        cargarPortafolioDinamico().then(() => {
+            cargarPersonalDinamico();
+        });
         selectDimension('iso');
 
         setupSwipe('servicesWrapper', 'servicesTrack', 'service-slide');
@@ -2845,14 +2830,11 @@
 
         const nombre = member.nombre || member.name || 'Profesional InnovArqZ';
         const cargo = member.cargo || member.role || 'Consultor Técnico';
-        const desc = member.biografia || member.desc || 'Integrante del equipo de consultoría e interventoría.';
         const tags = member.etiquetas || member.tags || [];
         const foto = member.foto || member.avatar;
-        const icono = member.icono || member.icon || 'user';
 
         document.getElementById('teamActiveName').innerText = nombre;
         document.getElementById('teamActiveRole').innerText = cargo;
-        document.getElementById('teamActiveDesc').innerText = desc;
         document.getElementById('teamCurrentIndex').innerText = idx + 1;
         
         const totalCountEl = document.getElementById('teamTotalCount');
@@ -2862,7 +2844,7 @@
         if (foto && foto.trim() !== '') {
             avatarContainer.innerHTML = `<img src="${foto}" alt="${nombre}">`;
         } else {
-            avatarContainer.innerHTML = `<div class="team-avatar-bg-full"><i data-lucide="${icono}" style="width: 48px; height: 48px;"></i></div>`;
+            avatarContainer.innerHTML = `<div class="team-avatar-bg-full"><i data-lucide="user" style="width: 48px; height: 48px;"></i></div>`;
         }
 
         const tagsContainer = document.getElementById('teamActiveTags');
@@ -2880,7 +2862,7 @@
         if (!member) return;
 
         const nombre = member.nombre || member.name || 'Profesional InnovArqZ';
-        const cargo = member.cargo || member.role || 'Consultor Técnico';
+        const cargo = member.role_modal || member.cargo || member.role || 'Consultor Técnico';
         const bio = member.biografia || member.desc || 'Sin descripción detallada disponible.';
         const credenciales = member.credenciales || [];
         const educacion = member.educacion || member.formacion || '';
@@ -2891,11 +2873,28 @@
         document.getElementById('modalPerfilBio').innerText = bio;
 
         const metaContainer = document.getElementById('modalPerfilMeta');
-        if (credenciales.length > 0) {
-            metaContainer.innerHTML = credenciales.map(c => `<span><i data-lucide="shield-check"></i> ${c}</span>`).join('');
-        } else {
-            metaContainer.innerHTML = `<span><i data-lucide="award"></i> Equipo InnovArqZ S.A.S.</span>`;
+        let credsHtml = '';
+        if (Array.isArray(credenciales) && credenciales.length > 0) {
+            credenciales.forEach(cred => {
+                let iconoNombre = 'award';
+                let textoCred = '';
+                if (typeof cred === 'string') {
+                    textoCred = cred;
+                } else if (typeof cred === 'object' && cred !== null) {
+                    iconoNombre = cred.icono || 'award';
+                    textoCred = cred.texto || '';
+                }
+                if (textoCred) {
+                    credsHtml += `
+                        <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(217, 119, 6, 0.1); border: 1px solid rgba(217, 119, 6, 0.3); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; color: var(--text-main);">
+                            <i data-lucide="${iconoNombre}" style="width: 16px; height: 16px; color: var(--accent-copper);"></i>
+                            <span>${textoCred}</span>
+                        </div>
+                    `;
+                }
+            });
         }
+        metaContainer.innerHTML = credsHtml || '<span><i data-lucide="award"></i> Equipo InnovArqZ S.A.S.</span>';
 
         const edArea = document.getElementById('modalPerfilEducacionArea');
         const edText = document.getElementById('modalPerfilEducacion');
@@ -2909,12 +2908,17 @@
         const projArea = document.getElementById('modalPerfilProyectosArea');
         const projLista = document.getElementById('modalPerfilProyectosLista');
         
-        if (proyectosAsociados.length > 0 && proyectosGlobales.length > 0) {
+        if (Array.isArray(proyectosAsociados) && proyectosAsociados.length > 0 && proyectosGlobales.length > 0) {
             let htmlProjs = '';
             proyectosAsociados.forEach(projId => {
                 const p = proyectosGlobales.find(item => item.id === projId);
                 if (p) {
-                    htmlProjs += `<span class="tag" style="cursor:pointer;" onclick="closeModal('modal-perfil-dinamico'); openPortfolioModal('${p.id}');">${p.title} (${p.year || '2026'})</span> `;
+                    htmlProjs += `
+                        <button type="button" class="btn-proyecto-asociado" onclick="closeModal('modal-perfil-dinamico'); openPortfolioModal('${p.id}');" style="background: var(--bg-card); border: 1px solid var(--border-color); color: var(--accent-copper); padding: 0.6rem 1rem; border-radius: 8px; text-align: left; cursor: pointer; display: flex; align-items: center; justify-content: space-between; width: 100%; transition: border-color 0.3s;">
+                            <span style="font-weight: 600; font-size: 0.9rem;">${p.title} (${p.year || '2026'})</span>
+                            <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    `;
                 }
             });
             if (htmlProjs !== '') {

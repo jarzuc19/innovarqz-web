@@ -131,7 +131,6 @@
         .form-group input:focus, .form-group textarea:focus { border-color: var(--accent-copper); }
         .form-group textarea { resize: vertical; min-height: 100px; }
 
-        /* Estructura asimétrica: Foto 3:4 a la izquierda y campos a la derecha */
         .top-profile-layout {
             display: grid;
             grid-template-columns: 200px 1fr;
@@ -218,7 +217,6 @@
         </div>
     </header>
 
-    <!-- Barra de Conexión GitHub -->
     <div class="github-bar">
         <input type="password" id="ghToken" placeholder="GitHub Token (ghp_...)" autocomplete="off">
         <input type="text" id="ghRepo" placeholder="Repositorio (ej. jarzuc19/innovarqz-web)">
@@ -228,7 +226,6 @@
     </div>
 
     <div class="admin-layout">
-        <!-- Sidebar de Miembros -->
         <div class="sidebar-list">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                 <span class="sidebar-title">Integrantes</span>
@@ -241,7 +238,6 @@
             </div>
         </div>
 
-        <!-- Formulario Principal -->
         <div class="form-card" id="formCard">
             <div class="form-section-title"><i data-lucide="user"></i> 1. Tarjeta en la Sección "Nosotros"</div>
             
@@ -249,14 +245,13 @@
                 <div class="form-group" style="margin-bottom: 0;">
                     <label>Fotografía (3:4)</label>
                     <div class="photo-upload-box" id="photoDropZone">
-                        <input type="file" id="memberPhotoFile" accept="image/*" onchange="subirFotoGitHub(event)">
+                        <input type="file" id="memberPhotoFile" accept="image/*" onchange="procesarFotoLocal(event)">
                         <img id="photoPreview" class="photo-preview-img" alt="Vista previa">
                         <div class="photo-placeholder-content" id="photoPlaceholder">
                             <i data-lucide="image-plus" style="width: 28px; height: 28px;"></i>
                             <span>Haz clic o arrastra la foto</span>
                         </div>
                     </div>
-                    <input type="hidden" id="memberImg">
                 </div>
 
                 <div class="right-fields-stack">
@@ -391,7 +386,6 @@
                 'Accept': 'application/vnd.github.v3+json'
             };
 
-            // 1. Cargar proyectos.json
             const resProj = await fetch(`https://api.github.com/repos/${repo}/contents/proyectos.json`, { headers });
             if (resProj.ok) {
                 const dataProj = await resProj.json();
@@ -400,7 +394,6 @@
                 proyectosGlobales = [];
             }
 
-            // 2. Cargar personal.json (Mantiene la estructura exacta que tu index.html lee)
             const resPers = await fetch(`https://api.github.com/repos/${repo}/contents/personal.json`, { headers });
             if (resPers.ok) {
                 const dataPers = await resPers.json();
@@ -460,14 +453,12 @@
         document.getElementById('memberId').value = m.id || '';
         document.getElementById('memberName').value = m.nombre || '';
         document.getElementById('memberRole').value = m.cargo || '';
-        document.getElementById('memberImg').value = m.foto || '';
         document.getElementById('memberTags').value = (m.etiquetas || []).join(', ');
         
         document.getElementById('modalSubtitle').value = m.role_modal || '';
         document.getElementById('modalExecDesc').value = m.biografia || '';
         document.getElementById('modalEducation').value = m.educacion || '';
 
-        // Foto preview
         const imgPreview = document.getElementById('photoPreview');
         const placeholder = document.getElementById('photoPlaceholder');
         if (m.foto) {
@@ -480,7 +471,6 @@
             placeholder.style.display = 'block';
         }
 
-        // Credenciales / Metadatos (Compatibles con index.html convirtiendo strings simples o estructurados)
         let metasParaForm = [];
         if (Array.isArray(m.credenciales)) {
             m.credenciales.forEach(cred => {
@@ -496,6 +486,29 @@
 
         document.getElementById('btnEliminarMiembro').style.display = personalGlobal.length > 1 ? 'inline-flex' : 'none';
         renderizarListaMiembros();
+    }
+
+    function procesarFotoLocal(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const dataUrl = e.target.result;
+            const m = personalGlobal[currentIndex];
+            if (m) {
+                m.foto = dataUrl; // Se guarda comprimida en Base64 dentro del JSON exactamente igual que el portafolio
+            }
+
+            const imgPreview = document.getElementById('photoPreview');
+            const placeholder = document.getElementById('photoPlaceholder');
+            imgPreview.src = dataUrl;
+            imgPreview.style.display = 'block';
+            placeholder.style.display = 'none';
+
+            mostrarEstado('Fotografía cargada en memoria con éxito.', 'success');
+        };
+        reader.readAsDataURL(file);
     }
 
     function renderMetadatos(metas) {
@@ -571,14 +584,12 @@
         m.id = document.getElementById('memberId').value.trim();
         m.nombre = document.getElementById('memberName').value.trim();
         m.cargo = document.getElementById('memberRole').value.trim();
-        m.foto = document.getElementById('memberImg').value.trim();
         m.etiquetas = document.getElementById('memberTags').value.split(',').map(s => s.trim()).filter(Boolean);
         
         m.role_modal = document.getElementById('modalSubtitle').value.trim();
         m.biografia = document.getElementById('modalExecDesc').value.trim();
         m.educacion = document.getElementById('modalEducation').value.trim();
 
-        // Recolectar credenciales con iconos
         const rows = document.querySelectorAll('.metadata-row');
         let credsArray = [];
         rows.forEach(r => {
@@ -588,11 +599,9 @@
         });
         m.credenciales = credsArray;
 
-        // Proyectos
         const checks = document.querySelectorAll('.proj-check:checked');
         m.proyectosAsociados = Array.from(checks).map(c => c.value);
 
-        // Actualizar nombres en barra lateral
         const titleEl = document.querySelectorAll('.member-item')[currentIndex]?.querySelector('h4');
         const roleEl = document.querySelectorAll('.member-item')[currentIndex]?.querySelector('p');
         if (titleEl) titleEl.textContent = m.nombre || 'Sin nombre';
@@ -631,70 +640,6 @@
             cargarMiembroEnFormulario(currentIndex);
             mostrarEstado('Integrante eliminado en memoria.', 'error');
         }
-    }
-
-    async function subirFotoGitHub(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const token = document.getElementById('ghToken').value.trim();
-        const repo = document.getElementById('ghRepo').value.trim();
-        
-        // Limpiar nombre del archivo para evitar espacios y tildes en la URL
-        const nombreLimpio = file.name.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\s+/g, '-').toLowerCase();
-
-        mostrarEstado(`Subiendo foto ${nombreLimpio}...`, 'syncing');
-
-        const reader = new FileReader();
-        reader.onload = async function(e) {
-            const base64Completo = e.target.result;
-            const base64Data = base64Completo.split(',')[1];
-
-            try {
-                const headers = {
-                    'Authorization': `token ${token}`,
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Content-Type': 'application/json'
-                };
-
-                let shaExistente = null;
-                const checkRes = await fetch(`https://api.github.com/repos/${repo}/contents/${nombreLimpio}`, { headers });
-                if (checkRes.ok) {
-                    const checkData = await checkRes.json();
-                    shaExistente = checkData.sha;
-                }
-
-                const bodyPayload = {
-                    message: `Subida de foto perfil: ${nombreLimpio}`,
-                    content: base64Data
-                };
-                if (shaExistente) bodyPayload.sha = shaExistente;
-
-                const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${nombreLimpio}`, {
-                    method: 'PUT',
-                    headers: headers,
-                    body: JSON.stringify(bodyPayload)
-                });
-
-                if (putRes.ok) {
-                    document.getElementById('memberImg').value = nombreLimpio;
-                    const imgPreview = document.getElementById('photoPreview');
-                    const placeholder = document.getElementById('photoPlaceholder');
-                    imgPreview.src = base64Completo;
-                    imgPreview.style.display = 'block';
-                    placeholder.style.display = 'none';
-                    
-                    sincronizarEnVivo();
-                    mostrarEstado('¡Foto subida con éxito al repositorio!', 'success');
-                } else {
-                    throw new Error('Fallo al subir imagen');
-                }
-            } catch (err) {
-                console.error(err);
-                mostrarEstado('Error al subir la imagen a GitHub.', 'error');
-            }
-        };
-        reader.readAsDataURL(file);
     }
 
     async function guardarYSubirGitHub() {
@@ -738,7 +683,7 @@
                 const dataRes = await res.json();
                 personalFileSha = dataRes.content.sha;
                 mostrarEstado('¡Cambios publicados con éxito en GitHub!', 'success');
-                alert('¡Publicación exitosa! Los cambios se reflejarán en tu sitio web principal.');
+                alert('¡Publicación exitosa! La foto en Base64 y todos los datos se han guardado directamente en personal.json.');
             } else {
                 throw new Error('Error al actualizar archivo');
             }

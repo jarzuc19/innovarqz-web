@@ -3,14 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InnovArqZ Soluciones Integrales S.A.S. | BIM, CIM e Ingeniería</title>
-    
-    <meta property="og:title" content="InnovArqZ Soluciones Integrales S.A.S.">
-    <meta property="og:description" content="Innovación Tecnológica y Control Técnico en Ingeniería, Arquitectura & BIM / CIM.">
-    <meta property="og:image" content="https://www.innovarqzsas.com/esencia-digital-innovarqz.jpg">
-    <meta property="og:url" content="https://www.innovarqzsas.com">
-    <meta property="og:type" content="website">
-
+    <title>Administrador de Personal Autónomo | InnovArqZ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
@@ -19,3637 +12,688 @@
         :root {
             --bg-dark: #0f172a;
             --bg-card: #1e293b;
-            --bg-section-alt: #0b1120;
             --accent-copper: #d97706;
             --accent-copper-hover: #b45309;
-            --accent-blue: #3b82f6;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: #334155;
-            --whatsapp-color: #25d366;
-            --whatsapp-hover: #1da851;
-            --trad-color: #ef4444;
-            --bim-color: #10b981;
-            --header-bg: rgba(15, 23, 42, 0.95);
-            --modal-bg: #1e293b;
-            --shadow-color: rgba(0, 0, 0, 0.5);
+            --danger-color: #ef4444;
+            --success-color: #10b981;
         }
 
-        body.light-mode {
-            --bg-dark: #f8fafc;
-            --bg-card: #ffffff;
-            --bg-section-alt: #f1f5f9;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #cbd5e1;
-            --header-bg: rgba(248, 250, 252, 0.95);
-            --modal-bg: #ffffff;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); padding: 2rem 5%; line-height: 1.5; }
 
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            border-bottom: 1px solid var(--border-color);
-            background-color: var(--header-bg);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap; gap: 1rem;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            line-height: 1;
+        .title-area h1 { font-size: 1.8rem; font-weight: 800; }
+        .title-area h1 span { color: var(--accent-copper); }
+        .title-area p { color: var(--text-muted); font-size: 0.9rem; }
+
+        .top-actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+
+        .btn {
+            background-color: var(--bg-card); color: var(--text-main);
+            border: 1px solid var(--border-color); padding: 0.6rem 1.2rem;
+            border-radius: 8px; font-weight: 600; font-size: 0.88rem;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem;
+            transition: all 0.3s ease; text-decoration: none;
         }
 
-        .logo span { color: var(--accent-copper); }
+        .btn:hover { border-color: var(--accent-copper); color: var(--accent-copper); }
+        .btn-primary { background-color: var(--accent-copper); color: #fff; border: none; }
+        .btn-primary:hover { background-color: var(--accent-copper-hover); color: #fff; }
+        .btn-success { background-color: var(--success-color); color: #fff; border: none; }
+        .btn-danger { background-color: var(--danger-color); color: #fff; border: none; }
 
-        .logo small {
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 1.2px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-top: 3px;
+        .admin-layout { display: grid; grid-template-columns: 320px 1fr; gap: 2rem; }
+
+        .sidebar-list {
+            background-color: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;
+            max-height: 85vh; overflow-y: auto;
         }
 
-        .nav-container {
-            display: flex;
-            align-items: center;
+        .sidebar-title { font-size: 1rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .member-item {
+            padding: 0.85rem 1rem; border-radius: 8px; background-color: var(--bg-dark);
+            border: 1px solid var(--border-color); cursor: pointer; transition: all 0.2s ease;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .member-item:hover, .member-item.active {
+            border-color: var(--accent-copper); background-color: rgba(217, 119, 6, 0.1);
+        }
+
+        .member-info h4 { font-size: 0.92rem; font-weight: 700; color: var(--text-main); }
+        .member-info p { font-size: 0.75rem; color: var(--accent-copper); }
+
+        .form-card {
+            background-color: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;
+        }
+
+        .form-section-title {
+            font-size: 1.1rem; font-weight: 700; color: var(--accent-copper);
+            border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+        .full-width { grid-column: span 2; }
+
+        .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+        .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-main); }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            background-color: var(--bg-dark); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 0.7rem 1rem; color: var(--text-main);
+            font-size: 0.9rem; outline: none; transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent-copper); }
+        .form-group textarea { resize: vertical; min-height: 90px; }
+
+        .top-profile-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
             gap: 1.5rem;
+            align-items: stretch;
         }
 
-        nav {
-            display: flex;
-            align-items: center;
-        }
-
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-left: 1.75rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: color 0.3s;
-            position: relative;
-            padding-bottom: 4px;
-        }
-
-        nav a:hover { color: var(--accent-copper); }
-        nav a.nav-active { color: var(--accent-copper); }
-
-        nav a.nav-active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
+        .photo-upload-box {
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            background-color: var(--bg-dark);
             width: 100%;
-            height: 2px;
-            background-color: var(--accent-copper);
-            border-radius: 2px;
-            box-shadow: 0 0 8px rgba(217, 119, 6, 0.6);
-        }
-
-        .theme-toggle-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle-btn:hover {
-            border-color: var(--accent-copper);
-            color: var(--accent-copper);
-            transform: scale(1.05);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            width: 42px;
-            height: 42px;
-            border-radius: 8px;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .mobile-nav-drawer {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            background-color: var(--bg-card);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem 5%;
+            aspect-ratio: 3 / 4;
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
-            box-shadow: 0 10px 25px var(--shadow-color);
-            transform: translateY(-150%);
-            transition: transform 0.4s ease;
-            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.3s;
         }
 
-        .mobile-nav-drawer.active { transform: translateY(0); }
+        .photo-upload-box:hover { border-color: var(--accent-copper); }
+        
+        .photo-upload-box input[type="file"] {
+            position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 5;
+        }
 
-        .mobile-nav-drawer a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 1.05rem;
-            font-weight: 700;
+        .photo-preview-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: center 20%; z-index: 2; display: none;
+        }
+
+        .photo-placeholder-content {
+            position: relative; z-index: 1; text-align: center; color: var(--text-muted); padding: 1rem;
+        }
+
+        .photo-placeholder-content i { color: var(--accent-copper); margin-bottom: 0.5rem; }
+        .photo-placeholder-content span { font-size: 0.78rem; font-weight: 600; }
+
+        .right-fields-stack {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: space-between;
-        }
-
-        .hero {
-            position: relative;
-            padding: 6rem 5% 4rem;
-            text-align: center;
-            max-width: 100%;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-
-        .hero-3d-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none;
-        }
-
-        .hero-3d-bg svg { width: 100%; height: 100%; object-fit: cover; }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 20%, var(--bg-dark) 90%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 950px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.5px;
-        }
-
-        .sliding-text-container {
-            display: inline-block;
-            height: 2.8em;
-            overflow: hidden;
-            vertical-align: top;
-            margin-top: 0.3rem;
-            width: 100%;
-        }
-
-        .sliding-text-wrapper {
-            display: flex;
-            flex-direction: column;
-            animation: slideUp 12s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-        }
-
-        .slide-item {
-            color: var(--accent-copper);
-            height: 2.8em;
-            line-height: 1.3em;
-            white-space: normal;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 0.5rem;
-            box-sizing: border-box;
-        }
-
-        @keyframes slideUp {
-            0%, 20% { transform: translateY(0%); }
-            25%, 45% { transform: translateY(-25%); }
-            50%, 70% { transform: translateY(-50%); }
-            75%, 95% { transform: translateY(-75%); }
-            100% { transform: translateY(0%); }
-        }
-
-        .hero p {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-
-        .search-box-container {
-            max-width: 680px;
-            margin: 2rem auto 0;
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-            align-items: center;
-        }
-
-        .search-input-wrapper {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 0.35rem 0.35rem 0.35rem 1.25rem;
-            backdrop-filter: blur(8px);
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .search-input-wrapper:focus-within {
-            border-color: var(--accent-copper);
-            box-shadow: 0 0 20px rgba(217, 119, 6, 0.2);
-        }
-
-        .search-icon {
-            color: var(--accent-copper);
-            margin-right: 0.75rem;
-            flex-shrink: 0;
-        }
-
-        .search-input-wrapper input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            font-size: 0.98rem;
-            outline: none;
-        }
-
-        .search-input-wrapper input::placeholder { color: var(--text-muted); }
-
-        .btn-search {
-            background-color: var(--accent-copper);
-            color: #fff;
-            border: none;
-            padding: 0.75rem 1.4rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: background-color 0.3s;
-            flex-shrink: 0;
-        }
-
-        .btn-search:hover { background-color: var(--accent-copper-hover); }
-
-        .search-modal-content {
-            background-color: var(--modal-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            max-width: 680px;
-            width: 100%;
-            max-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            padding: 1.75rem;
-            box-shadow: 0 25px 50px var(--shadow-color);
-        }
-
-        .search-results-list {
-            margin-top: 1rem;
-            overflow-y: auto;
-            max-height: 52vh;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            padding-right: 0.25rem;
-        }
-
-        .search-result-card {
-            padding: 0.9rem 1.1rem;
-            border-radius: 10px;
-            background-color: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
             gap: 1rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
         }
 
-        .search-result-card.selected-item {
-            border-color: var(--accent-copper) !important;
-            background-color: rgba(217, 119, 6, 0.14) !important;
-            transform: translateX(4px);
-        }
-
-        .result-badge-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            background-color: rgba(217, 119, 6, 0.15);
-            color: var(--accent-copper);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .result-text-body {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .result-item-title {
-            font-size: 0.98rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .result-item-cat {
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--accent-copper);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-        }
-
-        .result-item-desc {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            line-height: 1.35;
-            margin-top: 2px;
-        }
-
-        /* BANNER / MODAL DE LANZAMIENTO OPTIMIZADO CON IMAGEN DE FONDO */
-        .launch-modal-card-bg {
-            position: relative;
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            max-width: 600px;
-            width: 100%;
-            overflow: hidden;
-            background-size: cover;
-            background-position: center;
-            box-shadow: 0 25px 50px var(--shadow-color);
-        }
-
-        .launch-modal-overlay-dark {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.50) 0%, rgba(15, 23, 42, 0.75) 100%);
-            backdrop-filter: blur(2px);
-            z-index: 1;
-        }
-
-        .launch-modal-inner {
-            position: relative;
-            z-index: 2;
-            padding: 2.5rem 2.25rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .launch-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background-color: rgba(217, 119, 6, 0.2);
-            border: 1px solid rgba(217, 119, 6, 0.4);
-            color: var(--accent-copper);
-            padding: 0.35rem 0.9rem;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 1.1rem;
-        }
-
-        .launch-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 1rem;
-            line-height: 1.25;
-            letter-spacing: -0.3px;
-        }
-
-        .launch-body-text {
-            color: #cbd5e1;
-            font-size: 1.02rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            max-width: 500px;
-        }
-
-        .launch-body-text strong {
-            color: var(--accent-copper);
-            font-weight: 700;
-        }
-
-        .launch-buttons-row {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            width: 100%;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-copper);
-            color: #fff;
-            padding: 0.8rem 1.8rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: background-color 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary:hover { background-color: var(--accent-copper-hover); }
-
-        .btn-secondary {
-            background-color: var(--bg-card);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 0.8rem 1.8rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent-copper);
-            color: var(--accent-copper);
-        }
-
-        .btn-whatsapp {
-            background-color: var(--whatsapp-color);
-            color: #fff;
-            padding: 0.8rem 1.8rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: background-color 0.3s;
-        }
-
-        .btn-whatsapp:hover { background-color: var(--whatsapp-hover); }
-
-        .floating-actions {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.85rem;
-            z-index: 1500;
-            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-        }
-
-        .floating-actions.hidden {
-            opacity: 0;
-            transform: translateY(20px);
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .fab-btn {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            text-decoration: none;
-            box-shadow: 0 8px 24px var(--shadow-color);
-            position: relative;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .fab-btn:hover { transform: scale(1.1); }
-        .fab-contact { background-color: var(--accent-copper); }
-        .fab-share { background-color: var(--accent-blue); }
-        .fab-whatsapp { background-color: var(--whatsapp-color); }
-
-        .fab-tooltip {
-            position: absolute;
-            right: 62px;
-            background-color: var(--bg-card);
-            color: var(--text-main);
-            padding: 0.3rem 0.75rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid var(--border-color);
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
-        .fab-btn:hover .fab-tooltip { opacity: 1; }
-
-        section {
-            padding: 5rem 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .section-title p {
-            color: var(--text-muted);
-            margin-top: 0.5rem;
-            font-size: 1.05rem;
-        }
-
-        .tech-section {
-            background-color: var(--bg-section-alt);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            position: relative;
-            padding: 4.5rem 5%;
-            overflow: hidden;
-            max-width: 100%;
-        }
-
-        .topo-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none;
-        }
-
-        .topo-bg svg { width: 100%; height: 100%; object-fit: cover; }
-
-        .topo-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 30%, var(--bg-section-alt) 95%);
-        }
-
-        .tech-container {
-            position: relative;
-            z-index: 2;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .carousel-wrapper {
-            position: relative;
-            width: 100%;
-            margin-top: 1.5rem;
-            overflow: hidden;
-            padding: 0.5rem 0;
-        }
-
-        .carousel-track {
-            display: flex;
-            gap: 1.75rem;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            width: 100%;
-        }
-
-        .service-slide, .portfolio-slide {
-            flex: 0 0 52%;
-            box-sizing: border-box;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 1 / 0.9;
-            min-height: 380px;
-            display: flex;
-            align-items: flex-end;
-            padding: 2rem;
-            transition: border-color 0.3s, transform 0.3s, opacity 0.3s, box-shadow 0.3s;
-            opacity: 0.65;
-            transform: scale(0.96);
-            background-color: var(--bg-card);
-            cursor: pointer;
-        }
-
-        .service-slide.active-slide, .portfolio-slide.active-slide {
-            opacity: 1;
-            transform: scale(1);
-            border-color: rgba(217, 119, 6, 0.7);
-            box-shadow: 0 15px 35px var(--shadow-color);
-        }
-
-        .service-slide:hover, .portfolio-slide:hover {
-            border-color: var(--accent-copper);
-        }
-
-        .slide-card-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover; background-position: center;
-            z-index: 1; transition: transform 0.6s ease;
-        }
-
-        .slide-card-placeholder {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1;
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-dark));
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: var(--accent-copper); opacity: 0.4;
-        }
-
-        .portfolio-slide:hover .slide-card-bg { transform: scale(1.06); }
-
-        .slide-card-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.92) 80%);
-            z-index: 2;
-        }
-
-        .slide-content {
-            position: relative;
-            z-index: 3;
-            width: 100%;
-        }
-
-        .slide-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            margin-bottom: 0.85rem;
-        }
-
-        .slide-icon {
-            color: var(--accent-copper);
-            flex-shrink: 0;
-            margin-top: 3px;
-        }
-
-        .slide-content h3 {
-            font-size: 1.35rem;
-            color: #fff;
-            font-weight: 700;
-            line-height: 1.25;
-        }
-
-        .slide-content ul {
-            list-style: none;
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.45rem;
-        }
-
-        .slide-content ul li {
-            color: #cbd5e1;
-            font-size: 0.88rem;
-            position: relative;
-            padding-left: 1.2rem;
-            line-height: 1.35;
-        }
-
-        .slide-content ul li::before {
-            content: "•";
-            color: var(--accent-copper);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            font-size: 1.2rem;
-            line-height: 1;
-        }
-
-        .btn-slide-action {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            color: var(--accent-copper);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: color 0.3s, transform 0.3s;
-            cursor: pointer;
-            background: transparent;
-            border: none;
-        }
-
-        .btn-slide-action:hover {
-            color: #fff;
-            transform: translateX(4px);
-        }
-
-        .nav-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            backdrop-filter: blur(4px);
-            transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
-        }
-
-        .nav-arrow:hover {
-            background-color: var(--accent-copper);
-            border-color: var(--accent-copper);
-            color: #fff;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .prev-arrow { left: 0.5rem; }
-        .next-arrow { right: 0.5rem; }
-
-        .carousel-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 0.6rem;
-            margin-top: 1.75rem;
-        }
-
-        .indicator-pill {
-            width: 36px;
-            height: 4px;
-            background-color: var(--border-color);
-            border: none;
-            border-radius: 2px;
-            cursor: pointer;
-            transition: background-color 0.3s, width 0.3s;
-        }
-
-        .indicator-pill.active {
-            background-color: var(--accent-copper);
-            width: 56px;
-        }
-
-        .portfolio-counter-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.6rem;
-            margin-top: 1.75rem;
-        }
-
-        .portfolio-counter-badge {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            font-size: 0.85rem;
-            font-weight: 700;
-            padding: 0.3rem 0.9rem;
-            border-radius: 20px;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .portfolio-counter-badge span { color: var(--accent-copper); }
-
-        .portfolio-counter-badge input[type="number"] {
-            background: transparent;
-            border: none;
-            border-bottom: 1.5px dashed var(--accent-copper);
-            color: var(--accent-copper);
-            font-size: 0.85rem;
-            font-weight: 800;
-            width: 2.2rem;
-            text-align: center;
-            outline: none;
-            font-family: inherit;
-            padding: 0;
-            margin: 0 0.15rem;
-            transition: border-color 0.3s, background-color 0.3s;
-            border-radius: 2px;
-        }
-
-        .portfolio-counter-badge input[type="number"]:focus {
-            background-color: rgba(217, 119, 6, 0.2);
-            border-bottom-style: solid;
-        }
-
-        .portfolio-counter-badge input[type="number"]::-webkit-inner-spin-button,
-        .portfolio-counter-badge input[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        .portfolio-counter-badge input[type="number"] { -moz-appearance: textfield; }
-
-        .portfolio-progress-bar {
-            width: 100%;
-            max-width: 220px;
-            height: 4px;
-            background-color: var(--border-color);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .portfolio-progress-fill {
-            height: 100%;
-            width: 0%;
-            background-color: var(--accent-copper);
-            transition: width 0.4s ease;
-        }
-
-        .timeline-container {
-            margin: 2rem 0 2.5rem;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-
-        .timeline-track-line {
-            position: absolute;
-            top: 50%; left: 5%; right: 5%;
-            height: 2px;
-            background-color: var(--border-color);
-            z-index: 1;
-            transform: translateY(-50%);
-        }
-
-        .timeline-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            width: 100%;
-            max-width: 720px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .timeline-fixed-node { flex-shrink: 0; }
-
-        .timeline-nav-btn {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-nav-btn:hover {
-            background-color: var(--accent-copper);
-            border-color: var(--accent-copper);
-            color: #fff;
-        }
-
-        .timeline-viewport {
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            width: calc(5 * 95px);
-            max-width: 100%;
-        }
-
-        .timeline-viewport::-webkit-scrollbar { display: none; }
-
-        .timeline-track-inner { display: flex; gap: 0.6rem; }
-
-        .timeline-track-inner .time-node {
-            flex-shrink: 0;
-            width: 85px;
-            justify-content: center;
-        }
-
-        .time-node {
-            background-color: var(--bg-card);
-            border: 2px solid var(--border-color);
-            color: var(--text-muted);
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .time-node:hover, .time-node.active {
-            border-color: var(--accent-copper);
-            color: var(--text-main);
-            background-color: rgba(217, 119, 6, 0.15);
-            box-shadow: 0 0 12px rgba(217, 119, 6, 0.3);
-        }
-
-        .time-node.active .node-dot { background-color: var(--accent-copper); }
-
-        .node-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var(--border-color);
-            transition: background-color 0.3s;
-        }
-
-        .portfolio-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 0.6rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            background-color: var(--bg-card);
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1.1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active, .tab-btn:hover {
-            background-color: var(--accent-copper);
-            color: #fff;
-            border-color: var(--accent-copper);
-        }
-
-        .portfolio-tags {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .tag {
-            background-color: rgba(217, 119, 6, 0.15);
-            color: var(--accent-copper);
-            font-size: 0.75rem;
-            padding: 0.15rem 0.5rem;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-
-        .bim-section {
-            position: relative;
-            background-color: var(--bg-dark);
-            padding: 5rem 5%;
-            overflow: hidden;
-            max-width: 100%;
-        }
-
-        .bim-3d-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none;
-        }
-
-        .bim-3d-bg svg { width: 100%; height: 100%; object-fit: cover; }
-
-        .bim-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 30%, var(--bg-dark) 95%);
-        }
-
-        .bim-container {
-            position: relative;
-            z-index: 2;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .bim-interactive-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.15fr;
-            gap: 2.5rem;
-            align-items: center;
-            margin-top: 2rem;
-        }
-
-        .gears-container {
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .gears-svg { width: 100%; height: auto; display: block; overflow: visible; }
-
-        .gear-iso-outer {
-            transform-origin: 260px 260px;
-            animation: rotateClockwise 60s linear infinite;
-            cursor: pointer;
-            transition: filter 0.3s ease;
-        }
-
-        .gear-iso-outer:hover, .gear-iso-outer.active-iso {
-            filter: drop-shadow(0 0 16px rgba(217, 119, 6, 0.85));
-        }
-
-        .gear-iso-outer.active-iso circle:nth-child(3) {
-            stroke: var(--accent-copper);
-            stroke-width: 3px;
-        }
-
-        .gear-item {
-            cursor: pointer;
-            transition: filter 0.3s;
-            transform-box: fill-box;
-            transform-origin: center;
-        }
-
-        .gear-item:nth-child(odd) { animation: rotateClockwise 25s linear infinite; }
-        .gear-item:nth-child(even) { animation: rotateCounterClockwise 25s linear infinite; }
-
-        .gear-text {
-            fill: var(--text-main);
-            font-size: 13px;
-            font-weight: 800;
-            pointer-events: none;
-            user-select: none;
-        }
-
-        .gear-item:hover, .gear-item.active {
-            filter: drop-shadow(0 0 12px rgba(217, 119, 6, 0.9));
-        }
-
-        .gear-item.active circle:nth-child(2) { fill: var(--accent-copper); }
-
-        @keyframes rotateClockwise {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes rotateCounterClockwise {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(-360deg); }
-        }
-
-        .dim-panel {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--accent-copper);
-            border-radius: 14px;
-            padding: 2rem 2.25rem;
-            backdrop-filter: blur(10px);
-            min-height: 450px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            box-shadow: 0 15px 35px var(--shadow-color);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .dim-badge {
-            display: inline-block;
-            background-color: rgba(217, 119, 6, 0.15);
-            color: var(--accent-copper);
-            font-size: 0.78rem;
-            font-weight: 700;
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            margin-bottom: 0.75rem;
-            letter-spacing: 1px;
-            align-self: flex-start;
-        }
-
-        .dim-panel h3 { font-size: 1.35rem; color: var(--text-main); margin-bottom: 0.5rem; font-weight: 700; line-height: 1.3; }
-        .dim-panel p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.25rem; }
-        .dim-benefits h4 { font-size: 0.92rem; color: var(--text-main); margin-bottom: 0.6rem; font-weight: 700; }
-        .dim-benefits ul { list-style: none; }
-        .dim-benefits ul li { color: var(--text-muted); font-size: 0.88rem; position: relative; padding-left: 1.2rem; margin-bottom: 0.45rem; line-height: 1.45; }
-        .dim-benefits ul li::before { content: "✓"; color: var(--accent-copper); position: absolute; left: 0; font-weight: bold; }
-
-        .dim-bars-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            margin-top: 0.2rem;
-        }
-
-        .dim-bar-group {
-            background-color: transparent;
-            border: none;
-            padding: 0.4rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .dim-bar-group:last-child { border-bottom: none; }
-
-        .dim-bar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.35rem;
-        }
-
-        .dim-bar-title { font-size: 0.82rem; font-weight: 700; color: var(--text-main); }
-        .dim-bar-sub { font-size: 0.72rem; color: var(--accent-copper); font-weight: 700; }
-        .dim-bar-pair { display: flex; flex-direction: column; gap: 0.3rem; }
-        .dim-bar-row { display: flex; align-items: center; gap: 0.6rem; }
-        .dim-bar-lbl { width: 75px; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); flex-shrink: 0; }
-        .dim-bar-track { flex-grow: 1; height: 14px; background-color: var(--bg-dark); border-radius: 7px; overflow: hidden; border: 1px solid var(--border-color); }
-
-        .dim-bar-fill {
-            height: 100%;
-            width: 0%;
-            border-radius: 7px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 6px;
-            font-size: 0.65rem;
-            font-weight: 800;
-            color: #fff;
-            opacity: 0;
-            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-        }
-
-        .dim-bar-fill.active-fill { opacity: 1; }
-        .dim-bar-fill.trad { background: linear-gradient(90deg, #b91c1c, var(--trad-color)); }
-        .dim-bar-fill.bim { background: linear-gradient(90deg, #059669, var(--bim-color)); }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 3500;
-            display: flex; align-items: center; justify-content: center;
-            padding: 2rem 5%;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active { opacity: 1; pointer-events: auto; }
-
-        .modal-content {
-            background-color: var(--modal-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            padding: 2.5rem;
-            box-shadow: 0 20px 40px var(--shadow-color);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.25rem; right: 1.25rem;
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: color 0.3s;
-            z-index: 10;
-        }
-
-        .modal-close:hover { color: var(--accent-copper); }
-        .modal-header { margin-bottom: 1.5rem; }
-        .modal-header h3 { font-size: 1.8rem; margin-bottom: 0.25rem; color: var(--text-main); }
-        .modal-subtitle { color: var(--accent-copper); font-weight: 600; font-size: 1.05rem; margin-bottom: 0.75rem; }
-
-        .modal-meta {
-            display: flex; gap: 1.5rem;
-            color: var(--text-muted); font-size: 0.9rem;
-            flex-wrap: wrap; margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1rem;
-        }
-
-        .modal-gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 1.25rem !important;
-            margin-bottom: 2rem;
-        }
-
-        .gallery-item {
-            height: 220px !important;
-            background-color: var(--bg-dark);
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            display: flex; flex-direction: column;
-            align-items: flex-start; justify-content: flex-end;
-            color: var(--text-main); font-size: 0.85rem; padding: 0.75rem;
-            background-size: cover; background-position: center;
-            cursor: pointer; position: relative; overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-copper);
-            box-shadow: 0 10px 25px rgba(217, 119, 6, 0.25);
-        }
-
-        .gallery-item::before {
-            content: '';
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(15,23,42,0.1) 0%, rgba(15,23,42,0.85) 100%);
-            z-index: 1; transition: background 0.3s ease;
-        }
-
-        .gallery-item-badge {
-            position: relative; z-index: 2;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 4px 10px; border-radius: 6px;
-            font-size: 0.78rem; font-weight: 600;
-            display: inline-flex; align-items: center; gap: 6px;
-            color: var(--text-main);
-        }
-
-        .gallery-item-zoom-icon {
-            position: absolute; top: 10px; right: 10px;
-            z-index: 2; background: rgba(217, 119, 6, 0.9);
-            color: #fff; width: 32px; height: 32px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            opacity: 0; transform: scale(0.8);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-item-zoom-icon { opacity: 1; transform: scale(1); }
-
-        .share-card-preview {
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            overflow: hidden;
-            margin: 1.5rem 0;
-            background-color: var(--bg-dark);
-        }
-
-        .share-card-img {
-            width: 100%; height: 180px;
-            object-fit: cover; display: block;
-        }
-
-        .share-card-info { padding: 1.25rem; }
-        .share-card-info h4 { font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.3rem; }
-        .share-card-info p { font-size: 0.85rem; color: var(--text-muted); }
-
-        .copy-alert-box {
-            background-color: rgba(16, 185, 129, 0.15);
-            border: 1px solid var(--bim-color);
-            color: var(--bim-color);
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .lightbox-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(11, 17, 32, 0.96);
-            backdrop-filter: blur(12px);
-            z-index: 4000;
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .lightbox-overlay.active { opacity: 1; pointer-events: auto; }
-
-        .lightbox-content {
-            max-width: 90vw; max-height: 85vh;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            position: relative;
-        }
-
-        .lightbox-content img {
-            max-width: 100%; max-height: 78vh;
-            object-fit: contain; border-radius: 8px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 25px 50px var(--shadow-color);
-        }
-
-        .lightbox-caption {
-            margin-top: 1rem; color: var(--text-main);
-            font-size: 0.95rem; font-weight: 600;
-            background: var(--bg-card);
-            padding: 6px 16px; border-radius: 20px;
-            border: 1px solid var(--border-color);
-        }
-
-        .lightbox-close {
-            position: absolute; top: 1.5rem; right: 1.5rem;
-            background: var(--bg-card); border: 1px solid var(--border-color);
-            color: var(--text-main); width: 44px; height: 44px; border-radius: 50%;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .lightbox-close:hover { background-color: var(--accent-copper); color: #fff; transform: scale(1.1); }
-
-        .lightbox-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: var(--bg-card); border: 1px solid var(--border-color);
-            color: var(--text-main); width: 50px; height: 50px; border-radius: 50%;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s ease; z-index: 4010;
-        }
-
-        .lightbox-arrow:hover { background-color: var(--accent-copper); color: #fff; transform: translateY(-50%) scale(1.1); }
-        .lightbox-prev { left: 1.5rem; }
-        .lightbox-next { right: 1.5rem; }
-
-        .modal-description { color: var(--text-muted); font-size: 0.98rem; line-height: 1.7; }
-        .modal-description h5 { color: var(--text-main); font-size: 1.1rem; margin: 1.25rem 0 0.5rem; }
-
-        .about-section {
-            position: relative;
-            background-color: var(--bg-dark);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 5rem 5%;
-            overflow: hidden;
-            max-width: 100%;
-        }
-
-        .about-3d-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none;
-        }
-
-        .about-3d-bg svg { width: 100%; height: 100%; object-fit: cover; }
-
-        .about-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 20%, var(--bg-dark) 92%);
-        }
-
-        .about-container {
-            position: relative; z-index: 2;
-            max-width: 1200px; margin: 0 auto;
-        }
-
-        .standards-pills {
-            display: flex; justify-content: center; gap: 0.75rem;
-            flex-wrap: wrap; margin: 1rem 0 2.5rem 0;
-        }
-
-        .standard-badge {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            font-size: 0.8rem; font-weight: 600;
-            padding: 0.35rem 0.9rem; border-radius: 20px;
-            backdrop-filter: blur(4px);
-            display: inline-flex; align-items: center; gap: 0.4rem;
-        }
-
-        .standard-badge span { color: var(--accent-copper); }
-
-        .esencia-banner-container {
-            width: 100%; max-width: 1000px;
-            margin: 0 auto 3rem; border-radius: 16px;
-            border: 1px solid var(--border-color);
-            overflow: hidden; box-shadow: 0 20px 40px var(--shadow-color);
-            position: relative; aspect-ratio: 21 / 9;
-            background-color: var(--bg-card);
-        }
-
-        .esencia-banner-img {
-            width: 100%; height: 100%; object-fit: cover; display: block;
-            transition: transform 0.6s ease;
-        }
-
-        .esencia-banner-container:hover .esencia-banner-img { transform: scale(1.03); }
-
-        .esencia-banner-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.4) 100%);
-            pointer-events: none;
-        }
-
-        .about-dual-grid {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 2.5rem;
-            margin-bottom: 3.5rem;
-            align-items: start;
-        }
-
-        .dash-header-block { margin-bottom: 1.25rem; }
-
-        .dash-header-block h3 {
-            font-size: 1.45rem;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 700;
-        }
-
-        .adn-cards-2x2 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.25rem;
-            margin-top: 2.65rem;
-        }
-
-        .esencia-card-2x2 {
-            background-color: var(--bg-card);
-            backdrop-filter: blur(8px);
-            padding: 1.6rem 1.35rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            min-height: 235px;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .esencia-card-2x2:hover {
-            border-color: rgba(217, 119, 6, 0.6);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px var(--shadow-color);
-        }
-
-        .esencia-card-2x2 .esencia-badge-hero {
-            font-size: 2.8rem;
-            font-weight: 900;
-            position: absolute;
-            top: 6px; right: 10px;
-            letter-spacing: -1px;
-            user-select: none;
-            pointer-events: none;
-            background: linear-gradient(135deg, rgba(217, 119, 6, 0.28) 0%, rgba(255, 255, 255, 0.04) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .esencia-card-2x2 .esencia-tag-pill {
-            display: inline-block;
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--accent-copper);
-            background-color: rgba(217, 119, 6, 0.14);
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            margin-bottom: 0.9rem;
-            letter-spacing: 0.5px;
-            align-self: flex-start;
-        }
-
-        .esencia-card-2x2 h4 {
-            font-size: 1.12rem;
-            color: var(--text-main);
-            margin-bottom: 0.65rem;
-            font-weight: 700;
-            line-height: 1.3;
-            position: relative; z-index: 2;
-        }
-
-        .esencia-card-2x2 p {
-            color: var(--text-muted);
-            font-size: 0.86rem;
-            line-height: 1.55;
-            position: relative; z-index: 2;
-        }
-
-        .team-card-proportioned {
-            background-color: var(--bg-card);
-            backdrop-filter: blur(8px);
-            border-radius: 14px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            max-width: 420px;
-            width: 100%;
-            margin: 0 auto;
-            box-shadow: 0 15px 35px var(--shadow-color);
-        }
-
-        .team-portrait-header {
-            width: 100%;
-            height: 270px;
-            position: relative;
-            overflow: hidden;
-            background-color: var(--bg-dark);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .team-portrait-header img {
-            width: 100%; height: 100%;
-            object-fit: cover; object-position: center 15%;
-        }
-
-        .team-avatar-bg-full {
-            width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-dark));
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: var(--accent-copper);
-        }
-
-        .team-card-content {
-            padding: 1.5rem 1.75rem;
-            display: flex; flex-direction: column;
-        }
-
-        .team-card-content h4 {
-            font-size: 1.25rem;
-            color: var(--text-main);
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .team-card-content .team-role {
-            color: var(--accent-copper);
-            font-size: 0.88rem;
-            font-weight: 600;
-            margin-bottom: 0.85rem;
-        }
-
-        .team-card-content p {
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            line-height: 1.55;
-            margin-bottom: 1.25rem;
-        }
-
-        .btn-modal-trigger {
-            background-color: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 0.6rem 1rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center; justify-content: center;
-            gap: 0.4rem;
-            transition: all 0.3s;
-            width: 100%;
-        }
-
-        .btn-modal-trigger:hover {
-            background-color: var(--accent-copper);
-            border-color: var(--accent-copper);
-            color: #fff;
-        }
-
-        .team-footer-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .team-round-nav-btn {
-            width: 38px; height: 38px;
-            border-radius: 50%;
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; backdrop-filter: blur(4px);
-            transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
-        }
-
-        .team-round-nav-btn:hover {
-            background-color: var(--accent-copper);
-            border-color: var(--accent-copper);
-            color: #fff;
-            transform: scale(1.08);
-        }
-
-        .adn-digital-box {
-            background-color: var(--bg-card);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2.25rem;
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 2.5rem;
-            align-items: center;
-        }
-
-        .adn-column h3 { font-size: 1.35rem; color: var(--text-main); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
-        .adn-column h3 i { color: var(--accent-copper); }
-        .adn-column p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
-
-        .adn-divider {
-            width: 2px; height: 100%; min-height: 120px;
-            background: linear-gradient(180deg, transparent, var(--accent-copper), transparent);
-        }
-
-        .contact-section {
-            position: relative;
-            background-color: var(--bg-section-alt);
-            border-top: 1px solid var(--border-color);
-            padding: 5rem 5%;
-            overflow: hidden;
-            max-width: 100%;
-        }
-
-        .contact-vector-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none; transform: scaleX(-1);
-        }
-
-        .contact-vector-bg svg { width: 100%; height: 100%; object-fit: cover; }
-
-        .contact-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 20%, var(--bg-section-alt) 92%);
-        }
-
-        .contact-container {
-            position: relative; z-index: 2;
-            max-width: 1150px; margin: 0 auto;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 480px;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .contact-info h3 { font-size: 1.6rem; color: var(--text-main); margin-bottom: 1rem; }
-
-        .contact-collab-phrase {
-            color: var(--accent-copper);
-            font-size: 1.65rem; font-weight: 800; line-height: 1.3;
-            margin-bottom: 1.5rem; padding-left: 1.25rem;
-            border-left: 4px solid var(--accent-copper);
-            letter-spacing: -0.3px;
-            text-shadow: 0 0 20px rgba(217, 119, 6, 0.25);
-        }
-
-        .contact-info p { color: var(--text-muted); font-size: 1rem; line-height: 1.65; }
-        .contact-details { list-style: none; margin: 2rem 0; }
-
-        .contact-details li {
-            display: flex; align-items: center; gap: 1rem;
-            margin-bottom: 1.25rem; color: var(--text-main); font-size: 0.98rem;
-        }
-
-        .contact-details i { color: var(--accent-copper); }
-
-        .contact-details a {
-            color: var(--text-main);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .contact-details a:hover { color: var(--accent-copper); }
-
-        .contact-buttons-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-form-card {
-            position: relative; border-radius: 16px;
-            border: 1px solid var(--border-color); overflow: hidden;
-            box-shadow: 0 20px 45px var(--shadow-color);
-            background-color: var(--bg-card); width: 100%; max-width: 480px; margin: 0 auto;
-        }
-
-        .form-bg-img {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; object-position: center; z-index: 1; opacity: 0.18;
-        }
-
-        .form-overlay-dark {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-dark) 100%);
-            z-index: 2; opacity: 0.9;
-        }
-
-        .contact-form-inner { position: relative; z-index: 3; padding: 2.25rem; }
-
-        .form-group {
-            margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem;
-        }
-
-        .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; background-color: var(--bg-dark);
-            border: 1px solid var(--border-color); border-radius: 8px;
-            padding: 0.75rem 1rem; color: var(--text-main); font-size: 0.92rem;
-            outline: none; transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--accent-copper);
-            box-shadow: 0 0 12px rgba(217, 119, 6, 0.25);
-        }
-
-        .form-group textarea { resize: vertical; min-height: 110px; }
-        .form-group select option { background-color: var(--bg-dark); color: var(--text-main); }
-
-        footer {
-            padding: 3rem 5%; text-align: center; color: var(--text-muted);
-            font-size: 0.9rem; background-color: var(--bg-section-alt); border-top: 1px solid var(--border-color);
-        }
-
-        footer a { color: var(--accent-copper); text-decoration: none; }
+        .metadata-row { display: grid; grid-template-columns: 200px 1fr 40px; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem; }
+        .project-checkbox-list { display: flex; flex-direction: column; gap: 0.5rem; background: var(--bg-dark); border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; max-height: 160px; overflow-y: auto; }
+        .project-checkbox-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; color: var(--text-main); cursor: pointer; }
+        .project-checkbox-item input { accent-color: var(--accent-copper); width: 16px; height: 16px; cursor: pointer; }
 
-        @media (max-width: 1024px) {
-            .about-dual-grid { grid-template-columns: 1fr; }
-            .adn-digital-box, .contact-grid { grid-template-columns: 1fr; }
-            .adn-divider { display: none; }
-            .adn-cards-2x2 { margin-top: 0; }
+        .github-config-box {
+            background-color: var(--bg-dark); border: 1px solid var(--border-color);
+            padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap;
         }
 
         @media (max-width: 900px) {
-            nav { display: none; }
-            .mobile-menu-btn { display: flex; }
-            .bim-interactive-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.2rem; }
-
-            .sliding-text-container { padding: 0; height: 3.2em; }
-
-            .slide-item {
-                height: 3.2em; line-height: 1.25em; white-space: normal;
-                word-break: break-word; text-align: center; font-size: 0.85em;
-            }
-
-            .service-slide, .portfolio-slide { flex: 0 0 100%; aspect-ratio: auto; min-height: 360px; }
-            .carousel-track { gap: 0; }
-            .prev-arrow { left: 0.2rem; }
-            .next-arrow { right: 0.2rem; }
-            .timeline-wrapper { max-width: 100%; }
-
-            .modal-gallery-grid { grid-template-columns: 1fr !important; }
-            .gallery-item { height: 180px !important; }
-            .lightbox-arrow { width: 40px; height: 40px; }
-            .lightbox-prev { left: 0.5rem; }
-            .lightbox-next { right: 0.5rem; }
-            .contact-buttons-group { flex-direction: column; }
-        }
-
-        @media (max-width: 640px) {
-            .adn-cards-2x2 { grid-template-columns: 1fr; }
+            .admin-layout { grid-template-columns: 1fr; }
+            .top-profile-layout { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .metadata-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">
-            <div>Innov<span>ArqZ</span></div>
-            <small>Soluciones Integrales</small>
+        <div class="title-area">
+            <h1>Innov<span>ArqZ</span> — Panel Autónomo de Personal</h1>
+            <p>Gestión del equipo técnico con publicación directa a GitHub.</p>
         </div>
-        
-        <div class="nav-container">
-            <nav>
-                <a href="#inicio" class="nav-active">Inicio</a>
-                <a href="#servicios">Servicios</a>
-                <a href="#bim-cim">Metodología BIM/CIM</a>
-                <a href="#portafolio">Portafolio</a>
-                <a href="#nosotros">Nosotros</a>
-                <a href="#contacto">Contacto</a>
-            </nav>
 
-            <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Cambiar Tema (Claro/Oscuro)" aria-label="Cambiar Tema">
-                <i data-lucide="sun" id="themeIcon"></i>
-            </button>
-
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menú Principal">
-                <i data-lucide="menu"></i>
+        <div class="top-actions">
+            <button type="button" class="btn btn-success" onclick="publicarEnGitHub()">
+                <i data-lucide="cloud-upload"></i> Publicar Cambios en GitHub
             </button>
         </div>
     </header>
 
-    <div class="mobile-nav-drawer" id="mobileNavDrawer">
-        <a href="#inicio" onclick="closeMobileMenu()"><span>Inicio</span> <i data-lucide="chevron-right"></i></a>
-        <a href="#servicios" onclick="closeMobileMenu()"><span>Servicios</span> <i data-lucide="chevron-right"></i></a>
-        <a href="#bim-cim" onclick="closeMobileMenu()"><span>Metodología BIM/CIM</span> <i data-lucide="chevron-right"></i></a>
-        <a href="#portafolio" onclick="closeMobileMenu()"><span>Portafolio</span> <i data-lucide="chevron-right"></i></a>
-        <a href="#nosotros" onclick="closeMobileMenu()"><span>Nosotros</span> <i data-lucide="chevron-right"></i></a>
-        <a href="#contacto" onclick="closeMobileMenu()"><span>Contacto</span> <i data-lucide="chevron-right"></i></a>
-    </div>
-
-    <section class="hero" id="inicio">
-        <div class="hero-3d-bg">
-            <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="wireframe-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#d97706" stop-opacity="0.25" />
-                        <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.15" />
-                        <stop offset="100%" stop-color="#334155" stop-opacity="0.05" />
-                    </linearGradient>
-                </defs>
-                <g stroke="url(#wireframe-grad)" stroke-width="1" fill="none">
-                    <path d="M-100,500 L500,-100 M100,600 L700,-100 M300,600 L900,0 M500,600 L1100,0" />
-                    <path d="M1100,500 L500,-100 M900,600 L300,-100 M700,600 L100,-100 M500,600 L-100,0" />
-                    <polygon points="500,180 650,250 650,420 500,350" />
-                    <polygon points="500,180 350,250 350,420 500,350" />
-                    <polygon points="500,180 650,250 500,320 350,250" />
-                    <line x1="500" y1="0" x2="500" y2="600" stroke-dasharray="4,4" />
-                </g>
-            </svg>
-            <div class="hero-overlay"></div>
-        </div>
-
-        <div class="hero-content">
-            <h1>
-                Innovación Tecnológica y Control Técnico en<br>
-                <span class="sliding-text-container">
-                    <span class="sliding-text-wrapper">
-                        <span class="slide-item">Ingeniería, Arquitectura & BIM / CIM</span>
-                        <span class="slide-item">Ejecución, Interventoría & Control</span>
-                        <span class="slide-item">Gerencia de Activos (BIM 7D)</span>
-                        <span class="slide-item">Suministros Técnicos & Equipamiento</span>
-                    </span>
-                </span>
-            </h1>
-            <p>Soluciones integrales para proyectos de edificación e infraestructura mediante metodologías BIM/CIM, optimización de costos y gestión de activos.</p>
-            
-            <div class="search-box-container">
-                <div class="search-input-wrapper">
-                    <i data-lucide="search" class="search-icon"></i>
-                    <input type="text" id="projectSearch" placeholder="Buscar proyectos, consultorías o servicios BIM..." autocomplete="off" onkeydown="if(event.key==='Enter') abrirModalResultadosBusqueda()">
-                    <button type="button" class="btn-search" onclick="abrirModalResultadosBusqueda()">
-                        <span>Buscar</span>
-                        <i data-lucide="arrow-right"></i>
-                    </button>
-                </div>
+    <div class="admin-layout">
+        <div class="sidebar-list">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span class="sidebar-title">Integrantes</span>
+                <button type="button" class="btn btn-primary" style="padding: 0.4rem 0.7rem; font-size: 0.8rem;" onclick="crearNuevoMiembro()">
+                    <i data-lucide="plus"></i> Nuevo
+                </button>
             </div>
+            <div id="membersContainer"></div>
         </div>
-    </section>
 
-    <!-- MODAL DE LANZAMIENTO OPTIMIZADO -->
-    <div class="modal-overlay" id="modal-launch">
-        <div class="launch-modal-card-bg" style="background-image: url('esencia-digital-innovarqz.jpg');">
-            <div class="launch-modal-overlay-dark"></div>
-            <button class="modal-close" onclick="closeModal('modal-launch')"><i data-lucide="x"></i></button>
-            
-            <div class="launch-modal-inner">
-                <div class="launch-badge">
-                    <i data-lucide="sparkles" style="width:14px; height:14px;"></i> LANZAMIENTO OFICIAL 2026
+        <div class="form-card">
+            <div class="github-config-box">
+                <div class="form-group" style="flex: 1; min-width: 200px;">
+                    <label for="ghRepo">Repositorio (usuario/repositorio)</label>
+                    <input type="text" id="ghRepo" placeholder="ej: tuusuario/innovarqz">
                 </div>
-                <h3 class="launch-title">¡Bienvenido al Futuro de la Transformación Digital Arquitectónica!</h3>
+                <div class="form-group" style="flex: 1; min-width: 200px;">
+                    <label for="ghToken">Token de GitHub (Personal Access Token)</label>
+                    <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
+                </div>
+                <button type="button" class="btn" style="height: 42px;" onclick="guardarConfigGitHub()">Guardar Credenciales</button>
+            </div>
+
+            <form id="memberForm" onsubmit="return false;">
+                <div class="form-section-title"><i data-lucide="user"></i> Información de la Ficha Principal</div>
                 
-                <p class="launch-body-text">
-                    Por motivo de nuestro lanzamiento, agende una <strong>sesión de valoración técnica de 20 minutos</strong> sin costo para la estructuración BIM de su próximo proyecto o licitación pública.
-                </p>
-
-                <div class="launch-buttons-row">
-                    <a href="https://wa.me/573158505885?text=Hola,%20deseo%20aprovechar%20la%20sesión%20de%20valoración%20técnica%20gratuita%20por%20lanzamiento" target="_blank" class="btn-whatsapp" onclick="closeModal('modal-launch')">
-                        <i data-lucide="message-square"></i> Asesoría por WhatsApp
-                    </a>
-                    <button type="button" class="btn-primary" onclick="irAFormularioContacto()">
-                        <i data-lucide="mail"></i> Asesoría Sin Costo
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL DEDICADO DE RESULTADOS DE BÚSQUEDA -->
-    <div class="modal-overlay" id="modal-search-results">
-        <div class="search-modal-content">
-            <button class="modal-close" onclick="closeModal('modal-search-results')"><i data-lucide="x"></i></button>
-            <div class="modal-header" style="margin-bottom: 0.5rem;">
-                <h3>Resultados de Búsqueda</h3>
-                <p style="color: var(--text-muted); font-size: 0.88rem;" id="searchModalSubtitle">Usa el clic, dedo o las flechas (▲/▼) + Enter para navegar.</p>
-            </div>
-            <div class="search-results-list" id="searchResultsContainer"></div>
-        </div>
-    </div>
-
-    <div class="floating-actions" id="floatingActions">
-        <a href="mailto:infobim@innovarqzsas.com" class="fab-btn fab-contact" title="Enviar Correo de Cotización">
-            <i data-lucide="mail"></i>
-            <span class="fab-tooltip">Cotizar</span>
-        </a>
-        <button type="button" class="fab-btn fab-share" onclick="ejecutarCompartir()" title="Compartir Sitio Web">
-            <i data-lucide="share-2"></i>
-            <span class="fab-tooltip">Compartir</span>
-        </button>
-        <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20los%20servicios%20de%20InnovArqZ" target="_blank" class="fab-btn fab-whatsapp" title="WhatsApp Directo">
-            <i data-lucide="message-square"></i>
-            <span class="fab-tooltip">WhatsApp</span>
-        </a>
-    </div>
-
-    <section id="servicios" class="tech-section">
-        <div class="topo-bg">
-            <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="topo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#d97706" stop-opacity="0.18" />
-                        <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.12" />
-                        <stop offset="100%" stop-color="#334155" stop-opacity="0.05" />
-                    </linearGradient>
-                </defs>
-                <g stroke="url(#topo-grad)" stroke-width="1.2" fill="none">
-                    <path d="M-100,200 C200,150 400,300 700,180 C1000,60 1100,250 1300,200" />
-                    <path d="M-100,300 C250,220 450,400 750,280 C1050,160 1150,350 1300,300" />
-                    <path d="M-100,400 C300,300 500,500 800,380 C1100,260 1200,450 1300,400" />
-                    <path d="M-100,500 C350,380 550,600 850,480 C1150,360 1250,550 1300,500" />
-                </g>
-            </svg>
-            <div class="topo-overlay"></div>
-        </div>
-
-        <div class="tech-container">
-            <div class="section-title">
-                <h2>Nuestros Pilares de Servicio</h2>
-                <p>Especialización técnica respaldada por la metodología OpenBIM (ISO 19650).</p>
-            </div>
-
-            <div class="carousel-wrapper" id="servicesWrapper">
-                <button class="nav-arrow prev-arrow" onclick="detenerAutoplayCarruseles(); prevSlide('servicesTrack', 'service-slide');" aria-label="Anterior">
-                    <i data-lucide="chevron-left"></i>
-                </button>
-                <button class="nav-arrow next-arrow" onclick="detenerAutoplayCarruseles(); nextSlide('servicesTrack', 'service-slide');" aria-label="Siguiente">
-                    <i data-lucide="chevron-right"></i>
-                </button>
-                
-                <div class="carousel-track" id="servicesTrack">
-                    <div class="service-slide active-slide">
-                        <div class="slide-card-bg" style="background-image: url('pilar-bim.jpg');"></div>
-                        <div class="slide-card-overlay"></div>
-                        <div class="slide-content">
-                            <div class="slide-header">
-                                <i data-lucide="layers" class="slide-icon"></i>
-                                <h3>Ingeniería, Arquitectura & BIM / CIM</h3>
+                <div class="top-profile-layout" style="margin-top: 1rem;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Fotografía (Proporción 3:4)</label>
+                        <div class="photo-upload-box" id="photoDropZone">
+                            <input type="file" id="memberPhotoFile" accept="image/*" onchange="procesarFotoLocal(event)">
+                            <img id="photoPreview" class="photo-preview-img" alt="Vista previa de foto">
+                            <div class="photo-placeholder-content" id="photoPlaceholder">
+                                <i data-lucide="image-plus" style="width: 28px; height: 28px;"></i>
+                                <span>Subir foto (3:4)</span>
                             </div>
-                            <ul>
-                                <li>Implementación OpenBIM (ISO 19650)</li>
-                                <li>Modelado Urbano & Territorial (CIM)</li>
-                                <li>Diseño Arquitectónico & Estructuración</li>
-                                <li>Consultoría y Capacitación Especializada</li>
-                            </ul>
-                            <a href="#contacto" class="btn-slide-action">Explorar Pilar <i data-lucide="arrow-right"></i></a>
                         </div>
+                        <input type="hidden" id="memberImg">
                     </div>
 
-                    <div class="service-slide">
-                        <div class="slide-card-bg" style="background-image: url('pilar-interventoria.jpg');"></div>
-                        <div class="slide-card-overlay"></div>
-                        <div class="slide-content">
-                            <div class="slide-header">
-                                <i data-lucide="hard-hat" class="slide-icon"></i>
-                                <h3>Ejecución, Interventoría & Control</h3>
-                            </div>
-                            <ul>
-                                <li>Construcción de Infraestructura</li>
-                                <li>Interventoría Técnica y Financiera</li>
-                                <li>Control de Calidad (BIM 4D/5D)</li>
-                                <li>Supervisión Técnica Independiente</li>
-                            </ul>
-                            <a href="#contacto" class="btn-slide-action">Explorar Pilar <i data-lucide="arrow-right"></i></a>
+                    <div class="right-fields-stack">
+                        <div class="form-group">
+                            <label for="memberId">ID Único (sin espacios)</label>
+                            <input type="text" id="memberId" required placeholder="ej: james-zuniga" oninput="sincronizarCampoEnVivo()">
                         </div>
-                    </div>
 
-                    <div class="service-slide">
-                        <div class="slide-card-bg" style="background-image: url('pilar-facility.jpg');"></div>
-                        <div class="slide-card-overlay"></div>
-                        <div class="slide-content">
-                            <div class="slide-header">
-                                <i data-lucide="building-2" class="slide-icon"></i>
-                                <h3>Gerencia de Activos & Facility Management</h3>
-                            </div>
-                            <ul>
-                                <li>Modelos As-Built para Mantenimiento</li>
-                                <li>Optimización del Ciclo de Vida (7D)</li>
-                                <li>Administración Inmobiliaria</li>
-                                <li>Mantenimiento Preventivo y Correctivo</li>
-                            </ul>
-                            <a href="#contacto" class="btn-slide-action">Explorar Pilar <i data-lucide="arrow-right"></i></a>
+                        <div class="form-group">
+                            <label for="memberName">Nombre Profesional Completo</label>
+                            <input type="text" id="memberName" required placeholder="ej: Arq. James Ramiro Zúñiga Caipe" oninput="sincronizarCampoEnVivo()">
                         </div>
-                    </div>
 
-                    <div class="service-slide">
-                        <div class="slide-card-bg" style="background-image: url('pilar-suministros.jpg');"></div>
-                        <div class="slide-card-overlay"></div>
-                        <div class="slide-content">
-                            <div class="slide-header">
-                                <i data-lucide="package" class="slide-icon"></i>
-                                <h3>Suministros Técnicos & Equipamiento</h3>
-                            </div>
-                            <ul>
-                                <li>Materiales Especializados de Obra</li>
-                                <li>Dotaciones Industriales & EPP</li>
-                                <li>Equipamiento Tecnológico y Cómputo</li>
-                                <li>Suministros de Seguridad Técnica</li>
-                            </ul>
-                            <a href="#contacto" class="btn-slide-action">Explorar Pilar <i data-lucide="arrow-right"></i></a>
+                        <div class="form-group">
+                            <label for="memberRole">Cargo Principal (Ficha)</label>
+                            <input type="text" id="memberRole" required placeholder="ej: Director General & Coordinador BIM / CIM" oninput="sincronizarCampoEnVivo()">
                         </div>
                     </div>
                 </div>
 
-                <div class="carousel-indicators" id="servicesIndicators"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="bim-cim" class="bim-section">
-        <div class="bim-3d-bg">
-            <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="bim-wireframe-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#d97706" stop-opacity="0.2" />
-                        <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.1" />
-                        <stop offset="100%" stop-color="#334155" stop-opacity="0.03" />
-                    </linearGradient>
-                </defs>
-                <g stroke="url(#bim-wireframe-grad)" stroke-width="1" fill="none">
-                    <path d="M-100,500 L500,-100 M100,600 L700,-100 M300,600 L900,0 M500,600 L1100,0" />
-                    <path d="M1100,500 L500,-100 M900,600 L300,-100 M700,600 L100,-100 M500,600 L-100,0" />
-                    <polygon points="500,180 650,250 650,420 500,350" />
-                    <line x1="500" y1="0" x2="500" y2="600" stroke-dasharray="4,4" />
-                </g>
-            </svg>
-            <div class="bim-overlay"></div>
-        </div>
-
-        <div class="bim-container">
-            <div class="section-title">
-                <h2>Ecosistema Metodológico BIM / CIM</h2>
-                <p>Haz clic en el anillo rector o en cualquier dimensión para explorar el alcance y métricas comparativas.</p>
-            </div>
-
-            <div class="bim-interactive-grid">
-                <div class="gears-container">
-                    <svg viewBox="0 -20 520 540" class="gears-svg">
-                        <text x="260" y="-2" text-anchor="middle" fill="var(--accent-copper)" font-size="15" font-weight="800" letter-spacing="4">MARCO RECTOR ISO 19650</text>
-
-                        <g class="gear-iso-outer active-iso" id="isoOuterRing" onclick="selectDimension('iso')">
-                            <circle cx="260" cy="260" r="250" fill="none" stroke="rgba(217, 119, 6, 0.25)" stroke-width="2" />
-                            <circle cx="260" cy="260" r="240" fill="none" stroke="rgba(59, 130, 246, 0.35)" stroke-width="12" stroke-dasharray="10, 14" />
-                            <circle cx="260" cy="260" r="228" fill="var(--bg-dark)" stroke="rgba(217, 119, 6, 0.4)" stroke-width="2" />
-                        </g>
-
-                        <path d="M 80 180 C 160 100, 240 320, 320 200 C 370 120, 430 300, 440 340" fill="none" stroke="rgba(217, 119, 6, 0.15)" stroke-width="1.5" stroke-dasharray="4, 6" />
-
-                        <g class="gear-item" id="gear-0" onclick="selectDimension(0)">
-                            <circle cx="95" cy="180" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="95" cy="180" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="95" cy="180" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
-                            <text x="95" y="184" text-anchor="middle" class="gear-text">1D / 2D</text>
-                        </g>
-
-                        <g class="gear-item" id="gear-1" onclick="selectDimension(1)">
-                            <circle cx="178" cy="140" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="178" cy="140" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="178" cy="140" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
-                            <text x="178" y="144" text-anchor="middle" class="gear-text">3D</text>
-                        </g>
-
-                        <g class="gear-item" id="gear-2" onclick="selectDimension(2)">
-                            <circle cx="235" cy="218" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="235" cy="218" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="235" cy="218" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
-                            <text x="235" y="222" text-anchor="middle" class="gear-text">4D</text>
-                        </g>
-
-                        <g class="gear-item" id="gear-3" onclick="selectDimension(3)">
-                            <circle cx="310" cy="285" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="310" cy="285" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="310" cy="285" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
-                            <text x="310" y="289" text-anchor="middle" class="gear-text">5D</text>
-                        </g>
-
-                        <g class="gear-item" id="gear-4" onclick="selectDimension(4)">
-                            <circle cx="380" cy="225" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="380" cy="225" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="380" cy="225" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
-                            <text x="380" y="229" text-anchor="middle" class="gear-text">6D</text>
-                        </g>
-
-                        <g class="gear-item" id="gear-5" onclick="selectDimension(5)">
-                            <circle cx="425" cy="305" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="425" cy="305" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="425" cy="305" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
-                            <text x="425" y="309" text-anchor="middle" class="gear-text">7D</text>
-                        </g>
-                    </svg>
-                </div>
-
-                <div class="dim-panel" id="dimPanel">
-                    <div class="dim-badge" id="dimBadge">ESTÁNDAR GENERAL ISO 19650</div>
-                    <h3 id="dimTitle">Tradicional Vs. BIM/CIM</h3>
-                    <p id="dimDesc">Gráfica de impacto comparativo que analiza de manera cuantitativa la eficiencia operativa, la precisión presupuestal y la mitigación de riesgos frente al modelado CAD tradicional.</p>
-                    
-                    <div id="dimContentArea"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="portafolio" class="tech-section">
-        <div class="topo-bg">
-            <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                <g stroke="url(#topo-grad)" stroke-width="1.2" fill="none">
-                    <path d="M-100,150 C250,100 450,250 750,130 C1050,10 1150,200 1300,150" />
-                    <path d="M-100,250 C300,180 500,350 800,230 C1100,110 1200,300 1300,250" />
-                    <path d="M-100,350 C350,280 550,450 850,330 C1150,210 1250,400 1300,350" />
-                </g>
-            </svg>
-            <div class="topo-overlay"></div>
-        </div>
-
-        <div class="tech-container">
-            <div class="section-title">
-                <h2>Portafolio & Casos de Estudio</h2>
-                <p>Historial cronológico de proyectos, consultorías e intervenciones técnicas.</p>
-            </div>
-
-            <div class="portfolio-tabs">
-                <button class="tab-btn active" onclick="filterCategory('all', this)">Todos</button>
-                <button class="tab-btn" onclick="filterCategory('bim', this)">Diseño & BIM</button>
-                <button class="tab-btn" onclick="filterCategory('obra', this)">Infraestructura & Obra</button>
-                <button class="tab-btn" onclick="filterCategory('interventoria', this)">Interventoría</button>
-                <button class="tab-btn" onclick="filterCategory('cim', this)">Modelado Urbano (CIM)</button>
-            </div>
-
-            <div class="timeline-container">
-                <div class="timeline-track-line"></div>
-                <div class="timeline-wrapper">
-                    <div class="timeline-fixed-node">
-                        <div class="time-node active" onclick="filterYear('all', this)">
-                            <span class="node-dot"></span><span>Todos</span>
-                        </div>
+                <div class="form-grid" style="margin-top: 1.25rem;">
+                    <div class="form-group full-width">
+                        <label for="memberShortDesc">Descripción Corta (Ficha del carrusel)</label>
+                        <textarea id="memberShortDesc" required placeholder="Líder ejecutivo en metodologías OpenBIM..." oninput="sincronizarCampoEnVivo()"></textarea>
                     </div>
 
-                    <button class="timeline-nav-btn" onclick="scrollTimeline('left')" type="button" aria-label="Año anterior">
-                        <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
-                    </button>
-
-                    <div class="timeline-viewport" id="timelineViewport">
-                        <div class="timeline-track-inner" id="timelineTrackInner"></div>
+                    <div class="form-group">
+                        <label for="memberTags">Etiquetas / Badges (separadas por coma)</label>
+                        <input type="text" id="memberTags" placeholder="ej: Arq. UDENAR, buildingSMART, BIM 5D" oninput="sincronizarCampoEnVivo()">
                     </div>
 
-                    <button class="timeline-nav-btn" onclick="scrollTimeline('right')" type="button" aria-label="Año siguiente">
-                        <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="carousel-wrapper" id="portfolioWrapper">
-                <button class="nav-arrow prev-arrow" onclick="detenerAutoplayCarruseles(); prevSlide('portfolioTrack', 'portfolio-slide');" aria-label="Anterior">
-                    <i data-lucide="chevron-left"></i>
-                </button>
-                <button class="nav-arrow next-arrow" onclick="detenerAutoplayCarruseles(); nextSlide('portfolioTrack', 'portfolio-slide');" aria-label="Siguiente">
-                    <i data-lucide="chevron-right"></i>
-                </button>
-                
-                <div class="carousel-track" id="portfolioTrack"></div>
-
-                <div class="portfolio-counter-container" id="portfolioIndicators">
-                    <div class="portfolio-counter-badge">
-                        PROYECTO 
-                        <input type="number" id="portfolioActiveInput" min="1" value="01" aria-label="Número de proyecto activo" onfocus="this.select()" onchange="detenerAutoplayCarruseles(); jumpToPortfolioInput(this.value);" onkeydown="if(event.key==='Enter') this.blur()">
-                        / <span id="portfolioTotalCount">01</span>
-                    </div>
-                    <div class="portfolio-progress-bar">
-                        <div class="portfolio-progress-fill" id="portfolioProgressFill"></div>
+                    <div class="form-group">
+                        <label for="memberBtnText">Texto del Botón Acción</label>
+                        <input type="text" id="memberBtnText" value="Conoce a Nuestro Aliado" oninput="sincronizarCampoEnVivo()">
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Modal Portafolio Dinámico -->
-    <div class="modal-overlay" id="modal-portfolio">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('modal-portfolio')"><i data-lucide="x"></i></button>
-            <div class="modal-header">
-                <h3 id="modalTitle">Título del Proyecto</h3>
-                <div class="modal-meta">
-                    <span id="modalMetaYear"><i data-lucide="calendar"></i> ---</span>
-                    <span id="modalMetaStandard"><i data-lucide="tag"></i> ---</span>
-                    <span id="modalMetaSoftware"><i data-lucide="cpu"></i> ---</span>
-                </div>
-            </div>
-            <h5 style="color: var(--text-main); margin-bottom: 0.75rem;">Galería de Imágenes & Entregables</h5>
-            <div class="modal-gallery-grid" id="modalGalleryGrid"></div>
-            <div class="modal-description">
-                <h5>Alcance del Proyecto & Desglose Técnico</h5>
-                <p id="modalScope">---</p>
-                <h5>Herramientas & Ecosistema Tecnológico</h5>
-                <p id="modalTools">---</p>
-            </div>
-        </div>
-    </div>
+                <div id="modalSectionArea" style="margin-top: 1.5rem;">
+                    <div class="form-section-title"><i data-lucide="file-text"></i> Contenido del Modal Detallado</div>
 
-    <div class="modal-overlay" id="modal-share">
-        <div class="modal-content" style="max-width: 520px;">
-            <button class="modal-close" onclick="closeModal('modal-share')"><i data-lucide="x"></i></button>
-            <div class="modal-header" style="margin-bottom: 0.5rem;">
-                <h3>Compartir InnovArqZ</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Copia el enlace para compartirlo en cualquier plataforma.</p>
-            </div>
-
-            <div class="share-card-preview">
-                <img src="esencia-digital-innovarqz.jpg" alt="Vista previa InnovArqZ" class="share-card-img">
-                <div class="share-card-info">
-                    <h4>InnovArqZ Soluciones Integrales S.A.S.</h4>
-                    <p>https://www.innovarqzsas.com</p>
-                </div>
-            </div>
-
-            <div class="copy-alert-box">
-                <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
-                <span>¡Enlace copiado en el portapapeles!</span>
-            </div>
-        </div>
-    </div>
-
-    <section class="about-section" id="nosotros">
-        <div class="about-3d-bg">
-            <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="about-wireframe-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#d97706" stop-opacity="0.22" />
-                        <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.12" />
-                        <stop offset="100%" stop-color="#334155" stop-opacity="0.04" />
-                    </linearGradient>
-                </defs>
-                <g stroke="url(#about-wireframe-grad)" stroke-width="1" fill="none">
-                    <path d="M-100,500 L500,-100 M100,600 L700,-100 M300,600 L900,0 M500,600 L1100,0" />
-                    <path d="M1100,500 L500,-100 M900,600 L300,-100 M700,600 L100,-100 M500,600 L-100,0" />
-                    <polygon points="500,180 650,250 650,420 500,350" />
-                    <line x1="500" y1="0" x2="500" y2="600" stroke-dasharray="4,4" />
-                </g>
-            </svg>
-            <div class="about-overlay"></div>
-        </div>
-
-        <div class="about-container">
-            <div class="section-title" style="margin-bottom: 1rem;">
-                <h2>Nuestra Esencia Digital</h2>
-                <p style="max-width: 800px; margin: 0.5rem auto 0;">Un ecosistema técnico diseñado para eliminar la incertidumbre, optimizar recursos y garantizar la excelencia en cada fase del activo.</p>
-            </div>
-
-            <div class="standards-pills">
-                <div class="standard-badge"><span>ISO</span> 19650</div>
-                <div class="standard-badge"><span>OpenBIM</span> / IFC</div>
-                <div class="standard-badge"><span>NSR</span>-10</div>
-                <div class="standard-badge"><span>GIS</span> + CIM</div>
-            </div>
-
-            <div class="esencia-banner-container">
-                <img src="esencia-digital-innovarqz.jpg" alt="InnovArqZ Esencia Digital BIM CIM" class="esencia-banner-img">
-                <div class="esencia-banner-overlay"></div>
-            </div>
-
-            <div class="about-dual-grid">
-                <div>
-                    <div class="dash-header-block">
-                        <h3><i data-lucide="dna" style="color: var(--accent-copper);"></i> ADN Digital</h3>
-                    </div>
-
-                    <div class="adn-cards-2x2">
-                        <div class="esencia-card-2x2">
-                            <span class="esencia-badge-hero">INNOV</span>
-                            <span class="esencia-tag-pill">Tec + Data</span>
-                            <h4>Innovación Conectada</h4>
-                            <p>Adoptamos la tecnología como eje transversal. Implementamos metodologías predictivas para prever contingencias y optimizar presupuestos.</p>
+                    <div class="form-grid" style="margin-top: 1rem;">
+                        <div class="form-group full-width">
+                            <label for="modalSubtitle">Subtítulo del Modal</label>
+                            <input type="text" id="modalSubtitle" placeholder="ej: Fundador & Principal Manager" oninput="sincronizarCampoEnVivo()">
                         </div>
 
-                        <div class="esencia-card-2x2">
-                            <span class="esencia-badge-hero">ARQ</span>
-                            <span class="esencia-tag-pill">Entorno + Hábitat</span>
-                            <h4>Diseño Funcional & Resiliente</h4>
-                            <p>La arquitectura responde al entorno mediante planes ambientales rigurosos, adaptabilidad al cambio climático y pertenencia comunitaria.</p>
-                        </div>
-
-                        <div class="esencia-card-2x2">
-                            <span class="esencia-badge-hero">IN</span>
-                            <span class="esencia-tag-pill">Criterio + Estructura</span>
-                            <h4>Rigor Técnico & Estructural</h4>
-                            <p>La ingeniería civil representa solidez. Aplicamos análisis y cálculos computacionales de vanguardia para obras perdurables.</p>
-                        </div>
-
-                        <div class="esencia-card-2x2">
-                            <span class="esencia-badge-hero">Z</span>
-                            <span class="esencia-tag-pill">Control + Activo</span>
-                            <h4>Compromiso de A a Z</h4>
-                            <p>Nuestra promesa concluye con la entrega exacta. Acompañamos desde la formulación conceptual (A) hasta la liquidación del activo (Z).</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="dash-header-block">
-                        <h3><i data-lucide="users" style="color: var(--accent-copper);"></i> Equipo Integral</h3>
-                        <p>Profesionales al frente del desarrollo digital, consultoría e interventoría técnica.</p>
-                    </div>
-
-                    <div class="team-card-proportioned">
-                        <div class="team-portrait-header" id="teamActiveAvatar">
-                            <img src="james-zuniga.jpg" alt="Arq. James Ramiro Zúñiga Caipe">
-                        </div>
-                        
-                        <div class="team-card-content">
-                            <h4 id="teamActiveName">Arq. James Ramiro Zúñiga Caipe</h4>
-                            <div class="team-role" id="teamActiveRole">Director General & Coordinador BIM / CIM</div>
-                            <p id="teamActiveDesc">Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.</p>
-                            
-                            <div class="portfolio-tags" id="teamActiveTags" style="margin-bottom: 1.25rem;">
-                                <span class="tag">Arq. UDENAR</span>
-                                <span class="tag">buildingSMART</span>
-                                <span class="tag">BIM 5D</span>
-                            </div>
-
-                            <button class="btn-modal-trigger" id="teamActiveBtn" onclick="openModal('modal-perfil-james')" style="margin-bottom: 1.25rem;">
-                                <i data-lucide="user"></i> Ver Perfil Técnico
+                        <div class="form-group full-width">
+                            <label>Metadatos del Encabezado (Selector de Iconos + Texto)</label>
+                            <div id="metadataContainer"></div>
+                            <button type="button" class="btn" style="align-self: flex-start; margin-top: 0.4rem; font-size: 0.78rem;" onclick="agregarFilaMetadato()">
+                                <i data-lucide="plus"></i> Agregar Metadato
                             </button>
+                        </div>
 
-                            <div class="team-footer-controls">
-                                <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">
-                                    Miembro <span id="teamCurrentIndex">1</span> de 3
-                                </div>
+                        <div class="form-group full-width">
+                            <label for="modalExecDesc">Perfil Ejecutivo & Dirección Técnica (Párrafo largo)</label>
+                            <textarea id="modalExecDesc" style="min-height: 110px;" oninput="sincronizarCampoEnVivo()"></textarea>
+                        </div>
 
-                                <div style="display: flex; gap: 0.6rem;">
-                                    <button class="team-round-nav-btn" onclick="prevTeamMember()" aria-label="Anterior">
-                                        <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
-                                    </button>
-                                    <button class="team-round-nav-btn" onclick="nextTeamMember()" aria-label="Siguiente">
-                                        <i data-lucide="chevron-right" style="width: 18px; height: 18px;"></i>
-                                    </button>
-                                </div>
+                        <div class="form-group full-width">
+                            <label for="modalEducation">Formación Académica & Certificaciones (Una por línea)</label>
+                            <textarea id="modalEducation" style="min-height: 120px;" placeholder="Arquitecto: Universidad de Nariño.&#10;Certificación Internacional: buildingSMART..." oninput="sincronizarCampoEnVivo()"></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Proyectos Asociados (Selecciona los proyectos del portafolio en los que participa)</label>
+                            <div class="project-checkbox-list" id="projectsCheckboxContainer">
+                                <span style="color: var(--text-muted); font-size: 0.85rem;">Cargando proyectos desde proyectos.json...</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="adn-digital-box">
-                <div class="adn-column">
-                    <h3><i data-lucide="compass"></i> Misión</h3>
-                    <p>Proveer soluciones integrales en consultoría, diseño, interventoría y construcción mediante la digitalización avanzada, la innovación metodológica BIM/CIM y el suministro de tecnología especializada. Nos comprometemos con el desarrollo sostenible y la mitigación de riesgos.</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                    <button type="button" class="btn btn-danger" onclick="eliminarMiembroActual()"><i data-lucide="trash-2"></i> Eliminar Integrante</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarMiembroActual()"><i data-lucide="save"></i> Guardar Cambios Temporal</button>
                 </div>
-                <div class="adn-divider"></div>
-                <div class="adn-column">
-                    <h3><i data-lucide="cpu"></i> Visión 2031</h3>
-                    <p>Consolidarnos como la firma referente en transformación digital arquitectónica y ordenamiento territorial en Colombia. Pioneros en el desarrollo de <strong>Gemelos Digitales</strong> y modelos CIM aplicados en Smart Cities.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="modal-overlay" id="modal-perfil-james">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('modal-perfil-james')"><i data-lucide="x"></i></button>
-            <div class="modal-header">
-                <h3>Arq. James Ramiro Zúñiga Caipe</h3>
-                <div class="modal-subtitle">Fundador & Principal Manager</div>
-                <div class="modal-meta">
-                    <span><i data-lucide="award"></i> Matrícula Profesional CPNAA</span>
-                    <span><i data-lucide="shield-check"></i> buildingSMART Certified</span>
-                    <span><i data-lucide="map-pin"></i> Nariño, Colombia</span>
-                </div>
-            </div>
-            <div class="modal-description">
-                <h5>Perfil Ejecutivo & Dirección Técnica</h5>
-                <p>Arquitecto egresado de la <strong>Universidad de Nariño</strong>, al frente del ecosistema técnico de <strong>InnovArqZ</strong>. Amplia trayectoria en la coordinación de modelos multidisciplinares (ARQ/EST/MEP), federación digital, detección de interferencias y control financiero presupuestal (BIM 5D) bajo la norma internacional <strong>ISO 19650</strong> y estándares OpenBIM.</p>
-                <h5>Formación Académica & Certificaciones</h5>
-                <p>• <strong>Arquitecto:</strong> Universidad de Nariño.<br>
-                • <strong>Certificación Internacional:</strong> buildingSMART Professional Certification — Entry Level.<br>
-                • <strong>Máster BIM Manager Internacional (+IA y VR):</strong> Espacio BIM / ATC Autodesk (En Curso).<br>
-                • <strong>Diplomado BIM Civil (Infraestructuras):</strong> Universidad de Nariño.<br>
-                • <strong>Diplomado Ordenamiento Territorial (PBOT/EOT):</strong> ESAP.</p>
-            </div>
+            </form>
         </div>
     </div>
-
-    <div class="lightbox-overlay" id="lightbox-modal">
-        <button class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x"></i></button>
-        <button class="lightbox-arrow lightbox-prev" onclick="prevLightboxImage()"><i data-lucide="chevron-left"></i></button>
-        <button class="lightbox-arrow lightbox-next" onclick="nextLightboxImage()"><i data-lucide="chevron-right"></i></button>
-        <div class="lightbox-content">
-            <img id="lightbox-img" src="" alt="Entregable en alta resolución">
-            <div id="lightbox-caption" class="lightbox-caption"></div>
-        </div>
-    </div>
-
-    <section class="contact-section" id="contacto">
-        <div class="contact-vector-bg">
-            <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="contact-vector-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.45" />
-                        <stop offset="50%" stop-color="#d97706" stop-opacity="0.55" />
-                        <stop offset="100%" stop-color="#334155" stop-opacity="0.1" />
-                    </linearGradient>
-                </defs>
-                <g stroke="url(#contact-vector-grad)" stroke-width="1.8" fill="none">
-                    <path d="M50,150 Q200,80 350,200 T650,150 T950,250" stroke-dasharray="8,8" />
-                    <path d="M50,300 Q250,400 450,250 T750,350 T950,150" />
-                    <path d="M50,450 Q180,520 380,400 T680,450 T950,400" stroke-dasharray="6,6" />
-                </g>
-            </svg>
-            <div class="contact-overlay"></div>
-        </div>
-
-        <div class="contact-container">
-            <div class="section-title">
-                <h2>Hablemos de su Próximo Proyecto</h2>
-                <p>Tienes la visión, nosotros la convertimos en precisión técnica. Cuéntanos qué necesitas.</p>
-            </div>
-
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-collab-phrase">
-                        "Construimos juntos el valor de tus espacios de principio a fin"
-                    </div>
-                    <p>Ya sea para una consultoría BIM, una licitación pública, supervisión de obra o estructuración de proyectos, nuestro equipo está listo para acompañarte en cada paso del proceso.</p>
-
-                    <ul class="contact-details">
-                        <li><i data-lucide="mail"></i> <a href="mailto:infobim@innovarqzsas.com">infobim@innovarqzsas.com</a></li>
-                        <li><i data-lucide="phone"></i> <span>(+57) 315 850 5885</span></li>
-                        <li><i data-lucide="map-pin"></i> <span>Ricaurte, Nariño, Colombia</span></li>
-                    </ul>
-
-                    <div class="contact-buttons-group">
-                        <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20los%20servicios%20de%20InnovArqZ" target="_blank" class="btn-whatsapp">
-                            <i data-lucide="message-square"></i> Iniciar Chat en WhatsApp
-                        </a>
-
-                        <button type="button" class="btn-secondary" onclick="ejecutarCompartir()">
-                            <i data-lucide="share-2"></i> Compartir
-                        </button>
-                    </div>
-                </div>
-
-                <div class="contact-form-card">
-                    <img src="contacto-innovarqz.jpg" alt="Fondo técnico de contacto InnovArqZ" class="form-bg-img">
-                    <div class="form-overlay-dark"></div>
-                    
-                    <div class="contact-form-inner">
-                        <form action="https://formspree.io/f/mrpzdago" method="POST">
-                            <div class="form-group">
-                                <label for="nombre">Nombre Completo / Entidad</label>
-                                <input type="text" id="nombre" name="nombre" placeholder="Ej. Ing. Carlos Rodríguez" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="correo">Correo Electrónico de Contacto</label>
-                                <input type="email" id="correo" name="correo" placeholder="ejemplo@dominio.com" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="telefono">Teléfono / WhatsApp</label>
-                                <input type="tel" id="telefono" name="telefono" placeholder="(+57) 300 000 0000">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="pilar">Pilar de Servicio de Interés</label>
-                                <select id="pilar" name="pilar" required>
-                                    <option value="" disabled selected>Seleccione una opción...</option>
-                                    <option value="BIM-CIM">Ingeniería, Arquitectura & BIM / CIM</option>
-                                    <option value="Ejecucion-Interventoria">Ejecución de Obras & Interventoría</option>
-                                    <option value="Activos-FM">Gerencia de Activos & Facility Management (BIM 7D)</option>
-                                    <option value="Suministros">Suministros Técnicos & Equipamiento</option>
-                                    <option value="Otro">Consulta General / Licitaciones</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="mensaje">Detalles del Proyecto o Mensaje</label>
-                                <textarea id="mensaje" name="mensaje" placeholder="Describa brevemente el alcance del proyecto, ubicación o requerimientos..." required></textarea>
-                            </div>
-
-                            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
-                                <i data-lucide="send"></i> Enviar Mensaje
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p><strong>InnovArqZ Soluciones Integrales S.A.S.</strong></p>
-        <p>Ricaurte, Nariño - Colombia | <a href="mailto:infobim@innovarqzsas.com">infobim@innovarqzsas.com</a></p>
-        <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">&copy; 2026 InnovArqZ. Todos los derechos reservados.</p>
-    </footer>
 
 <script>
-    let proyectosGlobales = [];
-    let currentGallery = [];
-    let currentImageIndex = 0;
-    let activeCategory = 'all';
-    let activeYear = 'all';
-    let isIsoStateActive = true;
-    let activeModalId = null;
-    let selectedSearchIndex = -1;
+    let personalData = [];
+    let proyectosDisponibles = [];
+    let currentSelectedIndex = 0;
+    let fileSha = "";
 
-    let autoPlayServices = null;
-    let autoPlayPortfolio = null;
-
-    const carouselIndices = { 'servicesTrack': 0, 'portfolioTrack': 0 };
-
-    const teamMembers = [
-        {
-            name: "Arq. James Ramiro Zúñiga Caipe",
-            role: "Director General & Coordinador BIM / CIM",
-            desc: "Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.",
-            avatar: "james-zuniga.jpg",
-            hasImg: true,
-            tags: ["Arq. UDENAR", "buildingSMART", "BIM 5D"],
-            modalTarget: "modal-perfil-james"
-        },
-        {
-            name: "Coordinación de Obra & Interventoría",
-            role: "Supervisión Técnica & BIM 5D",
-            desc: "Dirección de residencia operativa, control financiero de contratos públicos/privados y auditoría estricta de APUs en sitio.",
-            icon: "hard-hat",
-            hasImg: false,
-            tags: ["Residencia", "APU", "Control Q"],
-            portfolioPos: 0
-        },
-        {
-            name: "Consultoría Geoespacial & Territorio",
-            role: "Modelado CIM & EOT",
-            desc: "Procesamiento avanzado de topografía de campo, fotogrametría y superficies en Civil 3D como soporte técnico para ordenamiento territorial.",
-            icon: "map",
-            hasImg: false,
-            tags: ["Civil 3D", "GIS", "CIM"],
-            portfolioPos: 0
-        }
+    const listaIconosDisponibles = [
+        { valor: "award", etiqueta: "🏆 Medalla / Matrícula Profesional (award)" },
+        { valor: "shield-check", etiqueta: "🛡️ Escudo / Certificación (shield-check)" },
+        { valor: "map-pin", etiqueta: "📍 Ubicación / Ciudad (map-pin)" },
+        { valor: "graduation-cap", etiqueta: "🎓 Grado / Universidad (graduation-cap)" },
+        { valor: "briefcase", etiqueta: "💼 Experiencia / Trabajo (briefcase)" },
+        { valor: "cpu", etiqueta: "💻 Tecnología / Software (cpu)" },
+        { valor: "book-open", etiqueta: "📖 Estudios / Cursos (book-open)" },
+        { valor: "check-circle", etiqueta: "✅ Verificado / Aprobado (check-circle)" },
+        { valor: "user", etiqueta: "👤 Persona / Perfil (user)" }
     ];
 
-    let currentTeamIdx = 0;
-
-    const dimData = [
-        {
-            badge: "DIMENSIÓN 1D / 2D",
-            title: "Estructuración, Ideas & Planimetría Base",
-            desc: "Definición inicial del proyecto, condicionantes normativos, factibilidad técnica y generación de documentación bidimensional estandarizada para trámites y licencias.",
-            benefits: [
-                "Línea base documental bajo estándares de intercambio CDE.",
-                "Estudios de cabida y viabilidad legal/urbanística.",
-                "Definición de Términos de Referencia y Plan de Ejecución BIM (BEP)."
-            ]
-        },
-        {
-            badge: "DIMENSIÓN 3D",
-            title: "Modelado Geométrico & Detección de Colisiones",
-            desc: "Construcción del Gemelo Digital tridimensional federado (ARQ, EST, MEP). Identificación y solución de interferencias antes de la fase de obra.",
-            benefits: [
-                "Coordinación técnica interdisciplinaria sin imprevistos.",
-                "Visualización hiperrealista para toma de decisiones.",
-                "Cuantificación de insumos automatizada a partir del modelo."
-            ]
-        },
-        {
-            badge: "DIMENSIÓN 4D",
-            title: "Planificación Temporal & Simulación Constructiva",
-            desc: "Vinculación del modelo 3D con la programación de obra (Gantt). Permite simular virtualmente la secuencia de construcción y optimizar la ruta crítica.",
-            benefits: [
-                "Control estricto de tiempos y fases de ejecución.",
-                "Simulación visual de procesos de montaje y logística.",
-                "Prevención de cuellos de botella e interferencias en sitio."
-            ]
-        },
-        {
-            badge: "DIMENSIÓN 5D",
-            title: "Estimación de Costos & Análisis Financiero (APU)",
-            desc: "Integración del modelo paramétrico con presupuestos, análisis de precios unitarios y flujo de caja en tiempo real.",
-            benefits: [
-                "Cómputos métricos exactos sin margen de omisión manual.",
-                "Monitoreo continuo de variaciones presupuestales.",
-                "Transparencia en el control financiero e interventoría."
-            ]
-        },
-        {
-            badge: "DIMENSIÓN 6D",
-            title: "Sostenibilidad & Eficiencia Energética",
-            desc: "Evaluación del impacto ambiental, análisis del ciclo térmico, huella de carbono y optimización del rendimiento energético del activo.",
-            benefits: [
-                "Diseño orientado a certificaciones sostenibles.",
-                "Simulación de consumo de energía e iluminación natural.",
-                "Selección de materiales de bajo impacto ambiental."
-            ]
-        },
-        {
-            badge: "DIMENSIÓN 7D",
-            title: "Gemelo Digital & Facility Management",
-            desc: "Operación y mantenimiento del activo durante su ciclo de vida. Entrega de modelos As-Built vinculados a sistemas de administración inmobiliaria.",
-            benefits: [
-                "Gestión eficiente de mantenimiento preventivo/correctivo.",
-                "Centralización de fichas técnicas y manuales de operación.",
-                "Maximización del valor del inmueble a largo plazo."
-            ]
-        }
-    ];
-
-    const nombresCategorias = {
-        'bim': 'Diseño & BIM',
-        'obra': 'Infraestructura & Obra',
-        'interventoria': 'Interventoría',
-        'cim': 'Modelado Urbano (CIM)'
-    };
-
-    const seccionesEstructura = [
-        { id: 'inicio', title: 'Inicio / Presentación Principal', icon: 'home', snippet: 'Innovación Tecnológica y Control Técnico en Arquitectura e Ingeniería' },
-        { id: 'servicios', title: 'Nuestros Pilares de Servicio', icon: 'layers', snippet: 'OpenBIM ISO 19650, Interventoría de Obra, FM y Suministros' },
-        { id: 'bim-cim', title: 'Metodología BIM / CIM', icon: 'cpu', snippet: 'Dimensiones del modelo virtual (1D a 7D) y simulación' },
-        { id: 'portafolio', title: 'Portafolio de Proyectos', icon: 'box', snippet: 'Casos de estudio, licitaciones y consultorías técnicas' },
-        { id: 'nosotros', title: 'Esencia Digital & ADN InnovArqZ', icon: 'dna', snippet: 'Misión, Visión 2031 y Equipo Directivo' },
-        { id: 'contacto', title: 'Contacto & Formulario Directo', icon: 'mail', snippet: 'Solicita cotización de servicios o asesoría técnica' }
-    ];
-
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
         if (window.lucide) lucide.createIcons();
-
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('nav a, .mobile-nav-drawer a');
-
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const currentId = entry.target.getAttribute('id');
-                    navLinks.forEach(link => {
-                        link.classList.remove('nav-active');
-                        if (link.getAttribute('href') === `#${currentId}`) {
-                            link.classList.add('nav-active');
-                        }
-                    });
-                }
-            });
-        }, { rootMargin: '-25% 0px -55% 0px' });
-
-        sections.forEach(section => sectionObserver.observe(section));
-
-        const bimSection = document.getElementById('bim-cim');
-        if (bimSection) {
-            const bimObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && isIsoStateActive) {
-                        selectDimension('iso');
-                    } else if (!entry.isIntersecting) {
-                        resetBarsToZero();
-                    }
-                });
-            }, { threshold: 0.35 });
-            bimObserver.observe(bimSection);
-        }
-
-        // CONTROL DE VISIBILIDAD DE SECCIONES CON CARRUSEL PARA REANUDAR AUTOPLAY AL SALIR
-        const carouselSectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    iniciarAutoplayCarruseles();
-                }
-            });
-        }, { threshold: 0.1 });
-
-        const secServicios = document.getElementById('servicios');
-        const secPortafolio = document.getElementById('portafolio');
-        if (secServicios) carouselSectionObserver.observe(secServicios);
-        if (secPortafolio) carouselSectionObserver.observe(secPortafolio);
-
-        // REANUDAR AUTOPLAY AL HACER CLIC FUERA DE LOS CARRUSELES O FICHAS
-        document.addEventListener('click', (e) => {
-            const insideServices = e.target.closest('#servicesWrapper');
-            const insidePortfolio = e.target.closest('#portfolioWrapper');
-            const insideTimeline = e.target.closest('.timeline-container');
-            const insideTabs = e.target.closest('.portfolio-tabs');
-
-            if (!insideServices && !insidePortfolio && !insideTimeline && !insideTabs) {
-                iniciarAutoplayCarruseles();
-            }
-        });
-
-        goToSlide('servicesTrack', 'service-slide', 0);
-        cargarPortafolioDinamico();
-        selectDimension('iso');
-
-        setupSwipe('servicesWrapper', 'servicesTrack', 'service-slide');
-        setupSwipe('portfolioWrapper', 'portfolioTrack', 'portfolio-slide');
-
-        iniciarAutoplayCarruseles();
-
-        // DESPLIEGUE DEL MODAL DE LANZAMIENTO
-        setTimeout(() => {
-            openModal('modal-launch');
-        }, 1500);
+        cargarCredencialesGuardadas();
+        await cargarDatosAutomaticos();
     });
 
-    function iniciarAutoplayCarruseles() {
-        if (!autoPlayServices) {
-            autoPlayServices = setInterval(() => {
-                nextSlide('servicesTrack', 'service-slide');
-            }, 3000);
-        }
-
-        if (!autoPlayPortfolio) {
-            autoPlayPortfolio = setInterval(() => {
-                nextSlide('portfolioTrack', 'portfolio-slide');
-            }, 3000);
-        }
+    function cargarCredencialesGuardadas() {
+        const repo = localStorage.getItem('gh_repo') || '';
+        const token = localStorage.getItem('gh_token') || '';
+        document.getElementById('ghRepo').value = repo;
+        document.getElementById('ghToken').value = token;
     }
 
-    function detenerAutoplayCarruseles() {
-        if (autoPlayServices) {
-            clearInterval(autoPlayServices);
-            autoPlayServices = null;
-        }
-        if (autoPlayPortfolio) {
-            clearInterval(autoPlayPortfolio);
-            autoPlayPortfolio = null;
-        }
+    function guardarConfigGitHub() {
+        const repo = document.getElementById('ghRepo').value.trim();
+        const token = document.getElementById('ghToken').value.trim();
+        localStorage.setItem('gh_repo', repo);
+        localStorage.setItem('gh_token', token);
+        alert('¡Credenciales de GitHub guardadas localmente en tu navegador!');
     }
 
-    function irAFormularioContacto() {
-        closeModal('modal-launch');
-        setTimeout(() => {
-            const contactEl = document.getElementById('contacto');
-            if (contactEl) {
-                contactEl.scrollIntoView({ behavior: 'smooth' });
-                const inputNombre = document.getElementById('nombre');
-                if (inputNombre) inputNombre.focus();
-            }
-        }, 180);
-    }
-
-    window.addEventListener('popstate', () => {
-        closeAllModalsWithoutHistory();
-    });
-
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeAllModals();
-        } else {
-            const searchModal = document.getElementById('modal-search-results');
-            if (searchModal && searchModal.classList.contains('active')) {
-                const cards = document.querySelectorAll('.search-result-card');
-                if (cards.length === 0) return;
-
-                if (e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    selectedSearchIndex = (selectedSearchIndex + 1) % cards.length;
-                    actualizarSeleccionTarjeta(cards);
-                } else if (e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    selectedSearchIndex = (selectedSearchIndex - 1 + cards.length) % cards.length;
-                    actualizarSeleccionTarjeta(cards);
-                } else if (e.key === 'Enter' && selectedSearchIndex >= 0 && selectedSearchIndex < cards.length) {
-                    e.preventDefault();
-                    cards[selectedSearchIndex].click();
-                }
-            }
+    async function cargarDatosAutomaticos() {
+        try {
+            const resProj = await fetch('proyectos.json?v=' + Date.now());
+            if (resProj.ok) proyectosDisponibles = await resProj.json();
+        } catch (err) {
+            console.warn('No se pudo cargar proyectos.json:', err);
         }
-    });
 
-    function actualizarSeleccionTarjeta(cards) {
-        cards.forEach((c, idx) => {
-            if (idx === selectedSearchIndex) {
-                c.classList.add('selected-item');
-                c.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        try {
+            const resPers = await fetch('personal.json?v=' + Date.now());
+            if (resPers.ok) {
+                personalData = await resPers.json();
             } else {
-                c.classList.remove('selected-item');
+                throw new Error('Archivo no encontrado');
             }
+        } catch (err) {
+            // Respaldo inicial si personal.json no existe en el repo todavía
+            personalData = [{
+                "id": "james-zuniga",
+                "nombre": "Arq. James Ramiro Zúñiga Caipe",
+                "cargoFicha": "Director General & Coordinador BIM / CIM",
+                "descripcionCorta": "Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.",
+                "imagen": "james-zuniga.jpg",
+                "tieneImagen": true,
+                "etiquetas": ["Arq. UDENAR", "buildingSMART", "BIM 5D"],
+                "textoBoton": "Conoce a Nuestro Aliado",
+                "proyectosAsociados": [],
+                "modalDetalle": {
+                    "subtitulo": "Fundador & Principal Manager",
+                    "metadatos": [
+                        { "icono": "award", "texto": "Matrícula Profesional CPNAA" },
+                        { "icono": "shield-check", "texto": "buildingSMART Certified" },
+                        { "icono": "map-pin", "texto": "Nariño, Colombia" }
+                    ],
+                    "seccionPerfil": {
+                        "titulo": "Perfil Ejecutivo & Dirección Técnica",
+                        "descripcion": "Arquitecto egresado de la Universidad de Nariño, al frente del ecosistema técnico de InnovArqZ."
+                    },
+                    "seccionFormacion": {
+                        "titulo": "Formación Académica & Certificaciones",
+                        "items": [
+                            "Arquitecto: Universidad de Nariño.",
+                            "Certificación Internacional: buildingSMART Professional Certification."
+                        ]
+                    }
+                }
+            }];
+        }
+
+        if (!Array.isArray(personalData) || personalData.length === 0) {
+            personalData = [];
+        }
+
+        currentSelectedIndex = 0;
+        renderizarListaMiembros();
+        if (personalData.length > 0) {
+            cargarMiembroEnFormulario(0);
+        }
+    }
+
+    function renderizarListaMiembros() {
+        const container = document.getElementById('membersContainer');
+        container.innerHTML = '';
+
+        personalData.forEach((m, idx) => {
+            const item = document.createElement('div');
+            item.className = `member-item ${idx === currentSelectedIndex ? 'active' : ''}`;
+            item.onclick = () => { 
+                guardarMiembroSilencioso(); 
+                currentSelectedIndex = idx; 
+                renderizarListaMiembros(); 
+                cargarMiembroEnFormulario(idx); 
+            };
+            item.innerHTML = `
+                <div class="member-info">
+                    <h4>${m.nombre || 'Sin nombre'}</h4>
+                    <p>${m.cargoFicha || 'Sin cargo'}</p>
+                </div>
+                <i data-lucide="chevron-right" style="width: 16px; height: 16px; color: var(--text-muted);"></i>
+            `;
+            container.appendChild(item);
         });
+
+        if (window.lucide) lucide.createIcons();
     }
 
-    function closeAllModals() {
-        if (activeModalId) closeModal(activeModalId);
-        closeLightbox();
-    }
+    function cargarMiembroEnFormulario(idx) {
+        const m = personalData[idx];
+        if (!m) return;
 
-    function closeAllModalsWithoutHistory() {
-        const modals = document.querySelectorAll('.modal-overlay.active');
-        modals.forEach(m => m.classList.remove('active'));
-        const lb = document.getElementById('lightbox-modal');
-        if (lb) lb.classList.remove('active');
-        document.body.style.overflow = 'auto';
-        activeModalId = null;
-    }
+        document.getElementById('memberId').value = m.id || '';
+        document.getElementById('memberName').value = m.nombre || '';
+        document.getElementById('memberRole').value = m.cargoFicha || '';
+        document.getElementById('memberImg').value = m.imagen || '';
+        document.getElementById('memberShortDesc').value = m.descripcionCorta || '';
+        document.getElementById('memberTags').value = (m.etiquetas || []).join(', ');
+        document.getElementById('memberBtnText').value = m.textoBoton || 'Conoce a Nuestro Aliado';
 
-    function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            activeModalId = modalId;
-            history.pushState({ modalOpen: true, modalId: modalId }, "");
+        const imgPreview = document.getElementById('photoPreview');
+        const placeholder = document.getElementById('photoPlaceholder');
+        if (m.imagen) {
+            imgPreview.src = m.imagen;
+            imgPreview.style.display = 'block';
+            placeholder.style.display = 'none';
+        } else {
+            imgPreview.src = '';
+            imgPreview.style.display = 'none';
+            placeholder.style.display = 'block';
         }
-    }
 
-    function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            if (activeModalId === modalId) activeModalId = null;
-            if (modalId === 'modal-search-results') {
-                const inputSearch = document.getElementById('projectSearch');
-                if (inputSearch) inputSearch.value = '';
-            }
-            if (history.state && history.state.modalOpen) {
-                history.back();
-            }
+        if (m.modalDetalle) {
+            document.getElementById('modalSubtitle').value = m.modalDetalle.subtitulo || '';
+            document.getElementById('modalExecDesc').value = m.modalDetalle.seccionPerfil ? m.modalDetalle.seccionPerfil.descripcion : '';
+            document.getElementById('modalEducation').value = m.modalDetalle.seccionFormacion ? (m.modalDetalle.seccionFormacion.items || []).join('\n') : '';
+            renderMetadatos(m.modalDetalle.metadatos || []);
+        } else {
+            document.getElementById('modalSubtitle').value = '';
+            document.getElementById('modalExecDesc').value = '';
+            document.getElementById('modalEducation').value = '';
+            renderMetadatos([]);
         }
+
+        renderProyectosCheckbox(m.proyectosAsociados || []);
     }
 
-    function abrirModalResultadosBusqueda() {
-        const inputSearch = document.getElementById('projectSearch');
-        const query = inputSearch.value.toLowerCase().trim();
-        const container = document.getElementById('searchResultsContainer');
-        const subtitle = document.getElementById('searchModalSubtitle');
-
-        if (!container) return;
-
-        if (query === '') {
-            container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:2rem;">Por favor escribe una palabra clave para buscar.</p>`;
-            openModal('modal-search-results');
+    function renderProyectosCheckbox(asociadosIds) {
+        const container = document.getElementById('projectsCheckboxContainer');
+        if (!proyectosDisponibles.length) {
+            container.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem;">No se encontraron proyectos en proyectos.json</span>`;
             return;
         }
 
-        let htmlResults = '';
-        let count = 0;
-        selectedSearchIndex = -1;
-
-        const seccionesPermitidas = seccionesEstructura.filter(sec => sec.id !== 'inicio' && sec.id !== 'contacto');
-        seccionesPermitidas.forEach(sec => {
-            if (sec.title.toLowerCase().includes(query) || sec.snippet.toLowerCase().includes(query)) {
-                count++;
-                htmlResults += `
-                    <div class="search-result-card" data-index="${count-1}" onclick="ejecutarAccionResultado('seccion', '${sec.id}')">
-                        <div class="result-badge-icon"><i data-lucide="${sec.icon}"></i></div>
-                        <div class="result-text-body">
-                            <span class="result-item-title">${sec.title}</span>
-                            <span class="result-item-cat">Sección del Sitio</span>
-                            <span class="result-item-desc">${sec.snippet}</span>
-                        </div>
-                    </div>
-                `;
-            }
+        let html = '';
+        proyectosDisponibles.forEach(p => {
+            const isChecked = asociadosIds.includes(p.id) ? 'checked' : '';
+            html += `
+                <label class="project-checkbox-item">
+                    <input type="checkbox" value="${p.id}" ${isChecked} class="proj-check-input" onchange="guardarMiembroSilencioso()">
+                    <span>${p.title} (${p.year || '2026'})</span>
+                </label>
+            `;
         });
+        container.innerHTML = html;
+    }
 
-        const perfilesProfesionales = [
-            {
-                idModal: 'modal-perfil-james',
-                nombre: 'Arq. James Ramiro Zúñiga Caipe',
-                cargo: 'Director General & Coordinador BIM / CIM',
-                textoCompleto: 'arquitecto universidad de nariño udenar cpnaa buildingsmart espacio bim autodesk máster bim manager iso 19650 openbim civil esap pbot eot diplomado ordenamiento territorial'
-            }
-        ];
+    function procesarFotoLocal(event) {
+        const file = event.target.files[0];
+        if (!file) return;
 
-        perfilesProfesionales.forEach(perf => {
-            const poolPerfil = `${perf.nombre} ${perf.cargo} ${perf.textoCompleto}`.toLowerCase();
-            if (poolPerfil.includes(query)) {
-                count++;
-                htmlResults += `
-                    <div class="search-result-card" data-index="${count-1}" onclick="ejecutarAccionResultado('perfil', '${perf.idModal}')">
-                        <div class="result-badge-icon"><i data-lucide="user"></i></div>
-                        <div class="result-text-body">
-                            <span class="result-item-title">${perf.nombre}</span>
-                            <span class="result-item-cat">Perfil Profesional / Formación Técnica</span>
-                            <span class="result-item-desc">${perf.cargo} - Experiencia, Certificaciones y Estudios</span>
-                        </div>
-                    </div>
-                `;
-            }
-        });
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const dataUrl = e.target.result;
+            document.getElementById('memberImg').value = file.name;
+            
+            const imgPreview = document.getElementById('photoPreview');
+            const placeholder = document.getElementById('photoPlaceholder');
+            imgPreview.src = dataUrl;
+            imgPreview.style.display = 'block';
+            placeholder.style.display = 'none';
+            guardarMiembroSilencioso();
+        };
+        reader.readAsDataURL(file);
+    }
 
-        teamMembers.forEach(mem => {
-            const poolTeam = `${mem.name} ${mem.role} ${mem.desc} ${mem.tags ? mem.tags.join(' ') : ''}`.toLowerCase();
-            if (poolTeam.includes(query) && (!mem.modalTarget || mem.modalTarget !== 'modal-perfil-james')) {
-                count++;
-                htmlResults += `
-                    <div class="search-result-card" data-index="${count-1}" onclick="ejecutarAccionResultado('perfil', '${mem.modalTarget || 0}')">
-                        <div class="result-badge-icon"><i data-lucide="users"></i></div>
-                        <div class="result-text-body">
-                            <span class="result-item-title">${mem.name}</span>
-                            <span class="result-item-cat">Equipo & Consultoría</span>
-                            <span class="result-item-desc">${mem.role} - ${mem.desc}</span>
-                        </div>
-                    </div>
-                `;
-            }
-        });
+    function renderMetadatos(metas) {
+        const container = document.getElementById('metadataContainer');
+        container.innerHTML = '';
 
-        proyectosGlobales.forEach(proj => {
-            const searchPool = `${proj.title} ${proj.subtitle || ''} ${proj.scope || ''} ${proj.tools || ''} ${proj.standard || ''} ${proj.software || ''} ${proj.category || ''} ${proj.year || ''}`.toLowerCase();
-            if (searchPool.includes(query)) {
-                count++;
-                htmlResults += `
-                    <div class="search-result-card" data-index="${count-1}" onclick="ejecutarAccionResultado('proyecto', '${proj.id}')">
-                        <div class="result-badge-icon"><i data-lucide="box"></i></div>
-                        <div class="result-text-body">
-                            <span class="result-item-title">${proj.title}</span>
-                            <span class="result-item-cat">Caso de Estudio / Proyecto (${proj.year || '2026'})</span>
-                            <span class="result-item-desc">${proj.subtitle || proj.scope || ''}</span>
-                        </div>
-                    </div>
-                `;
-            }
-        });
+        metas.forEach((m, i) => {
+            const row = document.createElement('div');
+            row.className = 'metadata-row';
 
-        if (count > 0) {
-            subtitle.innerText = `Se encontraron ${count} coincidencia(s) para "${query}". Elige una opción:`;
-            container.innerHTML = htmlResults;
-
-            const cardsRendered = container.querySelectorAll('.search-result-card');
-            cardsRendered.forEach((card, idx) => {
-                card.addEventListener('mouseenter', () => {
-                    selectedSearchIndex = idx;
-                    actualizarSeleccionTarjeta(cardsRendered);
-                });
+            let optionsHtml = '';
+            listaIconosDisponibles.forEach(ic => {
+                const selected = ic.valor === m.icono ? 'selected' : '';
+                optionsHtml += `<option value="${ic.valor}" ${selected}>${ic.etiqueta}</option>`;
             });
 
-        } else {
-            subtitle.innerText = `Sin resultados para "${query}".`;
-            container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:2rem;">No encontramos coincidencias para "${query}". Intenta con otros términos técnicos.</p>`;
-        }
+            row.innerHTML = `
+                <select class="meta-icon-select" onchange="guardarMiembroSilencioso()" style="background-color: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.5rem; border-radius: 6px; font-size: 0.85rem;">
+                    ${optionsHtml}
+                </select>
+                <input type="text" placeholder="Texto descriptivo" value="${m.texto || ''}" class="meta-text-input" oninput="guardarMiembroSilencioso()">
+                <button type="button" class="btn btn-danger" style="padding: 0.4rem;" onclick="eliminarMetadato(${i})"><i data-lucide="x" style="width: 14px; height: 14px;"></i></button>
+            `;
+            container.appendChild(row);
+        });
 
         if (window.lucide) lucide.createIcons();
-        openModal('modal-search-results');
     }
 
-    function ejecutarAccionResultado(tipo, destinoId) {
-        closeModal('modal-search-results');
+    function agregarFilaMetadato() {
+        const m = personalData[currentSelectedIndex];
+        if (!m) return;
+        if (!m.modalDetalle) m.modalDetalle = { metadatos: [] };
+        if (!m.modalDetalle.metadatos) m.modalDetalle.metadatos = [];
 
-        setTimeout(() => {
-            if (tipo === 'seccion') {
-                const el = document.getElementById(destinoId);
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-            } else if (tipo === 'proyecto') {
-                openPortfolioModal(destinoId);
-            } else if (tipo === 'perfil') {
-                if (destinoId && destinoId !== '0') openModal(destinoId);
-                else {
-                    const el = document.getElementById('nosotros');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        }, 150);
+        m.modalDetalle.metadatos.push({ icono: "award", texto: "" });
+        renderMetadatos(m.modalDetalle.metadatos);
     }
 
-    function toggleTheme() {
-        document.body.classList.toggle('light-mode');
-        const themeIcon = document.getElementById('themeIcon');
-        const isLight = document.body.classList.contains('light-mode');
-
-        if (themeIcon) {
-            themeIcon.setAttribute('data-lucide', isLight ? 'moon' : 'sun');
-            if (window.lucide) lucide.createIcons();
+    function eliminarMetadato(index) {
+        const m = personalData[currentSelectedIndex];
+        if (m && m.modalDetalle && m.modalDetalle.metadatos) {
+            m.modalDetalle.metadatos.splice(index, 1);
+            renderMetadatos(m.modalDetalle.metadatos);
+            guardarMiembroSilencioso();
         }
     }
 
-    function toggleMobileMenu() {
-        const drawer = document.getElementById('mobileNavDrawer');
-        if (drawer) drawer.classList.toggle('active');
+    function sincronizarCampoEnVivo() {
+        guardarMiembroSilencioso();
     }
 
-    function closeMobileMenu() {
-        const drawer = document.getElementById('mobileNavDrawer');
-        if (drawer) drawer.classList.remove('active');
-    }
+    function guardarMiembroSilencioso() {
+        const m = personalData[currentSelectedIndex];
+        if (!m) return;
 
-    function ejecutarCompartir() {
-        const shareData = {
-            title: 'InnovArqZ Soluciones Integrales S.A.S.',
-            text: 'Innovación Tecnológica y Control Técnico en Ingeniería, Arquitectura & BIM / CIM.',
-            url: window.location.href
+        m.id = document.getElementById('memberId').value.trim();
+        m.nombre = document.getElementById('memberName').value.trim();
+        m.cargoFicha = document.getElementById('memberRole').value.trim();
+        m.imagen = document.getElementById('memberImg').value.trim();
+        m.tieneImagen = m.imagen !== '';
+        m.descripcionCorta = document.getElementById('memberShortDesc').value.trim();
+        m.etiquetas = document.getElementById('memberTags').value.split(',').map(t => t.trim()).filter(Boolean);
+        m.textoBoton = document.getElementById('memberBtnText').value.trim();
+
+        const metaRows = document.querySelectorAll('.metadata-row');
+        const metas = [];
+        metaRows.forEach(r => {
+            const icon = r.querySelector('.meta-icon-select').value;
+            const text = r.querySelector('.meta-text-input').value.trim();
+            if (text) metas.push({ icono: icon, texto: text });
+        });
+
+        const checks = document.querySelectorAll('.proj-check-input:checked');
+        const proyectosSeleccionados = Array.from(checks).map(c => c.value);
+        m.proyectosAsociados = proyectosSeleccionados;
+
+        if (!m.modalDetalle) m.modalDetalle = {};
+        m.modalDetalle.subtitulo = document.getElementById('modalSubtitle').value.trim();
+        m.modalDetalle.metadatos = metas;
+        m.modalDetalle.seccionPerfil = {
+            titulo: "Perfil Ejecutivo & Dirección Técnica",
+            descripcion: document.getElementById('modalExecDesc').value.trim()
+        };
+        m.modalDetalle.seccionFormacion = {
+            titulo: "Formación Académica & Certificaciones",
+            items: document.getElementById('modalEducation').value.split('\n').map(i => i.trim()).filter(Boolean)
         };
 
-        const isMobile = window.innerWidth <= 900 || /Android|iPhone|iPad/i.test(navigator.userAgent);
-
-        if (isMobile && navigator.share) {
-            navigator.share(shareData).catch((err) => console.log('Compartir cancelado:', err));
-        } else {
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                openModal('modal-share');
-            }).catch(() => {
-                openModal('modal-share');
-            });
-        }
+        // Actualizar título en tiempo real en la barra lateral izquierda
+        const titleEl = document.querySelectorAll('.member-item')[currentSelectedIndex]?.querySelector('h4');
+        const roleEl = document.querySelectorAll('.member-item')[currentSelectedIndex]?.querySelector('p');
+        if (titleEl) titleEl.textContent = m.nombre || 'Sin nombre';
+        if (roleEl) roleEl.textContent = m.cargoFicha || 'Sin cargo';
     }
 
-    function setupSwipe(wrapperId, trackId, slideClass) {
-        const wrapper = document.getElementById(wrapperId);
-        if (!wrapper) return;
+    function guardarMiembroActual() {
+        guardarMiembroSilencioso();
+        renderizarListaMiembros();
+        alert('¡Cambios guardados temporalmente en memoria listos para publicar!');
+    }
 
-        let startX = 0;
-        let endX = 0;
-
-        wrapper.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-        }, { passive: true });
-
-        wrapper.addEventListener('touchend', (e) => {
-            endX = e.changedTouches[0].clientX;
-            const diff = startX - endX;
-
-            if (Math.abs(diff) > 40) {
-                detenerAutoplayCarruseles();
-                if (diff > 0) nextSlide(trackId, slideClass);
-                else prevSlide(trackId, slideClass);
+    function crearNuevoMiembro() {
+        guardarMiembroSilencioso();
+        const newObj = {
+            id: "nuevo-miembro-" + Date.now(),
+            nombre: "Nuevo Profesional",
+            cargoFicha: "Especialista / Consultor",
+            descripcionCorta: "Descripción breve del integrante...",
+            imagen: "",
+            tieneImagen: false,
+            etiquetas: ["Especialidad"],
+            textoBoton: "Conoce a Nuestro Aliado",
+            proyectosAsociados: [],
+            modalDetalle: {
+                subtitulo: "Cargo / Rol",
+                metadatos: [{ icono: "award", texto: "Matrícula Profesional" }],
+                seccionPerfil: { titulo: "Perfil Ejecutivo & Dirección Técnica", descripcion: "Trayectoria profesional detallada..." },
+                seccionFormacion: { titulo: "Formación Académica & Certificaciones", items: ["Título Profesional"] }
             }
-        }, { passive: true });
+        };
+
+        personalData.push(newObj);
+        currentSelectedIndex = personalData.length - 1;
+        renderizarListaMiembros();
+        cargarMiembroEnFormulario(currentSelectedIndex);
     }
 
-    function normalizeClass(slideClass) {
-        if (slideClass === 'serviceSlide') return 'service-slide';
-        if (slideClass === 'portfolioSlide') return 'portfolio-slide';
-        return slideClass;
-    }
-
-    function goToSlide(trackId, rawSlideClass, slideIndex) {
-        const track = document.getElementById(trackId);
-        if (!track) return;
-
-        const slideClass = normalizeClass(rawSlideClass);
-        const slides = Array.from(track.getElementsByClassName(slideClass));
-        const visibleSlides = slides.filter(s => window.getComputedStyle(s).display !== 'none');
-        
-        if (visibleSlides.length === 0) return;
-
-        let activeIdx = carouselIndices[trackId] || 0;
-
-        if (slideIndex >= visibleSlides.length) {
-            activeIdx = 0;
-        } else if (slideIndex < 0) {
-            activeIdx = visibleSlides.length - 1;
-        } else {
-            activeIdx = slideIndex;
+    function eliminarMiembroActual() {
+        if (personalData.length <= 1) {
+            alert('Debe existir al menos un miembro en la base de datos.');
+            return;
         }
 
-        carouselIndices[trackId] = activeIdx;
-        const isMobile = window.innerWidth <= 900;
-
-        if (isMobile) {
-            track.style.transform = `translateX(-${activeIdx * 100}%)`;
-        } else {
-            const offsetPercent = activeIdx * 52;
-            const offsetPx = activeIdx * 28;
-            track.style.transform = `translateX(calc(-${offsetPercent}% - ${offsetPx}px))`;
-        }
-
-        slides.forEach(s => s.classList.remove('active-slide'));
-        if (visibleSlides[activeIdx]) {
-            visibleSlides[activeIdx].classList.add('active-slide');
-        }
-
-        if (trackId === 'servicesTrack') {
-            const indicatorContainer = document.getElementById('servicesIndicators');
-            if (indicatorContainer) {
-                indicatorContainer.innerHTML = '';
-                visibleSlides.forEach((_, idx) => {
-                    const btn = document.createElement('button');
-                    btn.className = `indicator-pill ${idx === activeIdx ? 'active' : ''}`;
-                    btn.type = 'button';
-                    btn.onclick = () => { detenerAutoplayCarruseles(); goToSlide(trackId, slideClass, idx); };
-                    indicatorContainer.appendChild(btn);
-                });
-            }
-        } else if (trackId === 'portfolioTrack') {
-            const inputEl = document.getElementById('portfolioActiveInput');
-            const totalEl = document.getElementById('portfolioTotalCount');
-            const fillEl = document.getElementById('portfolioProgressFill');
-
-            if (inputEl && totalEl && fillEl) {
-                const currentNum = String(activeIdx + 1).padStart(2, '0');
-                const totalNum = String(visibleSlides.length).padStart(2, '0');
-                const progressPercent = ((activeIdx + 1) / visibleSlides.length) * 100;
-
-                inputEl.value = currentNum;
-                inputEl.max = visibleSlides.length;
-                totalEl.innerText = totalNum;
-                fillEl.style.width = `${progressPercent}%`;
-            }
+        if (confirm('¿Está seguro de eliminar este integrante?')) {
+            personalData.splice(currentSelectedIndex, 1);
+            currentSelectedIndex = Math.max(0, currentSelectedIndex - 1);
+            renderizarListaMiembros();
+            cargarMiembroEnFormulario(currentSelectedIndex);
         }
     }
 
-    function jumpToPortfolioInput(val) {
-        const track = document.getElementById('portfolioTrack');
-        if (!track) return;
+    async function publicarEnGitHub() {
+        guardarMiembroSilencioso();
+        const repo = document.getElementById('ghRepo').value.trim();
+        const token = document.getElementById('ghToken').value.trim();
 
-        const slides = Array.from(track.getElementsByClassName('portfolio-slide'));
-        const visibleSlides = slides.filter(s => window.getComputedStyle(s).display !== 'none');
-        
-        if (visibleSlides.length === 0) return;
-
-        let parsedVal = parseInt(val, 10);
-        if (isNaN(parsedVal) || parsedVal < 1) parsedVal = 1;
-        else if (parsedVal > visibleSlides.length) parsedVal = visibleSlides.length;
-
-        goToSlide('portfolioTrack', 'portfolio-slide', parsedVal - 1);
-    }
-
-    function nextSlide(trackId, slideClass) {
-        const current = carouselIndices[trackId] || 0;
-        goToSlide(trackId, slideClass, current + 1);
-    }
-
-    function prevSlide(trackId, slideClass) {
-        const current = carouselIndices[trackId] || 0;
-        goToSlide(trackId, slideClass, current - 1);
-    }
-
-    function filterCategory(category, btnElement) {
-        detenerAutoplayCarruseles();
-        activeCategory = category;
-        const buttons = btnElement.parentElement.querySelectorAll('.tab-btn');
-        buttons.forEach(b => b.classList.remove('active'));
-        btnElement.classList.add('active');
-        applyPortfolioFilters();
-    }
-
-    function filterYear(year, btnElement) {
-        detenerAutoplayCarruseles();
-        activeYear = year;
-        const nodes = document.querySelectorAll('.time-node');
-        nodes.forEach(n => n.classList.remove('active'));
-        btnElement.classList.add('active');
-        applyPortfolioFilters();
-    }
-
-    function applyPortfolioFilters() {
-        const slides = document.querySelectorAll('.portfolio-slide');
-        
-        slides.forEach(slide => {
-            const slideYear = slide.getAttribute('data-year');
-            const slideCat = slide.getAttribute('data-category');
-
-            const matchYear = (activeYear === 'all' || slideYear === activeYear);
-            const matchCat = (activeCategory === 'all' || slideCat === activeCategory);
-
-            if (matchYear && matchCat) {
-                slide.style.setProperty('display', 'flex', 'important');
-            } else {
-                slide.style.setProperty('display', 'none', 'important');
-            }
-        });
-
-        carouselIndices['portfolioTrack'] = 0;
-        goToSlide('portfolioTrack', 'portfolio-slide', 0);
-    }
-
-    function renderTeamMember(idx) {
-        const member = teamMembers[idx];
-        if (!member) return;
-
-        document.getElementById('teamActiveName').innerText = member.name;
-        document.getElementById('teamActiveRole').innerText = member.role;
-        document.getElementById('teamActiveDesc').innerText = member.desc;
-        document.getElementById('teamCurrentIndex').innerText = idx + 1;
-
-        const avatarContainer = document.getElementById('teamActiveAvatar');
-        if (member.hasImg) {
-            avatarContainer.innerHTML = `<img src="${member.avatar}" alt="${member.name}">`;
-        } else {
-            avatarContainer.innerHTML = `<div class="team-avatar-bg-full"><i data-lucide="${member.icon}" style="width: 48px; height: 48px;"></i></div>`;
+        if (!repo || !token) {
+            alert('Por favor configura tu repositorio y tu Token de GitHub en la caja superior.');
+            return;
         }
-
-        const tagsContainer = document.getElementById('teamActiveTags');
-        tagsContainer.innerHTML = member.tags.map(t => `<span class="tag">${t}</span>`).join('');
-
-        const btn = document.getElementById('teamActiveBtn');
-        if (member.modalTarget) {
-            btn.setAttribute('onclick', `openModal('${member.modalTarget}')`);
-            btn.innerHTML = `<i data-lucide="user"></i> Ver Perfil Técnico`;
-        } else {
-            btn.setAttribute('onclick', `openPortfolioModalByPosition(${member.portfolioPos})`);
-            btn.innerHTML = `<i data-lucide="file-text"></i> Ver Alcance Operativo`;
-        }
-
-        if (window.lucide) lucide.createIcons();
-    }
-
-    function nextTeamMember() {
-        currentTeamIdx = (currentTeamIdx + 1) % teamMembers.length;
-        renderTeamMember(currentTeamIdx);
-    }
-
-    function prevTeamMember() {
-        currentTeamIdx = (currentTeamIdx - 1 + teamMembers.length) % teamMembers.length;
-        renderTeamMember(currentTeamIdx);
-    }
-
-    const contactSection = document.getElementById('contacto');
-    const floatingActions = document.getElementById('floatingActions');
-
-    if (contactSection && floatingActions) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    floatingActions.classList.add('hidden');
-                } else {
-                    floatingActions.classList.remove('hidden');
-                }
-            });
-        }, { threshold: 0.2 });
-
-        observer.observe(contactSection);
-    }
-
-    window.addEventListener('click', (event) => {
-        if (event.target.classList.contains('modal-overlay')) {
-            closeModal(event.target.id);
-        }
-    });
-
-    function resetBarsToZero() {
-        const contentArea = document.getElementById('dimContentArea');
-        if (!contentArea) return;
-        const fills = contentArea.querySelectorAll('.dim-bar-fill');
-        fills.forEach(f => {
-            f.style.width = '0%';
-            f.classList.remove('active-fill');
-        });
-    }
-
-    function selectDimension(index) {
-        const gears = document.querySelectorAll('.gear-item');
-        const isoOuter = document.getElementById('isoOuterRing');
-        const contentArea = document.getElementById('dimContentArea');
-        const badgeEl = document.getElementById('dimBadge');
-        const titleEl = document.getElementById('dimTitle');
-        const descEl = document.getElementById('dimDesc');
-
-        if (index === 'iso') {
-            isIsoStateActive = true;
-            gears.forEach(g => g.classList.remove('active'));
-            if (isoOuter) isoOuter.classList.add('active-iso');
-
-            badgeEl.innerText = "ESTÁNDAR GENERAL ISO 19650";
-            titleEl.innerText = "Tradicional Vs. BIM/CIM";
-            descEl.innerText = "Gráfica de impacto comparativo que analiza de manera cuantitativa la eficiencia operativa, la precisión presupuestal y la mitigación de riesgos frente al modelado CAD tradicional.";
-
-            contentArea.innerHTML = `
-                <div class="dim-bars-wrapper">
-                    <div class="dim-bar-group">
-                        <div class="dim-bar-header">
-                            <span class="dim-bar-title">Precisión Presupuestal (BIM 5D)</span>
-                            <span class="dim-bar-sub">+60% Exactitud Financiera</span>
-                        </div>
-                        <div class="dim-bar-pair">
-                            <div class="dim-bar-row">
-                                <span class="dim-bar-lbl">Tradicional</span>
-                                <div class="dim-bar-track"><div class="dim-bar-fill trad" data-val="35%">35%</div></div>
-                            </div>
-                            <div class="dim-bar-row">
-                                <span class="dim-bar-lbl">BIM / CIM</span>
-                                <div class="dim-bar-track"><div class="dim-bar-fill bim" data-val="95%">95%</div></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="dim-bar-group">
-                        <div class="dim-bar-header">
-                            <span class="dim-bar-title">Mitigación de Colisiones / Interferencias</span>
-                            <span class="dim-bar-sub">-90% de Re-trabajos</span>
-                        </div>
-                        <div class="dim-bar-pair">
-                            <div class="dim-bar-row">
-                                <span class="dim-bar-lbl">Tradicional</span>
-                                <div class="dim-bar-track"><div class="dim-bar-fill trad" data-val="20%">20%</div></div>
-                            </div>
-                            <div class="dim-bar-row">
-                                <span class="dim-bar-lbl">BIM / CIM</span>
-                                <div class="dim-bar-track"><div class="dim-bar-fill bim" data-val="90%">90%</div></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="dim-bar-group">
-                        <div class="dim-bar-header">
-                            <span class="dim-bar-title">Cumplimiento de Plazos (BIM 4D)</span>
-                            <span class="dim-bar-sub">+45% Eficiencia Temporal</span>
-                        </div>
-                        <div class="dim-bar-pair">
-                            <div class="dim-bar-row">
-                                <span class="dim-bar-lbl">Tradicional</span>
-                                <div class="dim-bar-track"><div class="dim-bar-fill trad" data-val="40%">40%</div></div>
-                            </div>
-                            <div class="dim-bar-row">
-                                <span class="dim-bar-lbl">BIM / CIM</span>
-                                <div class="dim-bar-track"><div class="dim-bar-fill bim" data-val="85%">85%</div></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="dim-bar-group">
-                        <div class="dim-bar-header">
-                            <span class="dim-bar-title">Efectividad en Operación (BIM 7D)</span>
-                            <span class="dim-bar-sub">Información As-Built Digitalizada</span>
-                        </div>
-                        <div class="dim-bar-pair">
-                            <div class="dim-bar-row">
-                                <span class="dim-bar-lbl">Tradicional</span>
-                                <div class="dim-bar-track"><div class="dim-bar-fill trad" data-val="15%">15%</div></div>
-                            </div>
-                            <div class="dim-bar-row">
-                                <span class="dim-bar-lbl">BIM / CIM</span>
-                                <div class="dim-bar-track"><div class="dim-bar-fill bim" data-val="88%">88%</div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            setTimeout(() => {
-                const fills = contentArea.querySelectorAll('.dim-bar-fill');
-                fills.forEach(f => {
-                    f.style.width = f.getAttribute('data-val');
-                    f.classList.add('active-fill');
-                });
-            }, 80);
-
-        } else {
-            isIsoStateActive = false;
-            if (isoOuter) isoOuter.classList.remove('active-iso');
-            gears.forEach((g, idx) => {
-                if (idx === index) g.classList.add('active');
-                else g.classList.remove('active');
-            });
-
-            const data = dimData[index];
-            if (data) {
-                badgeEl.innerText = data.badge;
-                titleEl.innerText = data.title;
-                descEl.innerText = data.desc;
-
-                contentArea.innerHTML = `
-                    <div class="dim-benefits">
-                        <h4>Beneficios Clave:</h4>
-                        <ul>
-                            ${data.benefits.map(b => `<li>${b}</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
-            }
-        }
-    }
-
-    async function cargarPortafolioDinamico() {
-        const contenedor = document.getElementById('portfolioTrack');
-        if (!contenedor) return;
 
         try {
-            const res = await fetch('proyectos.json?v=' + Date.now());
-            if (!res.ok) throw new Error('No se pudo cargar proyectos.json');
-            
-            proyectosGlobales = await res.json();
-            proyectosGlobales.sort((a, b) => parseInt(b.year || 0) - parseInt(a.year || 0));
+            const apiGetUrl = `https://api.github.com/repos/${repo}/contents/personal.json`;
+            const resGet = await fetch(apiGetUrl, {
+                headers: { 'Authorization': `token ${token}` }
+            });
 
-            contenedor.innerHTML = '';
-
-            if (proyectosGlobales.length === 0) {
-                contenedor.innerHTML = '<p style="color:var(--text-muted); text-align:center; width:100%; padding:2rem;">No hay proyectos publicados actualmente.</p>';
-                return;
+            if (resGet.ok) {
+                const fileData = await resGet.json();
+                fileSha = fileData.sha;
             }
 
-            renderizarLineaTiempoDinamica();
+            const jsonString = JSON.stringify(personalData, null, 2);
+            const contentBase64 = btoa(unescape(encodeURIComponent(jsonString)));
 
-            proyectosGlobales.forEach((proj, idx) => {
-                const slide = document.createElement('div');
-                slide.className = `portfolio-slide ${idx === 0 ? 'active-slide' : ''}`;
-                slide.setAttribute('data-year', proj.year || '');
-                slide.setAttribute('data-category', proj.category || '');
-                slide.setAttribute('onclick', `openPortfolioModal('${proj.id}')`);
-
-                const hasCover = proj.coverUrl && proj.coverUrl.trim() !== '';
-                const textoCategoria = proj.categoryLabel || proj.categoryName || nombresCategorias[proj.category] || proj.category || '';
-
-                slide.innerHTML = `
-                    ${hasCover ? `<div class="slide-card-bg" style="background-image: url('${proj.coverUrl}');"></div>` : `
-                    <div class="slide-card-placeholder">
-                        <i data-lucide="box" style="width: 48px; height: 48px; stroke-width: 1.5;"></i>
-                        <span style="font-size: 0.8rem; margin-top: 0.5rem; letter-spacing: 1px;">[ RENDER / PROYECTO 3D ]</span>
-                    </div>`}
-                    <div class="slide-card-overlay"></div>
-                    <div class="slide-content">
-                        <div class="portfolio-tags">
-                            ${proj.year ? `<span class="tag">${proj.year}</span>` : ''}
-                            ${textoCategoria ? `<span class="tag">${textoCategoria}</span>` : ''}
-                            ${proj.standard ? `<span class="tag">${proj.standard}</span>` : ''}
-                            ${proj.software ? `<span class="tag">${proj.software}</span>` : ''}
-                        </div>
-                        <h3>${proj.title}</h3>
-                        <p style="font-size: 0.85rem; color: #cbd5e1; margin: 0.4rem 0 1rem;">${proj.subtitle || ''}</p>
-                        <button type="button" class="btn-slide-action">Ver Proyecto <i data-lucide="arrow-right"></i></button>
-                    </div>
-                `;
-                contenedor.appendChild(slide);
+            const resPut = await fetch(apiGetUrl, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: "Actualización autónoma de personal.json via Panel Admin",
+                    content: contentBase64,
+                    sha: fileSha
+                })
             });
 
-            if (window.lucide) lucide.createIcons();
-            goToSlide('portfolioTrack', 'portfolio-slide', 0);
-
+            if (resPut.ok) {
+                const putData = await resPut.json();
+                if (putData.content && putData.content.sha) {
+                    fileSha = putData.content.sha;
+                }
+                alert('¡Éxito! Cambios publicados directamente en GitHub. Se reflejarán en tu sitio web en unos segundos.');
+            } else {
+                const errJson = await resPut.json();
+                alert('Error al publicar en GitHub: ' + (errJson.message || 'Verifica tus credenciales.'));
+            }
         } catch (err) {
-            console.warn('Carga dinámica omitida o archivo de proyectos no detectado:', err);
+            alert('Error de red al conectar con la API de GitHub: ' + err.message);
         }
-    }
-
-    function renderizarLineaTiempoDinamica() {
-        const trackInner = document.getElementById('timelineTrackInner');
-        if (!trackInner) return;
-
-        const anosUnicos = [...new Set(proyectosGlobales.map(p => p.year).filter(Boolean))]
-                            .sort((a, b) => parseInt(b) - parseInt(a));
-
-        let html = '';
-        anosUnicos.forEach(ano => {
-            html += `
-                <div class="time-node" onclick="filterYear('${ano}', this)">
-                    <span class="node-dot"></span><span>${ano}</span>
-                </div>
-            `;
-        });
-
-        trackInner.innerHTML = html;
-        const viewport = document.getElementById('timelineViewport');
-        if (viewport) viewport.scrollLeft = 0;
-        if (window.lucide) lucide.createIcons();
-    }
-
-    function scrollTimeline(direction) {
-        detenerAutoplayCarruseles();
-        const viewport = document.getElementById('timelineViewport');
-        if (!viewport) return;
-
-        const scrollAmount = 140; 
-        viewport.scrollBy({
-            left: direction === 'right' ? scrollAmount : -scrollAmount,
-            behavior: 'smooth'
-        });
-    }
-
-    function openPortfolioModal(id) {
-        const proj = proyectosGlobales.find(p => p.id === id);
-        if (!proj) return;
-
-        document.getElementById('modalTitle').innerText = proj.title || 'Caso de Estudio';
-        document.getElementById('modalMetaYear').innerHTML = `<i data-lucide="calendar"></i> ${proj.year || '2026'}`;
-        document.getElementById('modalMetaStandard').innerHTML = `<i data-lucide="tag"></i> ${proj.standard || ''}`;
-        document.getElementById('modalMetaSoftware').innerHTML = `<i data-lucide="cpu"></i> ${proj.software || ''}`;
-        
-        document.getElementById('modalScope').innerText = proj.scope || 'Sin descripción del alcance.';
-        document.getElementById('modalTools').innerText = proj.tools || 'Sin herramientas especificadas.';
-
-        const galleryGrid = document.getElementById('modalGalleryGrid');
-        galleryGrid.innerHTML = '';
-
-        currentGallery = proj.galleryUrls || [];
-
-        if (currentGallery.length > 0) {
-            currentGallery.forEach((url, i) => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                item.style.backgroundImage = `url('${url}')`;
-                item.onclick = (e) => { e.stopPropagation(); openLightbox(i); };
-                item.innerHTML = `
-                    <div class="gallery-item-zoom-icon"><i data-lucide="maximize-2" style="width:16px; height:16px;"></i></div>
-                    <span class="gallery-item-badge"><i data-lucide="image" style="width:14px; height:14px;"></i> Entregable ${i + 1}</span>
-                `;
-                galleryGrid.appendChild(item);
-            });
-        } else {
-            galleryGrid.innerHTML = `
-                <div class="gallery-item" style="cursor:default;">
-                    <span class="gallery-item-badge">Render 3D Exterior</span>
-                </div>
-                <div class="gallery-item" style="cursor:default;">
-                    <span class="gallery-item-badge">Coordinación MEP / ARQ</span>
-                </div>
-            `;
-        }
-
-        if (window.lucide) lucide.createIcons();
-        openModal('modal-portfolio');
-    }
-
-    function openPortfolioModalByPosition(idx) {
-        if (proyectosGlobales.length > idx) {
-            openPortfolioModal(proyectosGlobales[idx].id);
-        } else {
-            alert("Proyecto no disponible.");
-        }
-    }
-
-    function openLightbox(index) {
-        if (!currentGallery || currentGallery.length === 0) return;
-        currentImageIndex = index;
-        updateLightboxContent();
-        const lb = document.getElementById('lightbox-modal');
-        if (lb) {
-            lb.classList.add('active');
-            history.pushState({ modalOpen: true, modalType: 'lightbox' }, "");
-        }
-    }
-
-    function closeLightbox() {
-        const lb = document.getElementById('lightbox-modal');
-        if (lb) lb.classList.remove('active');
-    }
-
-    function updateLightboxContent() {
-        const img = document.getElementById('lightbox-img');
-        const caption = document.getElementById('lightbox-caption');
-        if (img && currentGallery[currentImageIndex]) {
-            img.src = currentGallery[currentImageIndex];
-            caption.innerText = `Entregable ${currentImageIndex + 1} de ${currentGallery.length}`;
-        }
-    }
-
-    function nextLightboxImage() {
-        if (currentGallery.length === 0) return;
-        currentImageIndex = (currentImageIndex + 1) % currentGallery.length;
-        updateLightboxContent();
-    }
-
-    function prevLightboxImage() {
-        if (currentGallery.length === 0) return;
-        currentImageIndex = (currentImageIndex - 1 + currentGallery.length) % currentGallery.length;
-        updateLightboxContent();
     }
 </script>
 </body>

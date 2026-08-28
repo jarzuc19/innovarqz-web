@@ -418,7 +418,6 @@
             margin-top: 2px;
         }
 
-        /* BANNER / MODAL DE LANZAMIENTO OPTIMIZADO CON IMAGEN DE FONDO */
         .launch-modal-card-bg {
             position: relative;
             border: 1px solid var(--border-color);
@@ -2321,6 +2320,32 @@
         </div>
     </div>
 
+    <!-- Modal Dinámico de Perfil de Integrante -->
+    <div class="modal-overlay" id="modal-perfil-dinamico">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal-perfil-dinamico')"><i data-lucide="x"></i></button>
+            <div class="modal-header">
+                <h3 id="modalPerfilNombre">Nombre del Profesional</h3>
+                <div class="modal-subtitle" id="modalPerfilCargo">Cargo u Ocupación</div>
+                <div class="modal-meta" id="modalPerfilMeta">
+                    <span><i data-lucide="award"></i> Certificaciones / Credenciales</span>
+                </div>
+            </div>
+            <div class="modal-description">
+                <h5>Perfil Ejecutivo & Dirección Técnica</h5>
+                <p id="modalPerfilBio">Biografía profesional y rol en la empresa...</p>
+                <div id="modalPerfilEducacionArea">
+                    <h5>Formación Académica & Certificaciones</h5>
+                    <p id="modalPerfilEducacion">Detalles académicos...</p>
+                </div>
+                <div id="modalPerfilProyectosArea" style="margin-top: 1.25rem;">
+                    <h5>Proyectos Asociados</h5>
+                    <div id="modalPerfilProyectosLista" class="portfolio-tags"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="modal-share">
         <div class="modal-content" style="max-width: 520px;">
             <button class="modal-close" onclick="closeModal('modal-share')"><i data-lucide="x"></i></button>
@@ -2441,13 +2466,13 @@
                                 <span class="tag">BIM 5D</span>
                             </div>
 
-                            <button class="btn-modal-trigger" id="teamActiveBtn" onclick="openModal('modal-perfil-james')" style="margin-bottom: 1.25rem;">
+                            <button class="btn-modal-trigger" id="teamActiveBtn" onclick="openPerfilDinamicoModal(0)" style="margin-bottom: 1.25rem;">
                                 <i data-lucide="user"></i> Ver Perfil Técnico
                             </button>
 
                             <div class="team-footer-controls">
                                 <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">
-                                    Miembro <span id="teamCurrentIndex">1</span> de 3
+                                    Miembro <span id="teamCurrentIndex">1</span> de <span id="teamTotalCount">1</span>
                                 </div>
 
                                 <div style="display: flex; gap: 0.6rem;">
@@ -2477,31 +2502,6 @@
             </div>
         </div>
     </section>
-
-    <div class="modal-overlay" id="modal-perfil-james">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('modal-perfil-james')"><i data-lucide="x"></i></button>
-            <div class="modal-header">
-                <h3>Arq. James Ramiro Zúñiga Caipe</h3>
-                <div class="modal-subtitle">Fundador & Principal Manager</div>
-                <div class="modal-meta">
-                    <span><i data-lucide="award"></i> Matrícula Profesional CPNAA</span>
-                    <span><i data-lucide="shield-check"></i> buildingSMART Certified</span>
-                    <span><i data-lucide="map-pin"></i> Nariño, Colombia</span>
-                </div>
-            </div>
-            <div class="modal-description">
-                <h5>Perfil Ejecutivo & Dirección Técnica</h5>
-                <p>Arquitecto egresado de la <strong>Universidad de Nariño</strong>, al frente del ecosistema técnico de <strong>InnovArqZ</strong>. Amplia trayectoria en la coordinación de modelos multidisciplinares (ARQ/EST/MEP), federación digital, detección de interferencias y control financiero presupuestal (BIM 5D) bajo la norma internacional <strong>ISO 19650</strong> y estándares OpenBIM.</p>
-                <h5>Formación Académica & Certificaciones</h5>
-                <p>• <strong>Arquitecto:</strong> Universidad de Nariño.<br>
-                • <strong>Certificación Internacional:</strong> buildingSMART Professional Certification — Entry Level.<br>
-                • <strong>Máster BIM Manager Internacional (+IA y VR):</strong> Espacio BIM / ATC Autodesk (En Curso).<br>
-                • <strong>Diplomado BIM Civil (Infraestructuras):</strong> Universidad de Nariño.<br>
-                • <strong>Diplomado Ordenamiento Territorial (PBOT/EOT):</strong> ESAP.</p>
-            </div>
-        </div>
-    </div>
 
     <div class="lightbox-overlay" id="lightbox-modal">
         <button class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x"></i></button>
@@ -2618,6 +2618,7 @@
 
 <script>
     let proyectosGlobales = [];
+    let personalGlobal = [];
     let currentGallery = [];
     let currentImageIndex = 0;
     let activeCategory = 'all';
@@ -2631,33 +2632,32 @@
 
     const carouselIndices = { 'servicesTrack': 0, 'portfolioTrack': 0 };
 
-    const teamMembers = [
+    const teamMembersDefault = [
         {
-            name: "Arq. James Ramiro Zúñiga Caipe",
-            role: "Director General & Coordinador BIM / CIM",
-            desc: "Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.",
-            avatar: "james-zuniga.jpg",
-            hasImg: true,
-            tags: ["Arq. UDENAR", "buildingSMART", "BIM 5D"],
-            modalTarget: "modal-perfil-james"
+            id: "james-zuniga",
+            nombre: "Arq. James Ramiro Zúñiga Caipe",
+            cargo: "Director General & Coordinador BIM / CIM",
+            biografia: "Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.",
+            foto: "james-zuniga.jpg",
+            etiquetas: ["Arq. UDENAR", "buildingSMART", "BIM 5D"],
+            credenciales: ["Matrícula Profesional CPNAA", "buildingSMART Certified", "Nariño, Colombia"],
+            educacion: "• Arquitecto: Universidad de Nariño.\n• Certificación Internacional: buildingSMART Professional Certification — Entry Level.\n• Máster BIM Manager Internacional (+IA y VR): Espacio BIM / ATC Autodesk (En Curso).\n• Diplomado BIM Civil (Infraestructuras): Universidad de Nariño.\n• Diplomado Ordenamiento Territorial (PBOT/EOT): ESAP."
         },
         {
-            name: "Coordinación de Obra & Interventoría",
-            role: "Supervisión Técnica & BIM 5D",
-            desc: "Dirección de residencia operativa, control financiero de contratos públicos/privados y auditoría estricta de APUs en sitio.",
-            icon: "hard-hat",
-            hasImg: false,
-            tags: ["Residencia", "APU", "Control Q"],
-            portfolioPos: 0
+            id: "obra-interventoria",
+            nombre: "Coordinación de Obra & Interventoría",
+            cargo: "Supervisión Técnica & BIM 5D",
+            biografia: "Dirección de residencia operativa, control financiero de contratos públicos/privados y auditoría estricta de APUs en sitio.",
+            icono: "hard-hat",
+            etiquetas: ["Residencia", "APU", "Control Q"]
         },
         {
-            name: "Consultoría Geoespacial & Territorio",
-            role: "Modelado CIM & EOT",
-            desc: "Procesamiento avanzado de topografía de campo, fotogrametría y superficies en Civil 3D como soporte técnico para ordenamiento territorial.",
-            icon: "map",
-            hasImg: false,
-            tags: ["Civil 3D", "GIS", "CIM"],
-            portfolioPos: 0
+            id: "geoespacial-territorio",
+            nombre: "Consultoría Geoespacial & Territorio",
+            cargo: "Modelado CIM & EOT",
+            biografia: "Procesamiento avanzado de topografía de campo, fotogrametría y superficies en Civil 3D como soporte técnico para ordenamiento territorial.",
+            icono: "map",
+            etiquetas: ["Civil 3D", "GIS", "CIM"]
         }
     ];
 
@@ -2778,7 +2778,6 @@
             bimObserver.observe(bimSection);
         }
 
-        // CONTROL DE VISIBILIDAD DE SECCIONES CON CARRUSEL PARA REANUDAR AUTOPLAY AL SALIR
         const carouselSectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (!entry.isIntersecting) {
@@ -2792,7 +2791,6 @@
         if (secServicios) carouselSectionObserver.observe(secServicios);
         if (secPortafolio) carouselSectionObserver.observe(secPortafolio);
 
-        // REANUDAR AUTOPLAY AL HACER CLIC FUERA DE LOS CARRUSELES O FICHAS
         document.addEventListener('click', (e) => {
             const insideServices = e.target.closest('#servicesWrapper');
             const insidePortfolio = e.target.closest('#portfolioWrapper');
@@ -2806,6 +2804,7 @@
 
         goToSlide('servicesTrack', 'service-slide', 0);
         cargarPortafolioDinamico();
+        cargarPersonalDinamico();
         selectDimension('iso');
 
         setupSwipe('servicesWrapper', 'servicesTrack', 'service-slide');
@@ -2813,11 +2812,136 @@
 
         iniciarAutoplayCarruseles();
 
-        // DESPLIEGUE DEL MODAL DE LANZAMIENTO
         setTimeout(() => {
             openModal('modal-launch');
         }, 1500);
     });
+
+    async function cargarPersonalDinamico() {
+        try {
+            const res = await fetch('personal.json?v=' + Date.now());
+            if (!res.ok) throw new Error('No se pudo cargar personal.json');
+            
+            const data = await res.json();
+            if (Array.isArray(data) && data.length > 0) {
+                personalGlobal = data;
+            } else {
+                personalGlobal = teamMembersDefault;
+            }
+        } catch (err) {
+            console.warn('Carga dinámica de personal omitida, usando datos por defecto:', err);
+            personalGlobal = teamMembersDefault;
+        }
+
+        currentTeamIdx = 0;
+        renderTeamMember(currentTeamIdx);
+    }
+
+    function renderTeamMember(idx) {
+        if (!personalGlobal || personalGlobal.length === 0) return;
+
+        const member = personalGlobal[idx];
+        if (!member) return;
+
+        const nombre = member.nombre || member.name || 'Profesional InnovArqZ';
+        const cargo = member.cargo || member.role || 'Consultor Técnico';
+        const desc = member.biografia || member.desc || 'Integrante del equipo de consultoría e interventoría.';
+        const tags = member.etiquetas || member.tags || [];
+        const foto = member.foto || member.avatar;
+        const icono = member.icono || member.icon || 'user';
+
+        document.getElementById('teamActiveName').innerText = nombre;
+        document.getElementById('teamActiveRole').innerText = cargo;
+        document.getElementById('teamActiveDesc').innerText = desc;
+        document.getElementById('teamCurrentIndex').innerText = idx + 1;
+        
+        const totalCountEl = document.getElementById('teamTotalCount');
+        if (totalCountEl) totalCountEl.innerText = personalGlobal.length;
+
+        const avatarContainer = document.getElementById('teamActiveAvatar');
+        if (foto && foto.trim() !== '') {
+            avatarContainer.innerHTML = `<img src="${foto}" alt="${nombre}">`;
+        } else {
+            avatarContainer.innerHTML = `<div class="team-avatar-bg-full"><i data-lucide="${icono}" style="width: 48px; height: 48px;"></i></div>`;
+        }
+
+        const tagsContainer = document.getElementById('teamActiveTags');
+        tagsContainer.innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
+
+        const btn = document.getElementById('teamActiveBtn');
+        btn.setAttribute('onclick', `openPerfilDinamicoModal(${idx})`);
+        btn.innerHTML = `<i data-lucide="user"></i> Ver Perfil Técnico`;
+
+        if (window.lucide) lucide.createIcons();
+    }
+
+    function openPerfilDinamicoModal(idx) {
+        const member = personalGlobal[idx];
+        if (!member) return;
+
+        const nombre = member.nombre || member.name || 'Profesional InnovArqZ';
+        const cargo = member.cargo || member.role || 'Consultor Técnico';
+        const bio = member.biografia || member.desc || 'Sin descripción detallada disponible.';
+        const credenciales = member.credenciales || [];
+        const educacion = member.educacion || member.formacion || '';
+        const proyectosAsociados = member.proyectosAsociados || [];
+
+        document.getElementById('modalPerfilNombre').innerText = nombre;
+        document.getElementById('modalPerfilCargo').innerText = cargo;
+        document.getElementById('modalPerfilBio').innerText = bio;
+
+        const metaContainer = document.getElementById('modalPerfilMeta');
+        if (credenciales.length > 0) {
+            metaContainer.innerHTML = credenciales.map(c => `<span><i data-lucide="shield-check"></i> ${c}</span>`).join('');
+        } else {
+            metaContainer.innerHTML = `<span><i data-lucide="award"></i> Equipo InnovArqZ S.A.S.</span>`;
+        }
+
+        const edArea = document.getElementById('modalPerfilEducacionArea');
+        const edText = document.getElementById('modalPerfilEducacion');
+        if (educacion && educacion.trim() !== '') {
+            edText.innerHTML = educacion.replace(/\n/g, '<br>');
+            edArea.style.display = 'block';
+        } else {
+            edArea.style.display = 'none';
+        }
+
+        const projArea = document.getElementById('modalPerfilProyectosArea');
+        const projLista = document.getElementById('modalPerfilProyectosLista');
+        
+        if (proyectosAsociados.length > 0 && proyectosGlobales.length > 0) {
+            let htmlProjs = '';
+            proyectosAsociados.forEach(projId => {
+                const p = proyectosGlobales.find(item => item.id === projId);
+                if (p) {
+                    htmlProjs += `<span class="tag" style="cursor:pointer;" onclick="closeModal('modal-perfil-dinamico'); openPortfolioModal('${p.id}');">${p.title} (${p.year || '2026'})</span> `;
+                }
+            });
+            if (htmlProjs !== '') {
+                projLista.innerHTML = htmlProjs;
+                projArea.style.display = 'block';
+            } else {
+                projArea.style.display = 'none';
+            }
+        } else {
+            projArea.style.display = 'none';
+        }
+
+        if (window.lucide) lucide.createIcons();
+        openModal('modal-perfil-dinamico');
+    }
+
+    function nextTeamMember() {
+        if (!personalGlobal || personalGlobal.length === 0) return;
+        currentTeamIdx = (currentTeamIdx + 1) % personalGlobal.length;
+        renderTeamMember(currentTeamIdx);
+    }
+
+    function prevTeamMember() {
+        if (!personalGlobal || personalGlobal.length === 0) return;
+        currentTeamIdx = (currentTeamIdx - 1 + personalGlobal.length) % personalGlobal.length;
+        renderTeamMember(currentTeamIdx);
+    }
 
     function iniciarAutoplayCarruseles() {
         if (!autoPlayServices) {
@@ -2971,43 +3095,17 @@
             }
         });
 
-        const perfilesProfesionales = [
-            {
-                idModal: 'modal-perfil-james',
-                nombre: 'Arq. James Ramiro Zúñiga Caipe',
-                cargo: 'Director General & Coordinador BIM / CIM',
-                textoCompleto: 'arquitecto universidad de nariño udenar cpnaa buildingsmart espacio bim autodesk máster bim manager iso 19650 openbim civil esap pbot eot diplomado ordenamiento territorial'
-            }
-        ];
-
-        perfilesProfesionales.forEach(perf => {
-            const poolPerfil = `${perf.nombre} ${perf.cargo} ${perf.textoCompleto}`.toLowerCase();
-            if (poolPerfil.includes(query)) {
+        personalGlobal.forEach((mem, idx) => {
+            const poolTeam = `${mem.nombre || mem.name || ''} ${mem.cargo || mem.role || ''} ${mem.biografia || mem.desc || ''} ${(mem.etiquetas || mem.tags || []).join(' ')} ${(mem.educacion || '')}`.toLowerCase();
+            if (poolTeam.includes(query)) {
                 count++;
                 htmlResults += `
-                    <div class="search-result-card" data-index="${count-1}" onclick="ejecutarAccionResultado('perfil', '${perf.idModal}')">
+                    <div class="search-result-card" data-index="${count-1}" onclick="ejecutarAccionResultado('perfil-dinamico', ${idx})">
                         <div class="result-badge-icon"><i data-lucide="user"></i></div>
                         <div class="result-text-body">
-                            <span class="result-item-title">${perf.nombre}</span>
-                            <span class="result-item-cat">Perfil Profesional / Formación Técnica</span>
-                            <span class="result-item-desc">${perf.cargo} - Experiencia, Certificaciones y Estudios</span>
-                        </div>
-                    </div>
-                `;
-            }
-        });
-
-        teamMembers.forEach(mem => {
-            const poolTeam = `${mem.name} ${mem.role} ${mem.desc} ${mem.tags ? mem.tags.join(' ') : ''}`.toLowerCase();
-            if (poolTeam.includes(query) && (!mem.modalTarget || mem.modalTarget !== 'modal-perfil-james')) {
-                count++;
-                htmlResults += `
-                    <div class="search-result-card" data-index="${count-1}" onclick="ejecutarAccionResultado('perfil', '${mem.modalTarget || 0}')">
-                        <div class="result-badge-icon"><i data-lucide="users"></i></div>
-                        <div class="result-text-body">
-                            <span class="result-item-title">${mem.name}</span>
+                            <span class="result-item-title">${mem.nombre || mem.name}</span>
                             <span class="result-item-cat">Equipo & Consultoría</span>
-                            <span class="result-item-desc">${mem.role} - ${mem.desc}</span>
+                            <span class="result-item-desc">${mem.cargo || mem.role} - ${mem.biografia || mem.desc || ''}</span>
                         </div>
                     </div>
                 `;
@@ -3061,12 +3159,8 @@
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
             } else if (tipo === 'proyecto') {
                 openPortfolioModal(destinoId);
-            } else if (tipo === 'perfil') {
-                if (destinoId && destinoId !== '0') openModal(destinoId);
-                else {
-                    const el = document.getElementById('nosotros');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }
+            } else if (tipo === 'perfil-dinamico') {
+                openPerfilDinamicoModal(destinoId);
             }
         }, 150);
     }
@@ -3270,47 +3364,6 @@
 
         carouselIndices['portfolioTrack'] = 0;
         goToSlide('portfolioTrack', 'portfolio-slide', 0);
-    }
-
-    function renderTeamMember(idx) {
-        const member = teamMembers[idx];
-        if (!member) return;
-
-        document.getElementById('teamActiveName').innerText = member.name;
-        document.getElementById('teamActiveRole').innerText = member.role;
-        document.getElementById('teamActiveDesc').innerText = member.desc;
-        document.getElementById('teamCurrentIndex').innerText = idx + 1;
-
-        const avatarContainer = document.getElementById('teamActiveAvatar');
-        if (member.hasImg) {
-            avatarContainer.innerHTML = `<img src="${member.avatar}" alt="${member.name}">`;
-        } else {
-            avatarContainer.innerHTML = `<div class="team-avatar-bg-full"><i data-lucide="${member.icon}" style="width: 48px; height: 48px;"></i></div>`;
-        }
-
-        const tagsContainer = document.getElementById('teamActiveTags');
-        tagsContainer.innerHTML = member.tags.map(t => `<span class="tag">${t}</span>`).join('');
-
-        const btn = document.getElementById('teamActiveBtn');
-        if (member.modalTarget) {
-            btn.setAttribute('onclick', `openModal('${member.modalTarget}')`);
-            btn.innerHTML = `<i data-lucide="user"></i> Ver Perfil Técnico`;
-        } else {
-            btn.setAttribute('onclick', `openPortfolioModalByPosition(${member.portfolioPos})`);
-            btn.innerHTML = `<i data-lucide="file-text"></i> Ver Alcance Operativo`;
-        }
-
-        if (window.lucide) lucide.createIcons();
-    }
-
-    function nextTeamMember() {
-        currentTeamIdx = (currentTeamIdx + 1) % teamMembers.length;
-        renderTeamMember(currentTeamIdx);
-    }
-
-    function prevTeamMember() {
-        currentTeamIdx = (currentTeamIdx - 1 + teamMembers.length) % teamMembers.length;
-        renderTeamMember(currentTeamIdx);
     }
 
     const contactSection = document.getElementById('contacto');
@@ -3605,14 +3658,6 @@
 
         if (window.lucide) lucide.createIcons();
         openModal('modal-portfolio');
-    }
-
-    function openPortfolioModalByPosition(idx) {
-        if (proyectosGlobales.length > idx) {
-            openPortfolioModal(proyectosGlobales[idx].id);
-        } else {
-            alert("Proyecto no disponible.");
-        }
     }
 
     function openLightbox(index) {

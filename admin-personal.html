@@ -311,7 +311,7 @@
             <div class="form-group full-width">
                 <label>Selecciona los proyectos en los que participa este profesional:</label>
                 <div class="project-checkbox-list" id="projectsCheckboxContainer">
-                    <span style="color: var(--text-muted); font-size: 0.85rem;">Carga los datos desde GitHub primero.</span>
+                    <span style="color: var(--text-muted); font-size: 0.85rem;">Cargando proyectos...</span>
                 </div>
             </div>
 
@@ -386,7 +386,7 @@
                 'Accept': 'application/vnd.github.v3+json'
             };
 
-            // Intentar cargar proyectos.json de forma independiente y segura
+            // 1. Cargar proyectos.json de forma segura
             try {
                 const resProj = await fetch(`https://api.github.com/repos/${repo}/contents/proyectos.json`, { headers });
                 if (resProj.ok) {
@@ -396,17 +396,21 @@
                     proyectosGlobales = [];
                 }
             } catch (e) {
-                console.warn('No se pudo cargar proyectos.json:', e);
                 proyectosGlobales = [];
             }
 
-            // Intentar cargar personal.json
-            const resPers = await fetch(`https://api.github.com/repos/${repo}/contents/personal.json`, { headers });
-            if (resPers.ok) {
-                const dataPers = await resPers.json();
-                personalFileSha = dataPers.sha;
-                personalGlobal = JSON.parse(decodeBase64UTF8(dataPers.content));
-            } else {
+            // 2. Cargar personal.json (Si no existe, se inicializa vacío sin generar error)
+            try {
+                const resPers = await fetch(`https://api.github.com/repos/${repo}/contents/personal.json`, { headers });
+                if (resPers.ok) {
+                    const dataPers = await resPers.json();
+                    personalFileSha = dataPers.sha;
+                    personalGlobal = JSON.parse(decodeBase64UTF8(dataPers.content));
+                } else {
+                    personalGlobal = [];
+                    personalFileSha = null;
+                }
+            } catch (e) {
                 personalGlobal = [];
                 personalFileSha = null;
             }
@@ -420,7 +424,7 @@
                 crearNuevoMiembro();
             }
 
-            mostrarEstado('¡Conexión exitosa con GitHub!', 'success');
+            mostrarEstado('¡Conexión y carga exitosa con GitHub!', 'success');
         } catch (err) {
             console.error(err);
             mostrarEstado('Error al conectar con la API de GitHub. Verifica tu Token y Repositorio.', 'error');
@@ -563,7 +567,7 @@
     function renderProyectosCheckbox(asociados) {
         const container = document.getElementById('projectsCheckboxContainer');
         if (!proyectosGlobales.length) {
-            container.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem;">No hay proyectos disponibles en proyectos.json (puedes continuar sin seleccionarlos)</span>`;
+            container.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem;">No hay proyectos en proyectos.json (puedes continuar sin seleccionarlos)</span>`;
             return;
         }
 
@@ -690,7 +694,7 @@
                 const dataRes = await res.json();
                 personalFileSha = dataRes.content.sha;
                 mostrarEstado('¡Cambios publicados con éxito en GitHub!', 'success');
-                alert('¡Publicación exitosa! Todos los cambios se han guardado directamente en personal.json.');
+                alert('¡Publicación exitosa! personal.json ha sido creado/actualizado correctamente.');
             } else {
                 throw new Error('Error al actualizar archivo');
             }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador de Personal Autónomo | InnovArqZ</title>
+    <title>Administrador de Personal | InnovArqZ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
@@ -12,6 +12,7 @@
         :root {
             --bg-dark: #0f172a;
             --bg-card: #1e293b;
+            --bg-section-alt: #0b1120;
             --accent-copper: #d97706;
             --accent-copper-hover: #b45309;
             --text-main: #f8fafc;
@@ -19,680 +20,823 @@
             --border-color: #334155;
             --danger-color: #ef4444;
             --success-color: #10b981;
+            --shadow-color: rgba(0, 0, 0, 0.5);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); padding: 2rem 5%; line-height: 1.5; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2rem 5%;
+        }
 
         header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);
-            flex-wrap: wrap; gap: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
         }
 
-        .title-area h1 { font-size: 1.8rem; font-weight: 800; }
-        .title-area h1 span { color: var(--accent-copper); }
-        .title-area p { color: var(--text-muted); font-size: 0.9rem; }
-
-        .top-actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
-
-        .btn {
-            background-color: var(--bg-card); color: var(--text-main);
-            border: 1px solid var(--border-color); padding: 0.6rem 1.2rem;
-            border-radius: 8px; font-weight: 600; font-size: 0.88rem;
-            cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem;
-            transition: all 0.3s ease; text-decoration: none;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .btn:hover { border-color: var(--accent-copper); color: var(--accent-copper); }
-        .btn-primary { background-color: var(--accent-copper); color: #fff; border: none; }
-        .btn-primary:hover { background-color: var(--accent-copper-hover); color: #fff; }
-        .btn-success { background-color: var(--success-color); color: #fff; border: none; }
-        .btn-danger { background-color: var(--danger-color); color: #fff; border: none; }
-
-        .admin-layout { display: grid; grid-template-columns: 320px 1fr; gap: 2rem; }
-
-        .sidebar-list {
-            background-color: var(--bg-card); border: 1px solid var(--border-color);
-            border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;
-            max-height: 85vh; overflow-y: auto;
+        .logo span { color: var(--accent-copper); }
+        .logo small {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            border-left: 1px solid var(--border-color);
+            padding-left: 0.75rem;
         }
 
-        .sidebar-title { font-size: 1rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-
-        .member-item {
-            padding: 0.85rem 1rem; border-radius: 8px; background-color: var(--bg-dark);
-            border: 1px solid var(--border-color); cursor: pointer; transition: all 0.2s ease;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-
-        .member-item:hover, .member-item.active {
-            border-color: var(--accent-copper); background-color: rgba(217, 119, 6, 0.1);
-        }
-
-        .member-info h4 { font-size: 0.92rem; font-weight: 700; color: var(--text-main); }
-        .member-info p { font-size: 0.75rem; color: var(--accent-copper); }
-
-        .form-card {
-            background-color: var(--bg-card); border: 1px solid var(--border-color);
-            border-radius: 12px; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;
-        }
-
-        .form-section-title {
-            font-size: 1.1rem; font-weight: 700; color: var(--accent-copper);
-            border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;
-            display: flex; align-items: center; gap: 0.5rem;
-        }
-
-        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-        .full-width { grid-column: span 2; }
-
-        .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-        .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-main); }
-        
-        .form-group input, .form-group textarea, .form-group select {
-            background-color: var(--bg-dark); border: 1px solid var(--border-color);
-            border-radius: 8px; padding: 0.7rem 1rem; color: var(--text-main);
-            font-size: 0.9rem; outline: none; transition: border-color 0.3s;
-        }
-
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent-copper); }
-        .form-group textarea { resize: vertical; min-height: 90px; }
-
-        .top-profile-layout {
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            gap: 1.5rem;
-            align-items: stretch;
-        }
-
-        .photo-upload-box {
-            border: 2px dashed var(--border-color);
+        /* Barra de GitHub */
+        .github-bar {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            background-color: var(--bg-dark);
-            width: 100%;
-            aspect-ratio: 3 / 4;
+            padding: 1.25rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 25px var(--shadow-color);
+            flex-wrap: wrap;
+        }
+
+        .github-bar input {
+            background-color: var(--bg-section-alt);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            flex-grow: 1;
+            min-width: 220px;
+        }
+
+        .github-bar input:focus { border-color: var(--accent-copper); }
+
+        .btn-primary {
+            background-color: var(--accent-copper);
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover { background-color: var(--accent-copper-hover); }
+
+        /* Selector y Lista de Miembros */
+        .selector-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+        }
+
+        .selector-row select {
+            background-color: var(--bg-section-alt);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            min-width: 280px;
+            cursor: pointer;
+        }
+
+        .selector-row select:focus { border-color: var(--accent-copper); }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-copper);
+            color: var(--accent-copper);
+        }
+
+        .btn-danger {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: var(--danger-color);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.3s;
+        }
+
+        .btn-danger:hover { background-color: var(--danger-color); color: #fff; }
+
+        /* Secciones del Formulario */
+        .form-section-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 35px var(--shadow-color);
+            opacity: 0.5;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .form-section-card.active-panel {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .section-header-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--accent-copper);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+        }
+
+        .upload-dropzone {
+            border: 2px dashed var(--border-color);
+            background-color: var(--bg-section-alt);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            transition: border-color 0.3s, background-color 0.3s;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
+            min-height: 200px;
+        }
+
+        .upload-dropzone:hover {
+            border-color: var(--accent-copper);
+            background-color: rgba(217, 119, 6, 0.03);
+        }
+
+        .upload-dropzone input[type="file"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
             cursor: pointer;
-            transition: border-color 0.3s;
         }
 
-        .photo-upload-box:hover { border-color: var(--accent-copper); }
-        
-        .photo-upload-box input[type="file"] {
-            position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 5;
+        .preview-img-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--accent-copper);
+            margin: 0 auto 1rem;
+            background-color: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .photo-preview-img {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; object-position: center 20%; z-index: 2; display: none;
+        .preview-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .photo-placeholder-content {
-            position: relative; z-index: 1; text-align: center; color: var(--text-muted); padding: 1rem;
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
         }
 
-        .photo-placeholder-content i { color: var(--accent-copper); margin-bottom: 0.5rem; }
-        .photo-placeholder-content span { font-size: 0.78rem; font-weight: 600; }
-
-        .right-fields-stack {
+        .form-group {
             display: flex;
             flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full { grid-column: span 2; }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        input[type="text"], select, textarea {
+            background-color: var(--bg-section-alt);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            width: 100%;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--accent-copper);
+            box-shadow: 0 0 10px rgba(217, 119, 6, 0.2);
+        }
+
+        textarea { resize: vertical; min-height: 110px; }
+
+        /* Proyectos Checkboxes Grid */
+        .projects-checklist {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            background-color: var(--bg-section-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .project-check-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            transition: border-color 0.2s;
+        }
+
+        .project-check-item:hover { border-color: var(--accent-copper); }
+        .project-check-item input { accent-color: var(--accent-copper); cursor: pointer; }
+
+        /* Barra Inferior de Guardado */
+        .bottom-action-bar {
+            position: sticky;
+            bottom: 2rem;
+            background-color: rgba(30, 41, 59, 0.92);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem 2rem;
+            border-radius: 14px;
+            display: flex;
             justify-content: space-between;
-            gap: 1rem;
+            align-items: center;
+            box-shadow: 0 20px 40px var(--shadow-color);
+            z-index: 100;
+            opacity: 0.5;
+            pointer-events: none;
+            transition: opacity 0.3s;
         }
 
-        .metadata-row { display: grid; grid-template-columns: 200px 1fr 40px; gap: 0.75rem; align-items: center; margin-bottom: 0.5rem; }
-        .project-checkbox-list { display: flex; flex-direction: column; gap: 0.5rem; background: var(--bg-dark); border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; max-height: 160px; overflow-y: auto; }
-        .project-checkbox-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; color: var(--text-main); cursor: pointer; }
-        .project-checkbox-item input { accent-color: var(--accent-copper); width: 16px; height: 16px; cursor: pointer; }
-
-        .github-config-box {
-            background-color: var(--bg-dark); border: 1px solid var(--border-color);
-            padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap;
+        .bottom-action-bar.active-bar {
+            opacity: 1;
+            pointer-events: auto;
         }
+
+        .status-feedback {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-feedback.success { color: var(--success-color); }
+        .status-feedback.error { color: var(--danger-color); }
+        .status-feedback.syncing { color: var(--accent-copper); }
 
         @media (max-width: 900px) {
-            .admin-layout { grid-template-columns: 1fr; }
-            .top-profile-layout { grid-template-columns: 1fr; }
             .form-grid { grid-template-columns: 1fr; }
-            .full-width { grid-column: span 1; }
-            .metadata-row { grid-template-columns: 1fr; }
+            .form-group.full { grid-column: span 1; }
+            .projects-checklist { grid-template-columns: 1fr; }
+            .github-bar { flex-direction: column; align-items: stretch; }
+            .selector-row { flex-direction: column; gap: 1rem; align-items: stretch; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="title-area">
-            <h1>Innov<span>ArqZ</span> — Panel Autónomo de Personal</h1>
-            <p>Gestión del equipo técnico con publicación directa a GitHub.</p>
-        </div>
-
-        <div class="top-actions">
-            <button type="button" class="btn btn-success" onclick="publicarEnGitHub()">
-                <i data-lucide="cloud-upload"></i> Publicar Cambios en GitHub
-            </button>
+        <div class="logo">
+            <div>Innov<span>ArqZ</span></div>
+            <small>Admin Personal</small>
         </div>
     </header>
 
-    <div class="admin-layout">
-        <div class="sidebar-list">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                <span class="sidebar-title">Integrantes</span>
-                <button type="button" class="btn btn-primary" style="padding: 0.4rem 0.7rem; font-size: 0.8rem;" onclick="crearNuevoMiembro()">
-                    <i data-lucide="plus"></i> Nuevo
-                </button>
-            </div>
-            <div id="membersContainer"></div>
+    <!-- Barra de Conexión GitHub -->
+    <div class="github-bar">
+        <input type="password" id="gh_token" placeholder="GitHub Personal Access Token (ghp_...)" autocomplete="off">
+        <input type="text" id="gh_repo" placeholder="Repositorio (ej. jarzuc19/innovarqz-web)">
+        <button type="button" class="btn-primary" onclick="conectarYCargarGitHub()">
+            <i data-lucide="cloud-download"></i> Cargar Personal y Proyectos
+        </button>
+    </div>
+
+    <!-- Selector y Gestión de Miembros -->
+    <div class="selector-row">
+        <div style="display: flex; align-items: center; gap: 1rem; flex-grow: 1;">
+            <label for="miembroSelect" style="font-weight: 700; color: var(--text-main);">Profesional Activo:</label>
+            <select id="miembroSelect" onchange="cambiarMiembroSeleccionado()">
+                <option value="" disabled selected>-- Conecta con GitHub primero --</option>
+            </select>
         </div>
-
-        <div class="form-card">
-            <div class="github-config-box">
-                <div class="form-group" style="flex: 1; min-width: 200px;">
-                    <label for="ghRepo">Repositorio (usuario/repositorio)</label>
-                    <input type="text" id="ghRepo" placeholder="ej: tuusuario/innovarqz">
-                </div>
-                <div class="form-group" style="flex: 1; min-width: 200px;">
-                    <label for="ghToken">Token de GitHub (Personal Access Token)</label>
-                    <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
-                </div>
-                <button type="button" class="btn" style="height: 42px;" onclick="guardarConfigGitHub()">Guardar Credenciales</button>
-            </div>
-
-            <form id="memberForm" onsubmit="return false;">
-                <div class="form-section-title"><i data-lucide="user"></i> Información de la Ficha Principal</div>
-                
-                <div class="top-profile-layout" style="margin-top: 1rem;">
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <label>Fotografía (Proporción 3:4)</label>
-                        <div class="photo-upload-box" id="photoDropZone">
-                            <input type="file" id="memberPhotoFile" accept="image/*" onchange="procesarFotoLocal(event)">
-                            <img id="photoPreview" class="photo-preview-img" alt="Vista previa de foto">
-                            <div class="photo-placeholder-content" id="photoPlaceholder">
-                                <i data-lucide="image-plus" style="width: 28px; height: 28px;"></i>
-                                <span>Subir foto (3:4)</span>
-                            </div>
-                        </div>
-                        <input type="hidden" id="memberImg">
-                    </div>
-
-                    <div class="right-fields-stack">
-                        <div class="form-group">
-                            <label for="memberId">ID Único (sin espacios)</label>
-                            <input type="text" id="memberId" required placeholder="ej: james-zuniga" oninput="sincronizarCampoEnVivo()">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="memberName">Nombre Profesional Completo</label>
-                            <input type="text" id="memberName" required placeholder="ej: Arq. James Ramiro Zúñiga Caipe" oninput="sincronizarCampoEnVivo()">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="memberRole">Cargo Principal (Ficha)</label>
-                            <input type="text" id="memberRole" required placeholder="ej: Director General & Coordinador BIM / CIM" oninput="sincronizarCampoEnVivo()">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-grid" style="margin-top: 1.25rem;">
-                    <div class="form-group full-width">
-                        <label for="memberShortDesc">Descripción Corta (Ficha del carrusel)</label>
-                        <textarea id="memberShortDesc" required placeholder="Líder ejecutivo en metodologías OpenBIM..." oninput="sincronizarCampoEnVivo()"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="memberTags">Etiquetas / Badges (separadas por coma)</label>
-                        <input type="text" id="memberTags" placeholder="ej: Arq. UDENAR, buildingSMART, BIM 5D" oninput="sincronizarCampoEnVivo()">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="memberBtnText">Texto del Botón Acción</label>
-                        <input type="text" id="memberBtnText" value="Conoce a Nuestro Aliado" oninput="sincronizarCampoEnVivo()">
-                    </div>
-                </div>
-
-                <div id="modalSectionArea" style="margin-top: 1.5rem;">
-                    <div class="form-section-title"><i data-lucide="file-text"></i> Contenido del Modal Detallado</div>
-
-                    <div class="form-grid" style="margin-top: 1rem;">
-                        <div class="form-group full-width">
-                            <label for="modalSubtitle">Subtítulo del Modal</label>
-                            <input type="text" id="modalSubtitle" placeholder="ej: Fundador & Principal Manager" oninput="sincronizarCampoEnVivo()">
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label>Metadatos del Encabezado (Selector de Iconos + Texto)</label>
-                            <div id="metadataContainer"></div>
-                            <button type="button" class="btn" style="align-self: flex-start; margin-top: 0.4rem; font-size: 0.78rem;" onclick="agregarFilaMetadato()">
-                                <i data-lucide="plus"></i> Agregar Metadato
-                            </button>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label for="modalExecDesc">Perfil Ejecutivo & Dirección Técnica (Párrafo largo)</label>
-                            <textarea id="modalExecDesc" style="min-height: 110px;" oninput="sincronizarCampoEnVivo()"></textarea>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label for="modalEducation">Formación Académica & Certificaciones (Una por línea)</label>
-                            <textarea id="modalEducation" style="min-height: 120px;" placeholder="Arquitecto: Universidad de Nariño.&#10;Certificación Internacional: buildingSMART..." oninput="sincronizarCampoEnVivo()"></textarea>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label>Proyectos Asociados (Selecciona los proyectos del portafolio en los que participa)</label>
-                            <div class="project-checkbox-list" id="projectsCheckboxContainer">
-                                <span style="color: var(--text-muted); font-size: 0.85rem;">Cargando proyectos desde proyectos.json...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
-                    <button type="button" class="btn btn-danger" onclick="eliminarMiembroActual()"><i data-lucide="trash-2"></i> Eliminar Integrante</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarMiembroActual()"><i data-lucide="save"></i> Guardar Cambios Temporal</button>
-                </div>
-            </form>
+        
+        <div style="display: flex; gap: 0.75rem;">
+            <button type="button" class="btn-secondary" onclick="crearNuevoMiembro()">
+                <i data-lucide="user-plus"></i> + Nuevo Profesional
+            </button>
+            <button type="button" class="btn-danger" id="btnEliminarMiembro" onclick="eliminarMiembroActivo()" style="display: none;">
+                <i data-lucide="trash-2"></i> Eliminar
+            </button>
         </div>
     </div>
 
+    <!-- 1. TARJETA EN LA SECCIÓN NOSOTROS -->
+    <div class="form-section-card" id="formCard">
+        <div class="section-header-title">
+            <i data-lucide="user"></i> 1. Tarjeta en la Sección "Nosotros"
+        </div>
+
+        <div class="form-grid">
+            <div class="form-group full">
+                <label>Foto de Perfil (Se sube automáticamente al repositorio)</label>
+                <div class="upload-dropzone" id="dropzoneFoto">
+                    <input type="file" id="inputFileFoto" accept="image/*" onchange="subirFotoGitHub(event)">
+                    <div id="previewWrapper">
+                        <div class="preview-img-container" id="previewContainer">
+                            <i data-lucide="camera" style="width: 32px; height: 32px; color: var(--text-muted);"></i>
+                        </div>
+                        <p style="font-size: 0.9rem; font-weight: 600; color: var(--text-main);">Haz clic o arrastra la foto aquí</p>
+                        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;" id="nombreArchivoFoto">Ningún archivo seleccionado</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>ID Único (Sin espacios, ej: james-zuniga)</label>
+                <input type="text" id="m_id" placeholder="james-zuniga">
+            </div>
+
+            <div class="form-group">
+                <label>Nombre Completo</label>
+                <input type="text" id="m_nombre" placeholder="Arq. James Ramiro Zúñiga Caipe">
+            </div>
+
+            <div class="form-group">
+                <label>Cargo Principal (En Tarjeta)</label>
+                <input type="text" id="m_cargo" placeholder="Director General & Coordinador BIM / CIM">
+            </div>
+
+            <div class="form-group">
+                <label>Etiquetas en Tarjeta (Separadas por coma)</label>
+                <input type="text" id="m_etiquetas" placeholder="Arq. UDENAR, buildingSMART, BIM 5D">
+            </div>
+        </div>
+
+        <!-- 2. CONTENIDO DEL MODAL DINÁMICO -->
+        <div class="section-header-title" style="margin-top: 2.5rem;">
+            <i data-lucide="file-text"></i> 2. Detalle del Modal Dinámico
+        </div>
+
+        <div class="form-grid">
+            <div class="form-group full">
+                <label>Subtítulo del Modal</label>
+                <input type="text" id="m_role_modal" placeholder="Fundador & Principal Manager">
+            </div>
+
+            <div class="form-group full">
+                <label>Credenciales / Metadatos (Separados por coma - Salen con ícono gris en el modal)</label>
+                <input type="text" id="m_credenciales" placeholder="Matrícula Profesional CPNAA, buildingSMART Certified, Nariño, Colombia">
+            </div>
+
+            <div class="form-group full">
+                <label>Perfil Ejecutivo & Dirección Técnica</label>
+                <textarea id="m_biografia" placeholder="Arquitecto egresado de la Universidad de Nariño..."></textarea>
+            </div>
+
+            <div class="form-group full">
+                <label>Formación Académica & Certificaciones (Una por línea)</label>
+                <textarea id="m_educacion" placeholder="• Arquitecto: Universidad de Nariño.&#10;• Certificación Internacional: buildingSMART..."></textarea>
+            </div>
+        </div>
+
+        <!-- 3. PROYECTOS ASOCIADOS -->
+        <div class="section-header-title" style="margin-top: 2.5rem;">
+            <i data-lucide="box"></i> 3. Proyectos Asociados al Perfil
+        </div>
+
+        <div class="form-group full">
+            <label>Selecciona los proyectos en los que participó este profesional:</label>
+            <div class="projects-checklist" id="proyectosChecklistContainer">
+                <span style="color: var(--text-muted); font-size: 0.88rem;">Conecta con GitHub para listar los proyectos disponibles.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra Inferior de Guardado -->
+    <div class="bottom-action-bar" id="bottomBar">
+        <div class="status-feedback" id="statusFeedback">
+            <i data-lucide="info"></i> <span>Listo para sincronizar</span>
+        </div>
+        <button type="button" class="btn-primary" onclick="guardarYSubirGitHub()" style="padding: 0.85rem 2rem; font-size: 1rem;">
+            <i data-lucide="cloud-upload"></i> Guardar y Subir a GitHub
+        </button>
+    </div>
+
 <script>
-    let personalData = [];
-    let proyectosDisponibles = [];
-    let currentSelectedIndex = 0;
-    let fileSha = "";
+    let personalGlobal = [];
+    let proyectosGlobales = [];
+    let personalFileSha = null;
+    let indiceActivo = -1;
 
-    const listaIconosDisponibles = [
-        { valor: "award", etiqueta: "🏆 Medalla / Matrícula Profesional (award)" },
-        { valor: "shield-check", etiqueta: "🛡️ Escudo / Certificación (shield-check)" },
-        { valor: "map-pin", etiqueta: "📍 Ubicación / Ciudad (map-pin)" },
-        { valor: "graduation-cap", etiqueta: "🎓 Grado / Universidad (graduation-cap)" },
-        { valor: "briefcase", etiqueta: "💼 Experiencia / Trabajo (briefcase)" },
-        { valor: "cpu", etiqueta: "💻 Tecnología / Software (cpu)" },
-        { valor: "book-open", etiqueta: "📖 Estudios / Cursos (book-open)" },
-        { valor: "check-circle", etiqueta: "✅ Verificado / Aprobado (check-circle)" },
-        { valor: "user", etiqueta: "👤 Persona / Perfil (user)" }
-    ];
-
-    document.addEventListener('DOMContentLoaded', async () => {
+    document.addEventListener('DOMContentLoaded', () => {
         if (window.lucide) lucide.createIcons();
-        cargarCredencialesGuardadas();
-        await cargarDatosAutomaticos();
+        
+        // Cargar credenciales guardadas
+        document.getElementById('gh_token').value = localStorage.getItem('gh_token_pers') || '';
+        document.getElementById('gh_repo').value = localStorage.getItem('gh_repo_pers') || 'jarzuc19/innovarqz-web';
     });
 
-    function cargarCredencialesGuardadas() {
-        const repo = localStorage.getItem('gh_repo') || '';
-        const token = localStorage.getItem('gh_token') || '';
-        document.getElementById('ghRepo').value = repo;
-        document.getElementById('ghToken').value = token;
+    function guardarCredenciales() {
+        localStorage.setItem('gh_token_pers', document.getElementById('gh_token').value.trim());
+        localStorage.setItem('gh_repo_pers', document.getElementById('gh_repo').value.trim());
     }
 
-    function guardarConfigGitHub() {
-        const repo = document.getElementById('ghRepo').value.trim();
-        const token = document.getElementById('ghToken').value.trim();
-        localStorage.setItem('gh_repo', repo);
-        localStorage.setItem('gh_token', token);
-        alert('¡Credenciales de GitHub guardadas localmente en tu navegador!');
-    }
+    function actualizarEstado(mensaje, tipo) {
+        const feedback = document.getElementById('statusFeedback');
+        feedback.className = `status-feedback ${tipo}`;
+        
+        let icon = 'info';
+        if (tipo === 'success') icon = 'check-circle';
+        if (tipo === 'error') icon = 'alert-triangle';
+        if (tipo === 'syncing') icon = 'refresh-cw';
 
-    async function cargarDatosAutomaticos() {
-        try {
-            const resProj = await fetch('proyectos.json?v=' + Date.now());
-            if (resProj.ok) proyectosDisponibles = await resProj.json();
-        } catch (err) {
-            console.warn('No se pudo cargar proyectos.json:', err);
-        }
-
-        try {
-            const resPers = await fetch('personal.json?v=' + Date.now());
-            if (resPers.ok) {
-                personalData = await resPers.json();
-            } else {
-                throw new Error('Archivo no encontrado');
-            }
-        } catch (err) {
-            // Respaldo inicial si personal.json no existe en el repo todavía
-            personalData = [{
-                "id": "james-zuniga",
-                "nombre": "Arq. James Ramiro Zúñiga Caipe",
-                "cargoFicha": "Director General & Coordinador BIM / CIM",
-                "descripcionCorta": "Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.",
-                "imagen": "james-zuniga.jpg",
-                "tieneImagen": true,
-                "etiquetas": ["Arq. UDENAR", "buildingSMART", "BIM 5D"],
-                "textoBoton": "Conoce a Nuestro Aliado",
-                "proyectosAsociados": [],
-                "modalDetalle": {
-                    "subtitulo": "Fundador & Principal Manager",
-                    "metadatos": [
-                        { "icono": "award", "texto": "Matrícula Profesional CPNAA" },
-                        { "icono": "shield-check", "texto": "buildingSMART Certified" },
-                        { "icono": "map-pin", "texto": "Nariño, Colombia" }
-                    ],
-                    "seccionPerfil": {
-                        "titulo": "Perfil Ejecutivo & Dirección Técnica",
-                        "descripcion": "Arquitecto egresado de la Universidad de Nariño, al frente del ecosistema técnico de InnovArqZ."
-                    },
-                    "seccionFormacion": {
-                        "titulo": "Formación Académica & Certificaciones",
-                        "items": [
-                            "Arquitecto: Universidad de Nariño.",
-                            "Certificación Internacional: buildingSMART Professional Certification."
-                        ]
-                    }
-                }
-            }];
-        }
-
-        if (!Array.isArray(personalData) || personalData.length === 0) {
-            personalData = [];
-        }
-
-        currentSelectedIndex = 0;
-        renderizarListaMiembros();
-        if (personalData.length > 0) {
-            cargarMiembroEnFormulario(0);
-        }
-    }
-
-    function renderizarListaMiembros() {
-        const container = document.getElementById('membersContainer');
-        container.innerHTML = '';
-
-        personalData.forEach((m, idx) => {
-            const item = document.createElement('div');
-            item.className = `member-item ${idx === currentSelectedIndex ? 'active' : ''}`;
-            item.onclick = () => { 
-                guardarMiembroSilencioso(); 
-                currentSelectedIndex = idx; 
-                renderizarListaMiembros(); 
-                cargarMiembroEnFormulario(idx); 
-            };
-            item.innerHTML = `
-                <div class="member-info">
-                    <h4>${m.nombre || 'Sin nombre'}</h4>
-                    <p>${m.cargoFicha || 'Sin cargo'}</p>
-                </div>
-                <i data-lucide="chevron-right" style="width: 16px; height: 16px; color: var(--text-muted);"></i>
-            `;
-            container.appendChild(item);
-        });
-
+        feedback.innerHTML = `<i data-lucide="${icon}"></i> <span>${mensaje}</span>`;
         if (window.lucide) lucide.createIcons();
     }
 
-    function cargarMiembroEnFormulario(idx) {
-        const m = personalData[idx];
-        if (!m) return;
+    async function conectarYCargarGitHub() {
+        guardarCredenciales();
+        const token = document.getElementById('gh_token').value.trim();
+        const repo = document.getElementById('gh_repo').value.trim();
 
-        document.getElementById('memberId').value = m.id || '';
-        document.getElementById('memberName').value = m.nombre || '';
-        document.getElementById('memberRole').value = m.cargoFicha || '';
-        document.getElementById('memberImg').value = m.imagen || '';
-        document.getElementById('memberShortDesc').value = m.descripcionCorta || '';
-        document.getElementById('memberTags').value = (m.etiquetas || []).join(', ');
-        document.getElementById('memberBtnText').value = m.textoBoton || 'Conoce a Nuestro Aliado';
-
-        const imgPreview = document.getElementById('photoPreview');
-        const placeholder = document.getElementById('photoPlaceholder');
-        if (m.imagen) {
-            imgPreview.src = m.imagen;
-            imgPreview.style.display = 'block';
-            placeholder.style.display = 'none';
-        } else {
-            imgPreview.src = '';
-            imgPreview.style.display = 'none';
-            placeholder.style.display = 'block';
-        }
-
-        if (m.modalDetalle) {
-            document.getElementById('modalSubtitle').value = m.modalDetalle.subtitulo || '';
-            document.getElementById('modalExecDesc').value = m.modalDetalle.seccionPerfil ? m.modalDetalle.seccionPerfil.descripcion : '';
-            document.getElementById('modalEducation').value = m.modalDetalle.seccionFormacion ? (m.modalDetalle.seccionFormacion.items || []).join('\n') : '';
-            renderMetadatos(m.modalDetalle.metadatos || []);
-        } else {
-            document.getElementById('modalSubtitle').value = '';
-            document.getElementById('modalExecDesc').value = '';
-            document.getElementById('modalEducation').value = '';
-            renderMetadatos([]);
-        }
-
-        renderProyectosCheckbox(m.proyectosAsociados || []);
-    }
-
-    function renderProyectosCheckbox(asociadosIds) {
-        const container = document.getElementById('projectsCheckboxContainer');
-        if (!proyectosDisponibles.length) {
-            container.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem;">No se encontraron proyectos en proyectos.json</span>`;
+        if (!token || !repo) {
+            alert('Por favor ingresa tu Token de GitHub y el Repositorio.');
             return;
         }
 
-        let html = '';
-        proyectosDisponibles.forEach(p => {
-            const isChecked = asociadosIds.includes(p.id) ? 'checked' : '';
-            html += `
-                <label class="project-checkbox-item">
-                    <input type="checkbox" value="${p.id}" ${isChecked} class="proj-check-input" onchange="guardarMiembroSilencioso()">
-                    <span>${p.title} (${p.year || '2026'})</span>
-                </label>
-            `;
-        });
-        container.innerHTML = html;
+        actualizarEstado('Conectando con GitHub...', 'syncing');
+
+        try {
+            const headers = {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json'
+            };
+
+            // 1. Cargar proyectos.json
+            const resProj = await fetch(`https://api.github.com/repos/${repo}/contents/proyectos.json`, { headers });
+            if (resProj.ok) {
+                const dataProj = await resProj.json();
+                const contenidoProj = decodeURIComponent(escape(atob(dataProj.content)));
+                proyectosGlobales = JSON.parse(contenidoProj);
+                renderizarCheckboxesProyectos();
+            } else {
+                proyectosGlobales = [];
+            }
+
+            // 2. Cargar personal.json
+            const resPers = await fetch(`https://api.github.com/repos/${repo}/contents/personal.json`, { headers });
+            if (resPers.ok) {
+                const dataPers = await resPers.json();
+                personalFileSha = dataPers.sha;
+                const contenidoPers = decodeURIComponent(escape(atob(dataPers.content)));
+                personalGlobal = JSON.parse(contenidoPers);
+            } else {
+                personalGlobal = [];
+                personalFileSha = null;
+            }
+
+            poblarSelectMiembros();
+
+            // Activar paneles
+            document.getElementById('formCard').classList.add('active-panel');
+            document.getElementById('bottomBar').classList.add('active-bar');
+
+            if (personalGlobal.length > 0) {
+                seleccionarMiembroPorIndex(0);
+            } else {
+                crearNuevoMiembro();
+            }
+
+            actualizarEstado('Conectado y sincronizado con éxito', 'success');
+
+        } catch (err) {
+            console.error(err);
+            actualizarEstado('Error al conectar con GitHub', 'error');
+        }
     }
 
-    function procesarFotoLocal(event) {
+    function renderizarCheckboxesProyectos() {
+        const container = document.getElementById('proyectosChecklistContainer');
+        if (!container) return;
+
+        if (proyectosGlobales.length === 0) {
+            container.innerHTML = '<span style="color:var(--text-muted); font-size:0.88rem;">No se encontraron proyectos en el repositorio.</span>';
+            return;
+        }
+
+        container.innerHTML = '';
+        proyectosGlobales.forEach(p => {
+            const label = document.createElement('label');
+            label.className = 'project-check-item';
+            label.innerHTML = `
+                <input type="checkbox" value="${p.id}" class="chk-proyecto">
+                <span><strong>${p.title}</strong> (${p.year || '2026'})</span>
+            `;
+            container.appendChild(label);
+        });
+    }
+
+    function poblarSelectMiembros() {
+        const select = document.getElementById('miembroSelect');
+        select.innerHTML = '';
+
+        personalGlobal.forEach((m, idx) => {
+            const option = document.createElement('option');
+            option.value = idx;
+            option.textContent = m.nombre || `Profesional ${idx + 1} (${m.id})`;
+            select.appendChild(option);
+        });
+    }
+
+    function cambiarMiembroSeleccionado() {
+        const select = document.getElementById('miembroSelect');
+        const idx = parseInt(select.value, 10);
+        if (!isNaN(idx)) {
+            seleccionarMiembroPorIndex(idx);
+        }
+    }
+
+    function seleccionarMiembroPorIndex(idx) {
+        indiceActivo = idx;
+        const m = personalGlobal[idx];
+        if (!m) return;
+
+        document.getElementById('miembroSelect').value = idx;
+        document.getElementById('m_id').value = m.id || '';
+        document.getElementById('m_nombre').value = m.nombre || '';
+        document.getElementById('m_cargo').value = m.cargo || '';
+        document.getElementById('m_etiquetas').value = (m.etiquetas || []).join(', ');
+        document.getElementById('m_role_modal').value = m.role_modal || '';
+        document.getElementById('m_credenciales').value = (m.credenciales || []).join(', ');
+        document.getElementById('m_biografia').value = m.biografia || '';
+        document.getElementById('m_educacion').value = m.educacion || '';
+
+        // Checkboxes proyectos
+        const asoc = m.proyectosAsociados || [];
+        document.querySelectorAll('.chk-proyecto').forEach(chk => {
+            chk.checked = asoc.includes(chk.value);
+        });
+
+        // Foto preview
+        const container = document.getElementById('previewContainer');
+        const labelArchivo = document.getElementById('nombreArchivoFoto');
+        if (m.foto) {
+            container.innerHTML = `<img src="${m.foto}" alt="Foto perfil">`;
+            labelArchivo.textContent = m.foto;
+            container.dataset.fotoActual = m.foto;
+        } else {
+            container.innerHTML = `<i data-lucide="camera" style="width: 32px; height: 32px; color: var(--text-muted);"></i>`;
+            labelArchivo.textContent = 'Ningún archivo seleccionado';
+            container.dataset.fotoActual = '';
+        }
+
+        document.getElementById('btnEliminarMiembro').style.display = 'inline-flex';
+        if (window.lucide) lucide.createIcons();
+    }
+
+    function crearNuevoMiembro() {
+        indiceActivo = -1;
+        document.getElementById('miembroSelect').value = "";
+        document.getElementById('m_id').value = '';
+        document.getElementById('m_nombre').value = '';
+        document.getElementById('m_cargo').value = '';
+        document.getElementById('m_etiquetas').value = '';
+        document.getElementById('m_role_modal').value = '';
+        document.getElementById('m_credenciales').value = '';
+        document.getElementById('m_biografia').value = '';
+        document.getElementById('m_educacion').value = '';
+
+        document.querySelectorAll('.chk-proyecto').forEach(chk => chk.checked = false);
+
+        const container = document.getElementById('previewContainer');
+        container.innerHTML = `<i data-lucide="camera" style="width: 32px; height: 32px; color: var(--text-muted);"></i>`;
+        container.dataset.fotoActual = '';
+        document.getElementById('nombreArchivoFoto').textContent = 'Ningún archivo seleccionado';
+        document.getElementById('inputFileFoto').value = '';
+
+        document.getElementById('btnEliminarMiembro').style.display = 'none';
+        if (window.lucide) lucide.createIcons();
+        document.getElementById('m_id').focus();
+    }
+
+    function eliminarMiembroActivo() {
+        if (indiceActivo > -1) {
+            if (confirm('¿Estás seguro de eliminar este profesional de la lista?')) {
+                personalGlobal.splice(indiceActivo, 1);
+                poblarSelectMiembros();
+                
+                if (personalGlobal.length > 0) {
+                    seleccionarMiembroPorIndex(0);
+                } else {
+                    crearNuevoMiembro();
+                }
+                actualizarEstado('Perfil eliminado en memoria. Recuerda guardar en GitHub.', 'error');
+            }
+        }
+    }
+
+    async function subirFotoGitHub(event) {
         const file = event.target.files[0];
         if (!file) return;
 
+        const token = document.getElementById('gh_token').value.trim();
+        const repo = document.getElementById('gh_repo').value.trim();
+        const nombreArchivo = file.name.replace(/\s+/g, '-').toLowerCase();
+
+        actualizarEstado(`Subiendo foto ${nombreArchivo}...`, 'syncing');
+
         const reader = new FileReader();
-        reader.onload = (e) => {
-            const dataUrl = e.target.result;
-            document.getElementById('memberImg').value = file.name;
-            
-            const imgPreview = document.getElementById('photoPreview');
-            const placeholder = document.getElementById('photoPlaceholder');
-            imgPreview.src = dataUrl;
-            imgPreview.style.display = 'block';
-            placeholder.style.display = 'none';
-            guardarMiembroSilencioso();
+        reader.onload = async function(e) {
+            const base64Completo = e.target.result;
+            const base64Data = base64Completo.split(',')[1];
+
+            try {
+                const headers = {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                };
+
+                // Verificar si ya existe para obtener SHA
+                let shaExistente = null;
+                const checkRes = await fetch(`https://api.github.com/repos/${repo}/contents/${nombreArchivo}`, { headers });
+                if (checkRes.ok) {
+                    const checkData = await checkRes.json();
+                    shaExistente = checkData.sha;
+                }
+
+                const bodyPayload = {
+                    message: `Subida de foto perfil: ${nombreArchivo}`,
+                    content: base64Data
+                };
+                if (shaExistente) bodyPayload.sha = shaExistente;
+
+                const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${nombreArchivo}`, {
+                    method: 'PUT',
+                    headers: headers,
+                    body: JSON.stringify(bodyPayload)
+                });
+
+                if (putRes.ok) {
+                    document.getElementById('previewContainer').innerHTML = `<img src="${base64Completo}" alt="Foto">`;
+                    document.getElementById('previewContainer').dataset.fotoActual = nombreArchivo;
+                    document.getElementById('nombreArchivoFoto').textContent = nombreArchivo;
+                    actualizarEstado('Foto subida exitosamente al repositorio', 'success');
+                } else {
+                    throw new Error('Error al subir imagen a GitHub');
+                }
+
+            } catch (err) {
+                console.error(err);
+                actualizarEstado('Error al subir la imagen', 'error');
+            }
         };
         reader.readAsDataURL(file);
     }
 
-    function renderMetadatos(metas) {
-        const container = document.getElementById('metadataContainer');
-        container.innerHTML = '';
-
-        metas.forEach((m, i) => {
-            const row = document.createElement('div');
-            row.className = 'metadata-row';
-
-            let optionsHtml = '';
-            listaIconosDisponibles.forEach(ic => {
-                const selected = ic.valor === m.icono ? 'selected' : '';
-                optionsHtml += `<option value="${ic.valor}" ${selected}>${ic.etiqueta}</option>`;
-            });
-
-            row.innerHTML = `
-                <select class="meta-icon-select" onchange="guardarMiembroSilencioso()" style="background-color: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.5rem; border-radius: 6px; font-size: 0.85rem;">
-                    ${optionsHtml}
-                </select>
-                <input type="text" placeholder="Texto descriptivo" value="${m.texto || ''}" class="meta-text-input" oninput="guardarMiembroSilencioso()">
-                <button type="button" class="btn btn-danger" style="padding: 0.4rem;" onclick="eliminarMetadato(${i})"><i data-lucide="x" style="width: 14px; height: 14px;"></i></button>
-            `;
-            container.appendChild(row);
-        });
-
-        if (window.lucide) lucide.createIcons();
-    }
-
-    function agregarFilaMetadato() {
-        const m = personalData[currentSelectedIndex];
-        if (!m) return;
-        if (!m.modalDetalle) m.modalDetalle = { metadatos: [] };
-        if (!m.modalDetalle.metadatos) m.modalDetalle.metadatos = [];
-
-        m.modalDetalle.metadatos.push({ icono: "award", texto: "" });
-        renderMetadatos(m.modalDetalle.metadatos);
-    }
-
-    function eliminarMetadato(index) {
-        const m = personalData[currentSelectedIndex];
-        if (m && m.modalDetalle && m.modalDetalle.metadatos) {
-            m.modalDetalle.metadatos.splice(index, 1);
-            renderMetadatos(m.modalDetalle.metadatos);
-            guardarMiembroSilencioso();
-        }
-    }
-
-    function sincronizarCampoEnVivo() {
-        guardarMiembroSilencioso();
-    }
-
-    function guardarMiembroSilencioso() {
-        const m = personalData[currentSelectedIndex];
-        if (!m) return;
-
-        m.id = document.getElementById('memberId').value.trim();
-        m.nombre = document.getElementById('memberName').value.trim();
-        m.cargoFicha = document.getElementById('memberRole').value.trim();
-        m.imagen = document.getElementById('memberImg').value.trim();
-        m.tieneImagen = m.imagen !== '';
-        m.descripcionCorta = document.getElementById('memberShortDesc').value.trim();
-        m.etiquetas = document.getElementById('memberTags').value.split(',').map(t => t.trim()).filter(Boolean);
-        m.textoBoton = document.getElementById('memberBtnText').value.trim();
-
-        const metaRows = document.querySelectorAll('.metadata-row');
-        const metas = [];
-        metaRows.forEach(r => {
-            const icon = r.querySelector('.meta-icon-select').value;
-            const text = r.querySelector('.meta-text-input').value.trim();
-            if (text) metas.push({ icono: icon, texto: text });
-        });
-
-        const checks = document.querySelectorAll('.proj-check-input:checked');
-        const proyectosSeleccionados = Array.from(checks).map(c => c.value);
-        m.proyectosAsociados = proyectosSeleccionados;
-
-        if (!m.modalDetalle) m.modalDetalle = {};
-        m.modalDetalle.subtitulo = document.getElementById('modalSubtitle').value.trim();
-        m.modalDetalle.metadatos = metas;
-        m.modalDetalle.seccionPerfil = {
-            titulo: "Perfil Ejecutivo & Dirección Técnica",
-            descripcion: document.getElementById('modalExecDesc').value.trim()
-        };
-        m.modalDetalle.seccionFormacion = {
-            titulo: "Formación Académica & Certificaciones",
-            items: document.getElementById('modalEducation').value.split('\n').map(i => i.trim()).filter(Boolean)
-        };
-
-        // Actualizar título en tiempo real en la barra lateral izquierda
-        const titleEl = document.querySelectorAll('.member-item')[currentSelectedIndex]?.querySelector('h4');
-        const roleEl = document.querySelectorAll('.member-item')[currentSelectedIndex]?.querySelector('p');
-        if (titleEl) titleEl.textContent = m.nombre || 'Sin nombre';
-        if (roleEl) roleEl.textContent = m.cargoFicha || 'Sin cargo';
-    }
-
-    function guardarMiembroActual() {
-        guardarMiembroSilencioso();
-        renderizarListaMiembros();
-        alert('¡Cambios guardados temporalmente en memoria listos para publicar!');
-    }
-
-    function crearNuevoMiembro() {
-        guardarMiembroSilencioso();
-        const newObj = {
-            id: "nuevo-miembro-" + Date.now(),
-            nombre: "Nuevo Profesional",
-            cargoFicha: "Especialista / Consultor",
-            descripcionCorta: "Descripción breve del integrante...",
-            imagen: "",
-            tieneImagen: false,
-            etiquetas: ["Especialidad"],
-            textoBoton: "Conoce a Nuestro Aliado",
-            proyectosAsociados: [],
-            modalDetalle: {
-                subtitulo: "Cargo / Rol",
-                metadatos: [{ icono: "award", texto: "Matrícula Profesional" }],
-                seccionPerfil: { titulo: "Perfil Ejecutivo & Dirección Técnica", descripcion: "Trayectoria profesional detallada..." },
-                seccionFormacion: { titulo: "Formación Académica & Certificaciones", items: ["Título Profesional"] }
-            }
-        };
-
-        personalData.push(newObj);
-        currentSelectedIndex = personalData.length - 1;
-        renderizarListaMiembros();
-        cargarMiembroEnFormulario(currentSelectedIndex);
-    }
-
-    function eliminarMiembroActual() {
-        if (personalData.length <= 1) {
-            alert('Debe existir al menos un miembro en la base de datos.');
+    async function guardarYSubirGitHub() {
+        const id = document.getElementById('m_id').value.trim();
+        if (!id) {
+            alert('El ID Único es obligatorio.');
+            document.getElementById('m_id').focus();
             return;
         }
 
-        if (confirm('¿Está seguro de eliminar este integrante?')) {
-            personalData.splice(currentSelectedIndex, 1);
-            currentSelectedIndex = Math.max(0, currentSelectedIndex - 1);
-            renderizarListaMiembros();
-            cargarMiembroEnFormulario(currentSelectedIndex);
-        }
-    }
+        const token = document.getElementById('gh_token').value.trim();
+        const repo = document.getElementById('gh_repo').value.trim();
 
-    async function publicarEnGitHub() {
-        guardarMiembroSilencioso();
-        const repo = document.getElementById('ghRepo').value.trim();
-        const token = document.getElementById('ghToken').value.trim();
+        // Recopilar datos del formulario
+        const proyectosAsoc = Array.from(document.querySelectorAll('.chk-proyecto:checked')).map(chk => chk.value);
+        const fotoActual = document.getElementById('previewContainer').dataset.fotoActual || '';
 
-        if (!repo || !token) {
-            alert('Por favor configura tu repositorio y tu Token de GitHub en la caja superior.');
-            return;
+        const objetoMiembro = {
+            id: id,
+            nombre: document.getElementById('m_nombre').value.trim(),
+            cargo: document.getElementById('m_cargo').value.trim(),
+            etiquetas: document.getElementById('m_etiquetas').value.split(',').map(s => s.trim()).filter(Boolean),
+            role_modal: document.getElementById('m_role_modal').value.trim(),
+            credenciales: document.getElementById('m_credenciales').value.split(',').map(s => s.trim()).filter(Boolean),
+            biografia: document.getElementById('m_biografia').value.trim(),
+            educacion: document.getElementById('m_educacion').value.trim(),
+            foto: fotoActual,
+            proyectosAsociados: proyectosAsoc
+        };
+
+        if (indiceActivo === -1) {
+            personalGlobal.push(objetoMiembro);
+            indiceActivo = personalGlobal.length - 1;
+        } else {
+            personalGlobal[indiceActivo] = objetoMiembro;
         }
+
+        poblarSelectMiembros();
+        document.getElementById('miembroSelect').value = indiceActivo;
+
+        actualizarEstado('Subiendo personal.json a GitHub...', 'syncing');
 
         try {
-            const apiGetUrl = `https://api.github.com/repos/${repo}/contents/personal.json`;
-            const resGet = await fetch(apiGetUrl, {
-                headers: { 'Authorization': `token ${token}` }
-            });
+            const contenidoJSON = JSON.stringify(personalGlobal, null, 4);
+            const contenidoB64 = btoa(unescape(encodeURIComponent(contenidoJSON)));
 
-            if (resGet.ok) {
-                const fileData = await resGet.json();
-                fileSha = fileData.sha;
-            }
+            const headers = {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            };
 
-            const jsonString = JSON.stringify(personalData, null, 2);
-            const contentBase64 = btoa(unescape(encodeURIComponent(jsonString)));
+            const bodyPayload = {
+                message: "Actualización de personal.json desde Admin Personal",
+                content: contenidoB64
+            };
+            if (personalFileSha) bodyPayload.sha = personalFileSha;
 
-            const resPut = await fetch(apiGetUrl, {
+            const res = await fetch(`https://api.github.com/repos/${repo}/contents/personal.json`, {
                 method: 'PUT',
-                headers: {
-                    'Authorization': `token ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: "Actualización autónoma de personal.json via Panel Admin",
-                    content: contentBase64,
-                    sha: fileSha
-                })
+                headers: headers,
+                body: JSON.stringify(bodyPayload)
             });
 
-            if (resPut.ok) {
-                const putData = await resPut.json();
-                if (putData.content && putData.content.sha) {
-                    fileSha = putData.content.sha;
-                }
-                alert('¡Éxito! Cambios publicados directamente en GitHub. Se reflejarán en tu sitio web en unos segundos.');
+            if (res.ok) {
+                const dataRes = await res.json();
+                personalFileSha = dataRes.content.sha;
+                actualizarEstado('¡Cambios guardados y subidos a GitHub con éxito!', 'success');
             } else {
-                const errJson = await resPut.json();
-                alert('Error al publicar en GitHub: ' + (errJson.message || 'Verifica tus credenciales.'));
+                throw new Error('Error al actualizar personal.json');
             }
+
         } catch (err) {
-            alert('Error de red al conectar con la API de GitHub: ' + err.message);
+            console.error(err);
+            actualizarEstado('Error al subir los cambios a GitHub', 'error');
         }
     }
 </script>

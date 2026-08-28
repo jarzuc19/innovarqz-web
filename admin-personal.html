@@ -386,7 +386,6 @@
                 'Accept': 'application/vnd.github.v3+json'
             };
 
-            // 1. Cargar proyectos.json de forma segura
             try {
                 const resProj = await fetch(`https://api.github.com/repos/${repo}/contents/proyectos.json`, { headers });
                 if (resProj.ok) {
@@ -399,7 +398,6 @@
                 proyectosGlobales = [];
             }
 
-            // 2. Cargar personal.json (Si no existe, se inicializa vacío sin generar error)
             try {
                 const resPers = await fetch(`https://api.github.com/repos/${repo}/contents/personal.json`, { headers });
                 if (resPers.ok) {
@@ -666,23 +664,37 @@
         mostrarEstado('Publicando personal.json en GitHub...', 'syncing');
 
         try {
-            const contenidoJSON = JSON.stringify(personalGlobal, null, 4);
-            const utf8Bytes = new TextEncoder().encode(contenidoJSON);
-            let binString = "";
-            utf8Bytes.forEach((b) => { binString += String.fromCodePoint(b); });
-            const contenidoB64 = btoa(binString);
-
             const headers = {
                 'Authorization': `token ${token}`,
                 'Accept': 'application/vnd.github.v3+json',
                 'Content-Type': 'application/json'
             };
 
+            // Verificación dinámica del SHA actual del archivo en GitHub antes de hacer PUT
+            let currentSha = null;
+            try {
+                const checkRes = await fetch(`https://api.github.com/repos/${repo}/contents/personal.json`, { headers });
+                if (checkRes.ok) {
+                    const checkData = await checkRes.json();
+                    currentSha = checkData.sha;
+                }
+            } catch (e) {
+                currentSha = null;
+            }
+
+            const contenidoJSON = JSON.stringify(personalGlobal, null, 4);
+            const utf8Bytes = new TextEncoder().encode(contenidoJSON);
+            let binString = "";
+            utf8Bytes.forEach((b) => { binString += String.fromCodePoint(b); });
+            const contenidoB64 = btoa(binString);
+
             const bodyPayload = {
                 message: "Actualización de personal.json desde Panel Admin",
                 content: contenidoB64
             };
-            if (personalFileSha) bodyPayload.sha = personalFileSha;
+            if (currentSha) {
+                bodyPayload.sha = currentSha;
+            }
 
             const res = await fetch(`https://api.github.com/repos/${repo}/contents/personal.json`, {
                 method: 'PUT',
@@ -694,13 +706,14 @@
                 const dataRes = await res.json();
                 personalFileSha = dataRes.content.sha;
                 mostrarEstado('¡Cambios publicados con éxito en GitHub!', 'success');
-                alert('¡Publicación exitosa! personal.json ha sido creado/actualizado correctamente.');
+                alert('¡Publicación exitosa! personal.json ha sido guardado correctamente en tu repositorio.');
             } else {
-                throw new Error('Error al actualizar archivo');
+                const errData = await res.json();
+                throw new Error(errData.message || 'Error al actualizar archivo');
             }
         } catch (err) {
             console.error(err);
-            mostrarEstado('Error al sincronizar con GitHub.', 'error');
+            mostrarEstado('Error al sincronizar con GitHub: ' + err.message, 'error');
         }
     }
 </script>

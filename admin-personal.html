@@ -67,7 +67,6 @@
             padding-left: 0.75rem;
         }
 
-        /* Barra de GitHub */
         .github-bar {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -112,7 +111,6 @@
 
         .btn-primary:hover { background-color: var(--accent-copper-hover); }
 
-        /* Selector y Lista de Miembros */
         .selector-row {
             display: flex;
             justify-content: space-between;
@@ -173,7 +171,6 @@
 
         .btn-danger:hover { background-color: var(--danger-color); color: #fff; }
 
-        /* Secciones del Formulario */
         .form-section-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -289,7 +286,6 @@
 
         textarea { resize: vertical; min-height: 110px; }
 
-        /* Proyectos Checkboxes Grid */
         .projects-checklist {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -318,7 +314,6 @@
         .project-check-item:hover { border-color: var(--accent-copper); }
         .project-check-item input { accent-color: var(--accent-copper); cursor: pointer; }
 
-        /* Barra Inferior de Guardado */
         .bottom-action-bar {
             position: sticky;
             bottom: 2rem;
@@ -372,7 +367,6 @@
         </div>
     </header>
 
-    <!-- Barra de Conexión GitHub -->
     <div class="github-bar">
         <input type="password" id="gh_token" placeholder="GitHub Personal Access Token (ghp_...)" autocomplete="off">
         <input type="text" id="gh_repo" placeholder="Repositorio (ej. jarzuc19/innovarqz-web)">
@@ -381,7 +375,6 @@
         </button>
     </div>
 
-    <!-- Selector y Gestión de Miembros -->
     <div class="selector-row">
         <div style="display: flex; align-items: center; gap: 1rem; flex-grow: 1;">
             <label for="miembroSelect" style="font-weight: 700; color: var(--text-main);">Profesional Activo:</label>
@@ -400,7 +393,6 @@
         </div>
     </div>
 
-    <!-- 1. TARJETA EN LA SECCIÓN NOSOTROS -->
     <div class="form-section-card" id="formCard">
         <div class="section-header-title">
             <i data-lucide="user"></i> 1. Tarjeta en la Sección "Nosotros"
@@ -442,7 +434,6 @@
             </div>
         </div>
 
-        <!-- 2. CONTENIDO DEL MODAL DINÁMICO -->
         <div class="section-header-title" style="margin-top: 2.5rem;">
             <i data-lucide="file-text"></i> 2. Detalle del Modal Dinámico
         </div>
@@ -469,7 +460,6 @@
             </div>
         </div>
 
-        <!-- 3. PROYECTOS ASOCIADOS -->
         <div class="section-header-title" style="margin-top: 2.5rem;">
             <i data-lucide="box"></i> 3. Proyectos Asociados al Perfil
         </div>
@@ -482,7 +472,6 @@
         </div>
     </div>
 
-    <!-- Barra Inferior de Guardado -->
     <div class="bottom-action-bar" id="bottomBar">
         <div class="status-feedback" id="statusFeedback">
             <i data-lucide="info"></i> <span>Listo para sincronizar</span>
@@ -500,8 +489,6 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         if (window.lucide) lucide.createIcons();
-        
-        // Cargar credenciales guardadas
         document.getElementById('gh_token').value = localStorage.getItem('gh_token_pers') || '';
         document.getElementById('gh_repo').value = localStorage.getItem('gh_repo_pers') || 'jarzuc19/innovarqz-web';
     });
@@ -522,6 +509,13 @@
 
         feedback.innerHTML = `<i data-lucide="${icon}"></i> <span>${mensaje}</span>`;
         if (window.lucide) lucide.createIcons();
+    }
+
+    // Decodificador UTF-8 robusto compatible con tildes y eñes desde la API de GitHub
+    function decodeBase64UTF8(base64) {
+        const binString = atob(base64);
+        const bytes = Uint8Array.from(binString, (m) => m.codePointAt(0));
+        return new TextDecoder().decode(bytes);
     }
 
     async function conectarYCargarGitHub() {
@@ -546,7 +540,7 @@
             const resProj = await fetch(`https://api.github.com/repos/${repo}/contents/proyectos.json`, { headers });
             if (resProj.ok) {
                 const dataProj = await resProj.json();
-                const contenidoProj = decodeURIComponent(escape(atob(dataProj.content)));
+                const contenidoProj = decodeBase64UTF8(dataProj.content);
                 proyectosGlobales = JSON.parse(contenidoProj);
                 renderizarCheckboxesProyectos();
             } else {
@@ -558,7 +552,7 @@
             if (resPers.ok) {
                 const dataPers = await resPers.json();
                 personalFileSha = dataPers.sha;
-                const contenidoPers = decodeURIComponent(escape(atob(dataPers.content)));
+                const contenidoPers = decodeBase64UTF8(dataPers.content);
                 personalGlobal = JSON.parse(contenidoPers);
             } else {
                 personalGlobal = [];
@@ -567,7 +561,6 @@
 
             poblarSelectMiembros();
 
-            // Activar paneles
             document.getElementById('formCard').classList.add('active-panel');
             document.getElementById('bottomBar').classList.add('active-bar');
 
@@ -641,13 +634,11 @@
         document.getElementById('m_biografia').value = m.biografia || '';
         document.getElementById('m_educacion').value = m.educacion || '';
 
-        // Checkboxes proyectos
         const asoc = m.proyectosAsociados || [];
         document.querySelectorAll('.chk-proyecto').forEach(chk => {
             chk.checked = asoc.includes(chk.value);
         });
 
-        // Foto preview
         const container = document.getElementById('previewContainer');
         const labelArchivo = document.getElementById('nombreArchivoFoto');
         if (m.foto) {
@@ -727,7 +718,6 @@
                     'Content-Type': 'application/json'
                 };
 
-                // Verificar si ya existe para obtener SHA
                 let shaExistente = null;
                 const checkRes = await fetch(`https://api.github.com/repos/${repo}/contents/${nombreArchivo}`, { headers });
                 if (checkRes.ok) {
@@ -775,7 +765,6 @@
         const token = document.getElementById('gh_token').value.trim();
         const repo = document.getElementById('gh_repo').value.trim();
 
-        // Recopilar datos del formulario
         const proyectosAsoc = Array.from(document.querySelectorAll('.chk-proyecto:checked')).map(chk => chk.value);
         const fotoActual = document.getElementById('previewContainer').dataset.fotoActual || '';
 
@@ -806,7 +795,10 @@
 
         try {
             const contenidoJSON = JSON.stringify(personalGlobal, null, 4);
-            const contenidoB64 = btoa(unescape(encodeURIComponent(contenidoJSON)));
+            const utf8Bytes = new TextEncoder().encode(contenidoJSON);
+            let binString = "";
+            utf8Bytes.forEach((b) => { binString += String.fromCodePoint(b); });
+            const contenidoB64 = btoa(binString);
 
             const headers = {
                 'Authorization': `token ${token}`,

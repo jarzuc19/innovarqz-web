@@ -1,116 +1,76 @@
 [
   {
     "id": "james-zuniga",
-    "nombre": "Arq. James Ramiro Zúñiga Caipe",
-    "cargoFicha": "Gerente & Coordinador BIM / CIM",
-    "descripcionCorta": "Líder ejecutivo en metodologías OpenBIM (ISO 19650), federación de modelos multidisciplinares y dirección operativa de obra.",
+    "nombre": "Arq. James Zúñiga",
+    "cargoFicha": "Fundador & Directora General",
     "imagen": "james-zuniga.jpg",
-    "tieneImagen": true,
-    "etiquetas": [
-      "ARQ. UDENAR",
-      "buildingSMART",
-      "MASTER BIM"
-    ],
-    "textoBoton": "Conoce a Nuestro Lider",
-    "tipoAccion": "modal",
     "modalDetalle": {
-      "subtitulo": "Fundador & Principal Manager",
+      "subtitulo": "Fundador & Principal Manager | BIM / CIM Lead",
       "metadatos": [
-        {
-          "icono": "award",
-          "texto": "Matrícula Profesional CPNAA"
-        },
-        {
-          "icono": "shield-check",
-          "texto": "buildingSMART Certified"
-        },
-        {
-          "icono": "map-pin",
-          "texto": "Nariño, Colombia"
-        }
+        "Licencia Profesional CPNAA",
+        "Especialista BIM / CIM",
+        "Certificado openBIM"
       ],
       "seccionPerfil": {
-        "titulo": "Perfil Ejecutivo & Dirección Técnica",
-        "descripcion": "Arquitecto egresado de la Universidad de Nariño, al frente del ecosistema técnico de InnovArqZ. Amplia trayectoria en la coordinación de modelos multidisciplinares (ARQ/EST/MEP), federación digital, detección de interferencias y control financiero presupuestal (BIM 5D) bajo la norma internacional ISO 19650 y estándares OpenBIM."
+        "titulo": "Perfil Profesional",
+        "descripcion": "Arquitecto egresado de la Universidad de Nariño, especializado en gestión BIM/CIM, gemelos digitales y automatización aplicada a la arquitectura y gestión del riesgo."
       },
       "seccionFormacion": {
-        "titulo": "Formación Académica & Certificaciones",
+        "titulo": "Formación & Certificaciones",
         "items": [
-          "Arquitecto: Universidad de Nariño.",
-          "Certificación Internacional: buildingSMART Professional Certification — Entry Level.",
-          "Máster BIM Manager Internacional (+IA y VR): Espacio BIM / ATC Autodesk (En Curso).",
-          "Diplomado BIM Civil (Infraestructuras): Universidad de Nariño.",
-          "Diplomado Ordenamiento Territorial (PBOT/EOT): ESAP."
+          "Arquitecto - Universidad de Nariño",
+          "Diplomado BIM Architecture & Civil - UDENAR",
+          "Ordenamiento Territorial - ESAP",
+          "Certificación buildingSMART openBIM"
         ]
-      }
-    },
-    "proyectosAsociados": [
-      "proj-1787734600992",
-      "proj-1787733492524"
-    ]
+      },
+      "proyectosDestacados": [
+        {
+          "id": "auditorio-tumaco",
+          "nombre": "Auditorio y Cabina de Control - Tumaco"
+        }
+      ]
+    }
   },
   {
     "id": "coordinacion-obra",
-    "nombre": "Coordinación de Obra & Interventoría",
-    "cargoFicha": "Supervisión Técnica",
-    "descripcionCorta": "Dirección de residencia operativa, control financiero de contratos públicos/privados y auditoría estricta de APUs en sitio.",
-    "imagenIcono": "hard-hat",
-    "tieneImagen": false,
-    "etiquetas": [
-      "Residencia",
-      "APU",
-      "Control Q"
-    ],
-    "textoBoton": "Conoce a Nuestro Aliado",
-    "tipoAccion": "portafolio",
-    "posicionPortafolio": 0,
+    "nombre": "Coordinación de Obra",
+    "cargoFicha": "Residencia y Supervisión Técnica",
     "imagen": "",
-    "proyectosAsociados": [
-      "proj-1787731119176"
-    ],
     "modalDetalle": {
-      "subtitulo": "",
-      "metadatos": [],
+      "subtitulo": "Supervisión & Control Técnico",
+      "metadatos": ["Ingeniería / Arquitectura"],
       "seccionPerfil": {
-        "titulo": "Perfil Ejecutivo & Dirección Técnica",
-        "descripcion": ""
+        "titulo": "Perfil Profesional",
+        "descripcion": "Perfil en proceso de actualización."
       },
       "seccionFormacion": {
-        "titulo": "Formación Académica & Certificaciones",
+        "titulo": "Formación & Certificaciones",
         "items": []
-      }
+      },
+      "proyectosDestacados": []
     }
   },
   {
     "id": "consultoria-geoespacial",
-    "nombre": "Consultoría Geoespacial & Territorio",
-    "cargoFicha": "Modelado CIM & EOT",
-    "descripcionCorta": "Procesamiento avanzado de topografía de campo, fotogrametría y superficies en Civil 3D como soporte técnico para ordenamiento territorial.",
-    "imagenIcono": "map",
-    "tieneImagen": false,
-    "etiquetas": [
-      "Civil 3D",
-      "GIS",
-      "CIM"
-    ],
-    "textoBoton": "Conoce a Nuestro Aliado",
-    "tipoAccion": "portafolio",
-    "posicionPortafolio": 0,
+    "nombre": "Consultoría Geoespacial",
+    "cargoFicha": "Sistemas GIS & Modelado Topográfico",
     "imagen": "",
-    "proyectosAsociados": [
-      "proj-1787731307228"
-    ],
     "modalDetalle": {
-      "subtitulo": "",
-      "metadatos": [],
+      "subtitulo": "GIS & Topografía Digital",
+      "metadatos": ["Especialista GIS"],
       "seccionPerfil": {
-        "titulo": "Perfil Ejecutivo & Dirección Técnica",
-        "descripcion": ""
+        "titulo": "Perfil Profesional",
+        "descripcion": "Perfil en proceso de actualización."
       },
       "seccionFormacion": {
-        "titulo": "Formación Académica & Certificaciones",
+        "titulo": "Formación & Certificaciones",
         "items": []
-      }
+      },
+      "proyectosDestacados": []
+    }
+  }
+]
     }
   }
 ]

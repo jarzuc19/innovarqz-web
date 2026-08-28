@@ -1880,9 +1880,9 @@
         <div class="nav-container">
             <nav>
                 <a href="#inicio" class="nav-active">Inicio</a>
-                <a href="#servicios">Servicios</a>
-                <a href="#bim-cim">Metodología BIM/CIM</a>
                 <a href="#portafolio">Portafolio</a>
+                <a href="#bim-cim">Metodología BIM/CIM</a>
+                <a href="#servicios">Servicios</a>
                 <a href="#nosotros">Nosotros</a>
                 <a href="#contacto">Contacto</a>
             </nav>
@@ -1899,9 +1899,9 @@
 
     <div class="mobile-nav-drawer" id="mobileNavDrawer">
         <a href="#inicio" onclick="closeMobileMenu()"><span>Inicio</span> <i data-lucide="chevron-right"></i></a>
-        <a href="#servicios" onclick="closeMobileMenu()"><span>Servicios</span> <i data-lucide="chevron-right"></i></a>
-        <a href="#bim-cim" onclick="closeMobileMenu()"><span>Metodología BIM/CIM</span> <i data-lucide="chevron-right"></i></a>
         <a href="#portafolio" onclick="closeMobileMenu()"><span>Portafolio</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#bim-cim" onclick="closeMobileMenu()"><span>Metodología BIM/CIM</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#servicios" onclick="closeMobileMenu()"><span>Servicios</span> <i data-lucide="chevron-right"></i></a>
         <a href="#nosotros" onclick="closeMobileMenu()"><span>Nosotros</span> <i data-lucide="chevron-right"></i></a>
         <a href="#contacto" onclick="closeMobileMenu()"><span>Contacto</span> <i data-lucide="chevron-right"></i></a>
     </div>
@@ -2009,6 +2009,173 @@
             <span class="fab-tooltip">WhatsApp</span>
         </a>
     </div>
+
+    <section id="portafolio" class="tech-section">
+        <div class="topo-bg">
+            <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <g stroke="url(#topo-grad)" stroke-width="1.2" fill="none">
+                    <path d="M-100,150 C250,100 450,250 750,130 C1050,10 1150,200 1300,150" />
+                    <path d="M-100,250 C300,180 500,350 800,230 C1100,110 1200,300 1300,250" />
+                    <path d="M-100,350 C350,280 550,450 850,330 C1150,210 1250,400 1300,350" />
+                </g>
+            </svg>
+            <div class="topo-overlay"></div>
+        </div>
+
+        <div class="tech-container">
+            <div class="section-title">
+                <h2>Portafolio & Casos de Estudio</h2>
+                <p>Historial cronológico de proyectos, consultorías e intervenciones técnicas.</p>
+            </div>
+
+            <div class="portfolio-tabs">
+                <button class="tab-btn active" onclick="filterCategory('all', this)">Todos</button>
+                <button class="tab-btn" onclick="filterCategory('bim', this)">Diseño & BIM</button>
+                <button class="tab-btn" onclick="filterCategory('obra', this)">Infraestructura & Obra</button>
+                <button class="tab-btn" onclick="filterCategory('interventoria', this)">Interventoría</button>
+                <button class="tab-btn" onclick="filterCategory('cim', this)">Modelado Urbano (CIM)</button>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-track-line"></div>
+                <div class="timeline-wrapper">
+                    <div class="timeline-fixed-node">
+                        <div class="time-node active" onclick="filterYear('all', this)">
+                            <span class="node-dot"></span><span>Todos</span>
+                        </div>
+                    </div>
+
+                    <button class="timeline-nav-btn" onclick="scrollTimeline('left')" type="button" aria-label="Año anterior">
+                        <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
+                    </button>
+
+                    <div class="timeline-viewport" id="timelineViewport">
+                        <div class="timeline-track-inner" id="timelineTrackInner"></div>
+                    </div>
+
+                    <button class="timeline-nav-btn" onclick="scrollTimeline('right')" type="button" aria-label="Año siguiente">
+                        <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="carousel-wrapper" id="portfolioWrapper">
+                <button class="nav-arrow prev-arrow" onclick="detenerAutoplayCarruseles(); prevSlide('portfolioTrack', 'portfolio-slide');" aria-label="Anterior">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="nav-arrow next-arrow" onclick="detenerAutoplayCarruseles(); nextSlide('portfolioTrack', 'portfolio-slide');" aria-label="Siguiente">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+                
+                <div class="carousel-track" id="portfolioTrack"></div>
+
+                <div class="portfolio-counter-container" id="portfolioIndicators">
+                    <div class="portfolio-counter-badge">
+                        PROYECTO 
+                        <input type="number" id="portfolioActiveInput" min="1" value="01" aria-label="Número de proyecto activo" onfocus="this.select()" onchange="detenerAutoplayCarruseles(); jumpToPortfolioInput(this.value);" onkeydown="if(event.key==='Enter') this.blur()">
+                        / <span id="portfolioTotalCount">01</span>
+                    </div>
+                    <div class="portfolio-progress-bar">
+                        <div class="portfolio-progress-fill" id="portfolioProgressFill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="bim-cim" class="bim-section">
+        <div class="bim-3d-bg">
+            <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="bim-wireframe-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#d97706" stop-opacity="0.2" />
+                        <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.1" />
+                        <stop offset="100%" stop-color="#334155" stop-opacity="0.03" />
+                    </linearGradient>
+                </defs>
+                <g stroke="url(#bim-wireframe-grad)" stroke-width="1" fill="none">
+                    <path d="M-100,500 L500,-100 M100,600 L700,-100 M300,600 L900,0 M500,600 L1100,0" />
+                    <path d="M1100,500 L500,-100 M900,600 L300,-100 M700,600 L100,-100 M500,600 L-100,0" />
+                    <polygon points="500,180 650,250 650,420 500,350" />
+                    <line x1="500" y1="0" x2="500" y2="600" stroke-dasharray="4,4" />
+                </g>
+            </svg>
+            <div class="bim-overlay"></div>
+        </div>
+
+        <div class="bim-container">
+            <div class="section-title">
+                <h2>Ecosistema Metodológico BIM / CIM</h2>
+                <p>Haz clic en el anillo rector o en cualquier dimensión para explorar el alcance y métricas comparativas.</p>
+            </div>
+
+            <div class="bim-interactive-grid">
+                <div class="gears-container">
+                    <svg viewBox="0 -20 520 540" class="gears-svg">
+                        <text x="260" y="-2" text-anchor="middle" fill="var(--accent-copper)" font-size="15" font-weight="800" letter-spacing="4">MARCO RECTOR ISO 19650</text>
+
+                        <g class="gear-iso-outer active-iso" id="isoOuterRing" onclick="selectDimension('iso')">
+                            <circle cx="260" cy="260" r="250" fill="none" stroke="rgba(217, 119, 6, 0.25)" stroke-width="2" />
+                            <circle cx="260" cy="260" r="240" fill="none" stroke="rgba(59, 130, 246, 0.35)" stroke-width="12" stroke-dasharray="10, 14" />
+                            <circle cx="260" cy="260" r="228" fill="var(--bg-dark)" stroke="rgba(217, 119, 6, 0.4)" stroke-width="2" />
+                        </g>
+
+                        <path d="M 80 180 C 160 100, 240 320, 320 200 C 370 120, 430 300, 440 340" fill="none" stroke="rgba(217, 119, 6, 0.15)" stroke-width="1.5" stroke-dasharray="4, 6" />
+
+                        <g class="gear-item" id="gear-0" onclick="selectDimension(0)">
+                            <circle cx="95" cy="180" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
+                            <circle cx="95" cy="180" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
+                            <circle cx="95" cy="180" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
+                            <text x="95" y="184" text-anchor="middle" class="gear-text">1D / 2D</text>
+                        </g>
+
+                        <g class="gear-item" id="gear-1" onclick="selectDimension(1)">
+                            <circle cx="178" cy="140" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
+                            <circle cx="178" cy="140" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
+                            <circle cx="178" cy="140" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
+                            <text x="178" y="144" text-anchor="middle" class="gear-text">3D</text>
+                        </g>
+
+                        <g class="gear-item" id="gear-2" onclick="selectDimension(2)">
+                            <circle cx="235" cy="218" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
+                            <circle cx="235" cy="218" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
+                            <circle cx="235" cy="218" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
+                            <text x="235" y="222" text-anchor="middle" class="gear-text">4D</text>
+                        </g>
+
+                        <g class="gear-item" id="gear-3" onclick="selectDimension(3)">
+                            <circle cx="310" cy="285" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
+                            <circle cx="310" cy="285" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
+                            <circle cx="310" cy="285" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
+                            <text x="310" y="289" text-anchor="middle" class="gear-text">5D</text>
+                        </g>
+
+                        <g class="gear-item" id="gear-4" onclick="selectDimension(4)">
+                            <circle cx="380" cy="225" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
+                            <circle cx="380" cy="225" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
+                            <circle cx="380" cy="225" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
+                            <text x="380" y="229" text-anchor="middle" class="gear-text">6D</text>
+                        </g>
+
+                        <g class="gear-item" id="gear-5" onclick="selectDimension(5)">
+                            <circle cx="425" cy="305" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
+                            <circle cx="425" cy="305" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
+                            <circle cx="425" cy="305" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
+                            <text x="425" y="309" text-anchor="middle" class="gear-text">7D</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="dim-panel" id="dimPanel">
+                    <div class="dim-badge" id="dimBadge">ESTÁNDAR GENERAL ISO 19650</div>
+                    <h3 id="dimTitle">Tradicional Vs. BIM/CIM</h3>
+                    <p id="dimDesc">Gráfica de impacto comparativo que analiza de manera cuantitativa la eficiencia operativa, la precisión presupuestal y la mitigación de riesgos frente al modelado CAD tradicional.</p>
+                    
+                    <div id="dimContentArea"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="servicios" class="tech-section">
         <div class="topo-bg">
@@ -2119,173 +2286,6 @@
                 </div>
 
                 <div class="carousel-indicators" id="servicesIndicators"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="bim-cim" class="bim-section">
-        <div class="bim-3d-bg">
-            <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="bim-wireframe-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#d97706" stop-opacity="0.2" />
-                        <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.1" />
-                        <stop offset="100%" stop-color="#334155" stop-opacity="0.03" />
-                    </linearGradient>
-                </defs>
-                <g stroke="url(#bim-wireframe-grad)" stroke-width="1" fill="none">
-                    <path d="M-100,500 L500,-100 M100,600 L700,-100 M300,600 L900,0 M500,600 L1100,0" />
-                    <path d="M1100,500 L500,-100 M900,600 L300,-100 M700,600 L100,-100 M500,600 L-100,0" />
-                    <polygon points="500,180 650,250 650,420 500,350" />
-                    <line x1="500" y1="0" x2="500" y2="600" stroke-dasharray="4,4" />
-                </g>
-            </svg>
-            <div class="bim-overlay"></div>
-        </div>
-
-        <div class="bim-container">
-            <div class="section-title">
-                <h2>Ecosistema Metodológico BIM / CIM</h2>
-                <p>Haz clic en el anillo rector o en cualquier dimensión para explorar el alcance y métricas comparativas.</p>
-            </div>
-
-            <div class="bim-interactive-grid">
-                <div class="gears-container">
-                    <svg viewBox="0 -20 520 540" class="gears-svg">
-                        <text x="260" y="-2" text-anchor="middle" fill="var(--accent-copper)" font-size="15" font-weight="800" letter-spacing="4">MARCO RECTOR ISO 19650</text>
-
-                        <g class="gear-iso-outer active-iso" id="isoOuterRing" onclick="selectDimension('iso')">
-                            <circle cx="260" cy="260" r="250" fill="none" stroke="rgba(217, 119, 6, 0.25)" stroke-width="2" />
-                            <circle cx="260" cy="260" r="240" fill="none" stroke="rgba(59, 130, 246, 0.35)" stroke-width="12" stroke-dasharray="10, 14" />
-                            <circle cx="260" cy="260" r="228" fill="var(--bg-dark)" stroke="rgba(217, 119, 6, 0.4)" stroke-width="2" />
-                        </g>
-
-                        <path d="M 80 180 C 160 100, 240 320, 320 200 C 370 120, 430 300, 440 340" fill="none" stroke="rgba(217, 119, 6, 0.15)" stroke-width="1.5" stroke-dasharray="4, 6" />
-
-                        <g class="gear-item" id="gear-0" onclick="selectDimension(0)">
-                            <circle cx="95" cy="180" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="95" cy="180" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="95" cy="180" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
-                            <text x="95" y="184" text-anchor="middle" class="gear-text">1D / 2D</text>
-                        </g>
-
-                        <g class="gear-item" id="gear-1" onclick="selectDimension(1)">
-                            <circle cx="178" cy="140" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="178" cy="140" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="178" cy="140" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
-                            <text x="178" y="144" text-anchor="middle" class="gear-text">3D</text>
-                        </g>
-
-                        <g class="gear-item" id="gear-2" onclick="selectDimension(2)">
-                            <circle cx="235" cy="218" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="235" cy="218" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="235" cy="218" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
-                            <text x="235" y="222" text-anchor="middle" class="gear-text">4D</text>
-                        </g>
-
-                        <g class="gear-item" id="gear-3" onclick="selectDimension(3)">
-                            <circle cx="310" cy="285" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="310" cy="285" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="310" cy="285" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
-                            <text x="310" y="289" text-anchor="middle" class="gear-text">5D</text>
-                        </g>
-
-                        <g class="gear-item" id="gear-4" onclick="selectDimension(4)">
-                            <circle cx="380" cy="225" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="380" cy="225" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="380" cy="225" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
-                            <text x="380" y="229" text-anchor="middle" class="gear-text">6D</text>
-                        </g>
-
-                        <g class="gear-item" id="gear-5" onclick="selectDimension(5)">
-                            <circle cx="425" cy="305" r="48" fill="none" stroke="var(--accent-copper)" stroke-width="9" stroke-dasharray="9, 11" />
-                            <circle cx="425" cy="305" r="43" fill="var(--bg-card)" stroke="var(--accent-copper)" stroke-width="2" />
-                            <circle cx="425" cy="305" r="16" fill="var(--bg-dark)" stroke="var(--border-color)" stroke-width="1.5" />
-                            <text x="425" y="309" text-anchor="middle" class="gear-text">7D</text>
-                        </g>
-                    </svg>
-                </div>
-
-                <div class="dim-panel" id="dimPanel">
-                    <div class="dim-badge" id="dimBadge">ESTÁNDAR GENERAL ISO 19650</div>
-                    <h3 id="dimTitle">Tradicional Vs. BIM/CIM</h3>
-                    <p id="dimDesc">Gráfica de impacto comparativo que analiza de manera cuantitativa la eficiencia operativa, la precisión presupuestal y la mitigación de riesgos frente al modelado CAD tradicional.</p>
-                    
-                    <div id="dimContentArea"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="portafolio" class="tech-section">
-        <div class="topo-bg">
-            <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                <g stroke="url(#topo-grad)" stroke-width="1.2" fill="none">
-                    <path d="M-100,150 C250,100 450,250 750,130 C1050,10 1150,200 1300,150" />
-                    <path d="M-100,250 C300,180 500,350 800,230 C1100,110 1200,300 1300,250" />
-                    <path d="M-100,350 C350,280 550,450 850,330 C1150,210 1250,400 1300,350" />
-                </g>
-            </svg>
-            <div class="topo-overlay"></div>
-        </div>
-
-        <div class="tech-container">
-            <div class="section-title">
-                <h2>Portafolio & Casos de Estudio</h2>
-                <p>Historial cronológico de proyectos, consultorías e intervenciones técnicas.</p>
-            </div>
-
-            <div class="portfolio-tabs">
-                <button class="tab-btn active" onclick="filterCategory('all', this)">Todos</button>
-                <button class="tab-btn" onclick="filterCategory('bim', this)">Diseño & BIM</button>
-                <button class="tab-btn" onclick="filterCategory('obra', this)">Infraestructura & Obra</button>
-                <button class="tab-btn" onclick="filterCategory('interventoria', this)">Interventoría</button>
-                <button class="tab-btn" onclick="filterCategory('cim', this)">Modelado Urbano (CIM)</button>
-            </div>
-
-            <div class="timeline-container">
-                <div class="timeline-track-line"></div>
-                <div class="timeline-wrapper">
-                    <div class="timeline-fixed-node">
-                        <div class="time-node active" onclick="filterYear('all', this)">
-                            <span class="node-dot"></span><span>Todos</span>
-                        </div>
-                    </div>
-
-                    <button class="timeline-nav-btn" onclick="scrollTimeline('left')" type="button" aria-label="Año anterior">
-                        <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
-                    </button>
-
-                    <div class="timeline-viewport" id="timelineViewport">
-                        <div class="timeline-track-inner" id="timelineTrackInner"></div>
-                    </div>
-
-                    <button class="timeline-nav-btn" onclick="scrollTimeline('right')" type="button" aria-label="Año siguiente">
-                        <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="carousel-wrapper" id="portfolioWrapper">
-                <button class="nav-arrow prev-arrow" onclick="detenerAutoplayCarruseles(); prevSlide('portfolioTrack', 'portfolio-slide');" aria-label="Anterior">
-                    <i data-lucide="chevron-left"></i>
-                </button>
-                <button class="nav-arrow next-arrow" onclick="detenerAutoplayCarruseles(); nextSlide('portfolioTrack', 'portfolio-slide');" aria-label="Siguiente">
-                    <i data-lucide="chevron-right"></i>
-                </button>
-                
-                <div class="carousel-track" id="portfolioTrack"></div>
-
-                <div class="portfolio-counter-container" id="portfolioIndicators">
-                    <div class="portfolio-counter-badge">
-                        PROYECTO 
-                        <input type="number" id="portfolioActiveInput" min="1" value="01" aria-label="Número de proyecto activo" onfocus="this.select()" onchange="detenerAutoplayCarruseles(); jumpToPortfolioInput(this.value);" onkeydown="if(event.key==='Enter') this.blur()">
-                        / <span id="portfolioTotalCount">01</span>
-                    </div>
-                    <div class="portfolio-progress-bar">
-                        <div class="portfolio-progress-fill" id="portfolioProgressFill"></div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -2717,9 +2717,9 @@
 
     const seccionesEstructura = [
         { id: 'inicio', title: 'Inicio / Presentación Principal', icon: 'home', snippet: 'Innovación Tecnológica y Control Técnico en Arquitectura e Ingeniería' },
-        { id: 'servicios', title: 'Nuestros Pilares de Servicio', icon: 'layers', snippet: 'OpenBIM ISO 19650, Interventoría de Obra, FM y Suministros' },
-        { id: 'bim-cim', title: 'Metodología BIM / CIM', icon: 'cpu', snippet: 'Dimensiones del modelo virtual (1D a 7D) y simulación' },
         { id: 'portafolio', title: 'Portafolio de Proyectos', icon: 'box', snippet: 'Casos de estudio, licitaciones y consultorías técnicas' },
+        { id: 'bim-cim', title: 'Metodología BIM / CIM', icon: 'cpu', snippet: 'Dimensiones del modelo virtual (1D a 7D) y simulación' },
+        { id: 'servicios', title: 'Nuestros Pilares de Servicio', icon: 'layers', snippet: 'OpenBIM ISO 19650, Interventoría de Obra, FM y Suministros' },
         { id: 'nosotros', title: 'Esencia Digital & ADN InnovArqZ', icon: 'dna', snippet: 'Misión, Visión 2031 y Equipo Directivo' },
         { id: 'contacto', title: 'Contacto & Formulario Directo', icon: 'mail', snippet: 'Solicita cotización de servicios o asesoría técnica' }
     ];

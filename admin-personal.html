@@ -378,7 +378,7 @@
             return;
         }
 
-        mostrarEstado('Conectando y descargando datos...', 'syncing');
+        mostrarEstado('Conectando con GitHub...', 'syncing');
 
         try {
             const headers = {
@@ -386,14 +386,21 @@
                 'Accept': 'application/vnd.github.v3+json'
             };
 
-            const resProj = await fetch(`https://api.github.com/repos/${repo}/contents/proyectos.json`, { headers });
-            if (resProj.ok) {
-                const dataProj = await resProj.json();
-                proyectosGlobales = JSON.parse(decodeBase64UTF8(dataProj.content));
-            } else {
+            // Intentar cargar proyectos.json de forma independiente y segura
+            try {
+                const resProj = await fetch(`https://api.github.com/repos/${repo}/contents/proyectos.json`, { headers });
+                if (resProj.ok) {
+                    const dataProj = await resProj.json();
+                    proyectosGlobales = JSON.parse(decodeBase64UTF8(dataProj.content));
+                } else {
+                    proyectosGlobales = [];
+                }
+            } catch (e) {
+                console.warn('No se pudo cargar proyectos.json:', e);
                 proyectosGlobales = [];
             }
 
+            // Intentar cargar personal.json
             const resPers = await fetch(`https://api.github.com/repos/${repo}/contents/personal.json`, { headers });
             if (resPers.ok) {
                 const dataPers = await resPers.json();
@@ -413,10 +420,10 @@
                 crearNuevoMiembro();
             }
 
-            mostrarEstado('Sincronizado correctamente con GitHub.', 'success');
+            mostrarEstado('¡Conexión exitosa con GitHub!', 'success');
         } catch (err) {
             console.error(err);
-            mostrarEstado('Error al conectar con la API de GitHub.', 'error');
+            mostrarEstado('Error al conectar con la API de GitHub. Verifica tu Token y Repositorio.', 'error');
         }
     }
 
@@ -497,7 +504,7 @@
             const dataUrl = e.target.result;
             const m = personalGlobal[currentIndex];
             if (m) {
-                m.foto = dataUrl; // Se guarda comprimida en Base64 dentro del JSON exactamente igual que el portafolio
+                m.foto = dataUrl;
             }
 
             const imgPreview = document.getElementById('photoPreview');
@@ -556,7 +563,7 @@
     function renderProyectosCheckbox(asociados) {
         const container = document.getElementById('projectsCheckboxContainer');
         if (!proyectosGlobales.length) {
-            container.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem;">No hay proyectos en proyectos.json</span>`;
+            container.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem;">No hay proyectos disponibles en proyectos.json (puedes continuar sin seleccionarlos)</span>`;
             return;
         }
 
@@ -683,7 +690,7 @@
                 const dataRes = await res.json();
                 personalFileSha = dataRes.content.sha;
                 mostrarEstado('¡Cambios publicados con éxito en GitHub!', 'success');
-                alert('¡Publicación exitosa! La foto en Base64 y todos los datos se han guardado directamente en personal.json.');
+                alert('¡Publicación exitosa! Todos los cambios se han guardado directamente en personal.json.');
             } else {
                 throw new Error('Error al actualizar archivo');
             }

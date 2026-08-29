@@ -30,5 +30,36 @@
             "proj-1787734600992",
             "proj-1787733492524"
         ]
+    },
+    {
+        "id": "arley-benavides",
+        "nombre": "Arq. Roberth Arley Benavides Villa",
+        "cargo": "Especialista en Gerencia de Proyectos & Residente de Obra",
+        "foto": "",
+        "etiquetas": [
+            "Arq. FUP",
+            "Gerencia de Proyectos",
+            "Infraestructura Educativa"
+        ],
+        "role_modal": "Especialista en Gerencia de Proyectos & Dirección Técnica de Obra",
+        "credenciales": [
+            {
+                "icono": "award",
+                "texto": "Especialista en Gerencia de Proyectos (UNIMINUTO)"
+            },
+            {
+                "icono": "shield-check",
+                "texto": "Trabajo Seguro en Alturas - Nivel Avanzado"
+            },
+            {
+                "icono": "map-pin",
+                "texto": "Ricaurte, Nariño, Colombia"
+            }
+        ],
+        "biografia": "Arquitecto de la Fundación Universitaria de Popayán y Especialista en Gerencia de Proyectos de UNIMINUTO. Profesional con más de 10 años de trayectoria técnica en ejecución, residencia e interventoría de proyectos de infraestructura educativa, vivienda de interés social, obras viales y saneamiento básico en el departamento de Nariño. Experto en modelado 2D/3D (Revit, AutoCAD, Lumion) y dirección de personal de obra.",
+        "educacion": "• Especialista en Gerencia de Proyectos — Corporación Universitaria Minuto de Dios (UNIMINUTO, 2023)\n• Título de Arquitecto — Fundación Universitaria de Popayán (FUP, 2016)\n• Trabajo Seguro en Alturas - Nivel Avanzado (INSEGAL, 2021).",
+        "proyectosAsociados": [
+            "proj-1787730245535"
+        ]
     }
 ]

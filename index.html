@@ -2792,6 +2792,7 @@
 
         setupSwipe('servicesWrapper', 'servicesTrack', 'service-slide');
         setupSwipe('portfolioWrapper', 'portfolioTrack', 'portfolio-slide');
+        setupTeamSwipe();
 
         iniciarAutoplayCarruseles();
 
@@ -2955,6 +2956,31 @@
         if (!personalGlobal || personalGlobal.length === 0) return;
         currentTeamIdx = (currentTeamIdx - 1 + personalGlobal.length) % personalGlobal.length;
         renderTeamMember(currentTeamIdx);
+    }
+
+    function setupTeamSwipe() {
+        const teamCard = document.querySelector('.team-card-proportioned');
+        if (!teamCard) return;
+
+        let startX = 0;
+        let endX = 0;
+
+        teamCard.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        teamCard.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+
+            if (Math.abs(diff) > 40) {
+                if (diff > 0) {
+                    nextTeamMember();
+                } else {
+                    prevTeamMember();
+                }
+            }
+        }, { passive: true });
     }
 
     function iniciarAutoplayCarruseles() {

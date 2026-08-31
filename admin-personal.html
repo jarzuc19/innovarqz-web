@@ -213,13 +213,14 @@
     <header>
         <div class="title-area">
             <h1>Innov<span>ArqZ</span> — Panel de Personal</h1>
-            <p>Gestión del equipo técnico con sincronización directa en GitHub.</p>
+            <p>Gestión del equipo técnico con almacenamiento en Google Drive y GitHub.</p>
         </div>
     </header>
 
     <div class="github-bar">
         <input type="password" id="ghToken" placeholder="GitHub Token (ghp_...)" autocomplete="off">
         <input type="text" id="ghRepo" placeholder="Repositorio (ej. jarzuc19/innovarqz-web)">
+        <input type="text" id="driveWebhook" placeholder="Google Drive Webhook URL" value="https://script.google.com/macros/s/AKfycbyFwzcencX7at5zlKsUkLzNShe-X5Wy5EfZLF8c0T-KnYQ1MEiGS_vYuZvQpcC5qzuL/exec">
         <button type="button" class="btn btn-primary" onclick="conectarYCargarGitHub()">
             <i data-lucide="cloud-download"></i> Cargar Personal y Proyectos
         </button>
@@ -249,7 +250,7 @@
                         <img id="photoPreview" class="photo-preview-img" alt="Vista previa">
                         <div class="photo-placeholder-content" id="photoPlaceholder">
                             <i data-lucide="image-plus" style="width: 28px; height: 28px;"></i>
-                            <span>Haz clic o arrastra la foto</span>
+                            <span>Haz clic para subir a Drive</span>
                         </div>
                     </div>
                 </div>
@@ -344,11 +345,17 @@
         if (window.lucide) lucide.createIcons();
         document.getElementById('ghToken').value = localStorage.getItem('gh_token_pers') || '';
         document.getElementById('ghRepo').value = localStorage.getItem('gh_repo_pers') || 'jarzuc19/innovarqz-web';
+        
+        const savedWebhook = localStorage.getItem('drive_webhook_pers');
+        if (savedWebhook) {
+            document.getElementById('driveWebhook').value = savedWebhook;
+        }
     });
 
     function guardarCredenciales() {
         localStorage.setItem('gh_token_pers', document.getElementById('ghToken').value.trim());
         localStorage.setItem('gh_repo_pers', document.getElementById('ghRepo').value.trim());
+        localStorage.setItem('drive_webhook_pers', document.getElementById('driveWebhook').value.trim());
     }
 
     function mostrarEstado(mensaje, tipo) {
@@ -497,25 +504,51 @@
         renderizarListaMiembros();
     }
 
-    function procesarFotoLocal(event) {
+    async function procesarFotoLocal(event) {
         const file = event.target.files[0];
         if (!file) return;
 
+        const webhookUrl = document.getElementById('driveWebhook').value.trim();
+        if (!webhookUrl) {
+            alert('Ingresa la URL de tu Google Drive Webhook.');
+            return;
+        }
+
+        mostrarEstado('Subiendo foto a Google Drive...', 'syncing');
+
         const reader = new FileReader();
-        reader.onload = function(e) {
-            const dataUrl = e.target.result;
-            const m = personalGlobal[currentIndex];
-            if (m) {
-                m.foto = dataUrl;
+        reader.onload = async function(e) {
+            const base64Raw = e.target.result.split(',')[1];
+            
+            try {
+                const res = await fetch(webhookUrl, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        fileName: file.name,
+                        mimeType: file.type,
+                        base64: base64Raw
+                    })
+                });
+
+                const data = await res.json();
+                if (data.status === 'success') {
+                    const m = personalGlobal[currentIndex];
+                    if (m) m.foto = data.url;
+
+                    const imgPreview = document.getElementById('photoPreview');
+                    const placeholder = document.getElementById('photoPlaceholder');
+                    imgPreview.src = data.url;
+                    imgPreview.style.display = 'block';
+                    placeholder.style.display = 'none';
+
+                    mostrarEstado('¡Foto subida a Google Drive con éxito!', 'success');
+                } else {
+                    throw new Error(data.message || 'Error al subir a Drive');
+                }
+            } catch (err) {
+                console.error(err);
+                mostrarEstado('Error al subir la imagen a Google Drive.', 'error');
             }
-
-            const imgPreview = document.getElementById('photoPreview');
-            const placeholder = document.getElementById('photoPlaceholder');
-            imgPreview.src = dataUrl;
-            imgPreview.style.display = 'block';
-            placeholder.style.display = 'none';
-
-            mostrarEstado('Fotografía cargada en memoria con éxito.', 'success');
         };
         reader.readAsDataURL(file);
     }
@@ -565,7 +598,7 @@
     function renderProyectosCheckbox(asociados) {
         const container = document.getElementById('projectsCheckboxContainer');
         if (!proyectosGlobales.length) {
-            container.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem;">No hay proyectos en proyectos.json (puedes continuar sin seleccionarlos)</span>`;
+            container.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem;">No hay proyectos en proyectos.json</span>`;
             return;
         }
 
@@ -670,7 +703,6 @@
                 'Content-Type': 'application/json'
             };
 
-            // Verificación dinámica del SHA actual del archivo en GitHub antes de hacer PUT
             let currentSha = null;
             try {
                 const checkRes = await fetch(`https://api.github.com/repos/${repo}/contents/personal.json`, { headers });

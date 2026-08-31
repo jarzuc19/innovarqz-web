@@ -1,60 +1,63 @@
 [
-  {
-    "id": "james-zuniga",
-    "nombre": "Arq. James Ramiro Zúñiga Caipe",
-    "cargo": "Director General & Coordinador BIM",
-    "foto": "https://lh3.googleusercontent.com/d/1rH0IfXiPqHA0uM7OE4MRUJZErhepxLQN",
-    "etiquetas": [
-      "Arq. UDENAR",
-      "buildingSMART",
-      "BIM 5D"
-    ],
-    "role_modal": "Fundador & Principal Manager",
-    "credenciales": [
-      {
-        "icono": "award",
-        "texto": "Matrícula Profesional / Registro Nacional"
-      },
-      {
-        "icono": "graduation-cap",
-        "texto": "Arquitecto — Universidad de Nariño"
-      },
-      {
-        "icono": "shield-check",
-        "texto": "Certificación BIM Manager & Coordinación 5D"
-      }
-    ],
-    "biografia": "Arquitecto especialista en la coordinación digital de proyectos mediante metodologías BIM (Building Information Modeling). Amplia experiencia en gerencia de obras, gestión de modelos 3D/4D/5D y supervisión técnica en el sector residencial y comercial.",
-    "educacion": "• Arquitecto: Universidad de Nariño.\n• Certificación Internacional BIM Coordinator / Specialist.\n• Diplomado en Dirección Estratégica de Proyectos de Construcción.",
-    "proyectosAsociados": []
-  },
-  {
-    "id": "arley-benavides",
-    "nombre": "Ing. Arley Benavides",
-    "cargo": "Ingeniero Estructural & Director Técnico",
-    "foto": "https://lh3.googleusercontent.com/d/1rH0IfXiPqHA0uM7OE4MRUJZErhepxLQN",
-    "etiquetas": [
-      "Ing. Civil",
-      "Cálculo Estructural",
-      "BIM 3D"
-    ],
-    "role_modal": "Director Técnico de Estructuras",
-    "credenciales": [
-      {
-        "icono": "award",
-        "texto": "Matrícula Profesional COPNIA"
-      },
-      {
-        "icono": "graduation-cap",
-        "texto": "Ingeniero Civil"
-      },
-      {
-        "icono": "cpu",
-        "texto": "Modelado y Análisis Estructural Dinámico"
-      }
-    ],
-    "biografia": "Ingeniero especializado en el diseño, cálculo y análisis de estructuras sismorresistentes. Encargado del cumplimiento normativo NSR-10, optimización de materiales y supervisión técnica en campo.",
-    "educacion": "• Ingeniero Civil.\n• Especialización en Estructuras y Mecánica de Suelos.\n• Certificación en Software de Cálculo de Alta Complejidad.",
-    "proyectosAsociados": []
-  }
+    {
+        "id": "james-zuniga",
+        "nombre": "Arq. James Ramiro Zúñiga Caipe",
+        "cargo": "Director General & Coordinador BIM",
+        "foto": "https://lh3.googleusercontent.com/d/1YMsc6TWMfRFTbmHTtWSOB-BKTHr3bImP",
+        "etiquetas": [
+            "Arq. UDENAR",
+            "buildingSMART",
+            "BIM 5D"
+        ],
+        "role_modal": "Fundador & Principal Manager",
+        "credenciales": [
+            {
+                "icono": "award",
+                "texto": "Matrícula Profesional / Registro Nacional"
+            },
+            {
+                "icono": "graduation-cap",
+                "texto": "Arquitecto — Universidad de Nariño"
+            },
+            {
+                "icono": "shield-check",
+                "texto": "Certificación BIM Manager & Coordinación 5D"
+            }
+        ],
+        "biografia": "Arquitecto especialista en la coordinación digital de proyectos mediante metodologías BIM (Building Information Modeling). Amplia experiencia en gerencia de obras, gestión de modelos 3D/4D/5D y supervisión técnica en el sector residencial y comercial.",
+        "educacion": "• Arquitecto: Universidad de Nariño.\n• Certificación Internacional BIM Coordinator / Specialist.\n• Diplomado en Dirección Estratégica de Proyectos de Construcción.",
+        "proyectosAsociados": [
+            "proj-1787734600992",
+            "proj-1787733492524"
+        ]
+    },
+    {
+        "id": "arley-benavides",
+        "nombre": "Ing. Arley Benavides",
+        "cargo": "Ingeniero Estructural & Director Técnico",
+        "foto": "https://lh3.googleusercontent.com/d/1rH0IfXiPqHA0uM7OE4MRUJZErhepxLQN",
+        "etiquetas": [
+            "Ing. Civil",
+            "Cálculo Estructural",
+            "BIM 3D"
+        ],
+        "role_modal": "Director Técnico de Estructuras",
+        "credenciales": [
+            {
+                "icono": "award",
+                "texto": "Matrícula Profesional COPNIA"
+            },
+            {
+                "icono": "graduation-cap",
+                "texto": "Ingeniero Civil"
+            },
+            {
+                "icono": "cpu",
+                "texto": "Modelado y Análisis Estructural Dinámico"
+            }
+        ],
+        "biografia": "Ingeniero especializado en el diseño, cálculo y análisis de estructuras sismorresistentes. Encargado del cumplimiento normativo NSR-10, optimización de materiales y supervisión técnica en campo.",
+        "educacion": "• Ingeniero Civil.\n• Especialización en Estructuras y Mecánica de Suelos.\n• Certificación en Software de Cálculo de Alta Complejidad.",
+        "proyectosAsociados": []
+    }
 ]

@@ -33,31 +33,33 @@
     },
     {
         "id": "arley-benavides",
-        "nombre": "Ing. Arley Benavides",
-        "cargo": "Ingeniero Estructural & Director Técnico",
-        "foto": "https://lh3.googleusercontent.com/d/1rH0IfXiPqHA0uM7OE4MRUJZErhepxLQN",
+        "nombre": "Arq. Roberth Arley Benavides Villa",
+        "cargo": "Esp. en Gerencia de Proyectos & Residente de Obra",
+        "foto": "https://lh3.googleusercontent.com/d/1Q4q2ZrB-O4OY6iwyEXNObPhNmpmdWu1y",
         "etiquetas": [
-            "Ing. Civil",
-            "Cálculo Estructural",
-            "BIM 3D"
+            "Arq. FUP",
+            "Gerencia de Proyectos",
+            "Obras Educativas"
         ],
-        "role_modal": "Director Técnico de Estructuras",
+        "role_modal": "Dirección Técnica de Interventoría",
         "credenciales": [
             {
                 "icono": "award",
-                "texto": "Matrícula Profesional COPNIA"
+                "texto": "Especialista en Gerencia de Proyectos"
             },
             {
-                "icono": "graduation-cap",
-                "texto": "Ingeniero Civil"
+                "icono": "shield-check",
+                "texto": "Trabajo Seguro en Alturas - Nivel Avanzado"
             },
             {
-                "icono": "cpu",
-                "texto": "Modelado y Análisis Estructural Dinámico"
+                "icono": "map-pin",
+                "texto": "Ricaurte, Nariño, Colombia"
             }
         ],
-        "biografia": "Ingeniero especializado en el diseño, cálculo y análisis de estructuras sismorresistentes. Encargado del cumplimiento normativo NSR-10, optimización de materiales y supervisión técnica en campo.",
-        "educacion": "• Ingeniero Civil.\n• Especialización en Estructuras y Mecánica de Suelos.\n• Certificación en Software de Cálculo de Alta Complejidad.",
-        "proyectosAsociados": []
+        "biografia": "Arquitecto de la Fundación Universitaria de Popayán y Especialista en Gerencia de Proyectos de UNIMINUTO. Profesional con más de 10 años de trayectoria técnica en ejecución, residencia e interventoría de proyectos de infraestructura educativa, vivienda de interés social, obras viales (placa huella) y saneamiento básico en el departamento de Nariño. Experto en modelado 2D/3D (Revit, AutoCAD, Lumion) y dirección de personal de obra.",
+        "educacion": "• Especialista en Gerencia de Proyectos — Corporación Universitaria Minuto de Dios (UNIMINUTO, 2023)\n• Título de Arquitecto — Fundación Universitaria de Popayán (FUP, 2016)\n• Trabajo Seguro en Alturas - Nivel Avanzado (INSEGAL, 2021)",
+        "proyectosAsociados": [
+            "proj-1787730245535"
+        ]
     }
 ]

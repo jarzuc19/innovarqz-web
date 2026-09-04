@@ -13,19 +13,19 @@
         "credenciales": [
             {
                 "icono": "award",
-                "texto": "Matrícula Profesional / Registro Nacional"
-            },
-            {
-                "icono": "graduation-cap",
-                "texto": "Arquitecto — Universidad de Nariño"
+                "texto": "Matrícula Profesional CPNAA"
             },
             {
                 "icono": "shield-check",
-                "texto": "Certificación BIM Manager & Coordinación 5D"
+                "texto": "buildingSMART Certification"
+            },
+            {
+                "icono": "map-pin",
+                "texto": "Ricaurte, Nariño, Colombia"
             }
         ],
-        "biografia": "Arquitecto especialista en la coordinación digital de proyectos mediante metodologías BIM (Building Information Modeling). Amplia experiencia en gerencia de obras, gestión de modelos 3D/4D/5D y supervisión técnica en el sector residencial y comercial.",
-        "educacion": "• Arquitecto: Universidad de Nariño.\n• Certificación Internacional BIM Coordinator / Specialist.\n• Diplomado en Dirección Estratégica de Proyectos de Construcción.",
+        "biografia": "Arquitecto egresado de la Universidad de Nariño, con amplia experiencia técnica en metodología BIM (Building Information Modeling) y gestión de proyectos de infraestructura y ordenamiento territorial. Experto en la federación de modelos multidisciplinares (Arquitectura, Estructuras, MEP), detección de interferencias, automatización y control de costos (BIM 5D) bajo estándares ISO 19650 y principios OpenBIM (Certificación buildingSMART).",
+        "educacion": "• Arquitecto — Universidad de Nariño (2026)\n• Máster BIM Manager Internacional (+IA y VR) — Espacio BIM / ATC Autodesk (600 Horas, En Curso)\n• buildingSMART Professional Certification – Entry Level — buildingSMART International (2026)\n• Diplomado en Metodología BIM para Infraestructuras (BIM Civil) — Universidad de Nariño (2026, 180 h)\n• Diplomado en Ordenamiento Territorial (PBOT y EOT) — ESAP (2025, 80 h)\n• Diplomado en Metodología BIM para Arquitectura e Ingeniería — Universidad de Nariño (2023, 124 h)\n• Costos y Presupuestos para Edificaciones (Niveles I, II, III y IV) — SENA (2022–2026, 160 h)\n• Costos y Presupuestos en Proyectos de Construcción — Ingeniería & Construcción (2026)",
         "proyectosAsociados": [
             "proj-1787734600992",
             "proj-1787733492524"

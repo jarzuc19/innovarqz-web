@@ -448,6 +448,17 @@
             align-items: center;
         }
 
+        /* Canvas para destellos y partículas de lanzamiento */
+        .launch-particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
         .launch-badge {
             display: inline-flex;
             align-items: center;
@@ -1955,10 +1966,11 @@
         </div>
     </section>
 
-    <!-- MODAL DE LANZAMIENTO OPTIMIZADO -->
+    <!-- MODAL DE LANZAMIENTO OPTIMIZADO CON DESTELLOS DORMIDOS / CONFETTI TECH -->
     <div class="modal-overlay" id="modal-launch">
         <div class="launch-modal-card-bg" style="background-image: url('esencia-digital-innovarqz.jpg');">
             <div class="launch-modal-overlay-dark"></div>
+            <canvas id="launchCanvas" class="launch-particles-canvas"></canvas>
             <button class="modal-close" onclick="closeModal('modal-launch')"><i data-lucide="x"></i></button>
             
             <div class="launch-modal-inner">
@@ -2621,6 +2633,7 @@
 
     let autoPlayServices = null;
     let autoPlayPortfolio = null;
+    let particlesAnimationId = null;
 
     const carouselIndices = { 'servicesTrack': 0, 'portfolioTrack': 0 };
 
@@ -2793,13 +2806,68 @@
         setupSwipe('servicesWrapper', 'servicesTrack', 'service-slide');
         setupSwipe('portfolioWrapper', 'portfolioTrack', 'portfolio-slide');
         setupTeamSwipe();
+        setupLightboxSwipe();
 
         iniciarAutoplayCarruseles();
 
         setTimeout(() => {
             openModal('modal-launch');
+            iniciarParticulasLanzamiento();
         }, 1500);
     });
+
+    /* ANIMACIÓN DE PARTÍCULAS TIPO DESTELLOS DE LANZAMIENTO */
+    function iniciarParticulasLanzamiento() {
+        const canvas = document.getElementById('launchCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+
+        const particles = [];
+        const colors = ['#d97706', '#3b82f6', '#f59e0b', '#60a5fa', '#ffffff'];
+
+        for (let i = 0; i < 45; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height * 0.5,
+                r: Math.random() * 3 + 1,
+                vx: (Math.random() - 0.5) * 1.5,
+                vy: Math.random() * 1.5 + 0.8,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                alpha: Math.random() * 0.8 + 0.2
+            });
+        }
+
+        let startTime = Date.now();
+
+        function render() {
+            if (Date.now() - startTime > 4000) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                cancelAnimationFrame(particlesAnimationId);
+                return;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.003;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = Math.max(p.alpha, 0);
+                ctx.fill();
+            });
+
+            particlesAnimationId = requestAnimationFrame(render);
+        }
+
+        render();
+    }
 
     async function cargarPersonalDinamico() {
         try {
@@ -2983,6 +3051,32 @@
         }, { passive: true });
     }
 
+    /* GESTOS TÁCTILES EN LIGHTBOX DE IMÁGENES */
+    function setupLightboxSwipe() {
+        const lb = document.getElementById('lightbox-modal');
+        if (!lb) return;
+
+        let startX = 0;
+        let endX = 0;
+
+        lb.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        lb.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+
+            if (Math.abs(diff) > 40) {
+                if (diff > 0) {
+                    nextLightboxImage();
+                } else {
+                    prevLightboxImage();
+                }
+            }
+        }, { passive: true });
+    }
+
     function iniciarAutoplayCarruseles() {
         if (!autoPlayServices) {
             autoPlayServices = setInterval(() => {
@@ -3025,8 +3119,17 @@
     });
 
     window.addEventListener('keydown', (e) => {
+        const lb = document.getElementById('lightbox-modal');
+        const isLightboxActive = lb && lb.classList.contains('active');
+
         if (e.key === 'Escape') {
             closeAllModals();
+        } else if (isLightboxActive) {
+            if (e.key === 'ArrowRight') {
+                nextLightboxImage();
+            } else if (e.key === 'ArrowLeft') {
+                prevLightboxImage();
+            }
         } else {
             const searchModal = document.getElementById('modal-search-results');
             if (searchModal && searchModal.classList.contains('active')) {

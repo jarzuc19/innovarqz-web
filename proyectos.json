@@ -1,5 +1,25 @@
 [
   {
+    "id": "proj-1789072775125",
+    "title": "Vivienda Familiar H&M — Ampliación Residencial Multifuncional",
+    "subtitle": "Ricaurte, Nariño. Propietario: Harvey Garcia",
+    "year": "2025",
+    "category": "bim",
+    "standard": "ISO 19650",
+    "software": "Archicad",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1UczxzaMRpUdUHPnh3kEkfN0pbp2-flJn",
+    "galleryUrls": [
+      "https://lh3.googleusercontent.com/d/1LfO1CVt3NQYpAR6BuZxewQbS6SlXLJR0",
+      "https://lh3.googleusercontent.com/d/1_r46Y7Z44gET8qyJRW2IIXqH_pKitfPs",
+      "https://lh3.googleusercontent.com/d/12LxVokrbdS9_9bt31jJr_OsxS8LAC55c",
+      "https://lh3.googleusercontent.com/d/1DxDuKSKWlPvBIutwLyylVU24IIul6hwU",
+      "https://lh3.googleusercontent.com/d/18GSRWx7ksiXViwqKvW3U5BYMXq5O7Vmh",
+      "https://lh3.googleusercontent.com/d/1S30A8U0DQDaU4Otr1uEzzxp8V8hYIuCp"
+    ],
+    "scope": "Proyecto de ampliación y adecuación arquitectónica de vivienda familiar desarrollada en 4 niveles más terraza cubierta. Comprende el diseño integral de áreas sociales, módulos habitacionales privados con balcones exteriores y terrazas de esparcimiento. En el desglose constructivo, incorpora estructura combinada de pórticos en concreto reforzado con perfiles metálicos PTR y rediseño de redes eléctricas MEP",
+    "tools": "- Modelado Arquitectónico & Planimetría: Autodesk Revit / Graphisoft Archicad \n- Ingeniería Eléctrica & MEP: Revit MEP + Coordinación CAD \n- Visualización Hiperrealista (CGI): D5 Render (Ray Tracing en tiempo real)\n"
+  },
+  {
     "id": "proj-1787734600992",
     "title": "Gemelo Digital Estructural & Marco de Gobernanza Bloque Udenar",
     "subtitle": "Pasto, Nariño, Colombia — Caso de Estudio de Coordinación BIM",

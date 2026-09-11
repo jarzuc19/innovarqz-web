@@ -53,11 +53,9 @@
         .btn-danger { background-color: var(--danger); color: #fff; }
         .btn-danger:hover { background-color: #dc2626; }
 
-        /* EDITOR HÍBRIDO WYSIWYG */
         .wysiwyg-container { display: flex; flex-direction: column; gap: 2.5rem; max-width: 950px; margin: 0 auto; }
         .editor-section-title { font-size: 1.1rem; color: var(--accent-copper); font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 0.5rem; }
 
-        /* VISTA PREVIA TARJETA CARRUSEL */
         .card-preview {
             background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px;
             padding: 2rem; position: relative; overflow: hidden; min-height: 380px; display: flex; flex-direction: column; justify-content: flex-end;
@@ -72,7 +70,6 @@
         .cover-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.92) 80%); z-index: 2; pointer-events: none; }
         .card-content { position: relative; z-index: 3; }
 
-        /* SELECTORES Y ETIQUETAS */
         .selectors-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
         .select-custom { background: rgba(15, 23, 42, 0.85); color: var(--accent-copper); border: 1px solid var(--border-color); padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.78rem; font-weight: 700; outline: none; }
 
@@ -80,7 +77,6 @@
         .input-inline-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.4rem; }
         .input-inline-sub { font-size: 0.9rem; color: var(--text-muted); }
 
-        /* VISTA PREVIA FICHA TÉCNICA MODAL */
         .modal-preview { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; }
         .gallery-dropzone {
             border: 2px dashed var(--border-color); border-radius: 10px; padding: 1.5rem; text-align: center;
@@ -89,8 +85,10 @@
         .gallery-dropzone:hover { border-color: var(--accent-copper); }
 
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
-        .thumb-item { position: relative; height: 100px; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; background-size: cover; background-position: center; }
-        .thumb-item .btn-remove { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.7); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; }
+        .thumb-item { position: relative; height: 100px; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; background-size: cover; background-position: center; background-color: #0f172a; }
+        .thumb-item video { width: 100%; height: 100%; object-fit: cover; }
+        .thumb-item .video-badge { position: absolute; bottom: 4px; left: 4px; background: rgba(0,0,0,0.75); color: var(--accent-copper); font-size: 0.65rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; display: flex; align-items: center; gap: 3px; }
+        .thumb-item .btn-remove { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.7); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; z-index: 5; }
 
         .form-area { display: flex; flex-direction: column; gap: 1rem; }
         .form-area label { font-size: 0.85rem; font-weight: 700; color: var(--accent-copper); }
@@ -101,7 +99,6 @@
         .status-success { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success); }
         .status-error { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid var(--danger); }
 
-        /* TABLA DE GESTIÓN DE PROYECTOS */
         .projects-manager { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; margin-top: 3rem; }
         .projects-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
         .project-item { display: flex; align-items: center; justify-content: space-between; background: #0f172a; border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; gap: 1rem; }
@@ -119,7 +116,6 @@
         <button id="btnAuth" class="btn btn-secondary" onclick="handleAuthClick()"><i data-lucide="key"></i> Conectar Google Drive</button>
     </header>
 
-    <!-- CONFIGURACIÓN API GITHUB -->
     <div class="config-bar">
         <i data-lucide="github" style="color:var(--accent-copper)"></i>
         <input type="password" id="ghToken" placeholder="GitHub Personal Access Token (ghp_...)">
@@ -127,10 +123,8 @@
         <button class="btn btn-secondary" onclick="loadProjectsFromGitHub()"><i data-lucide="refresh-cw"></i> Cargar Proyectos</button>
     </div>
 
-    <!-- FORMULARIO UNIFICADO WYSIWYG -->
     <div class="wysiwyg-container">
         
-        <!-- PARTE 1: PORTADA CARRUSEL -->
         <div>
             <div class="editor-section-title"><i data-lucide="layout-template"></i> 1. Portada del Proyecto (Carrusel)</div>
             <div class="card-preview">
@@ -183,17 +177,16 @@
             </div>
         </div>
 
-        <!-- PARTE 2: FICHA DETALLADA Y GALERÍA -->
         <div>
             <div class="editor-section-title"><i data-lucide="file-text"></i> 2. Detalle del Modal (Galería y Ficha Técnica)</div>
             <div class="modal-preview">
                 
-                <label class="form-area" style="margin-bottom:0.5rem;"><span style="font-size:0.85rem; font-weight:700; color:var(--accent-copper);">Galería de Renders y Planos Secundarios:</span></label>
+                <label class="form-area" style="margin-bottom:0.5rem;"><span style="font-size:0.85rem; font-weight:700; color:var(--accent-copper);">Galería de Renders, Planos y Videos (10-30s):</span></label>
                 <div class="gallery-dropzone" onclick="document.getElementById('fileGallery').click()">
                     <i data-lucide="upload-cloud" style="width: 28px; height: 28px;"></i>
-                    <p style="font-size:0.85rem; margin-top:0.3rem;">Arrastra múltiples renders o haz clic para seleccionarlos</p>
+                    <p style="font-size:0.85rem; margin-top:0.3rem;">Arrastra renders o videos cortos (MP4/WebM) o haz clic aquí</p>
                 </div>
-                <input type="file" id="fileGallery" accept="image/*" multiple style="display:none" onchange="loadGallery(event)">
+                <input type="file" id="fileGallery" accept="image/*,video/mp4,video/webm" multiple style="display:none" onchange="loadGallery(event)">
 
                 <div class="gallery-grid" id="galleryGrid"></div>
 
@@ -207,14 +200,12 @@
             </div>
         </div>
 
-        <!-- BARRA DE ACCIÓN -->
         <div class="actions-bar">
             <button class="btn btn-secondary" onclick="resetForm()"><i data-lucide="plus-circle"></i> Nuevo Proyecto</button>
             <button class="btn" onclick="saveAndPublish()"><i data-lucide="send"></i> Guardar y Publicar Proyecto</button>
         </div>
         <div id="statusMessage"></div>
 
-        <!-- GESTIÓN DE PROYECTOS EXISTENTES -->
         <div class="projects-manager">
             <div class="editor-section-title"><i data-lucide="list-checks"></i> 3. Gestión de Proyectos Publicados</div>
             <div class="projects-list" id="projectsList">
@@ -238,7 +229,6 @@
             if (window.lucide) lucide.createIcons();
         });
 
-        /* GOOGLE DRIVE OAUTH */
         function handleAuthClick() {
             const client = google.accounts.oauth2.initTokenClient({
                 client_id: '439950413378-fom79e2ejgc8rrkmdofo0a5i2anbju7i.apps.googleusercontent.com',
@@ -253,7 +243,6 @@
             client.requestAccessToken();
         }
 
-        /* MANEJO DE IMÁGENES */
         function loadCover(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -281,6 +270,16 @@
             renderGalleryGrid();
         }
 
+        function isVideoResource(fileOrUrl) {
+            if (fileOrUrl instanceof File) {
+                return fileOrUrl.type.startsWith('video/');
+            }
+            if (typeof fileOrUrl === 'string') {
+                return fileOrUrl.endsWith('.mp4') || fileOrUrl.endsWith('.webm') || fileOrUrl.includes('video');
+            }
+            return false;
+        }
+
         function renderGalleryGrid() {
             const grid = document.getElementById('galleryGrid');
             grid.innerHTML = '';
@@ -288,22 +287,41 @@
             existingGalleryUrls.forEach((url, index) => {
                 const div = document.createElement('div');
                 div.className = 'thumb-item';
-                div.style.backgroundImage = `url('${url}')`;
-                div.innerHTML = `<button class="btn-remove" onclick="removeExistingGalleryItem(${index})">✕</button>`;
+                if (isVideoResource(url)) {
+                    div.innerHTML = `
+                        <video src="${url}" muted></video>
+                        <span class="video-badge"><i data-lucide="video" style="width:10px;height:10px;"></i> VIDEO</span>
+                        <button class="btn-remove" onclick="removeExistingGalleryItem(${index})">✕</button>
+                    `;
+                } else {
+                    div.style.backgroundImage = `url('${url}')`;
+                    div.innerHTML = `<button class="btn-remove" onclick="removeExistingGalleryItem(${index})">✕</button>`;
+                }
                 grid.appendChild(div);
             });
 
             galleryFiles.forEach((file, index) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const div = document.createElement('div');
-                    div.className = 'thumb-item';
-                    div.style.backgroundImage = `url('${e.target.result}')`;
+                const div = document.createElement('div');
+                div.className = 'thumb-item';
+                if (isVideoResource(file)) {
+                    const videoUrl = URL.createObjectURL(file);
+                    div.innerHTML = `
+                        <video src="${videoUrl}" muted></video>
+                        <span class="video-badge"><i data-lucide="video" style="width:10px;height:10px;"></i> NUEVO VIDEO</span>
+                        <button class="btn-remove" onclick="removeNewGalleryItem(${index})">✕</button>
+                    `;
+                } else {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        div.style.backgroundImage = `url('${e.target.result}')`;
+                    };
+                    reader.readAsDataURL(file);
                     div.innerHTML = `<button class="btn-remove" onclick="removeNewGalleryItem(${index})">✕</button>`;
-                    grid.appendChild(div);
-                };
-                reader.readAsDataURL(file);
+                }
+                grid.appendChild(div);
             });
+
+            if (window.lucide) lucide.createIcons();
         }
 
         function removeExistingGalleryItem(index) {
@@ -350,7 +368,6 @@
             showStatus('Formulario listo para nuevo proyecto.', 'success');
         }
 
-        /* CARGAR Y GESTIONAR PROYECTOS DESDE GITHUB */
         async function loadProjectsFromGitHub() {
             const token = document.getElementById('ghToken').value.trim();
             const repo = document.getElementById('ghRepo').value.trim();
@@ -452,7 +469,6 @@
             }
         }
 
-        /* PROCESAMIENTO Y PUBLICACIÓN */
         async function saveAndPublish() {
             const title = document.getElementById('txtTitle').value.trim();
             const token = document.getElementById('ghToken').value.trim();
@@ -460,10 +476,10 @@
 
             if (!title) return showStatus('Debes ingresar un título para el proyecto.', 'error');
             if (!coverFile && !existingCoverUrl) return showStatus('Debes seleccionar una imagen de portada.', 'error');
-            if ((coverFile || galleryFiles.length > 0) && !accessToken) return showStatus('Debes conectar tu cuenta de Google Drive para subir nuevas imágenes.', 'error');
+            if ((coverFile || galleryFiles.length > 0) && !accessToken) return showStatus('Debes conectar tu cuenta de Google Drive para subir nuevos archivos.', 'error');
             if (!token || !repo) return showStatus('Ingresa tu Token de GitHub y Repositorio para publicar.', 'error');
 
-            showStatus('Procesando datos e imágenes...', 'success');
+            showStatus('Procesando datos y subiendo a Google Drive...', 'success');
 
             try {
                 let folderId = null;
@@ -471,16 +487,32 @@
                     folderId = await createDriveFolder(title, DRIVE_FOLDER_ID);
                 }
 
-                // 1. Manejo Portada
+                // 1. Portada con nombre estandarizado Portada.ext
                 let finalCoverUrl = existingCoverUrl;
                 if (coverFile) {
-                    finalCoverUrl = await uploadFileToDrive(coverFile, folderId);
+                    const ext = coverFile.name.split('.').pop() || 'jpg';
+                    const coverName = `Portada.${ext}`;
+                    finalCoverUrl = await uploadFileToDrive(coverFile, folderId, coverName);
                 }
 
-                // 2. Manejo Galería
+                // 2. Galería con renombrado secuencial (Foto001.ext / Video001.ext)
                 let finalGalleryUrls = [...existingGalleryUrls];
+                let countFotos = 1;
+                let countVideos = 1;
+
                 for (let file of galleryFiles) {
-                    const url = await uploadFileToDrive(file, folderId);
+                    const ext = file.name.split('.').pop() || 'jpg';
+                    let customName = '';
+
+                    if (isVideoResource(file)) {
+                        customName = `Video${String(countVideos).padStart(3, '0')}.${ext}`;
+                        countVideos++;
+                    } else {
+                        customName = `Foto${String(countFotos).padStart(3, '0')}.${ext}`;
+                        countFotos++;
+                    }
+
+                    const url = await uploadFileToDrive(file, folderId, customName);
                     finalGalleryUrls.push(url);
                 }
 
@@ -512,14 +544,13 @@
 
                 renderProjectsList();
                 resetForm();
-                showStatus('¡Proyecto guardado y publicado exitosamente!', 'success');
+                showStatus('¡Proyecto guardado y publicado exitosamente con nombres estandarizados!', 'success');
             } catch (err) {
                 console.error(err);
                 showStatus('Error al publicar: ' + err.message, 'error');
             }
         }
 
-        /* DRIVE API HELPERS OPTIMIZADOS */
         async function createDriveFolder(folderName, parentId) {
             const metadata = {
                 name: folderName,
@@ -542,12 +573,13 @@
             return data.id;
         }
 
-        async function uploadFileToDrive(file, folderId) {
+        async function uploadFileToDrive(file, folderId, customFileName) {
             const fileBuffer = await file.arrayBuffer();
+            const fileNameToUse = customFileName || file.name;
             
             const metadata = { 
-                name: file.name, 
-                mimeType: file.type || 'image/jpeg',
+                name: fileNameToUse, 
+                mimeType: file.type || 'application/octet-stream',
                 parents: [folderId] 
             };
 
@@ -572,13 +604,13 @@
                 method: 'PATCH',
                 headers: {
                     'Authorization': 'Bearer ' + accessToken,
-                    'Content-Type': file.type || 'image/jpeg'
+                    'Content-Type': file.type || 'application/octet-stream'
                 },
                 body: fileBuffer
             });
 
             if (!uploadRes.ok) {
-                throw new Error('Error al subir el contenido binario de la imagen a Drive.');
+                throw new Error('Error al subir el contenido binario a Drive.');
             }
 
             await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}/permissions`, {
@@ -593,7 +625,6 @@
             return `https://lh3.googleusercontent.com/d/${fileId}`;
         }
 
-        /* GITHUB API HELPER */
         async function saveAllProjectsToGitHub(projectsArray, token, repo, commitMessage) {
             const path = 'proyectos.json';
             const url = `https://api.github.com/repos/${repo}/contents/${path}`;

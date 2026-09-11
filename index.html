@@ -448,7 +448,6 @@
             align-items: center;
         }
 
-        /* Canvas para destellos y partículas de lanzamiento */
         .launch-particles-canvas {
             position: absolute;
             top: 0;
@@ -1409,7 +1408,7 @@
             position: relative;
         }
 
-        .lightbox-content img {
+        .lightbox-content img, .lightbox-content video {
             max-width: 100%; max-height: 78vh;
             object-fit: contain; border-radius: 8px;
             border: 1px solid var(--border-color);
@@ -1502,12 +1501,12 @@
             background-color: var(--bg-card);
         }
 
-        .esencia-banner-img {
+        .esencia-banner-media {
             width: 100%; height: 100%; object-fit: cover; display: block;
             transition: transform 0.6s ease;
         }
 
-        .esencia-banner-container:hover .esencia-banner-img { transform: scale(1.03); }
+        .esencia-banner-container:hover .esencia-banner-media { transform: scale(1.03); }
 
         .esencia-banner-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -1966,7 +1965,7 @@
         </div>
     </section>
 
-    <!-- MODAL DE LANZAMIENTO OPTIMIZADO CON DESTELLOS DORMIDOS / CONFETTI TECH -->
+    <!-- MODAL DE LANZAMIENTO OPTIMIZADO -->
     <div class="modal-overlay" id="modal-launch">
         <div class="launch-modal-card-bg" style="background-image: url('esencia-digital-innovarqz.jpg');">
             <div class="launch-modal-overlay-dark"></div>
@@ -2314,7 +2313,7 @@
                     <span id="modalMetaSoftware"><i data-lucide="cpu"></i> ---</span>
                 </div>
             </div>
-            <h5 style="color: var(--text-main); margin-bottom: 0.75rem;">Galería de Imágenes & Entregables</h5>
+            <h5 style="color: var(--text-main); margin-bottom: 0.75rem;">Galería de Imágenes, Planos & Entregables</h5>
             <div class="modal-gallery-grid" id="modalGalleryGrid"></div>
             <div class="modal-description">
                 <h5>Alcance del Proyecto & Desglose Técnico</h5>
@@ -2332,9 +2331,7 @@
             <div class="modal-header">
                 <h3 id="modalPerfilNombre">Nombre del Profesional</h3>
                 <div class="modal-subtitle" id="modalPerfilCargo">Cargo u Ocupación</div>
-                <div class="modal-meta" id="modalPerfilMeta" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                    <!-- Credenciales dinámicas con iconos -->
-                </div>
+                <div class="modal-meta" id="modalPerfilMeta" style="display: flex; gap: 0.75rem; flex-wrap: wrap;"></div>
             </div>
             <div class="modal-description">
                 <h5>Perfil Ejecutivo & Dirección Técnica</h5>
@@ -2407,8 +2404,12 @@
                 <div class="standard-badge"><span>GIS</span> + CIM</div>
             </div>
 
+            <!-- BANNER DINÁMICO CON VIDEO EN BUCLE Y POSTER DE RESPALDO -->
             <div class="esencia-banner-container">
-                <img src="esencia-digital-innovarqz.jpg" alt="InnovArqZ Esencia Digital BIM CIM" class="esencia-banner-img">
+                <video class="esencia-banner-media" autoplay muted loop playsinline poster="esencia-digital-innovarqz.jpg">
+                    <source src="esencia-digital-innovarqz.mp4" type="video/mp4">
+                    <img src="esencia-digital-innovarqz.jpg" alt="InnovArqZ Esencia Digital BIM CIM" class="esencia-banner-media">
+                </video>
                 <div class="esencia-banner-overlay"></div>
             </div>
 
@@ -2507,12 +2508,14 @@
         </div>
     </section>
 
+    <!-- VISOR LIGHTBOX CON SOPORTE HÍBRIDO (IMAGEN O VIDEO) -->
     <div class="lightbox-overlay" id="lightbox-modal">
         <button class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x"></i></button>
         <button class="lightbox-arrow lightbox-prev" onclick="prevLightboxImage()"><i data-lucide="chevron-left"></i></button>
         <button class="lightbox-arrow lightbox-next" onclick="nextLightboxImage()"><i data-lucide="chevron-right"></i></button>
-        <div class="lightbox-content">
-            <img id="lightbox-img" src="" alt="Entregable en alta resolución">
+        <div class="lightbox-content" id="lightboxMediaContainer">
+            <img id="lightbox-img" src="" alt="Entregable en alta resolución" style="display:none;">
+            <video id="lightbox-video" controls autoplay loop playsinline style="display:none;"></video>
             <div id="lightbox-caption" class="lightbox-caption"></div>
         </div>
     </div>
@@ -2816,7 +2819,6 @@
         }, 1500);
     });
 
-    /* ANIMACIÓN DE PARTÍCULAS TIPO DESTELLOS DE LANZAMIENTO */
     function iniciarParticulasLanzamiento() {
         const canvas = document.getElementById('launchCanvas');
         if (!canvas) return;
@@ -3051,7 +3053,6 @@
         }, { passive: true });
     }
 
-    /* GESTOS TÁCTILES EN LIGHTBOX DE IMÁGENES */
     function setupLightboxSwipe() {
         const lb = document.getElementById('lightbox-modal');
         if (!lb) return;
@@ -3759,6 +3760,11 @@
         });
     }
 
+    function isVideoResource(url) {
+        if (typeof url !== 'string') return false;
+        return url.endsWith('.mp4') || url.endsWith('.webm') || url.includes('video') || url.includes('Video');
+    }
+
     function openPortfolioModal(id) {
         const proj = proyectosGlobales.find(p => p.id === id);
         if (!proj) return;
@@ -3780,12 +3786,22 @@
             currentGallery.forEach((url, i) => {
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
-                item.style.backgroundImage = `url('${url}')`;
+                const isVid = isVideoResource(url);
+
+                if (isVid) {
+                    item.innerHTML = `
+                        <div class="gallery-item-zoom-icon" style="opacity: 1; transform: scale(1);"><i data-lucide="play" style="width:16px; height:16px;"></i></div>
+                        <span class="gallery-item-badge"><i data-lucide="video" style="width:14px; height:14px;"></i> Video ${i + 1}</span>
+                    `;
+                } else {
+                    item.style.backgroundImage = `url('${url}')`;
+                    item.innerHTML = `
+                        <div class="gallery-item-zoom-icon"><i data-lucide="maximize-2" style="width:16px; height:16px;"></i></div>
+                        <span class="gallery-item-badge"><i data-lucide="image" style="width:14px; height:14px;"></i> Entregable ${i + 1}</span>
+                    `;
+                }
+
                 item.onclick = (e) => { e.stopPropagation(); openLightbox(i); };
-                item.innerHTML = `
-                    <div class="gallery-item-zoom-icon"><i data-lucide="maximize-2" style="width:16px; height:16px;"></i></div>
-                    <span class="gallery-item-badge"><i data-lucide="image" style="width:14px; height:14px;"></i> Entregable ${i + 1}</span>
-                `;
                 galleryGrid.appendChild(item);
             });
         } else {
@@ -3816,14 +3832,39 @@
 
     function closeLightbox() {
         const lb = document.getElementById('lightbox-modal');
+        const videoEl = document.getElementById('lightbox-video');
+        if (videoEl) {
+            videoEl.pause();
+            videoEl.src = '';
+        }
         if (lb) lb.classList.remove('active');
     }
 
     function updateLightboxContent() {
         const img = document.getElementById('lightbox-img');
+        const video = document.getElementById('lightbox-video');
         const caption = document.getElementById('lightbox-caption');
-        if (img && currentGallery[currentImageIndex]) {
-            img.src = currentGallery[currentImageIndex];
+        const currentUrl = currentGallery[currentImageIndex];
+
+        if (!currentUrl) return;
+
+        const isVid = isVideoResource(currentUrl);
+
+        if (isVid) {
+            img.style.display = 'none';
+            img.src = '';
+
+            video.src = currentUrl;
+            video.style.display = 'block';
+            video.play().catch(e => console.log('Autoplay prevenido:', e));
+            caption.innerText = `Video ${currentImageIndex + 1} de ${currentGallery.length}`;
+        } else {
+            video.pause();
+            video.style.display = 'none';
+            video.src = '';
+
+            img.src = currentUrl;
+            img.style.display = 'block';
             caption.innerText = `Entregable ${currentImageIndex + 1} de ${currentGallery.length}`;
         }
     }

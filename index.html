@@ -1423,8 +1423,36 @@
             background-color: #000;
         }
 
+        .lightbox-bottom-bar {
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 4010;
+        }
+
+        .lightbox-bottom-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-bottom-btn:hover {
+            background-color: var(--accent-copper);
+            border-color: var(--accent-copper);
+            color: #fff;
+        }
+
         .lightbox-caption {
-            margin-top: 1rem; color: var(--text-main);
+            color: var(--text-main);
             font-size: 0.95rem; font-weight: 600;
             background: var(--bg-card);
             padding: 6px 16px; border-radius: 20px;
@@ -1876,10 +1904,13 @@
 
             .modal-gallery-grid { grid-template-columns: 1fr !important; }
             .gallery-item { height: 180px !important; }
-            .lightbox-content iframe { width: 92vw; height: 50vh; }
-            .lightbox-arrow { width: 40px; height: 40px; }
-            .lightbox-prev { left: 0.5rem; }
-            .lightbox-next { right: 0.5rem; }
+            
+            /* Ajustes responsivos del Lightbox en móviles */
+            .lightbox-arrow { display: none !important; }
+            .lightbox-bottom-btn { display: flex; }
+            .lightbox-content iframe { width: 94vw; height: 52vh; }
+            .lightbox-content video { max-height: 52vh; }
+            
             .contact-buttons-group { flex-direction: column; }
         }
 
@@ -2033,6 +2064,13 @@
     <section id="portafolio" class="tech-section">
         <div class="topo-bg">
             <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="topo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#d97706" stop-opacity="0.18" />
+                        <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.12" />
+                        <stop offset="100%" stop-color="#334155" stop-opacity="0.05" />
+                    </linearGradient>
+                </defs>
                 <g stroke="url(#topo-grad)" stroke-width="1.2" fill="none">
                     <path d="M-100,150 C250,100 450,250 750,130 C1050,10 1150,200 1300,150" />
                     <path d="M-100,250 C300,180 500,350 800,230 C1100,110 1200,300 1300,250" />
@@ -2526,7 +2564,15 @@
             <img id="lightbox-img" src="" alt="Entregable en alta resolución" style="display:none;">
             <video id="lightbox-video" controls autoplay loop playsinline style="display:none;"></video>
             <iframe id="lightbox-iframe" src="" frameborder="0" allow="autoplay" allowfullscreen style="display:none;"></iframe>
-            <div id="lightbox-caption" class="lightbox-caption"></div>
+            <div class="lightbox-bottom-bar">
+                <button class="lightbox-bottom-btn" onclick="prevLightboxImage()" aria-label="Anterior">
+                    <i data-lucide="chevron-left" style="width: 20px; height: 20px;"></i>
+                </button>
+                <div id="lightbox-caption" class="lightbox-caption"></div>
+                <button class="lightbox-bottom-btn" onclick="nextLightboxImage()" aria-label="Siguiente">
+                    <i data-lucide="chevron-right" style="width: 20px; height: 20px;"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -3840,6 +3886,7 @@
         const lb = document.getElementById('lightbox-modal');
         if (lb) {
             lb.classList.add('active');
+            if (window.lucide) lucide.createIcons();
             history.pushState({ modalOpen: true, modalType: 'lightbox' }, "");
         }
     }
@@ -3876,7 +3923,6 @@
             img.style.display = 'none';
             img.src = '';
 
-            // Si es enlace preview de Drive, usamos iframe para reproducción fluida sin bloqueos
             if (currentUrl.includes('/preview') || currentUrl.includes('drive.google.com')) {
                 video.pause();
                 video.style.display = 'none';
@@ -3905,6 +3951,8 @@
             img.style.display = 'block';
             caption.innerText = `Entregable ${currentImageIndex + 1} de ${currentGallery.length}`;
         }
+
+        if (window.lucide) lucide.createIcons();
     }
 
     function nextLightboxImage() {

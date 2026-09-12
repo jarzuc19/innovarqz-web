@@ -1413,6 +1413,16 @@
             border-radius: 8px; border: 1px solid var(--border-color);
             box-shadow: 0 25px 50px var(--shadow-color);
             object-fit: contain;
+        }
+
+        .lightbox-content iframe {
+            width: 92vw;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 50px var(--shadow-color);
             background-color: #000;
         }
 
@@ -1900,8 +1910,7 @@
             
             .lightbox-arrow { display: none !important; }
             .lightbox-bottom-btn { display: flex; }
-            .lightbox-content video { width: 94vw; max-height: 60vh; }
-            
+            .lightbox-content iframe { width: 94vw; }
             .contact-buttons-group { flex-direction: column; }
         }
 
@@ -2055,6 +2064,13 @@
     <section id="portafolio" class="tech-section">
         <div class="topo-bg">
             <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="topo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#d97706" stop-opacity="0.18" />
+                        <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.12" />
+                        <stop offset="100%" stop-color="#334155" stop-opacity="0.05" />
+                    </linearGradient>
+                </defs>
                 <g stroke="url(#topo-grad)" stroke-width="1.2" fill="none">
                     <path d="M-100,150 C250,100 450,250 750,130 C1050,10 1150,200 1300,150" />
                     <path d="M-100,250 C300,180 500,350 800,230 C1100,110 1200,300 1300,250" />
@@ -2539,7 +2555,7 @@
         </div>
     </section>
 
-    <!-- VISOR LIGHTBOX CON REPRODUCTOR NATIVO LIMPIO -->
+    <!-- VISOR LIGHTBOX CON REPRODUCTOR OPTIMIZADO -->
     <div class="lightbox-overlay" id="lightbox-modal">
         <button class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x"></i></button>
         <button class="lightbox-arrow lightbox-prev" onclick="prevLightboxImage()"><i data-lucide="chevron-left"></i></button>
@@ -2547,6 +2563,7 @@
         <div class="lightbox-content" id="lightboxMediaContainer">
             <img id="lightbox-img" src="" alt="Entregable en alta resolución" style="display:none;">
             <video id="lightbox-video" controls autoplay loop playsinline style="display:none;"></video>
+            <iframe id="lightbox-iframe" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen style="display:none;"></iframe>
             <div class="lightbox-bottom-bar">
                 <button class="lightbox-bottom-btn" onclick="prevLightboxImage()" aria-label="Anterior">
                     <i data-lucide="chevron-left" style="width: 20px; height: 20px;"></i>
@@ -3815,14 +3832,6 @@
         return url.endsWith('.mp4') || url.endsWith('.webm') || url.includes('type=video') || url.includes('/preview') || url.includes('Video') || url.includes('video');
     }
 
-    function getStreamableVideoUrl(url) {
-        const id = getDriveId(url);
-        if (id) {
-            return `https://drive.google.com/uc?export=download&id=${id}`;
-        }
-        return url;
-    }
-
     function getThumbnailUrl(url) {
         const id = getDriveId(url);
         if (id) {
@@ -3902,11 +3911,16 @@
     function closeLightbox() {
         const lb = document.getElementById('lightbox-modal');
         const videoEl = document.getElementById('lightbox-video');
+        const iframeEl = document.getElementById('lightbox-iframe');
         
         if (videoEl) {
             videoEl.pause();
             videoEl.src = '';
             videoEl.style.display = 'none';
+        }
+        if (iframeEl) {
+            iframeEl.src = '';
+            iframeEl.style.display = 'none';
         }
         if (lb) lb.classList.remove('active');
     }
@@ -3914,6 +3928,7 @@
     function updateLightboxContent() {
         const img = document.getElementById('lightbox-img');
         const video = document.getElementById('lightbox-video');
+        const iframe = document.getElementById('lightbox-iframe');
         const caption = document.getElementById('lightbox-caption');
         const currentUrl = currentGallery[currentImageIndex];
 
@@ -3925,14 +3940,38 @@
             img.style.display = 'none';
             img.src = '';
 
-            video.src = getStreamableVideoUrl(currentUrl);
-            video.style.display = 'block';
-            video.play().catch(e => console.log('Autoplay prevenido:', e));
+            const fileId = getDriveId(currentUrl);
+            const isDrive = fileId || currentUrl.includes('drive.google.com');
+
+            if (isDrive) {
+                if (video) {
+                    video.pause();
+                    video.style.display = 'none';
+                    video.src = '';
+                }
+                const previewUrl = fileId 
+                    ? `https://drive.google.com/file/d/${fileId}/preview` 
+                    : currentUrl.replace('?type=video', '');
+
+                iframe.src = previewUrl;
+                iframe.style.display = 'block';
+            } else {
+                iframe.src = '';
+                iframe.style.display = 'none';
+
+                video.src = currentUrl;
+                video.style.display = 'block';
+                video.play().catch(e => console.log('Autoplay prevenido:', e));
+            }
             caption.innerText = `Video ${currentImageIndex + 1} de ${currentGallery.length}`;
         } else {
-            video.pause();
-            video.style.display = 'none';
-            video.src = '';
+            if (video) {
+                video.pause();
+                video.style.display = 'none';
+                video.src = '';
+            }
+            iframe.src = '';
+            iframe.style.display = 'none';
 
             img.src = currentUrl;
             img.style.display = 'block';

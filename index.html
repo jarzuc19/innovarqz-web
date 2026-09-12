@@ -1925,12 +1925,12 @@
         
         <div class="nav-container">
             <nav>
-                <a href="#inicio" class="nav-active">Inicio</a>
-                <a href="#portafolio">Portafolio</a>
-                <a href="#bim-cim">Metodología BIM/CIM</a>
-                <a href="#servicios">Servicios</a>
-                <a href="#nosotros">Nosotros</a>
-                <a href="#contacto">Contacto</a>
+                <a href="#inicio" class="nav-active" onclick="cerrarCapasPorNavegacion()">Inicio</a>
+                <a href="#portafolio" onclick="cerrarCapasPorNavegacion()">Portafolio</a>
+                <a href="#bim-cim" onclick="cerrarCapasPorNavegacion()">Metodología BIM/CIM</a>
+                <a href="#servicios" onclick="cerrarCapasPorNavegacion()">Servicios</a>
+                <a href="#nosotros" onclick="cerrarCapasPorNavegacion()">Nosotros</a>
+                <a href="#contacto" onclick="cerrarCapasPorNavegacion()">Contacto</a>
             </nav>
 
             <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Cambiar Tema (Claro/Oscuro)" aria-label="Cambiar Tema">
@@ -1944,12 +1944,12 @@
     </header>
 
     <div class="mobile-nav-drawer" id="mobileNavDrawer">
-        <a href="#inicio" onclick="closeMobileMenu()"><span>Inicio</span> <i data-lucide="chevron-right"></i></a>
-        <a href="#portafolio" onclick="closeMobileMenu()"><span>Portafolio</span> <i data-lucide="chevron-right"></i></a>
-        <a href="#bim-cim" onclick="closeMobileMenu()"><span>Metodología BIM/CIM</span> <i data-lucide="chevron-right"></i></a>
-        <a href="#servicios" onclick="closeMobileMenu()"><span>Servicios</span> <i data-lucide="chevron-right"></i></a>
-        <a href="#nosotros" onclick="closeMobileMenu()"><span>Nosotros</span> <i data-lucide="chevron-right"></i></a>
-        <a href="#contacto" onclick="closeMobileMenu()"><span>Contacto</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#inicio" onclick="closeMobileMenu(); cerrarCapasPorNavegacion();"><span>Inicio</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#portafolio" onclick="closeMobileMenu(); cerrarCapasPorNavegacion();"><span>Portafolio</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#bim-cim" onclick="closeMobileMenu(); cerrarCapasPorNavegacion();"><span>Metodología BIM/CIM</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#servicios" onclick="closeMobileMenu(); cerrarCapasPorNavegacion();"><span>Servicios</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#nosotros" onclick="closeMobileMenu(); cerrarCapasPorNavegacion();"><span>Nosotros</span> <i data-lucide="chevron-right"></i></a>
+        <a href="#contacto" onclick="closeMobileMenu(); cerrarCapasPorNavegacion();"><span>Contacto</span> <i data-lucide="chevron-right"></i></a>
     </div>
 
     <section class="hero" id="inicio">
@@ -2060,6 +2060,13 @@
     <section id="portafolio" class="tech-section">
         <div class="topo-bg">
             <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="topo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#d97706" stop-opacity="0.18" />
+                        <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.12" />
+                        <stop offset="100%" stop-color="#334155" stop-opacity="0.05" />
+                    </linearGradient>
+                </defs>
                 <g stroke="url(#topo-grad)" stroke-width="1.2" fill="none">
                     <path d="M-100,150 C250,100 450,250 750,130 C1050,10 1150,200 1300,150" />
                     <path d="M-100,250 C300,180 500,350 800,230 C1100,110 1200,300 1300,250" />
@@ -2339,7 +2346,7 @@
 
     <!-- Modal Portafolio Dinámico -->
     <div class="modal-overlay" id="modal-portfolio">
-        <div class="modal-content">
+        <div class="modal-content" id="modalPortfolioContent">
             <button class="modal-close" onclick="closeModal('modal-portfolio')"><i data-lucide="x"></i></button>
             <div class="modal-header">
                 <h3 id="modalTitle">Título del Proyecto</h3>
@@ -2678,6 +2685,7 @@
     let isIsoStateActive = true;
     let activeModalId = null;
     let selectedSearchIndex = -1;
+    let lastModalScrollPosition = 0;
 
     let autoPlayServices = null;
     let autoPlayPortfolio = null;
@@ -3106,14 +3114,16 @@
         let endX = 0;
 
         lb.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 1) return;
             startX = e.touches[0].clientX;
         }, { passive: true });
 
         lb.addEventListener('touchend', (e) => {
+            if (e.changedTouches.length > 1) return;
             endX = e.changedTouches[0].clientX;
             const diff = startX - endX;
 
-            if (Math.abs(diff) > 40) {
+            if (Math.abs(diff) > 45) {
                 if (diff > 0) {
                     nextLightboxImage();
                 } else {
@@ -3160,16 +3170,31 @@
         }, 180);
     }
 
-    window.addEventListener('popstate', (e) => {
+    function cerrarCapasPorNavegacion() {
         const lb = document.getElementById('lightbox-modal');
         if (lb && lb.classList.contains('active')) {
+            closeLightboxInternal();
+        }
+        if (activeModalId) {
+            const m = document.getElementById(activeModalId);
+            if (m) m.classList.remove('active');
+            activeModalId = null;
+        }
+        document.body.style.overflow = 'auto';
+    }
+
+    window.addEventListener('popstate', (e) => {
+        const lb = document.getElementById('lightbox-modal');
+        const isLightboxActive = lb && lb.classList.contains('active');
+
+        if (isLightboxActive) {
             closeLightboxInternal();
             return;
         }
 
         if (activeModalId) {
-            const m = document.getElementById(activeModalId);
-            if (m) m.classList.remove('active');
+            const modalEl = document.getElementById(activeModalId);
+            if (modalEl) modalEl.classList.remove('active');
             activeModalId = null;
             document.body.style.overflow = 'auto';
         }
@@ -3233,21 +3258,23 @@
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
             activeModalId = modalId;
-            history.pushState({ modalOpen: true, modalId: modalId }, "");
+            history.pushState({ level: 'modal', modalId: modalId }, "");
         }
     }
 
     function closeModal(modalId) {
         const modal = document.getElementById(modalId);
-        if (modal) {
+        if (modal && modal.classList.contains('active')) {
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
             if (activeModalId === modalId) activeModalId = null;
+
             if (modalId === 'modal-search-results') {
                 const inputSearch = document.getElementById('projectSearch');
                 if (inputSearch) inputSearch.value = '';
             }
-            if (history.state && history.state.modalId === modalId) {
+
+            if (history.state && history.state.level === 'modal' && history.state.modalId === modalId) {
                 history.back();
             }
         }
@@ -3900,13 +3927,20 @@
 
     function openLightbox(index) {
         if (!currentGallery || currentGallery.length === 0) return;
+        
+        const modalScrollContainer = document.getElementById('modalPortfolioContent');
+        if (modalScrollContainer) {
+            lastModalScrollPosition = modalScrollContainer.scrollTop;
+        }
+
         currentImageIndex = index;
         updateLightboxContent();
+        
         const lb = document.getElementById('lightbox-modal');
         if (lb) {
             lb.classList.add('active');
             if (window.lucide) lucide.createIcons();
-            history.pushState({ modalOpen: true, modalType: 'lightbox' }, "");
+            history.pushState({ level: 'lightbox' }, "");
         }
     }
 
@@ -3928,6 +3962,10 @@
         
         if (activeModalId) {
             document.body.style.overflow = 'hidden';
+            const modalScrollContainer = document.getElementById('modalPortfolioContent');
+            if (modalScrollContainer && lastModalScrollPosition > 0) {
+                modalScrollContainer.scrollTop = lastModalScrollPosition;
+            }
         } else {
             document.body.style.overflow = 'auto';
         }
@@ -3935,7 +3973,7 @@
 
     function closeLightbox() {
         closeLightboxInternal();
-        if (history.state && history.state.modalType === 'lightbox') {
+        if (history.state && history.state.level === 'lightbox') {
             history.back();
         }
     }

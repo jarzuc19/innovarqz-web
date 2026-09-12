@@ -3160,8 +3160,19 @@
         }, 180);
     }
 
-    window.addEventListener('popstate', () => {
-        closeAllModalsWithoutHistory();
+    window.addEventListener('popstate', (e) => {
+        const lb = document.getElementById('lightbox-modal');
+        if (lb && lb.classList.contains('active')) {
+            closeLightboxInternal();
+            return;
+        }
+
+        if (activeModalId) {
+            const m = document.getElementById(activeModalId);
+            if (m) m.classList.remove('active');
+            activeModalId = null;
+            document.body.style.overflow = 'auto';
+        }
     });
 
     window.addEventListener('keydown', (e) => {
@@ -3169,7 +3180,14 @@
         const isLightboxActive = lb && lb.classList.contains('active');
 
         if (e.key === 'Escape') {
-            closeAllModals();
+            if (isLightboxActive) {
+                closeLightbox();
+                return;
+            }
+            if (activeModalId) {
+                closeModal(activeModalId);
+                return;
+            }
         } else if (isLightboxActive) {
             if (e.key === 'ArrowRight') {
                 nextLightboxImage();
@@ -3209,20 +3227,6 @@
         });
     }
 
-    function closeAllModals() {
-        if (activeModalId) closeModal(activeModalId);
-        closeLightbox();
-    }
-
-    function closeAllModalsWithoutHistory() {
-        const modals = document.querySelectorAll('.modal-overlay.active');
-        modals.forEach(m => m.classList.remove('active'));
-        const lb = document.getElementById('lightbox-modal');
-        if (lb) lb.classList.remove('active');
-        document.body.style.overflow = 'auto';
-        activeModalId = null;
-    }
-
     function openModal(modalId) {
         const modal = document.getElementById(modalId);
         if (modal) {
@@ -3243,7 +3247,7 @@
                 const inputSearch = document.getElementById('projectSearch');
                 if (inputSearch) inputSearch.value = '';
             }
-            if (history.state && history.state.modalOpen) {
+            if (history.state && history.state.modalId === modalId) {
                 history.back();
             }
         }
@@ -3574,7 +3578,11 @@
 
     window.addEventListener('click', (event) => {
         if (event.target.classList.contains('modal-overlay')) {
-            closeModal(event.target.id);
+            if (event.target.id === 'lightbox-modal') {
+                closeLightbox();
+            } else {
+                closeModal(event.target.id);
+            }
         }
     });
 
@@ -3902,7 +3910,7 @@
         }
     }
 
-    function closeLightbox() {
+    function closeLightboxInternal() {
         const lb = document.getElementById('lightbox-modal');
         const videoEl = document.getElementById('lightbox-video');
         const iframeEl = document.getElementById('lightbox-iframe');
@@ -3917,6 +3925,19 @@
             iframeEl.style.display = 'none';
         }
         if (lb) lb.classList.remove('active');
+        
+        if (activeModalId) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    function closeLightbox() {
+        closeLightboxInternal();
+        if (history.state && history.state.modalType === 'lightbox') {
+            history.back();
+        }
     }
 
     function updateLightboxContent() {

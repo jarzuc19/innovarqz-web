@@ -3265,17 +3265,17 @@
     function closeModal(modalId) {
         const modal = document.getElementById(modalId);
         if (modal && modal.classList.contains('active')) {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            if (activeModalId === modalId) activeModalId = null;
+            if (history.state && history.state.level === 'modal' && history.state.modalId === modalId) {
+                history.back();
+            } else {
+                modal.classList.remove('active');
+                if (activeModalId === modalId) activeModalId = null;
+                document.body.style.overflow = 'auto';
+            }
 
             if (modalId === 'modal-search-results') {
                 const inputSearch = document.getElementById('projectSearch');
                 if (inputSearch) inputSearch.value = '';
-            }
-
-            if (history.state && history.state.level === 'modal' && history.state.modalId === modalId) {
-                history.back();
             }
         }
     }
@@ -3972,9 +3972,10 @@
     }
 
     function closeLightbox() {
-        closeLightboxInternal();
         if (history.state && history.state.level === 'lightbox') {
             history.back();
+        } else {
+            closeLightboxInternal();
         }
     }
 

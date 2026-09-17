@@ -30,7 +30,8 @@
             --header-bg: rgba(15, 23, 42, 0.92);
             --modal-bg: #1e293b;
             --shadow-color: rgba(0, 0, 0, 0.5);
-            --skill-bg: #334155;
+            --skill-bg: #1e293b;
+            --grid-line-color: rgba(255, 255, 255, 0.035);
         }
 
         body.light-mode {
@@ -44,6 +45,7 @@
             --modal-bg: #ffffff;
             --shadow-color: rgba(0, 0, 0, 0.08);
             --skill-bg: #e2e8f0;
+            --grid-line-color: rgba(15, 23, 42, 0.04);
         }
 
         * {
@@ -63,6 +65,13 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            /* Fondo vectorial arquitectónico continuo (patrón geométrico técnico) */
+            background-image: 
+                linear-gradient(var(--grid-line-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line-color) 1px, transparent 1px),
+                radial-gradient(circle at 50% 50%, var(--grid-line-color) 1px, transparent 1px);
+            background-size: 48px 48px, 48px 48px, 12px 12px;
+            background-attachment: fixed;
         }
 
         /* 1. ENCABEZADO */
@@ -143,9 +152,9 @@
             transform: scale(1.05);
         }
 
-        /* 2. HERO DUAL EDITORIAL */
+        /* 2. HERO DUAL UNIFICADO (SIN CAJA CONTENEDORA) */
         .hero-dual-section {
-            padding: 2.5rem 5% 1.5rem;
+            padding: 2.8rem 5% 1.5rem;
             max-width: 1250px;
             margin: 0 auto;
             width: 100%;
@@ -154,7 +163,7 @@
         .face-selector-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.2rem;
         }
 
         .face-selector-pill {
@@ -188,19 +197,20 @@
             box-shadow: 0 4px 14px rgba(217, 119, 6, 0.4);
         }
 
+        /* El contenedor ahora es plano y sin caja pesada */
         .hero-editorial-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            overflow: hidden;
+            background: transparent;
+            border: none;
+            border-radius: 0;
             display: grid;
             grid-template-columns: 1.25fr 0.95fr;
-            box-shadow: 0 20px 45px var(--shadow-color);
+            gap: 2rem;
             position: relative;
+            box-shadow: none;
         }
 
         .hero-editorial-body {
-            padding: 3.2rem 3.5rem;
+            padding: 1.5rem 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -214,7 +224,7 @@
         }
 
         .hero-brand-logo {
-            font-size: 2.8rem;
+            font-size: 2.9rem;
             font-weight: 900;
             letter-spacing: -0.8px;
             color: var(--text-main);
@@ -240,7 +250,7 @@
         }
 
         .hero-desc-lead {
-            font-size: 1rem;
+            font-size: 1.02rem;
             color: var(--text-muted);
             line-height: 1.65;
             margin-bottom: 1.8rem;
@@ -248,7 +258,7 @@
         }
 
         .hero-action-row {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
@@ -261,7 +271,7 @@
             background-color: rgba(217, 119, 6, 0.15);
             border: 1px solid var(--accent-copper);
             color: var(--accent-copper);
-            padding: 0.65rem 1.4rem;
+            padding: 0.7rem 1.5rem;
             border-radius: 8px;
             font-size: 0.88rem;
             font-weight: 700;
@@ -280,7 +290,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.2rem;
-            padding-top: 1.5rem;
+            padding-top: 1.6rem;
             border-top: 1px solid var(--border-color);
         }
 
@@ -307,71 +317,66 @@
             margin-top: 3px;
         }
 
+        /* Contenedor visual integrado con el mismo fondo de la página */
         .hero-editorial-visual {
             position: relative;
-            background-color: var(--bg-dark);
+            background: transparent;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
             overflow: hidden;
-            border-left: 1px solid var(--border-color);
-            min-height: 420px;
-        }
-
-        /* Composición fotográfica fusionada */
-        .hero-blueprint-bg {
-            position: absolute;
-            inset: 0;
-            background-image: url('image_7090f2.png');
-            background-size: cover;
-            background-position: center top;
-            opacity: 0.22;
-            filter: contrast(1.15) brightness(0.9);
-            z-index: 1;
+            border: none;
+            min-height: 440px;
         }
 
         .hero-portrait-img {
             position: relative;
             z-index: 2;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
+            max-height: 440px;
+            object-fit: contain;
+            object-position: bottom center;
             display: block;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.5));
         }
 
         .hero-visual-media {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center top;
-            display: block;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
             position: relative;
             z-index: 2;
         }
 
         .hero-visual-overlay {
             position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 40%, rgba(15, 23, 42, 0.85) 100%);
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(180deg, transparent 0%, var(--bg-dark) 100%);
             pointer-events: none;
             z-index: 3;
         }
 
-        /* 3. SECCIÓN DE HABILIDADES TÉCNICAS (3 COLUMNAS X 2 FILAS) */
+        /* 3. SECCIÓN DE HABILIDADES TÉCNICAS (SIN CAJA CONTENEDORA) */
         .skills-section-wrapper {
             max-width: 1250px;
-            margin: 1.75rem auto 0;
+            margin: 1rem auto 2.5rem;
             padding: 0 5%;
             width: 100%;
         }
 
         .skills-card-container {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.6rem 2.2rem 1.8rem;
-            box-shadow: 0 10px 30px var(--shadow-color);
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 1.5rem 0;
+            box-shadow: none;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .skills-header-row {
@@ -379,8 +384,6 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 1.4rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 1px solid var(--border-color);
         }
 
         .skills-main-title {
@@ -398,7 +401,7 @@
         .skills-grid-3cols {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem 2rem;
+            gap: 1.5rem 2.5rem;
         }
 
         .skill-item {
@@ -423,7 +426,7 @@
         }
 
         .skill-bar-track {
-            height: 8px;
+            height: 7px;
             background-color: var(--skill-bg);
             border-radius: 10px;
             overflow: hidden;
@@ -538,7 +541,7 @@
 
         /* 5. BUSCADOR, CATEGORÍAS Y RETÍCULA 3x3 */
         .portfolio-main-area {
-            padding: 1.5rem 5% 4rem;
+            padding: 1rem 5% 4rem;
             max-width: 1250px;
             margin: 0 auto;
             width: 100%;
@@ -594,7 +597,7 @@
             border-color: var(--accent-copper);
         }
 
-        /* RETÍCULA 3x3 */
+        /* RETÍCULA 3x3 DE PROYECTOS (CONSERVA CAJA) */
         .projects-grid-3x3 {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -763,10 +766,10 @@
             cursor: not-allowed;
         }
 
-        /* 7. BANNER DE CONVERSIÓN CTA */
+        /* 7. BANNER DE CONVERSIÓN CTA (SIN CAJA, 3 BOTONES EN 1 FILA) */
         .cta-banner-container {
             padding: 0 5%;
-            margin-bottom: 3.5rem;
+            margin-bottom: 4rem;
             max-width: 1250px;
             margin-left: auto;
             margin-right: auto;
@@ -774,15 +777,15 @@
         }
 
         .cta-banner-box {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 2.8rem 3.5rem;
+            background: transparent;
+            border: none;
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 0 1rem;
             display: grid;
-            grid-template-columns: 1.3fr auto 1.1fr;
+            grid-template-columns: 1.15fr auto 1.35fr;
             gap: 2.5rem;
             align-items: center;
-            box-shadow: 0 20px 45px var(--shadow-color);
+            box-shadow: none;
         }
 
         .cta-left h3 {
@@ -804,22 +807,23 @@
         .cta-divider {
             width: 1px;
             height: 100%;
-            min-height: 90px;
+            min-height: 80px;
             background-color: var(--border-color);
         }
 
         .cta-right {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.85rem;
             align-items: flex-end;
             width: 100%;
         }
 
-        .cta-btn-group {
+        /* REORGANIZACIÓN: 3 BOTONES EN UNA SOLA LÍNEA HORIZONTAL */
+        .cta-btn-row-single {
             display: flex;
-            gap: 0.6rem;
-            flex-wrap: wrap;
+            gap: 0.75rem;
+            flex-wrap: nowrap;
             justify-content: flex-end;
             width: 100%;
         }
@@ -829,13 +833,14 @@
             align-items: center;
             justify-content: center;
             gap: 0.45rem;
-            padding: 0.75rem 1.2rem;
+            padding: 0.8rem 1.3rem;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
             font-size: 0.88rem;
             cursor: pointer;
             border: none;
+            white-space: nowrap;
             transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
         }
 
@@ -856,7 +861,7 @@
         .btn-cta-email:hover { background-color: var(--accent-copper-hover); }
 
         .btn-cta-share {
-            background-color: rgba(255, 255, 255, 0.08);
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-main);
         }
@@ -1144,20 +1149,21 @@
         /* RESPONSIVE */
         @media (max-width: 1024px) {
             .hero-editorial-card { grid-template-columns: 1fr; }
-            .hero-editorial-visual { height: 360px; border-left: none; border-top: 1px solid var(--border-color); }
+            .hero-editorial-visual { height: 380px; min-height: 380px; }
             .skills-grid-3cols { grid-template-columns: repeat(2, 1fr); }
             .projects-grid-3x3 { grid-template-columns: repeat(2, 1fr); }
             .cta-banner-box { grid-template-columns: 1fr; gap: 1.5rem; }
             .cta-divider { display: none; }
             .cta-right { align-items: flex-start; }
-            .cta-btn-group { justify-content: flex-start; }
+            .cta-btn-row-single { justify-content: flex-start; flex-wrap: wrap; }
             .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
         }
 
         @media (max-width: 720px) {
-            .hero-editorial-body { padding: 2.2rem 1.5rem; }
+            .hero-editorial-body { padding: 1.5rem 0; }
             .hero-brand-logo { font-size: 2.2rem; }
-            .skills-card-container { padding: 1.4rem 1.2rem; }
+            .hero-editorial-visual { min-height: 320px; max-height: 340px; }
+            .hero-portrait-img { max-height: 320px; }
             .skills-grid-3cols { grid-template-columns: 1fr; gap: 1.2rem; }
             .timeline-container { margin: 1.2rem 0 1.8rem; }
             .category-filter-pills { width: 100%; justify-content: center; }
@@ -1167,6 +1173,8 @@
             .lightbox-arrow { display: none; }
             .lightbox-content iframe { width: 94vw; height: 50vh; }
             .fab-floating-container { bottom: 1.2rem; right: 1.2rem; }
+            .cta-btn-row-single { flex-direction: column; width: 100%; }
+            .btn-cta-action { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -1191,7 +1199,7 @@
         </div>
     </header>
 
-    <!-- 2. HERO DUAL EDITORIAL ("MONEDA DE 2 CARAS") -->
+    <!-- 2. HERO DUAL EDITORIAL ("MONEDA DE 2 CARAS" - VISTA PROFESIONAL POR DEFECTO) -->
     <section class="hero-dual-section">
         <div class="face-selector-container">
             <div class="face-selector-pill">
@@ -1209,15 +1217,15 @@
         <div class="hero-editorial-card">
             <div class="hero-editorial-body">
                 <div id="heroIdentityBlock">
-                    <!-- Dinámico: Cara Profesional o Firma Empresarial -->
+                    <!-- Dinámico -->
                 </div>
 
                 <p class="hero-desc-lead" id="heroDesc">
-                    Dirección arquitectónica, modelado de precisión y consultoría independiente. Especialista en interoperabilidad IFC y cumplimiento normativo NSR-10.
+                    Dirección arquitectónica, modelado de precisión y consultoría técnica independiente. Especialista en interoperabilidad IFC y cumplimiento normativo NSR-10.
                 </p>
 
                 <div class="hero-action-row" id="heroActionRow">
-                    <!-- Botón dinámico según perspectiva -->
+                    <!-- Botón contextual dinámico -->
                 </div>
 
                 <div class="hero-kpi-bar" id="heroKpiArea">
@@ -1226,12 +1234,12 @@
             </div>
 
             <div class="hero-editorial-visual" id="heroVisualContainer">
-                <!-- Dinámico: Foto PNG con plano arquitectónico fusionado o Video -->
+                <!-- Dinámico: Retrato PNG fusionado sobre fondo continuo o Video Empresarial -->
             </div>
         </div>
     </section>
 
-    <!-- 3. MATRIZ DE HABILIDADES TÉCNICAS (3 COLUMNAS X 2 FILAS) -->
+    <!-- 3. MATRIZ DE COMPETENCIAS Y HABILIDADES (3 COLUMNAS X 2 FILAS - FLOTANTE) -->
     <section class="skills-section-wrapper" id="skillsSection">
         <div class="skills-card-container">
             <div class="skills-header-row">
@@ -1243,7 +1251,7 @@
             </div>
 
             <div class="skills-grid-3cols">
-                <!-- Columna 1: Modelado & Control Financiero -->
+                <!-- Columna 1 -->
                 <div class="skill-item">
                     <div class="skill-meta">
                         <span>Coordinación y Gestión BIM (3D, 4D, 5D)</span>
@@ -1264,7 +1272,7 @@
                     </div>
                 </div>
 
-                <!-- Columna 2: Obra & Riesgos -->
+                <!-- Columna 2 -->
                 <div class="skill-item">
                     <div class="skill-meta">
                         <span>Residencia y Dirección de Obra</span>
@@ -1285,7 +1293,7 @@
                     </div>
                 </div>
 
-                <!-- Columna 3: Ordenamiento & Articulación Social -->
+                <!-- Columna 3 -->
                 <div class="skill-item">
                     <div class="skill-meta">
                         <span>Estructuración Ordenamiento Territorial</span>
@@ -1354,14 +1362,14 @@
             </div>
         </div>
 
-        <!-- RETÍCULA 3x3 -->
+        <!-- RETÍCULA 3x3 DE PROYECTOS -->
         <div class="projects-grid-3x3" id="projectsGrid"></div>
 
         <!-- PAGINACIÓN NUMÉRICA DINÁMICA -->
         <div class="pagination-container" id="paginationBar"></div>
     </main>
 
-    <!-- 5. BANNER DE CONVERSIÓN CON WHATSAPP, EMAIL Y COMPARTIR -->
+    <!-- 5. BANNER DE CONVERSIÓN (SIN CAJA, 3 BOTONES EN LÍNEA) -->
     <div class="cta-banner-container" id="ctaBannerSection">
         <div class="cta-banner-box">
             <div class="cta-left">
@@ -1370,7 +1378,8 @@
             </div>
             <div class="cta-divider"></div>
             <div class="cta-right">
-                <div class="cta-btn-group">
+                <!-- 3 BOTONES EN UNA SOLA LÍNEA HORIZONTAL -->
+                <div class="cta-btn-row-single">
                     <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20el%20portafolio%20técnico" target="_blank" class="btn-cta-action btn-cta-whatsapp">
                         <i data-lucide="message-square" style="width: 16px; height: 16px;"></i> WhatsApp
                     </a>
@@ -1399,7 +1408,7 @@
         </button>
     </div>
 
-    <!-- 7. PIE DE PÁGINA REAJUSTADO -->
+    <!-- 7. PIE DE PÁGINA -->
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
@@ -1507,7 +1516,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) lucide.createIcons();
-            switchPerspective('indep'); // Carga por defecto en perfil independiente
+            switchPerspective('indep'); // Inicia con la cara profesional activa
             fetchProjects();
             fetchDirectorData();
             initSkillsObserver();
@@ -1575,7 +1584,7 @@
 
                 desc.innerText = "Ecosistema metodológico OpenBIM (ISO 19650) aplicado al diseño computacional, estructuración técnica, interventoría y control integral de activos.";
 
-                // Botón directo a la sección BIM de index.html
+                // Botón directo a la sección BIM del index
                 actionRow.innerHTML = `
                     <a href="index.html#bim-cim" class="btn-hero-profile">
                         <i data-lucide="layers" style="width: 17px; height: 17px;"></i>
@@ -1599,13 +1608,12 @@
                     </div>
                 `;
 
-                // Video institucional con poster de respaldo
+                // Video dinámico con poster de respaldo
                 visualContainer.innerHTML = `
                     <video class="hero-visual-media" autoplay muted loop playsinline poster="esencia-digital-innovarqz.jpg">
                         <source src="esencia-digital-innovarqz.mp4" type="video/mp4">
                         <img src="esencia-digital-innovarqz.jpg" alt="InnovArqZ Esencia Digital" class="hero-visual-media">
                     </video>
-                    <div class="hero-visual-overlay"></div>
                 `;
             } else {
                 btnIndep.classList.add('active');
@@ -1613,7 +1621,7 @@
 
                 idBlock.innerHTML = `
                     <div class="hero-brand-block">
-                        <div class="hero-brand-logo" style="font-size: 2.3rem;">ARQ. JAMES R. <span>ZÚÑIGA C.</span></div>
+                        <div class="hero-brand-logo" style="font-size: 2.35rem;">ARQ. JAMES R. <span>ZÚÑIGA C.</span></div>
                         <div class="hero-brand-sub">M.P CPNAA No: A137812026-1122783013</div>
                         <div class="hero-brand-focus">buildingSMART Certified • Coordinador BIM / CIM</div>
                     </div>
@@ -1644,9 +1652,8 @@
                     </div>
                 `;
 
-                // Fusión fotográfica: Fondo de plano arquitectónico + PNG transparente recortado
+                // Fotografía PNG recortada integrada limpiamente sobre el fondo continuo
                 visualContainer.innerHTML = `
-                    <div class="hero-blueprint-bg"></div>
                     <img src="https://lh3.googleusercontent.com/d/1wmvAIFE3NSKL9Lc0jFTUXlaolDcqVEMM" alt="Arq. James Ramiro Zúñiga Caipe" class="hero-portrait-img">
                     <div class="hero-visual-overlay"></div>
                 `;
@@ -1670,7 +1677,6 @@
                             bar.style.width = targetVal + '%';
                         });
                     } else {
-                        // Vuelve a 0 al salir del campo visual
                         fills.forEach(bar => {
                             bar.style.width = '0%';
                         });

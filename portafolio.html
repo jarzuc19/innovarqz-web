@@ -678,4 +678,782 @@
         }
 
         .modal-close {
-          
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+            z-index: 10;
+        }
+
+        .modal-close:hover { color: var(--accent-copper); }
+
+        .modal-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            margin: 1.5rem 0 2rem;
+        }
+
+        .gallery-item {
+            height: 200px;
+            background-color: var(--bg-dark);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 0.75rem;
+            transition: transform 0.25s, border-color 0.25s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-copper);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(15,23,42,0.1) 0%, rgba(15,23,42,0.85) 100%);
+            z-index: 1;
+        }
+
+        .gallery-badge {
+            position: relative;
+            z-index: 2;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 4px 9px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(11, 17, 32, 0.96);
+            backdrop-filter: blur(12px);
+            z-index: 4000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .lightbox-content img, .lightbox-content video {
+            max-width: 100%;
+            max-height: 78vh;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            object-fit: contain;
+        }
+
+        .lightbox-content iframe {
+            width: 80vw;
+            height: 70vh;
+            max-width: 1000px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #000000;
+        }
+
+        .lightbox-caption {
+            color: var(--text-main);
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: var(--bg-card);
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            margin-top: 1rem;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .lightbox-close:hover {
+            background-color: var(--accent-copper);
+            color: #ffffff;
+        }
+
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 4010;
+            transition: all 0.2s;
+        }
+
+        .lightbox-arrow:hover {
+            background-color: var(--accent-copper);
+            color: #ffffff;
+        }
+        .lightbox-prev { left: 1.5rem; }
+        .lightbox-next { right: 1.5rem; }
+
+        /* -------------------------------------------
+           RESPONSIVE
+           ------------------------------------------- */
+        @media (max-width: 1024px) {
+            .hero-editorial-card { grid-template-columns: 1fr; }
+            .hero-editorial-visual { height: 340px; border-left: none; border-top: 1px solid var(--border-color); }
+            .projects-grid-3x3 { grid-template-columns: repeat(2, 1fr); }
+            .cta-banner-box { grid-template-columns: 1fr; gap: 1.5rem; }
+            .cta-divider { display: none; }
+            .cta-right { align-items: flex-start; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        @media (max-width: 720px) {
+            .hero-big-title { font-size: 2.2rem; }
+            .hero-editorial-body { padding: 2rem 1.5rem; }
+            .projects-grid-3x3 { grid-template-columns: 1fr; }
+            .modal-gallery-grid { grid-template-columns: 1fr; }
+            .lightbox-arrow { display: none; }
+            .lightbox-content iframe { width: 94vw; height: 50vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR -->
+    <header>
+        <a href="index.html" class="brand-logo">
+            <div class="brand-title">Innov<span>ArqZ</span></div>
+            <div class="brand-subtitle">Soluciones Integrales</div>
+        </a>
+
+        <div class="header-actions">
+            <a href="index.html" class="btn-nav-link">
+                <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                <span>Sitio Principal</span>
+            </a>
+
+            <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Cambiar Tema" aria-label="Cambiar Tema">
+                <i data-lucide="sun" id="themeIcon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- SECCIÓN HERO EDITORIAL DUAL ("MONEDA DE 2 CARAS") -->
+    <section class="hero-dual-section">
+        <!-- CONMUTADOR DE CARA -->
+        <div class="face-selector-container">
+            <div class="face-selector-pill">
+                <button type="button" class="face-btn active" id="btnFaceCorp" onclick="switchPerspective('corp')">
+                    <i data-lucide="building-2" style="width: 16px; height: 16px;"></i>
+                    <span>Firma Institucional</span>
+                </button>
+                <button type="button" class="face-btn" id="btnFaceIndep" onclick="switchPerspective('indep')">
+                    <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+                    <span>Arq. James R. Zúñiga</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- TARJETA EDITORIAL -->
+        <div class="hero-editorial-card">
+            <div class="hero-editorial-body">
+                <div class="hero-tagline-badge" id="heroBadge">INGENIERÍA, ARQUITECTURA & METODOLOGÍA BIM/CIM</div>
+                <h1 class="hero-big-title" id="heroTitle">INNOVARQZ SOLUCIONES</h1>
+                <p class="hero-desc-lead" id="heroDesc">
+                    Ecosistema metodológico OpenBIM (ISO 19650) aplicado al diseño computacional, estructuración técnica, interventoría y control integral de activos.
+                </p>
+
+                <div class="hero-kpi-bar" id="heroKpiArea">
+                    <div class="kpi-unit">
+                        <div class="kpi-number">100<span>%</span></div>
+                        <div class="kpi-label">Entorno OpenBIM</div>
+                    </div>
+                    <div class="kpi-unit">
+                        <div class="kpi-number">1D-7D<span>+</span></div>
+                        <div class="kpi-label">Dimensiones Activas</div>
+                    </div>
+                    <div class="kpi-unit">
+                        <div class="kpi-number">ISO<span>19650</span></div>
+                        <div class="kpi-label">Marco Rector</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-editorial-visual">
+                <img id="heroVisualImg" src="esencia-digital-innovarqz.jpg" alt="InnovArqZ Visual">
+                <div class="hero-visual-overlay"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ÁREA PRINCIPAL DEL PORTAFOLIO -->
+    <main class="portfolio-main-area">
+        <!-- BARRA DE CONTROLES: BUSCADOR + FILTROS -->
+        <div class="controls-toolbar">
+            <div class="search-pill-wrapper">
+                <i data-lucide="search" style="width: 18px; height: 18px; color: var(--accent-copper);"></i>
+                <input type="text" id="filterSearchInput" placeholder="Buscar por proyecto, software o estándar..." oninput="handleSearchInput()">
+            </div>
+
+            <div class="category-filter-pills">
+                <button type="button" class="cat-btn active" onclick="setCategoryFilter('all', this)">Todos</button>
+                <button type="button" class="cat-btn" onclick="setCategoryFilter('bim', this)">Diseño & BIM</button>
+                <button type="button" class="cat-btn" onclick="setCategoryFilter('obra', this)">Infraestructura</button>
+                <button type="button" class="cat-btn" onclick="setCategoryFilter('interventoria', this)">Interventoría</button>
+                <button type="button" class="cat-btn" onclick="setCategoryFilter('cim', this)">CIM Territorial</button>
+            </div>
+        </div>
+
+        <!-- RETÍCULA 3x3 DE PROYECTOS -->
+        <div class="projects-grid-3x3" id="projectsGrid"></div>
+
+        <!-- PAGINACIÓN NUMÉRICA DINÁMICA -->
+        <div class="pagination-container" id="paginationBar"></div>
+    </main>
+
+    <!-- BANNER DE CONVERSIÓN INFERIOR -->
+    <div style="padding: 0 5%;">
+        <div class="cta-banner-box">
+            <div class="cta-left">
+                <h3>Construimos juntos el valor de tus espacios <span>DE PRINCIPIO A FIN</span></h3>
+                <p>Disponible para estructuración BIM, consultorías técnicas y coordinación interdisciplinaria de obra.</p>
+            </div>
+            <div class="cta-divider"></div>
+            <div class="cta-right">
+                <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20el%20portafolio%20técnico" target="_blank" class="btn-whatsapp-cta">
+                    <i data-lucide="message-square"></i> Iniciar Chat en WhatsApp
+                </a>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Respuesta técnica inmediata</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <strong>InnovArqZ Soluciones Integrales</strong>
+                <p>"Construimos juntos el valor de tus espacios de principio a fin". Transformación digital y modelado territorial.</p>
+            </div>
+
+            <div class="footer-col">
+                <strong>Dirección Técnica</strong>
+                <p>Arq. James Ramiro Zúñiga Caipe</p>
+                <p>M.P CPNAA No: A137812026-1122783013</p>
+                <p>buildingSMART Certified</p>
+            </div>
+
+            <div class="footer-col">
+                <strong>Contacto Oficial</strong>
+                <p>Email: <a href="mailto:gerenciabim@innovarqzsas.com">gerenciabim@innovarqzsas.com</a></p>
+                <p>WhatsApp: (+57) 315 850 5885</p>
+                <p>Ricaurte, Nariño — Colombia</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom-bar">
+            <span>&copy; 2026 InnovArqZ Soluciones Integrales S.A.S. Todos los derechos reservados.</span>
+            <span>Portafolio Digital V2.0 • ISO 19650</span>
+        </div>
+    </footer>
+
+    <!-- MODAL DE PROYECTO DETALLADO -->
+    <div class="modal-overlay" id="modal-portfolio">
+        <div class="modal-content" id="modalScrollContent">
+            <button class="modal-close" onclick="closeModal('modal-portfolio')"><i data-lucide="x"></i></button>
+            <h3 id="mTitle" style="font-size: 1.8rem; margin-bottom: 0.3rem;">Título del Proyecto</h3>
+            <div style="color: var(--accent-copper); font-weight: 700; font-size: 0.95rem; margin-bottom: 1rem;" id="mSubtitle">Subtítulo</div>
+            
+            <div style="display: flex; gap: 1.2rem; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; flex-wrap: wrap;">
+                <span id="mYear"><i data-lucide="calendar" style="width:14px; height:14px;"></i> 2026</span>
+                <span id="mStandard"><i data-lucide="tag" style="width:14px; height:14px;"></i> ISO 19650</span>
+                <span id="mSoftware"><i data-lucide="cpu" style="width:14px; height:14px;"></i> Autodesk Revit</span>
+            </div>
+
+            <div class="modal-gallery-grid" id="mGalleryGrid"></div>
+
+            <div style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">Alcance & Desglose Técnico</h4>
+                <p id="mScope" style="margin-bottom: 1.2rem;">---</p>
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">Herramientas & Ecosistema de Modelado</h4>
+                <p id="mTools">---</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX PARA IMÁGENES Y VIDEOS -->
+    <div class="lightbox-overlay" id="lightbox-modal">
+        <button class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x"></i></button>
+        <button class="lightbox-arrow lightbox-prev" onclick="prevLightbox()"><i data-lucide="chevron-left"></i></button>
+        <button class="lightbox-arrow lightbox-next" onclick="nextLightbox()"><i data-lucide="chevron-right"></i></button>
+        <div class="lightbox-content">
+            <img id="lbImg" src="" alt="Entregable" style="display:none;">
+            <video id="lbVideo" controls autoplay loop playsinline style="display:none;"></video>
+            <iframe id="lbIframe" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen style="display:none;"></iframe>
+            <div id="lbCaption" class="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <script>
+        let allProjects = [];
+        let filteredProjects = [];
+        let currentPerspective = 'corp'; // 'corp' | 'indep'
+        let currentCategory = 'all';
+        let searchQuery = '';
+        
+        // Paginación 3x3 (9 ítems por página)
+        const ITEMS_PER_PAGE = 9;
+        let currentPage = 1;
+
+        // Galería / Lightbox
+        let activeGallery = [];
+        let currentImgIdx = 0;
+        let activeModalId = null;
+        let lastScrollTop = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+            fetchProjects();
+        });
+
+        async function fetchProjects() {
+            try {
+                const res = await fetch('proyectos.json?v=' + Date.now());
+                if (!res.ok) throw new Error('No se pudo cargar proyectos.json');
+                allProjects = await res.json();
+                allProjects.sort((a, b) => parseInt(b.year || 0) - parseInt(a.year || 0));
+                applyFilters();
+            } catch (err) {
+                console.warn('Error al cargar datos:', err);
+                document.getElementById('projectsGrid').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">No se encontraron proyectos disponibles.</p>';
+            }
+        }
+
+        // Conmutador de Perspectiva ("Moneda de dos caras")
+        function switchPerspective(mode) {
+            currentPerspective = mode;
+            const btnCorp = document.getElementById('btnFaceCorp');
+            const btnIndep = document.getElementById('btnFaceIndep');
+            const badge = document.getElementById('heroBadge');
+            const title = document.getElementById('heroTitle');
+            const desc = document.getElementById('heroDesc');
+            const kpiArea = document.getElementById('heroKpiArea');
+            const visualImg = document.getElementById('heroVisualImg');
+
+            if (mode === 'corp') {
+                btnCorp.classList.add('active');
+                btnIndep.classList.remove('active');
+                badge.innerText = "INGENIERÍA, ARQUITECTURA & METODOLOGÍA BIM/CIM";
+                title.innerText = "INNOVARQZ SOLUCIONES";
+                desc.innerText = "Ecosistema metodológico OpenBIM (ISO 19650) aplicado al diseño computacional, estructuración técnica, interventoría y control integral de activos.";
+                visualImg.src = "esencia-digital-innovarqz.jpg";
+
+                kpiArea.innerHTML = `
+                    <div class="kpi-unit">
+                        <div class="kpi-number">100<span>%</span></div>
+                        <div class="kpi-label">Entorno OpenBIM</div>
+                    </div>
+                    <div class="kpi-unit">
+                        <div class="kpi-number">1D-7D<span>+</span></div>
+                        <div class="kpi-label">Dimensiones Activas</div>
+                    </div>
+                    <div class="kpi-unit">
+                        <div class="kpi-number">ISO<span>19650</span></div>
+                        <div class="kpi-label">Marco Rector</div>
+                    </div>
+                `;
+            } else {
+                btnIndep.classList.add('active');
+                btnCorp.classList.remove('active');
+                badge.innerText = "ARQUITECTO & COORDINADOR BIM / CIM";
+                title.innerText = "JAMES R. ZÚÑIGA C.";
+                desc.innerText = "Dirección arquitectónica, modelado de precisión y consultoría técnica independiente. Especialista en interoperabilidad IFC y cumplimiento normativo NSR-10.";
+                visualImg.src = "james-zuniga.jpg";
+
+                kpiArea.innerHTML = `
+                    <div class="kpi-unit">
+                        <div class="kpi-number">CPNAA<span>✓</span></div>
+                        <div class="kpi-label">Matrícula Oficial</div>
+                    </div>
+                    <div class="kpi-unit">
+                        <div class="kpi-number">UDENAR<span>'26</span></div>
+                        <div class="kpi-label">Facultad de Artes</div>
+                    </div>
+                    <div class="kpi-unit">
+                        <div class="kpi-number">bSMART<span>Cert</span></div>
+                        <div class="kpi-label">Entry Level</div>
+                    </div>
+                `;
+            }
+
+            if (window.lucide) lucide.createIcons();
+            applyFilters();
+        }
+
+        function setCategoryFilter(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentPage = 1;
+            applyFilters();
+        }
+
+        function handleSearchInput() {
+            searchQuery = document.getElementById('filterSearchInput').value.toLowerCase().trim();
+            currentPage = 1;
+            applyFilters();
+        }
+
+        function applyFilters() {
+            filteredProjects = allProjects.filter(p => {
+                const matchCat = (currentCategory === 'all' || p.category === currentCategory);
+                const pool = `${p.title || ''} ${p.subtitle || ''} ${p.software || ''} ${p.standard || ''} ${p.year || ''}`.toLowerCase();
+                const matchSearch = searchQuery === '' || pool.includes(searchQuery);
+                return matchCat && matchSearch;
+            });
+
+            renderGrid();
+            renderPagination();
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('projectsGrid');
+            grid.innerHTML = '';
+
+            if (filteredProjects.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">No hay proyectos coincidentes con los criterios de búsqueda.</p>';
+                return;
+            }
+
+            const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIdx = startIdx + ITEMS_PER_PAGE;
+            const pageProjects = filteredProjects.slice(startIdx, endIdx);
+
+            pageProjects.forEach(proj => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.onclick = () => openProjectModal(proj.id);
+
+                const hasCover = proj.coverUrl && proj.coverUrl.trim() !== '';
+
+                card.innerHTML = `
+                    <div class="card-cover-container">
+                        ${hasCover ? `<img src="${proj.coverUrl}" alt="${proj.title}" class="card-cover-img">` : `
+                            <div class="card-placeholder-box">
+                                <i data-lucide="box" style="width: 36px; height: 36px;"></i>
+                                <span style="font-size: 0.72rem; margin-top: 4px;">[ MODELO 3D ]</span>
+                            </div>
+                        `}
+                        <div class="card-year-badge">${proj.year || '2026'}</div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <div class="card-meta-tags">
+                                ${proj.standard ? `<span class="meta-tag">${proj.standard}</span>` : ''}
+                                ${proj.software ? `<span class="meta-tag">${proj.software}</span>` : ''}
+                            </div>
+                            <div class="card-title">${proj.title}</div>
+                            <div class="card-subtitle">${proj.subtitle || ''}</div>
+                        </div>
+                        <div class="card-footer-action">
+                            <span>Explorar Ficha Técnica</span>
+                            <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function renderPagination() {
+            const bar = document.getElementById('paginationBar');
+            bar.innerHTML = '';
+
+            const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+            if (totalPages <= 1) return;
+
+            // Botón Anterior
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'page-btn';
+            prevBtn.innerHTML = '<i data-lucide="chevron-left" style="width:16px;height:16px;"></i>';
+            prevBtn.disabled = (currentPage === 1);
+            prevBtn.onclick = () => goToPage(currentPage - 1);
+            bar.appendChild(prevBtn);
+
+            // Botones numéricos
+            for (let i = 1; i <= totalPages; i++) {
+                const numBtn = document.createElement('button');
+                numBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                numBtn.innerText = i;
+                numBtn.onclick = () => goToPage(i);
+                bar.appendChild(numBtn);
+            }
+
+            // Botón Siguiente
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'page-btn';
+            nextBtn.innerHTML = '<i data-lucide="chevron-right" style="width:16px;height:16px;"></i>';
+            nextBtn.disabled = (currentPage === totalPages);
+            nextBtn.onclick = () => goToPage(currentPage + 1);
+            bar.appendChild(nextBtn);
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function goToPage(pageNum) {
+            currentPage = pageNum;
+            renderGrid();
+            renderPagination();
+            document.querySelector('.controls-toolbar').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // MODAL Y LIGHTBOX
+        function openProjectModal(id) {
+            const proj = allProjects.find(p => p.id === id);
+            if (!proj) return;
+
+            document.getElementById('mTitle').innerText = proj.title || 'Proyecto';
+            document.getElementById('mSubtitle').innerText = proj.subtitle || '';
+            document.getElementById('mYear').innerHTML = `<i data-lucide="calendar" style="width:14px;height:14px;"></i> ${proj.year || '2026'}`;
+            document.getElementById('mStandard').innerHTML = `<i data-lucide="tag" style="width:14px;height:14px;"></i> ${proj.standard || 'ISO 19650'}`;
+            document.getElementById('mSoftware').innerHTML = `<i data-lucide="cpu" style="width:14px;height:14px;"></i> ${proj.software || 'BIM'}`;
+            document.getElementById('mScope').innerText = proj.scope || 'Sin descripción técnica disponible.';
+            document.getElementById('mTools').innerText = proj.tools || 'Sin herramientas especificadas.';
+
+            const grid = document.getElementById('mGalleryGrid');
+            grid.innerHTML = '';
+            activeGallery = proj.galleryUrls || [];
+
+            if (activeGallery.length > 0) {
+                activeGallery.forEach((url, idx) => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    const isVid = isVideoResource(url);
+
+                    if (isVid) {
+                        const driveId = getDriveId(url);
+                        if (driveId) item.style.backgroundImage = `url('https://lh3.googleusercontent.com/d/${driveId}')`;
+                        item.innerHTML = `<span class="gallery-badge"><i data-lucide="video" style="width:12px;height:12px;"></i> Video ${idx + 1}</span>`;
+                    } else {
+                        item.style.backgroundImage = `url('${url}')`;
+                        item.innerHTML = `<span class="gallery-badge"><i data-lucide="image" style="width:12px;height:12px;"></i> Imagen ${idx + 1}</span>`;
+                    }
+
+                    item.onclick = (e) => {
+                        e.stopPropagation();
+                        openLightbox(idx);
+                    };
+                    grid.appendChild(item);
+                });
+            } else {
+                grid.innerHTML = '<p style="grid-column: 1/-1; color: var(--text-muted); font-size: 0.85rem;">No hay entregables multimedia anexos.</p>';
+            }
+
+            if (window.lucide) lucide.createIcons();
+            openModal('modal-portfolio');
+        }
+
+        function openModal(modalId) {
+            const m = document.getElementById(modalId);
+            if (m) {
+                m.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                activeModalId = modalId;
+                history.pushState({ level: 'modal', modalId }, "");
+            }
+        }
+
+        function closeModal(modalId) {
+            const m = document.getElementById(modalId);
+            if (m && m.classList.contains('active')) {
+                if (history.state && history.state.level === 'modal' && history.state.modalId === modalId) {
+                    history.back();
+                } else {
+                    m.classList.remove('active');
+                    if (activeModalId === modalId) activeModalId = null;
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        }
+
+        function openLightbox(idx) {
+            if (!activeGallery || activeGallery.length === 0) return;
+            const scrollContainer = document.getElementById('modalScrollContent');
+            if (scrollContainer) lastScrollTop = scrollContainer.scrollTop;
+
+            currentImgIdx = idx;
+            updateLightbox();
+            const lb = document.getElementById('lightbox-modal');
+            if (lb) {
+                lb.classList.add('active');
+                history.pushState({ level: 'lightbox' }, "");
+            }
+        }
+
+        function closeLightboxInternal() {
+            const lb = document.getElementById('lightbox-modal');
+            const v = document.getElementById('lbVideo');
+            const ifr = document.getElementById('lbIframe');
+            if (v) { v.pause(); v.src = ''; v.style.display = 'none'; }
+            if (ifr) { ifr.src = ''; ifr.style.display = 'none'; }
+            if (lb) lb.classList.remove('active');
+
+            if (activeModalId) {
+                document.body.style.overflow = 'hidden';
+                const scrollContainer = document.getElementById('modalScrollContent');
+                if (scrollContainer) scrollContainer.scrollTop = lastScrollTop;
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function closeLightbox() {
+            if (history.state && history.state.level === 'lightbox') {
+                history.back();
+            } else {
+                closeLightboxInternal();
+            }
+        }
+
+        function updateLightbox() {
+            const url = activeGallery[currentImgIdx];
+            if (!url) return;
+            const img = document.getElementById('lbImg');
+            const video = document.getElementById('lbVideo');
+            const iframe = document.getElementById('lbIframe');
+            const caption = document.getElementById('lbCaption');
+            const isVid = isVideoResource(url);
+
+            if (isVid) {
+                img.style.display = 'none';
+                img.src = '';
+                const fileId = getDriveId(url);
+                if (fileId || url.includes('drive.google.com')) {
+                    if (video) { video.pause(); video.style.display = 'none'; }
+                    iframe.src = fileId ? `https://drive.google.com/file/d/${fileId}/preview` : url;
+                    iframe.style.display = 'block';
+                } else {
+                    iframe.style.display = 'none';
+                    video.src = url;
+                    video.style.display = 'block';
+                    video.play().catch(e => console.log(e));
+                }
+                caption.innerText = `Video ${currentImgIdx + 1} de ${activeGallery.length}`;
+            } else {
+                if (video) { video.pause(); video.style.display = 'none'; }
+                iframe.style.display = 'none';
+                img.src = url;
+                img.style.display = 'block';
+                caption.innerText = `Entregable ${currentImgIdx + 1} de ${activeGallery.length}`;
+            }
+        }
+
+        function nextLightbox() {
+            currentImgIdx = (currentImgIdx + 1) % activeGallery.length;
+            updateLightbox();
+        }
+
+        function prevLightbox() {
+            currentImgIdx = (currentImgIdx - 1 + activeGallery.length) % activeGallery.length;
+            updateLightbox();
+        }
+
+        function isVideoResource(url) {
+            return url.endsWith('.mp4') || url.endsWith('.webm') || url.includes('type=video') || url.includes('/preview') || url.includes('video');
+        }
+
+        function getDriveId(url) {
+            let match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+            return match ? match[1] : null;
+        }
+
+        // Manejo de eventos de teclado y atrás en móvil
+        window.addEventListener('popstate', () => {
+            const lb = document.getElementById('lightbox-modal');
+            if (lb && lb.classList.contains('active')) {
+                closeLightboxInternal();
+                return;
+            }
+            if (activeModalId) {
+                const m = document.getElementById(activeModalId);
+                if (m) m.classList.remove('active');
+                activeModalId = null;
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        window.addEventListener('keydown', (e) => {
+            const lb = document.getElementById('lightbox-modal');
+            const isLbActive = lb && lb.classList.contains('active');
+            if (e.key === 'Escape') {
+                if (isLbActive) closeLightbox();
+                else if (activeModalId) closeModal(activeModalId);
+            } else if (isLbActive) {
+                if (e.key === 'ArrowRight') nextLightbox();
+                else if (e.key === 'ArrowLeft') prevLightbox();
+            }
+        });
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            const icon = document.getElementById('themeIcon');
+            if (icon) {
+                icon.setAttribute('data-lucide', isLight ? 'moon' : 'sun');
+                if (window.lucide) lucide.createIcons();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio Digital | InnovArqZ Soluciones Integrales & Arq. James R. Zúñiga</title>
+    <title>Portafolio Oficial | InnovArqZ Soluciones Integrales & Arq. James R. Zúñiga</title>
     
     <meta property="og:title" content="Portafolio Digital | InnovArqZ Soluciones Integrales">
     <meta property="og:description" content="Casos de estudio, consultorías e intervenciones técnicas en Arquitectura, Ingeniería y BIM/CIM.">
@@ -63,9 +63,7 @@
             flex-direction: column;
         }
 
-        /* -------------------------------------------
-           1. BARRA DE NAVEGACIÓN SUPERIOR
-           ------------------------------------------- */
+        /* 1. ENCABEZADO LIMPIO */
         header {
             position: sticky;
             top: 0;
@@ -73,7 +71,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.85rem 5%;
+            padding: 0.9rem 5%;
             background-color: var(--header-bg);
             border-bottom: 1px solid var(--border-color);
             backdrop-filter: blur(12px);
@@ -83,7 +81,7 @@
             text-decoration: none;
             display: flex;
             flex-direction: column;
-            line-height: 1.1;
+            line-height: 1;
         }
 
         .brand-title {
@@ -96,26 +94,18 @@
         .brand-title span { color: var(--accent-copper); }
 
         .brand-subtitle {
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             font-weight: 800;
             letter-spacing: 1.8px;
             color: var(--text-muted);
             text-transform: uppercase;
-            margin-top: 2px;
-        }
-
-        .brand-pillars {
-            font-size: 0.68rem;
-            font-weight: 600;
-            color: var(--accent-copper);
-            letter-spacing: 0.3px;
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 1.1rem;
+            gap: 1.2rem;
         }
 
         .btn-nav-link {
@@ -151,11 +141,9 @@
             transform: scale(1.05);
         }
 
-        /* -------------------------------------------
-           2. HERO EDITORIAL DUAL ("MONEDA DE 2 CARAS")
-           ------------------------------------------- */
+        /* 2. HERO DUAL EDITORIAL */
         .hero-dual-section {
-            padding: 3rem 5% 2rem;
+            padding: 2.5rem 5% 1.5rem;
             max-width: 1250px;
             margin: 0 auto;
             width: 100%;
@@ -164,7 +152,7 @@
         .face-selector-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 2.25rem;
+            margin-bottom: 2rem;
         }
 
         .face-selector-pill {
@@ -210,44 +198,83 @@
         }
 
         .hero-editorial-body {
-            padding: 3.5rem 3.5rem 3rem;
+            padding: 3.2rem 3.5rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        .hero-tagline-badge {
-            font-size: 0.78rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--accent-copper);
-            margin-bottom: 0.85rem;
+        .hero-brand-block {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+            margin-bottom: 1.2rem;
         }
 
-        .hero-big-title {
-            font-size: 3.2rem;
+        .hero-brand-logo {
+            font-size: 2.8rem;
             font-weight: 900;
-            line-height: 1.08;
-            letter-spacing: -1.2px;
+            letter-spacing: -0.8px;
             color: var(--text-main);
-            margin-bottom: 1.25rem;
+        }
+
+        .hero-brand-logo span { color: var(--accent-copper); }
+
+        .hero-brand-sub {
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--text-muted);
             text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        .hero-brand-focus {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-copper);
+            letter-spacing: 0.4px;
+            margin-top: 6px;
         }
 
         .hero-desc-lead {
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: var(--text-muted);
             line-height: 1.65;
-            margin-bottom: 2rem;
+            margin-bottom: 1.8rem;
             max-width: 580px;
+        }
+
+        .hero-action-row {
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-hero-profile {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(217, 119, 6, 0.15);
+            border: 1px solid var(--accent-copper);
+            color: var(--accent-copper);
+            padding: 0.65rem 1.4rem;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-hero-profile:hover {
+            background-color: var(--accent-copper);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
         }
 
         .hero-kpi-bar {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.2rem;
-            padding-top: 1.75rem;
+            padding-top: 1.5rem;
             border-top: 1px solid var(--border-color);
         }
 
@@ -257,7 +284,7 @@
         }
 
         .kpi-number {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             font-weight: 900;
             color: var(--text-main);
             line-height: 1.1;
@@ -266,7 +293,7 @@
         .kpi-number span { color: var(--accent-copper); }
 
         .kpi-label {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 600;
             color: var(--text-muted);
             text-transform: uppercase;
@@ -284,7 +311,7 @@
             border-left: 1px solid var(--border-color);
         }
 
-        .hero-editorial-visual img {
+        .hero-visual-media {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -295,15 +322,111 @@
         .hero-visual-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, transparent 40%, rgba(15, 23, 42, 0.7) 100%);
+            background: linear-gradient(180deg, transparent 45%, rgba(15, 23, 42, 0.65) 100%);
             pointer-events: none;
         }
 
-        /* -------------------------------------------
-           3. FILTROS, BUSCADOR Y RETÍCULA 3x3
-           ------------------------------------------- */
+        /* 3. LÍNEA DE TIEMPO DESLIZANTE HEREDADA */
+        .timeline-container {
+            margin: 1.5rem 0 2rem;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .timeline-track-line {
+            position: absolute;
+            top: 50%; left: 5%; right: 5%;
+            height: 2px;
+            background-color: var(--border-color);
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .timeline-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            max-width: 720px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-fixed-node { flex-shrink: 0; }
+
+        .timeline-nav-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-nav-btn:hover {
+            background-color: var(--accent-copper);
+            border-color: var(--accent-copper);
+            color: #fff;
+        }
+
+        .timeline-viewport {
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            width: calc(5 * 95px);
+            max-width: 100%;
+        }
+
+        .timeline-viewport::-webkit-scrollbar { display: none; }
+        .timeline-track-inner { display: flex; gap: 0.6rem; }
+        .timeline-track-inner .time-node { flex-shrink: 0; width: 85px; justify-content: center; }
+
+        .time-node {
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .time-node:hover, .time-node.active {
+            border-color: var(--accent-copper);
+            color: var(--text-main);
+            background-color: rgba(217, 119, 6, 0.15);
+            box-shadow: 0 0 12px rgba(217, 119, 6, 0.3);
+        }
+
+        .time-node.active .node-dot { background-color: var(--accent-copper); }
+
+        .node-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            transition: background-color 0.3s;
+        }
+
+        /* 4. FILTROS, BUSCADOR Y RETÍCULA 3x3 */
         .portfolio-main-area {
-            padding: 3rem 5% 5rem;
+            padding: 1.5rem 5% 5rem;
             max-width: 1250px;
             margin: 0 auto;
             width: 100%;
@@ -315,7 +438,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 1.5rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
@@ -327,7 +450,7 @@
             border-radius: 30px;
             padding: 0.45rem 1.2rem;
             flex-grow: 1;
-            max-width: 420px;
+            max-width: 440px;
             transition: border-color 0.25s, box-shadow 0.25s;
         }
 
@@ -496,9 +619,7 @@
             color: var(--accent-copper);
         }
 
-        /* -------------------------------------------
-           4. PAGINACIÓN NUMÉRICA DINÁMICA
-           ------------------------------------------- */
+        /* 5. PAGINACIÓN NUMÉRICA */
         .pagination-container {
             display: flex;
             justify-content: center;
@@ -541,72 +662,7 @@
             cursor: not-allowed;
         }
 
-        /* -------------------------------------------
-           5. BANNER DE CONVERSIÓN Y PIE DE PÁGINA
-           ------------------------------------------- */
-        .cta-banner-box {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 2.8rem 3.5rem;
-            display: grid;
-            grid-template-columns: 1.4fr auto 1fr;
-            gap: 3rem;
-            align-items: center;
-            margin-bottom: 4rem;
-            box-shadow: 0 20px 45px var(--shadow-color);
-        }
-
-        .cta-left h3 {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-        }
-
-        .cta-left h3 span { color: var(--accent-copper); }
-
-        .cta-left p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 0.5rem;
-        }
-
-        .cta-divider {
-            width: 1px;
-            height: 100%;
-            min-height: 90px;
-            background-color: var(--border-color);
-        }
-
-        .cta-right {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            align-items: flex-end;
-        }
-
-        .btn-whatsapp-cta {
-            background-color: var(--whatsapp-color);
-            color: #ffffff;
-            padding: 0.85rem 1.75rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.92rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25);
-            transition: transform 0.2s, background-color 0.2s;
-        }
-
-        .btn-whatsapp-cta:hover {
-            transform: translateY(-2px);
-            background-color: #1da851;
-        }
-
+        /* 6. PIE DE PÁGINA REAJUSTADO */
         footer {
             background-color: var(--bg-section-alt);
             border-top: 1px solid var(--border-color);
@@ -619,7 +675,7 @@
             max-width: 1250px;
             margin: 0 auto 2.5rem;
             display: grid;
-            grid-template-columns: 1.2fr 1fr 1fr;
+            grid-template-columns: 1.3fr 1fr 1fr;
             gap: 3rem;
         }
 
@@ -627,7 +683,7 @@
             color: var(--text-main);
             font-size: 0.95rem;
             display: block;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.6rem;
         }
 
         .footer-col p { line-height: 1.6; }
@@ -649,9 +705,7 @@
             font-size: 0.78rem;
         }
 
-        /* -------------------------------------------
-           6. MODALES Y VISOR LIGHTBOX HEREDADOS
-           ------------------------------------------- */
+        /* 7. MODALES Y VISOR LIGHTBOX */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -667,10 +721,7 @@
             transition: opacity 0.3s ease;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
         .modal-content {
             background-color: var(--modal-bg);
@@ -821,10 +872,7 @@
             transition: all 0.2s;
         }
 
-        .lightbox-close:hover {
-            background-color: var(--accent-copper);
-            color: #ffffff;
-        }
+        .lightbox-close:hover { background-color: var(--accent-copper); color: #ffffff; }
 
         .lightbox-arrow {
             position: absolute;
@@ -844,29 +892,20 @@
             transition: all 0.2s;
         }
 
-        .lightbox-arrow:hover {
-            background-color: var(--accent-copper);
-            color: #ffffff;
-        }
+        .lightbox-arrow:hover { background-color: var(--accent-copper); color: #ffffff; }
         .lightbox-prev { left: 1.5rem; }
         .lightbox-next { right: 1.5rem; }
 
-        /* -------------------------------------------
-           RESPONSIVE
-           ------------------------------------------- */
         @media (max-width: 1024px) {
             .hero-editorial-card { grid-template-columns: 1fr; }
             .hero-editorial-visual { height: 340px; border-left: none; border-top: 1px solid var(--border-color); }
             .projects-grid-3x3 { grid-template-columns: repeat(2, 1fr); }
-            .cta-banner-box { grid-template-columns: 1fr; gap: 1.5rem; }
-            .cta-divider { display: none; }
-            .cta-right { align-items: flex-start; }
             .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
         }
 
         @media (max-width: 720px) {
-            .hero-big-title { font-size: 2.2rem; }
-            .hero-editorial-body { padding: 2rem 1.5rem; }
+            .hero-editorial-body { padding: 2.2rem 1.5rem; }
+            .hero-brand-logo { font-size: 2.2rem; }
             .projects-grid-3x3 { grid-template-columns: 1fr; }
             .modal-gallery-grid { grid-template-columns: 1fr; }
             .lightbox-arrow { display: none; }
@@ -876,12 +915,11 @@
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR -->
+    <!-- 1. ENCABEZADO OFICIAL -->
     <header>
         <a href="index.html" class="brand-logo">
             <div class="brand-title">Innov<span>ArqZ</span></div>
             <div class="brand-subtitle">Soluciones Integrales</div>
-            <div class="brand-pillars">Ingeniería, Arquitectura & Metodología BIM / CIM</div>
         </a>
 
         <div class="header-actions">
@@ -896,9 +934,8 @@
         </div>
     </header>
 
-    <!-- SECCIÓN HERO EDITORIAL DUAL ("MONEDA DE 2 CARAS") -->
+    <!-- 2. HERO DUAL EDITORIAL ("MONEDA DE 2 CARAS") -->
     <section class="hero-dual-section">
-        <!-- CONMUTADOR DE CARA -->
         <div class="face-selector-container">
             <div class="face-selector-pill">
                 <button type="button" class="face-btn active" id="btnFaceCorp" onclick="switchPerspective('corp')">
@@ -912,45 +949,65 @@
             </div>
         </div>
 
-        <!-- TARJETA EDITORIAL -->
         <div class="hero-editorial-card">
             <div class="hero-editorial-body">
-                <div class="hero-tagline-badge" id="heroBadge">INGENIERÍA, ARQUITECTURA & METODOLOGÍA BIM/CIM</div>
-                <h1 class="hero-big-title" id="heroTitle">INNOVARQZ SOLUCIONES</h1>
+                <div id="heroIdentityBlock">
+                    <!-- Dinámico: Cara Empresa o Cara Profesional -->
+                </div>
+
                 <p class="hero-desc-lead" id="heroDesc">
                     Ecosistema metodológico OpenBIM (ISO 19650) aplicado al diseño computacional, estructuración técnica, interventoría y control integral de activos.
                 </p>
 
+                <div class="hero-action-row" id="heroActionRow" style="display: none;">
+                    <button type="button" class="btn-hero-profile" onclick="openDirectorModal()">
+                        <i data-lucide="award" style="width: 17px; height: 17px;"></i>
+                        <span>Ver Perfil Profesional & Trayectoria</span>
+                    </button>
+                </div>
+
                 <div class="hero-kpi-bar" id="heroKpiArea">
-                    <div class="kpi-unit">
-                        <div class="kpi-number">100<span>%</span></div>
-                        <div class="kpi-label">Entorno OpenBIM</div>
-                    </div>
-                    <div class="kpi-unit">
-                        <div class="kpi-number">1D-7D<span>+</span></div>
-                        <div class="kpi-label">Dimensiones Activas</div>
-                    </div>
-                    <div class="kpi-unit">
-                        <div class="kpi-number">ISO<span>19650</span></div>
-                        <div class="kpi-label">Marco Rector</div>
-                    </div>
+                    <!-- Dinámico -->
                 </div>
             </div>
 
-            <div class="hero-editorial-visual">
-                <img id="heroVisualImg" src="esencia-digital-innovarqz.jpg" alt="InnovArqZ Visual">
-                <div class="hero-visual-overlay"></div>
+            <div class="hero-editorial-visual" id="heroVisualContainer">
+                <!-- Dinámico: Video institucional con poster o Foto Drive -->
             </div>
         </div>
     </section>
 
-    <!-- ÁREA PRINCIPAL DEL PORTAFOLIO -->
+    <!-- 3. ÁREA PRINCIPAL DEL PORTAFOLIO -->
     <main class="portfolio-main-area">
-        <!-- BARRA DE CONTROLES: BUSCADOR + FILTROS -->
+        <!-- LÍNEA DE TIEMPO DESLIZANTE -->
+        <div class="timeline-container">
+            <div class="timeline-track-line"></div>
+            <div class="timeline-wrapper">
+                <div class="timeline-fixed-node">
+                    <div class="time-node active" onclick="filterYear('all', this)">
+                        <span class="node-dot"></span><span>Todos</span>
+                    </div>
+                </div>
+
+                <button class="timeline-nav-btn" onclick="scrollTimeline('left')" type="button" aria-label="Año anterior">
+                    <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
+                </button>
+
+                <div class="timeline-viewport" id="timelineViewport">
+                    <div class="timeline-track-inner" id="timelineTrackInner"></div>
+                </div>
+
+                <button class="timeline-nav-btn" onclick="scrollTimeline('right')" type="button" aria-label="Año siguiente">
+                    <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- BARRA DE CONTROLES: BUSCADOR + CATEGORÍAS -->
         <div class="controls-toolbar">
             <div class="search-pill-wrapper">
                 <i data-lucide="search" style="width: 18px; height: 18px; color: var(--accent-copper);"></i>
-                <input type="text" id="filterSearchInput" placeholder="Buscar por proyecto, software o estándar..." oninput="handleSearchInput()">
+                <input type="text" id="filterSearchInput" placeholder="Buscar por proyecto, alcance, software o norma..." oninput="handleSearchInput()">
             </div>
 
             <div class="category-filter-pills">
@@ -962,36 +1019,20 @@
             </div>
         </div>
 
-        <!-- RETÍCULA 3x3 DE PROYECTOS -->
+        <!-- RETÍCULA 3x3 -->
         <div class="projects-grid-3x3" id="projectsGrid"></div>
 
         <!-- PAGINACIÓN NUMÉRICA DINÁMICA -->
         <div class="pagination-container" id="paginationBar"></div>
     </main>
 
-    <!-- BANNER DE CONVERSIÓN INFERIOR -->
-    <div style="padding: 0 5%;">
-        <div class="cta-banner-box">
-            <div class="cta-left">
-                <h3>Construimos juntos el valor de tus espacios <span>DE PRINCIPIO A FIN</span></h3>
-                <p>Disponible para estructuración BIM, consultorías técnicas y coordinación interdisciplinaria de obra.</p>
-            </div>
-            <div class="cta-divider"></div>
-            <div class="cta-right">
-                <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20el%20portafolio%20técnico" target="_blank" class="btn-whatsapp-cta">
-                    <i data-lucide="message-square"></i> Iniciar Chat en WhatsApp
-                </a>
-                <span style="font-size: 0.8rem; color: var(--text-muted);">Respuesta técnica inmediata</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- PIE DE PÁGINA -->
+    <!-- 4. PIE DE PÁGINA REAJUSTADO -->
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
                 <strong>InnovArqZ Soluciones Integrales</strong>
-                <p>"Construimos juntos el valor de tus espacios de principio a fin". Transformación digital y modelado territorial.</p>
+                <p style="font-style: italic; margin-bottom: 0.4rem;">"Construimos juntos el valor de tus espacios de principio a fin"</p>
+                <p><a href="https://www.innovarqzsas.com" target="_blank">www.innovarqzsas.com</a></p>
             </div>
 
             <div class="footer-col">
@@ -1011,7 +1052,7 @@
 
         <div class="footer-bottom-bar">
             <span>&copy; 2026 InnovArqZ Soluciones Integrales S.A.S. Todos los derechos reservados.</span>
-            <span>Portafolio Digital V2.0 • ISO 19650</span>
+            <span>Portafolio Digital V2.0 • Metodología BIM/CIM</span>
         </div>
     </footer>
 
@@ -1039,6 +1080,26 @@
         </div>
     </div>
 
+    <!-- MODAL DE PERFIL DEL DIRECTOR (ALIMENTADO DE PERSONAL.JSON) -->
+    <div class="modal-overlay" id="modal-perfil-director">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal-perfil-director')"><i data-lucide="x"></i></button>
+            <div style="margin-bottom: 1.5rem;">
+                <h3 id="dirNombre" style="font-size: 1.8rem; margin-bottom: 0.25rem;">Arq. James Ramiro Zúñiga Caipe</h3>
+                <div id="dirCargo" style="color: var(--accent-copper); font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem;">Director General & Coordinador BIM / CIM</div>
+                <div id="dirCredenciales" style="display: flex; gap: 0.75rem; flex-wrap: wrap;"></div>
+            </div>
+
+            <div style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">Perfil Ejecutivo & Dirección Técnica</h4>
+                <p id="dirBio" style="margin-bottom: 1.25rem;">---</p>
+                
+                <h4 style="color: var(--text-main); margin-bottom: 0.5rem;">Formación Académica & Certificaciones</h4>
+                <p id="dirEducacion">---</p>
+            </div>
+        </div>
+    </div>
+
     <!-- LIGHTBOX PARA IMÁGENES Y VIDEOS -->
     <div class="lightbox-overlay" id="lightbox-modal">
         <button class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x"></i></button>
@@ -1055,15 +1116,17 @@
     <script>
         let allProjects = [];
         let filteredProjects = [];
-        let currentPerspective = 'corp'; // 'corp' | 'indep'
+        let currentPerspective = 'corp';
         let currentCategory = 'all';
+        let currentYear = 'all';
         let searchQuery = '';
+        let directorData = null;
         
-        // Paginación 3x3 (9 ítems por página)
+        // Paginación 3x3
         const ITEMS_PER_PAGE = 9;
         let currentPage = 1;
 
-        // Galería / Lightbox
+        // Galería y Lightbox
         let activeGallery = [];
         let currentImgIdx = 0;
         let activeModalId = null;
@@ -1071,8 +1134,32 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) lucide.createIcons();
+            switchPerspective('corp');
             fetchProjects();
+            fetchDirectorData();
         });
+
+        async function fetchDirectorData() {
+            try {
+                const res = await fetch('personal.json?v=' + Date.now());
+                if (!res.ok) throw new Error('No se pudo cargar personal.json');
+                const personal = await res.json();
+                directorData = personal.find(p => p.id === 'james-zuniga' || (p.cargo && p.cargo.includes('Director')));
+            } catch (err) {
+                console.warn('Carga de personal.json omitida, usando datos locales de respaldo:', err);
+                directorData = {
+                    nombre: "Arq. James Ramiro Zúñiga Caipe",
+                    cargo: "Director General & Coordinador BIM / CIM",
+                    biografia: "Arquitecto egresado de la Universidad de Nariño, con amplia experiencia técnica en metodología BIM y gestión de proyectos de infraestructura y ordenamiento territorial.",
+                    educacion: "• Arquitecto: Universidad de Nariño (Grado: Junio de 2026)\n• buildingSMART Professional Certification — Entry Level (2026)\n• Diplomado en Metodología BIM (BIM Civil) — UDENAR (2026)",
+                    credenciales: [
+                        { icono: "award", texto: "M.P CPNAA No: A137812026-1122783013" },
+                        { icono: "shield-check", texto: "buildingSMART Certified" },
+                        { icono: "map-pin", texto: "Ricaurte, Nariño" }
+                    ]
+                };
+            }
+        }
 
         async function fetchProjects() {
             try {
@@ -1080,6 +1167,7 @@
                 if (!res.ok) throw new Error('No se pudo cargar proyectos.json');
                 allProjects = await res.json();
                 allProjects.sort((a, b) => parseInt(b.year || 0) - parseInt(a.year || 0));
+                renderTimeline();
                 applyFilters();
             } catch (err) {
                 console.warn('Error al cargar datos:', err);
@@ -1087,24 +1175,64 @@
             }
         }
 
-        // Conmutador de Perspectiva ("Moneda de dos caras")
+        function renderTimeline() {
+            const trackInner = document.getElementById('timelineTrackInner');
+            if (!trackInner) return;
+            const anosUnicos = [...new Set(allProjects.map(p => p.year).filter(Boolean))]
+                                .sort((a, b) => parseInt(b) - parseInt(a));
+            let html = '';
+            anosUnicos.forEach(ano => {
+                html += `
+                    <div class="time-node" onclick="filterYear('${ano}', this)">
+                        <span class="node-dot"></span><span>${ano}</span>
+                    </div>
+                `;
+            });
+            trackInner.innerHTML = html;
+        }
+
+        function scrollTimeline(direction) {
+            const viewport = document.getElementById('timelineViewport');
+            if (!viewport) return;
+            viewport.scrollBy({
+                left: direction === 'right' ? 140 : -140,
+                behavior: 'smooth'
+            });
+        }
+
+        function filterYear(year, btn) {
+            currentYear = year;
+            document.querySelectorAll('.time-node').forEach(n => n.classList.remove('active'));
+            btn.classList.add('active');
+            currentPage = 1;
+            applyFilters();
+        }
+
+        // CONMUTADOR DE PERSPECTIVA ("MONEDA DE DOS CARAS")
         function switchPerspective(mode) {
             currentPerspective = mode;
             const btnCorp = document.getElementById('btnFaceCorp');
             const btnIndep = document.getElementById('btnFaceIndep');
-            const badge = document.getElementById('heroBadge');
-            const title = document.getElementById('heroTitle');
+            const idBlock = document.getElementById('heroIdentityBlock');
             const desc = document.getElementById('heroDesc');
             const kpiArea = document.getElementById('heroKpiArea');
-            const visualImg = document.getElementById('heroVisualImg');
+            const visualContainer = document.getElementById('heroVisualContainer');
+            const actionRow = document.getElementById('heroActionRow');
 
             if (mode === 'corp') {
                 btnCorp.classList.add('active');
                 btnIndep.classList.remove('active');
-                badge.innerText = "INGENIERÍA, ARQUITECTURA & METODOLOGÍA BIM/CIM";
-                title.innerText = "INNOVARQZ SOLUCIONES";
+                actionRow.style.display = 'none';
+
+                idBlock.innerHTML = `
+                    <div class="hero-brand-block">
+                        <div class="hero-brand-logo">Innov<span>ArqZ</span></div>
+                        <div class="hero-brand-sub">SOLUCIONES INTEGRALES</div>
+                        <div class="hero-brand-focus">Ingeniería, Arquitectura & Metodología BIM / CIM</div>
+                    </div>
+                `;
+
                 desc.innerText = "Ecosistema metodológico OpenBIM (ISO 19650) aplicado al diseño computacional, estructuración técnica, interventoría y control integral de activos.";
-                visualImg.src = "esencia-digital-innovarqz.jpg";
 
                 kpiArea.innerHTML = `
                     <div class="kpi-unit">
@@ -1120,32 +1248,78 @@
                         <div class="kpi-label">Marco Rector</div>
                     </div>
                 `;
+
+                // Video dinámico con poster de respaldo
+                visualContainer.innerHTML = `
+                    <video class="hero-visual-media" autoplay muted loop playsinline poster="esencia-digital-innovarqz.jpg">
+                        <source src="esencia-digital-innovarqz.mp4" type="video/mp4">
+                        <img src="esencia-digital-innovarqz.jpg" alt="InnovArqZ Esencia Digital" class="hero-visual-media">
+                    </video>
+                    <div class="hero-visual-overlay"></div>
+                `;
             } else {
                 btnIndep.classList.add('active');
                 btnCorp.classList.remove('active');
-                badge.innerText = "ARQUITECTO & COORDINADOR BIM / CIM";
-                title.innerText = "JAMES R. ZÚÑIGA C.";
+                actionRow.style.display = 'block';
+
+                idBlock.innerHTML = `
+                    <div class="hero-brand-block">
+                        <div class="hero-brand-logo" style="font-size: 2.3rem;">ARQ. JAMES R. <span>ZÚÑIGA C.</span></div>
+                        <div class="hero-brand-sub">M.P CPNAA No: A137812026-1122783013</div>
+                        <div class="hero-brand-focus">buildingSMART Certified • Especialista BIM / CIM</div>
+                    </div>
+                `;
+
                 desc.innerText = "Dirección arquitectónica, modelado de precisión y consultoría técnica independiente. Especialista en interoperabilidad IFC y cumplimiento normativo NSR-10.";
-                visualImg.src = "https://lh3.googleusercontent.com/d/1US-BA10acQPBYHukEhyB0txvEVaJFFzy";
 
                 kpiArea.innerHTML = `
                     <div class="kpi-unit">
                         <div class="kpi-number">CPNAA<span>✓</span></div>
-                        <div class="kpi-label">Matrícula Oficial</div>
+                        <div class="kpi-label">Matrícula Profesional</div>
                     </div>
                     <div class="kpi-unit">
                         <div class="kpi-number">UDENAR<span>'26</span></div>
-                        <div class="kpi-label">Facultad de Artes</div>
+                        <div class="kpi-label">Arquitectura</div>
                     </div>
                     <div class="kpi-unit">
                         <div class="kpi-number">bSMART<span>Cert</span></div>
                         <div class="kpi-label">Entry Level</div>
                     </div>
                 `;
+
+                // Fotografía en alta resolución desde Google Drive
+                visualContainer.innerHTML = `
+                    <img src="https://lh3.googleusercontent.com/d/1US-BA10acQPBYHukEhyB0txvEVaJFFzy" alt="Arq. James Ramiro Zúñiga Caipe" class="hero-visual-media">
+                    <div class="hero-visual-overlay"></div>
+                `;
             }
 
             if (window.lucide) lucide.createIcons();
             applyFilters();
+        }
+
+        function openDirectorModal() {
+            if (!directorData) return;
+            document.getElementById('dirNombre').innerText = directorData.nombre || 'Arq. James Ramiro Zúñiga Caipe';
+            document.getElementById('dirCargo').innerText = directorData.cargo || 'Director General & Coordinador BIM / CIM';
+            document.getElementById('dirBio').innerText = directorData.biografia || '';
+            document.getElementById('dirEducacion').innerHTML = (directorData.educacion || '').replace(/\n/g, '<br>');
+
+            const credContainer = document.getElementById('dirCredenciales');
+            let credHtml = '';
+            if (Array.isArray(directorData.credenciales)) {
+                directorData.credenciales.forEach(c => {
+                    credHtml += `
+                        <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(217, 119, 6, 0.12); border: 1px solid rgba(217, 119, 6, 0.35); padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.82rem; color: var(--text-main);">
+                            <i data-lucide="${c.icono || 'award'}" style="width: 15px; height: 15px; color: var(--accent-copper);"></i>
+                            <span>${c.texto || ''}</span>
+                        </div>
+                    `;
+                });
+            }
+            credContainer.innerHTML = credHtml;
+            if (window.lucide) lucide.createIcons();
+            openModal('modal-perfil-director');
         }
 
         function setCategoryFilter(cat, btn) {
@@ -1162,12 +1336,17 @@
             applyFilters();
         }
 
+        // BÚSQUEDA EXHAUSTIVA EN TIEMPO REAL
         function applyFilters() {
             filteredProjects = allProjects.filter(p => {
                 const matchCat = (currentCategory === 'all' || p.category === currentCategory);
-                const pool = `${p.title || ''} ${p.subtitle || ''} ${p.software || ''} ${p.standard || ''} ${p.year || ''}`.toLowerCase();
-                const matchSearch = searchQuery === '' || pool.includes(searchQuery);
-                return matchCat && matchSearch;
+                const matchYear = (currentYear === 'all' || p.year === currentYear);
+
+                // Busca en ficha principal y en la descripción detallada del modal
+                const searchPool = `${p.title || ''} ${p.subtitle || ''} ${p.software || ''} ${p.standard || ''} ${p.year || ''} ${p.scope || ''} ${p.tools || ''}`.toLowerCase();
+                const matchSearch = searchQuery === '' || searchPool.includes(searchQuery);
+
+                return matchCat && matchYear && matchSearch;
             });
 
             renderGrid();
@@ -1232,7 +1411,6 @@
             const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
             if (totalPages <= 1) return;
 
-            // Botón Anterior
             const prevBtn = document.createElement('button');
             prevBtn.className = 'page-btn';
             prevBtn.innerHTML = '<i data-lucide="chevron-left" style="width:16px;height:16px;"></i>';
@@ -1240,7 +1418,6 @@
             prevBtn.onclick = () => goToPage(currentPage - 1);
             bar.appendChild(prevBtn);
 
-            // Botones numéricos
             for (let i = 1; i <= totalPages; i++) {
                 const numBtn = document.createElement('button');
                 numBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
@@ -1249,7 +1426,6 @@
                 bar.appendChild(numBtn);
             }
 
-            // Botón Siguiente
             const nextBtn = document.createElement('button');
             nextBtn.className = 'page-btn';
             nextBtn.innerHTML = '<i data-lucide="chevron-right" style="width:16px;height:16px;"></i>';
@@ -1267,7 +1443,6 @@
             document.querySelector('.controls-toolbar').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // MODAL Y LIGHTBOX
         function openProjectModal(id) {
             const proj = allProjects.find(p => p.id === id);
             if (!proj) return;
@@ -1427,7 +1602,6 @@
             return match ? match[1] : null;
         }
 
-        // Manejo de eventos de teclado y atrás en móvil
         window.addEventListener('popstate', () => {
             const lb = document.getElementById('lightbox-modal');
             if (lb && lb.classList.contains('active')) {

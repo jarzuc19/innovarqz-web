@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio Oficial | InnovArqZ Soluciones Integrales & Arq. James R. Zúñiga</title>
+    <title>Portafolio Oficial | Arq. James R. Zúñiga & InnovArqZ Soluciones Integrales</title>
     
     <meta property="og:title" content="Portafolio Digital | InnovArqZ Soluciones Integrales">
     <meta property="og:description" content="Casos de estudio, consultorías e intervenciones técnicas en Arquitectura, Ingeniería y BIM/CIM.">
@@ -30,6 +30,7 @@
             --header-bg: rgba(15, 23, 42, 0.92);
             --modal-bg: #1e293b;
             --shadow-color: rgba(0, 0, 0, 0.5);
+            --skill-bg: #334155;
         }
 
         body.light-mode {
@@ -42,6 +43,7 @@
             --header-bg: rgba(248, 250, 252, 0.94);
             --modal-bg: #ffffff;
             --shadow-color: rgba(0, 0, 0, 0.08);
+            --skill-bg: #e2e8f0;
         }
 
         * {
@@ -63,7 +65,7 @@
             flex-direction: column;
         }
 
-        /* 1. ENCABEZADO LIMPIO */
+        /* 1. ENCABEZADO */
         header {
             position: sticky;
             top: 0;
@@ -247,6 +249,9 @@
 
         .hero-action-row {
             margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .btn-hero-profile {
@@ -260,6 +265,7 @@
             border-radius: 8px;
             font-size: 0.88rem;
             font-weight: 700;
+            text-decoration: none;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -309,6 +315,29 @@
             justify-content: center;
             overflow: hidden;
             border-left: 1px solid var(--border-color);
+            min-height: 420px;
+        }
+
+        /* Composición fotográfica fusionada */
+        .hero-blueprint-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('image_7090f2.png');
+            background-size: cover;
+            background-position: center top;
+            opacity: 0.22;
+            filter: contrast(1.15) brightness(0.9);
+            z-index: 1;
+        }
+
+        .hero-portrait-img {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
         }
 
         .hero-visual-media {
@@ -317,16 +346,99 @@
             object-fit: cover;
             object-position: center top;
             display: block;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-visual-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, transparent 45%, rgba(15, 23, 42, 0.65) 100%);
+            background: linear-gradient(180deg, transparent 40%, rgba(15, 23, 42, 0.85) 100%);
             pointer-events: none;
+            z-index: 3;
         }
 
-        /* 3. LÍNEA DE TIEMPO DESLIZANTE HEREDADA */
+        /* 3. SECCIÓN DE HABILIDADES TÉCNICAS (3 COLUMNAS X 2 FILAS) */
+        .skills-section-wrapper {
+            max-width: 1250px;
+            margin: 1.75rem auto 0;
+            padding: 0 5%;
+            width: 100%;
+        }
+
+        .skills-card-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.6rem 2.2rem 1.8rem;
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .skills-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.4rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .skills-main-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skills-main-title span { color: var(--accent-copper); }
+
+        .skills-grid-3cols {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem 2rem;
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .skill-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .skill-percent {
+            color: var(--accent-copper);
+            font-weight: 800;
+            font-size: 0.82rem;
+        }
+
+        .skill-bar-track {
+            height: 8px;
+            background-color: var(--skill-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #b45309, var(--accent-copper));
+            border-radius: 10px;
+            transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* 4. LÍNEA DE TIEMPO DESLIZANTE */
         .timeline-container {
             margin: 1.5rem 0 2rem;
             position: relative;
@@ -424,7 +536,7 @@
             transition: background-color 0.3s;
         }
 
-        /* 4. FILTROS, BUSCADOR Y RETÍCULA 3x3 */
+        /* 5. BUSCADOR, CATEGORÍAS Y RETÍCULA 3x3 */
         .portfolio-main-area {
             padding: 1.5rem 5% 4rem;
             max-width: 1250px;
@@ -608,7 +720,7 @@
             color: var(--accent-copper);
         }
 
-        /* 5. PAGINACIÓN NUMÉRICA */
+        /* 6. PAGINACIÓN NUMÉRICA */
         .pagination-container {
             display: flex;
             justify-content: center;
@@ -651,7 +763,7 @@
             cursor: not-allowed;
         }
 
-        /* 6. BANNER DE CONVERSIÓN CTA */
+        /* 7. BANNER DE CONVERSIÓN CTA */
         .cta-banner-container {
             padding: 0 5%;
             margin-bottom: 3.5rem;
@@ -667,8 +779,8 @@
             border-radius: 18px;
             padding: 2.8rem 3.5rem;
             display: grid;
-            grid-template-columns: 1.4fr auto 1fr;
-            gap: 3rem;
+            grid-template-columns: 1.3fr auto 1.1fr;
+            gap: 2.5rem;
             align-items: center;
             box-shadow: 0 20px 45px var(--shadow-color);
         }
@@ -699,31 +811,103 @@
         .cta-right {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.75rem;
             align-items: flex-end;
+            width: 100%;
         }
 
-        .btn-whatsapp-cta {
-            background-color: var(--whatsapp-color);
-            color: #ffffff;
-            padding: 0.85rem 1.75rem;
+        .cta-btn-group {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            width: 100%;
+        }
+
+        .btn-cta-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            padding: 0.75rem 1.2rem;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.92rem;
-            display: inline-flex;
+            font-size: 0.88rem;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-cta-action:hover { transform: translateY(-2px); }
+
+        .btn-cta-whatsapp {
+            background-color: var(--whatsapp-color);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+        }
+        .btn-cta-whatsapp:hover { background-color: #1da851; }
+
+        .btn-cta-email {
+            background-color: var(--accent-copper);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);
+        }
+        .btn-cta-email:hover { background-color: var(--accent-copper-hover); }
+
+        .btn-cta-share {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+        .btn-cta-share:hover {
+            border-color: var(--accent-copper);
+            color: var(--accent-copper);
+        }
+
+        /* 8. BOTONES FLOTANTES (FAB) CON OCULTAMIENTO INTELIGENTE */
+        .fab-floating-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 2500;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .fab-floating-container.fab-hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        .fab-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25);
-            transition: transform 0.2s, background-color 0.2s;
+            justify-content: center;
+            color: #ffffff;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.25s;
         }
 
-        .btn-whatsapp-cta:hover {
-            transform: translateY(-2px);
-            background-color: #1da851;
+        .fab-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.45);
         }
 
-        /* 7. PIE DE PÁGINA REAJUSTADO */
+        .fab-whatsapp { background-color: var(--whatsapp-color); }
+        .fab-email { background-color: var(--accent-copper); }
+        .fab-share { background-color: var(--bg-card); color: var(--text-main); border-color: var(--border-color); }
+
+        /* 9. PIE DE PÁGINA */
         footer {
             background-color: var(--bg-section-alt);
             border-top: 1px solid var(--border-color);
@@ -766,7 +950,7 @@
             font-size: 0.78rem;
         }
 
-        /* 8. MODALES Y VISOR LIGHTBOX */
+        /* 10. MODALES Y VISOR LIGHTBOX */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -957,32 +1141,32 @@
         .lightbox-prev { left: 1.5rem; }
         .lightbox-next { right: 1.5rem; }
 
+        /* RESPONSIVE */
         @media (max-width: 1024px) {
             .hero-editorial-card { grid-template-columns: 1fr; }
-            .hero-editorial-visual { height: 340px; border-left: none; border-top: 1px solid var(--border-color); }
+            .hero-editorial-visual { height: 360px; border-left: none; border-top: 1px solid var(--border-color); }
+            .skills-grid-3cols { grid-template-columns: repeat(2, 1fr); }
             .projects-grid-3x3 { grid-template-columns: repeat(2, 1fr); }
             .cta-banner-box { grid-template-columns: 1fr; gap: 1.5rem; }
             .cta-divider { display: none; }
             .cta-right { align-items: flex-start; }
+            .cta-btn-group { justify-content: flex-start; }
             .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
         }
 
         @media (max-width: 720px) {
             .hero-editorial-body { padding: 2.2rem 1.5rem; }
             .hero-brand-logo { font-size: 2.2rem; }
+            .skills-card-container { padding: 1.4rem 1.2rem; }
+            .skills-grid-3cols { grid-template-columns: 1fr; gap: 1.2rem; }
             .timeline-container { margin: 1.2rem 0 1.8rem; }
-            .category-filter-pills { 
-                width: 100%; 
-                justify-content: center; 
-            }
-            .search-pill-wrapper { 
-                max-width: 100%; 
-                width: 100%; 
-            }
+            .category-filter-pills { width: 100%; justify-content: center; }
+            .search-pill-wrapper { max-width: 100%; width: 100%; }
             .projects-grid-3x3 { grid-template-columns: 1fr; }
             .modal-gallery-grid { grid-template-columns: 1fr; }
             .lightbox-arrow { display: none; }
             .lightbox-content iframe { width: 94vw; height: 50vh; }
+            .fab-floating-container { bottom: 1.2rem; right: 1.2rem; }
         }
     </style>
 </head>
@@ -1011,13 +1195,13 @@
     <section class="hero-dual-section">
         <div class="face-selector-container">
             <div class="face-selector-pill">
-                <button type="button" class="face-btn active" id="btnFaceCorp" onclick="switchPerspective('corp')">
-                    <i data-lucide="building-2" style="width: 16px; height: 16px;"></i>
-                    <span>Firma Empresarial</span>
-                </button>
-                <button type="button" class="face-btn" id="btnFaceIndep" onclick="switchPerspective('indep')">
+                <button type="button" class="face-btn active" id="btnFaceIndep" onclick="switchPerspective('indep')">
                     <i data-lucide="user" style="width: 16px; height: 16px;"></i>
                     <span>Arq. James R. Zúñiga</span>
+                </button>
+                <button type="button" class="face-btn" id="btnFaceCorp" onclick="switchPerspective('corp')">
+                    <i data-lucide="building-2" style="width: 16px; height: 16px;"></i>
+                    <span>Firma Empresarial</span>
                 </button>
             </div>
         </div>
@@ -1025,18 +1209,15 @@
         <div class="hero-editorial-card">
             <div class="hero-editorial-body">
                 <div id="heroIdentityBlock">
-                    <!-- Dinámico: Cara Empresa o Cara Profesional -->
+                    <!-- Dinámico: Cara Profesional o Firma Empresarial -->
                 </div>
 
                 <p class="hero-desc-lead" id="heroDesc">
-                    Ecosistema metodológico OpenBIM (ISO 19650) aplicado al diseño computacional, estructuración técnica, interventoría y control integral de activos.
+                    Dirección arquitectónica, modelado de precisión y consultoría independiente. Especialista en interoperabilidad IFC y cumplimiento normativo NSR-10.
                 </p>
 
-                <div class="hero-action-row" id="heroActionRow" style="display: none;">
-                    <button type="button" class="btn-hero-profile" onclick="openDirectorModal()">
-                        <i data-lucide="award" style="width: 17px; height: 17px;"></i>
-                        <span>Ver Perfil Profesional & Trayectoria</span>
-                    </button>
+                <div class="hero-action-row" id="heroActionRow">
+                    <!-- Botón dinámico según perspectiva -->
                 </div>
 
                 <div class="hero-kpi-bar" id="heroKpiArea">
@@ -1045,12 +1226,90 @@
             </div>
 
             <div class="hero-editorial-visual" id="heroVisualContainer">
-                <!-- Dinámico: Video institucional con poster o Foto Drive -->
+                <!-- Dinámico: Foto PNG con plano arquitectónico fusionado o Video -->
             </div>
         </div>
     </section>
 
-    <!-- 3. ÁREA PRINCIPAL DEL PORTAFOLIO -->
+    <!-- 3. MATRIZ DE HABILIDADES TÉCNICAS (3 COLUMNAS X 2 FILAS) -->
+    <section class="skills-section-wrapper" id="skillsSection">
+        <div class="skills-card-container">
+            <div class="skills-header-row">
+                <div class="skills-main-title">
+                    <i data-lucide="layers" style="width: 18px; height: 18px; color: var(--accent-copper);"></i>
+                    <span>Competencias & Habilidades Clave</span>
+                </div>
+                <span style="font-size: 0.78rem; font-weight: 700; color: var(--accent-copper); letter-spacing: 0.5px;">ESTÁNDAR BIM / ISO 19650</span>
+            </div>
+
+            <div class="skills-grid-3cols">
+                <!-- Columna 1: Modelado & Control Financiero -->
+                <div class="skill-item">
+                    <div class="skill-meta">
+                        <span>Coordinación y Gestión BIM (3D, 4D, 5D)</span>
+                        <span class="skill-percent">95%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" data-progress="95"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-meta">
+                        <span>Control Financiero, APUs y Cantidades</span>
+                        <span class="skill-percent">90%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" data-progress="90"></div>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Obra & Riesgos -->
+                <div class="skill-item">
+                    <div class="skill-meta">
+                        <span>Residencia y Dirección de Obra</span>
+                        <span class="skill-percent">88%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" data-progress="88"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-meta">
+                        <span>Gestión del Riesgo de Desastres</span>
+                        <span class="skill-percent">82%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" data-progress="82"></div>
+                    </div>
+                </div>
+
+                <!-- Columna 3: Ordenamiento & Articulación Social -->
+                <div class="skill-item">
+                    <div class="skill-meta">
+                        <span>Estructuración Ordenamiento Territorial</span>
+                        <span class="skill-percent">85%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" data-progress="85"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-meta">
+                        <span>Concertación Intercultural y Gestión Social</span>
+                        <span class="skill-percent">85%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" data-progress="85"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. ÁREA PRINCIPAL DEL PORTAFOLIO -->
     <main class="portfolio-main-area">
         <!-- BUSCADOR PRINCIPAL (UBICADO ANTES DE LA LÍNEA DE TIEMPO) -->
         <div style="display: flex; justify-content: center; margin-bottom: 1.5rem; width: 100%;">
@@ -1084,7 +1343,7 @@
             </div>
         </div>
 
-        <!-- FILTRO DE CATEGORÍAS (SEPARADO INDEPENDIENTE EN VERSIÓN MÓVIL Y ESCRITORIO) -->
+        <!-- FILTRO DE CATEGORÍAS (SEPARADO INDEPENDIENTE) -->
         <div style="display: flex; justify-content: center; margin-bottom: 2.5rem; width: 100%;">
             <div class="category-filter-pills">
                 <button type="button" class="cat-btn active" onclick="setCategoryFilter('all', this)">Todos</button>
@@ -1102,8 +1361,8 @@
         <div class="pagination-container" id="paginationBar"></div>
     </main>
 
-    <!-- BANNER DE CONVERSIÓN CON WHATSAPP -->
-    <div class="cta-banner-container">
+    <!-- 5. BANNER DE CONVERSIÓN CON WHATSAPP, EMAIL Y COMPARTIR -->
+    <div class="cta-banner-container" id="ctaBannerSection">
         <div class="cta-banner-box">
             <div class="cta-left">
                 <h3>Háblanos de tu próximo <span>proyecto</span></h3>
@@ -1111,15 +1370,36 @@
             </div>
             <div class="cta-divider"></div>
             <div class="cta-right">
-                <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20el%20portafolio%20técnico" target="_blank" class="btn-whatsapp-cta">
-                    <i data-lucide="message-square"></i> Iniciar Chat en WhatsApp
-                </a>
-                <span style="font-size: 0.8rem; color: var(--text-muted);">Respuesta técnica inmediata</span>
+                <div class="cta-btn-group">
+                    <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20el%20portafolio%20técnico" target="_blank" class="btn-cta-action btn-cta-whatsapp">
+                        <i data-lucide="message-square" style="width: 16px; height: 16px;"></i> WhatsApp
+                    </a>
+                    <a href="mailto:gerenciabim@innovarqzsas.com?subject=Solicitud%20de%20Cotización%20Técnica%20-%20Portafolio" class="btn-cta-action btn-cta-email">
+                        <i data-lucide="mail" style="width: 16px; height: 16px;"></i> Cotizar por Email
+                    </a>
+                    <button type="button" onclick="sharePortfolio()" class="btn-cta-action btn-cta-share" title="Compartir Portafolio">
+                        <i data-lucide="share-2" style="width: 16px; height: 16px;"></i> Compartir
+                    </button>
+                </div>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Canal de atención directa: gerenciabim@innovarqzsas.com</span>
             </div>
         </div>
     </div>
 
-    <!-- 4. PIE DE PÁGINA REAJUSTADO -->
+    <!-- 6. BOTONES FLOTANTES (FAB) CON OCULTAMIENTO INTELIGENTE -->
+    <div class="fab-floating-container" id="fabFloatingBar">
+        <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20el%20portafolio%20técnico" target="_blank" class="fab-btn fab-whatsapp" title="WhatsApp Directo" aria-label="WhatsApp">
+            <i data-lucide="message-square" style="width: 20px; height: 20px;"></i>
+        </a>
+        <a href="mailto:gerenciabim@innovarqzsas.com?subject=Solicitud%20de%20Cotización%20Técnica%20-%20Portafolio" class="fab-btn fab-email" title="Enviar Correo a Gerencia" aria-label="Enviar Correo">
+            <i data-lucide="mail" style="width: 20px; height: 20px;"></i>
+        </a>
+        <button type="button" onclick="sharePortfolio()" class="fab-btn fab-share" title="Compartir Enlace" aria-label="Compartir">
+            <i data-lucide="share-2" style="width: 20px; height: 20px;"></i>
+        </button>
+    </div>
+
+    <!-- 7. PIE DE PÁGINA REAJUSTADO -->
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
@@ -1209,13 +1489,13 @@
     <script>
         let allProjects = [];
         let filteredProjects = [];
-        let currentPerspective = 'corp';
+        let currentPerspective = 'indep'; // Por defecto: Vista Profesional
         let currentCategory = 'all';
         let currentYear = 'all';
         let searchQuery = '';
         let directorData = null;
         
-        // Paginación 3x3
+        // Paginación 3x3 (9 ítems por página)
         const ITEMS_PER_PAGE = 9;
         let currentPage = 1;
 
@@ -1227,9 +1507,11 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) lucide.createIcons();
-            switchPerspective('corp');
+            switchPerspective('indep'); // Carga por defecto en perfil independiente
             fetchProjects();
             fetchDirectorData();
+            initSkillsObserver();
+            initFabObserver();
         });
 
         async function fetchDirectorData() {
@@ -1239,7 +1521,7 @@
                 const personal = await res.json();
                 directorData = personal.find(p => p.id === 'james-zuniga' || (p.cargo && p.cargo.includes('Director')));
             } catch (err) {
-                console.warn('Carga de personal.json omitida, usando datos locales de respaldo:', err);
+                console.warn('Carga de personal.json omitida, usando respaldo local:', err);
                 directorData = {
                     nombre: "Arq. James Ramiro Zúñiga Caipe",
                     cargo: "Director General & Coordinador BIM / CIM",
@@ -1265,6 +1547,170 @@
             } catch (err) {
                 console.warn('Error al cargar datos:', err);
                 document.getElementById('projectsGrid').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">No se encontraron proyectos disponibles.</p>';
+            }
+        }
+
+        // CONMUTADOR DE PERSPECTIVA ("MONEDA DE DOS CARAS")
+        function switchPerspective(mode) {
+            currentPerspective = mode;
+            const btnCorp = document.getElementById('btnFaceCorp');
+            const btnIndep = document.getElementById('btnFaceIndep');
+            const idBlock = document.getElementById('heroIdentityBlock');
+            const desc = document.getElementById('heroDesc');
+            const kpiArea = document.getElementById('heroKpiArea');
+            const visualContainer = document.getElementById('heroVisualContainer');
+            const actionRow = document.getElementById('heroActionRow');
+
+            if (mode === 'corp') {
+                btnCorp.classList.add('active');
+                btnIndep.classList.remove('active');
+
+                idBlock.innerHTML = `
+                    <div class="hero-brand-block">
+                        <div class="hero-brand-logo">Innov<span>ArqZ</span></div>
+                        <div class="hero-brand-sub">SOLUCIONES INTEGRALES</div>
+                        <div class="hero-brand-focus">Ingeniería, Arquitectura & Metodología BIM / CIM</div>
+                    </div>
+                `;
+
+                desc.innerText = "Ecosistema metodológico OpenBIM (ISO 19650) aplicado al diseño computacional, estructuración técnica, interventoría y control integral de activos.";
+
+                // Botón directo a la sección BIM de index.html
+                actionRow.innerHTML = `
+                    <a href="index.html#bim-cim" class="btn-hero-profile">
+                        <i data-lucide="layers" style="width: 17px; height: 17px;"></i>
+                        <span>Explorar Ecosistema InnovArqZ</span>
+                        <i data-lucide="arrow-up-right" style="width: 15px; height: 15px;"></i>
+                    </a>
+                `;
+
+                kpiArea.innerHTML = `
+                    <div class="kpi-unit">
+                        <div class="kpi-number">100<span>%</span></div>
+                        <div class="kpi-label">Entorno OpenBIM</div>
+                    </div>
+                    <div class="kpi-unit">
+                        <div class="kpi-number">1D-7D<span>+</span></div>
+                        <div class="kpi-label">Dimensiones Activas</div>
+                    </div>
+                    <div class="kpi-unit">
+                        <div class="kpi-number">ISO<span>19650</span></div>
+                        <div class="kpi-label">Marco Rector</div>
+                    </div>
+                `;
+
+                // Video institucional con poster de respaldo
+                visualContainer.innerHTML = `
+                    <video class="hero-visual-media" autoplay muted loop playsinline poster="esencia-digital-innovarqz.jpg">
+                        <source src="esencia-digital-innovarqz.mp4" type="video/mp4">
+                        <img src="esencia-digital-innovarqz.jpg" alt="InnovArqZ Esencia Digital" class="hero-visual-media">
+                    </video>
+                    <div class="hero-visual-overlay"></div>
+                `;
+            } else {
+                btnIndep.classList.add('active');
+                btnCorp.classList.remove('active');
+
+                idBlock.innerHTML = `
+                    <div class="hero-brand-block">
+                        <div class="hero-brand-logo" style="font-size: 2.3rem;">ARQ. JAMES R. <span>ZÚÑIGA C.</span></div>
+                        <div class="hero-brand-sub">M.P CPNAA No: A137812026-1122783013</div>
+                        <div class="hero-brand-focus">buildingSMART Certified • Coordinador BIM / CIM</div>
+                    </div>
+                `;
+
+                desc.innerText = "Dirección arquitectónica, modelado de precisión y consultoría técnica independiente. Especialista en interoperabilidad IFC y cumplimiento normativo NSR-10.";
+
+                // Botón exclusivo de Perfil Profesional
+                actionRow.innerHTML = `
+                    <button type="button" class="btn-hero-profile" onclick="openDirectorModal()">
+                        <i data-lucide="award" style="width: 17px; height: 17px;"></i>
+                        <span>Ver Perfil Profesional & Trayectoria</span>
+                    </button>
+                `;
+
+                kpiArea.innerHTML = `
+                    <div class="kpi-unit">
+                        <div class="kpi-number">CPNAA<span>✓</span></div>
+                        <div class="kpi-label">Matrícula Profesional</div>
+                    </div>
+                    <div class="kpi-unit">
+                        <div class="kpi-number">UDENAR<span>'26</span></div>
+                        <div class="kpi-label">Arquitectura</div>
+                    </div>
+                    <div class="kpi-unit">
+                        <div class="kpi-number">bSMART<span>Cert</span></div>
+                        <div class="kpi-label">Entry Level</div>
+                    </div>
+                `;
+
+                // Fusión fotográfica: Fondo de plano arquitectónico + PNG transparente recortado
+                visualContainer.innerHTML = `
+                    <div class="hero-blueprint-bg"></div>
+                    <img src="https://lh3.googleusercontent.com/d/1wmvAIFE3NSKL9Lc0jFTUXlaolDcqVEMM" alt="Arq. James Ramiro Zúñiga Caipe" class="hero-portrait-img">
+                    <div class="hero-visual-overlay"></div>
+                `;
+            }
+
+            if (window.lucide) lucide.createIcons();
+            applyFilters();
+        }
+
+        // ANIMACIÓN DE BARRAS DE HABILIDAD CON INTERSECTION OBSERVER
+        function initSkillsObserver() {
+            const skillsSec = document.getElementById('skillsSection');
+            if (!skillsSec) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const fills = entry.target.querySelectorAll('.skill-bar-fill');
+                    if (entry.isIntersecting) {
+                        fills.forEach(bar => {
+                            const targetVal = bar.getAttribute('data-progress');
+                            bar.style.width = targetVal + '%';
+                        });
+                    } else {
+                        // Vuelve a 0 al salir del campo visual
+                        fills.forEach(bar => {
+                            bar.style.width = '0%';
+                        });
+                    }
+                });
+            }, { threshold: 0.25 });
+
+            observer.observe(skillsSec);
+        }
+
+        // OCULTAMIENTO INTELIGENTE DE FAB AL LLEGAR AL BANNER INFERIOR
+        function initFabObserver() {
+            const banner = document.getElementById('ctaBannerSection');
+            const fab = document.getElementById('fabFloatingBar');
+            if (!banner || !fab) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        fab.classList.add('fab-hidden');
+                    } else {
+                        fab.classList.remove('fab-hidden');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            observer.observe(banner);
+        }
+
+        function sharePortfolio() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Portafolio Oficial | InnovArqZ Soluciones Integrales & Arq. James R. Zúñiga',
+                    text: 'Casos de estudio, consultorías e intervenciones técnicas en Arquitectura, Ingeniería y BIM/CIM.',
+                    url: window.location.href
+                }).catch(err => console.log(err));
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('Enlace del portafolio copiado al portapapeles.');
+                });
             }
         }
 
@@ -1298,96 +1744,6 @@
             document.querySelectorAll('.time-node').forEach(n => n.classList.remove('active'));
             btn.classList.add('active');
             currentPage = 1;
-            applyFilters();
-        }
-
-        // CONMUTADOR DE PERSPECTIVA ("MONEDA DE DOS CARAS")
-        function switchPerspective(mode) {
-            currentPerspective = mode;
-            const btnCorp = document.getElementById('btnFaceCorp');
-            const btnIndep = document.getElementById('btnFaceIndep');
-            const idBlock = document.getElementById('heroIdentityBlock');
-            const desc = document.getElementById('heroDesc');
-            const kpiArea = document.getElementById('heroKpiArea');
-            const visualContainer = document.getElementById('heroVisualContainer');
-            const actionRow = document.getElementById('heroActionRow');
-
-            if (mode === 'corp') {
-                btnCorp.classList.add('active');
-                btnIndep.classList.remove('active');
-                actionRow.style.display = 'none';
-
-                idBlock.innerHTML = `
-                    <div class="hero-brand-block">
-                        <div class="hero-brand-logo">Innov<span>ArqZ</span></div>
-                        <div class="hero-brand-sub">SOLUCIONES INTEGRALES</div>
-                        <div class="hero-brand-focus">Ingeniería, Arquitectura & Metodología BIM / CIM</div>
-                    </div>
-                `;
-
-                desc.innerText = "Ecosistema metodológico OpenBIM (ISO 19650) aplicado al diseño computacional, estructuración técnica, interventoría y control integral de activos.";
-
-                kpiArea.innerHTML = `
-                    <div class="kpi-unit">
-                        <div class="kpi-number">100<span>%</span></div>
-                        <div class="kpi-label">Entorno OpenBIM</div>
-                    </div>
-                    <div class="kpi-unit">
-                        <div class="kpi-number">1D-7D<span>+</span></div>
-                        <div class="kpi-label">Dimensiones Activas</div>
-                    </div>
-                    <div class="kpi-unit">
-                        <div class="kpi-number">ISO<span>19650</span></div>
-                        <div class="kpi-label">Marco Rector</div>
-                    </div>
-                `;
-
-                // Video dinámico con poster de respaldo
-                visualContainer.innerHTML = `
-                    <video class="hero-visual-media" autoplay muted loop playsinline poster="esencia-digital-innovarqz.jpg">
-                        <source src="esencia-digital-innovarqz.mp4" type="video/mp4">
-                        <img src="esencia-digital-innovarqz.jpg" alt="InnovArqZ Esencia Digital" class="hero-visual-media">
-                    </video>
-                    <div class="hero-visual-overlay"></div>
-                `;
-            } else {
-                btnIndep.classList.add('active');
-                btnCorp.classList.remove('active');
-                actionRow.style.display = 'block';
-
-                idBlock.innerHTML = `
-                    <div class="hero-brand-block">
-                        <div class="hero-brand-logo" style="font-size: 2.3rem;">ARQ. JAMES R. <span>ZÚÑIGA C.</span></div>
-                        <div class="hero-brand-sub">M.P CPNAA No: A137812026-1122783013</div>
-                        <div class="hero-brand-focus">buildingSMART Certified • Coordinador BIM / CIM</div>
-                    </div>
-                `;
-
-                desc.innerText = "Dirección arquitectónica, modelado de precisión y consultoría independiente. Experiencia técnica en interoperabilidad IFC y cumplimiento normativo NSR-10.";
-
-                kpiArea.innerHTML = `
-                    <div class="kpi-unit">
-                        <div class="kpi-number">CPNAA<span>✓</span></div>
-                        <div class="kpi-label">Matrícula Profesional</div>
-                    </div>
-                    <div class="kpi-unit">
-                        <div class="kpi-number">UDENAR<span>'26</span></div>
-                        <div class="kpi-label">Arquitectura</div>
-                    </div>
-                    <div class="kpi-unit">
-                        <div class="kpi-number">bSMART<span>Cert</span></div>
-                        <div class="kpi-label">Entry Level</div>
-                    </div>
-                `;
-
-                // Fotografía en alta resolución desde Google Drive
-                visualContainer.innerHTML = `
-                    <img src="https://lh3.googleusercontent.com/d/1US-BA10acQPBYHukEhyB0txvEVaJFFzy" alt="Arq. James Ramiro Zúñiga Caipe" class="hero-visual-media">
-                    <div class="hero-visual-overlay"></div>
-                `;
-            }
-
-            if (window.lucide) lucide.createIcons();
             applyFilters();
         }
 
@@ -1429,13 +1785,11 @@
             applyFilters();
         }
 
-        // BÚSQUEDA EXHAUSTIVA EN TIEMPO REAL
         function applyFilters() {
             filteredProjects = allProjects.filter(p => {
                 const matchCat = (currentCategory === 'all' || p.category === currentCategory);
                 const matchYear = (currentYear === 'all' || p.year === currentYear);
 
-                // Busca en ficha principal y en la descripción detallada del modal
                 const searchPool = `${p.title || ''} ${p.subtitle || ''} ${p.software || ''} ${p.standard || ''} ${p.year || ''} ${p.scope || ''} ${p.tools || ''}`.toLowerCase();
                 const matchSearch = searchQuery === '' || searchPool.includes(searchQuery);
 

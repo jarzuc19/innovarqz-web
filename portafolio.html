@@ -138,6 +138,9 @@
             text-decoration: none;
             font-size: 0.88rem;
             font-weight: 600;
+            cursor: pointer;
+            background: transparent;
+            border: none;
             transition: color 0.2s;
         }
 
@@ -1015,6 +1018,27 @@
             box-shadow: 0 25px 50px var(--shadow-color);
         }
 
+        /* MODAL EXCLUSIVO PARA CV / HOJA DE VIDA PROTEGIDA */
+        .modal-content-cv {
+            max-width: 1000px;
+            height: 92vh;
+            max-height: 92vh;
+            padding: 1.5rem 1.8rem 1.8rem;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .cv-viewer-frame {
+            width: 100%;
+            flex-grow: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background-color: #0b1120;
+            margin-top: 1rem;
+        }
+
         .modal-close {
             position: absolute;
             top: 1.25rem;
@@ -1199,6 +1223,7 @@
             .search-pill-wrapper { max-width: 100%; width: 100%; }
             .projects-grid-3x3 { grid-template-columns: 1fr; }
             .modal-gallery-grid { grid-template-columns: 1fr; }
+            .modal-content-cv { height: 95vh; max-height: 95vh; padding: 1.2rem 1rem; }
             .lightbox-arrow { display: none; }
             .lightbox-content iframe { width: 94vw; height: 50vh; }
             .fab-floating-container { bottom: 1.2rem; right: 1.2rem; }
@@ -1211,7 +1236,7 @@
 
     <div class="vectorial-landscape-bg" aria-hidden="true"></div>
 
-    <!-- 1. ENCABEZADO OFICIAL -->
+    <!-- 1. ENCABEZADO OFICIAL CON ACCESO A HOJA DE VIDA / CV -->
     <header>
         <a href="index.html" class="brand-logo">
             <div class="brand-title">Innov<span>ArqZ</span></div>
@@ -1219,10 +1244,16 @@
         </a>
 
         <div class="header-actions">
-            <a href="index.html" class="btn-nav-link">
+            <a href="index.html" class="btn-nav-link" title="Regresar a Inicio">
                 <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
                 <span>Sitio Principal</span>
             </a>
+
+            <!-- BOTÓN DIRECTO DE CV COMPLETA / HOJA DE VIDA PROTEGIDA -->
+            <button type="button" class="btn-nav-link" onclick="openCvModal()" title="Consultar Hoja de Vida Completa">
+                <i data-lucide="file-text" style="width: 16px; height: 16px; color: var(--accent-copper);"></i>
+                <span>Hoja de Vida</span>
+            </button>
 
             <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Cambiar Tema" aria-label="Cambiar Tema">
                 <i data-lucide="sun" id="themeIcon"></i>
@@ -1489,6 +1520,25 @@
         </div>
     </div>
 
+    <!-- NUEVO: MODAL DE HOJA DE VIDA / CV PROTEGIDA -->
+    <div class="modal-overlay" id="modal-cv-protegida" oncontextmenu="return false;">
+        <div class="modal-content modal-content-cv">
+            <button class="modal-close" onclick="closeModal('modal-cv-protegida')"><i data-lucide="x"></i></button>
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.8rem; margin-bottom: 0.5rem; padding-right: 2rem;">
+                <div>
+                    <h3 style="font-size: 1.4rem; color: var(--text-main); line-height: 1.2;">Hoja de Vida Oficial</h3>
+                    <span style="font-size: 0.8rem; color: var(--accent-copper); font-weight: 700;">Arq. James Ramiro Zúñiga Caipe • Versión Ejecutiva</span>
+                </div>
+                <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(217, 119, 6, 0.12); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; color: var(--accent-copper); font-weight: 700;">
+                    <i data-lucide="shield-check" style="width: 14px; height: 14px;"></i>
+                    <span>Solo Lectura</span>
+                </div>
+            </div>
+
+            <iframe id="cvIframe" class="cv-viewer-frame" src="" frameborder="0" allow="autoplay"></iframe>
+        </div>
+    </div>
+
     <!-- LIGHTBOX -->
     <div class="lightbox-overlay" id="lightbox-modal">
         <button class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x"></i></button>
@@ -1526,6 +1576,7 @@
             fetchDirectorData();
             initSkillsObserver();
             initFabObserver();
+            initCvProtections();
         });
 
         async function fetchDirectorData() {
@@ -1670,6 +1721,32 @@
 
             if (window.lucide) lucide.createIcons();
             applyFilters();
+        }
+
+        /* MODAL DE CV / HOJA DE VIDA PROTEGIDA */
+        function openCvModal() {
+            const iframe = document.getElementById('cvIframe');
+            if (iframe && (!iframe.src || iframe.src === '' || iframe.src === window.location.href)) {
+                // Modo /preview restringido de Google Drive
+                iframe.src = 'https://drive.google.com/file/d/1y8MZH8WUm-PVAgNyAEkc6YGRG5yDFlGk/preview';
+            }
+            openModal('modal-cv-protegida');
+        }
+
+        /* PROTECCIÓN DIGITAL ACTIVA (ANTI-IMPRESIÓN, COPIA Y DESCARGA) */
+        function initCvProtections() {
+            window.addEventListener('keydown', (e) => {
+                const cvModal = document.getElementById('modal-cv-protegida');
+                const isCvOpen = cvModal && cvModal.classList.contains('active');
+
+                // Bloquea Ctrl+P / Cmd+P (Impresión) y Ctrl+S / Cmd+S (Guardar)
+                if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P' || e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) {
+                    if (isCvOpen) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                }
+            });
         }
 
         function initSkillsObserver() {

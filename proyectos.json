@@ -64,8 +64,13 @@
     "standard": "EOT / GIS",
     "software": "ArcGIS / QGIS",
     "coverUrl": "https://lh3.googleusercontent.com/d/1OUIMpBG_AknvhpvaKzbkruZG2t8JhMwo",
-    "galleryUrls": [],
-    "scope": "[EJERCICIO PROFESIONAL / CONSULTORÍA TERRITORIAL] Acompañamiento técnico en las fases de diagnóstico y formulación para la revisión del EOT de Ricaurte. Estructuración de Documentos Técnicos de Soporte (DTS) en las dimensiones urbana, espacial y de desarrollo territorial, articulando el trabajo de campo multidisciplinar.",
+    "galleryUrls": [
+      "https://lh3.googleusercontent.com/d/1-gxcmHIOt1PLT8Ov5dKQ6Zow7xDRTReO",
+      "https://lh3.googleusercontent.com/d/1V9u9AJyLzcKQhloymDHjbzV44WbZEcoM",
+      "https://lh3.googleusercontent.com/d/1FUZ1-eo_WgKXlS7T40Suw9ePuqoGhJx3",
+      "https://lh3.googleusercontent.com/d/1S0xWoTpN0LSHuyh7CfAINg1LQd-r51pj"
+    ],
+    "scope": "Acompañamiento técnico en las fases de diagnóstico y formulación para la revisión del EOT de Ricaurte. Estructuración de Documentos Técnicos de Soporte (DTS) en las dimensiones urbana, espacial y de desarrollo territorial, articulando el trabajo de campo multidisciplinar.",
     "tools": "• Análisis Geoespacial: ArcGIS & Cartografía Territorial\n• Formulación Normativa: Documentos Técnicos de Soporte (DTS)\n• Planificación: Gestión de Riesgo y Desarrollo Urbano"
   },
   {

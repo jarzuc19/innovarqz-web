@@ -73,7 +73,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 5%;
+            padding: 0.85rem 5%;
             background-color: var(--header-bg);
             border-bottom: 1px solid var(--border-color);
             backdrop-filter: blur(12px);
@@ -83,11 +83,11 @@
             text-decoration: none;
             display: flex;
             flex-direction: column;
-            line-height: 1;
+            line-height: 1.1;
         }
 
         .brand-title {
-            font-size: 1.45rem;
+            font-size: 1.55rem;
             font-weight: 900;
             letter-spacing: -0.6px;
             color: var(--text-main);
@@ -96,24 +96,32 @@
         .brand-title span { color: var(--accent-copper); }
 
         .brand-subtitle {
-            font-size: 0.62rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 1.8px;
             color: var(--text-muted);
             text-transform: uppercase;
-            margin-top: 3px;
+            margin-top: 2px;
+        }
+
+        .brand-pillars {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: var(--accent-copper);
+            letter-spacing: 0.3px;
+            margin-top: 2px;
         }
 
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.1rem;
         }
 
         .btn-nav-link {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.45rem;
             color: var(--text-muted);
             text-decoration: none;
             font-size: 0.88rem;
@@ -147,7 +155,7 @@
            2. HERO EDITORIAL DUAL ("MONEDA DE 2 CARAS")
            ------------------------------------------- */
         .hero-dual-section {
-            padding: 3.5rem 5% 2rem;
+            padding: 3rem 5% 2rem;
             max-width: 1250px;
             margin: 0 auto;
             width: 100%;
@@ -156,7 +164,7 @@
         .face-selector-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2.25rem;
         }
 
         .face-selector-pill {
@@ -873,6 +881,7 @@
         <a href="index.html" class="brand-logo">
             <div class="brand-title">Innov<span>ArqZ</span></div>
             <div class="brand-subtitle">Soluciones Integrales</div>
+            <div class="brand-pillars">Ingeniería, Arquitectura & Metodología BIM / CIM</div>
         </a>
 
         <div class="header-actions">
@@ -1117,7 +1126,7 @@
                 badge.innerText = "ARQUITECTO & COORDINADOR BIM / CIM";
                 title.innerText = "JAMES R. ZÚÑIGA C.";
                 desc.innerText = "Dirección arquitectónica, modelado de precisión y consultoría técnica independiente. Especialista en interoperabilidad IFC y cumplimiento normativo NSR-10.";
-                visualImg.src = "james-zuniga.jpg";
+                visualImg.src = "https://lh3.googleusercontent.com/d/1US-BA10acQPBYHukEhyB0txvEVaJFFzy";
 
                 kpiArea.innerHTML = `
                     <div class="kpi-unit">

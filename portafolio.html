@@ -426,20 +426,11 @@
 
         /* 4. FILTROS, BUSCADOR Y RETÍCULA 3x3 */
         .portfolio-main-area {
-            padding: 1.5rem 5% 5rem;
+            padding: 1.5rem 5% 4rem;
             max-width: 1250px;
             margin: 0 auto;
             width: 100%;
             flex-grow: 1;
-        }
-
-        .controls-toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
         }
 
         .search-pill-wrapper {
@@ -448,9 +439,7 @@
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 30px;
-            padding: 0.45rem 1.2rem;
-            flex-grow: 1;
-            max-width: 440px;
+            padding: 0.55rem 1.25rem;
             transition: border-color 0.25s, box-shadow 0.25s;
         }
 
@@ -464,7 +453,7 @@
             border: none;
             outline: none;
             color: var(--text-main);
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             width: 100%;
             margin-left: 0.6rem;
         }
@@ -662,7 +651,79 @@
             cursor: not-allowed;
         }
 
-        /* 6. PIE DE PÁGINA REAJUSTADO */
+        /* 6. BANNER DE CONVERSIÓN CTA */
+        .cta-banner-container {
+            padding: 0 5%;
+            margin-bottom: 3.5rem;
+            max-width: 1250px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+
+        .cta-banner-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 2.8rem 3.5rem;
+            display: grid;
+            grid-template-columns: 1.4fr auto 1fr;
+            gap: 3rem;
+            align-items: center;
+            box-shadow: 0 20px 45px var(--shadow-color);
+        }
+
+        .cta-left h3 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .cta-left h3 span { color: var(--accent-copper); }
+
+        .cta-left p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .cta-divider {
+            width: 1px;
+            height: 100%;
+            min-height: 90px;
+            background-color: var(--border-color);
+        }
+
+        .cta-right {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            align-items: flex-end;
+        }
+
+        .btn-whatsapp-cta {
+            background-color: var(--whatsapp-color);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 6px 18px rgba(37, 211, 102, 0.25);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-whatsapp-cta:hover {
+            transform: translateY(-2px);
+            background-color: #1da851;
+        }
+
+        /* 7. PIE DE PÁGINA REAJUSTADO */
         footer {
             background-color: var(--bg-section-alt);
             border-top: 1px solid var(--border-color);
@@ -705,7 +766,7 @@
             font-size: 0.78rem;
         }
 
-        /* 7. MODALES Y VISOR LIGHTBOX */
+        /* 8. MODALES Y VISOR LIGHTBOX */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -900,12 +961,24 @@
             .hero-editorial-card { grid-template-columns: 1fr; }
             .hero-editorial-visual { height: 340px; border-left: none; border-top: 1px solid var(--border-color); }
             .projects-grid-3x3 { grid-template-columns: repeat(2, 1fr); }
+            .cta-banner-box { grid-template-columns: 1fr; gap: 1.5rem; }
+            .cta-divider { display: none; }
+            .cta-right { align-items: flex-start; }
             .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
         }
 
         @media (max-width: 720px) {
             .hero-editorial-body { padding: 2.2rem 1.5rem; }
             .hero-brand-logo { font-size: 2.2rem; }
+            .timeline-container { margin: 1.2rem 0 1.8rem; }
+            .category-filter-pills { 
+                width: 100%; 
+                justify-content: center; 
+            }
+            .search-pill-wrapper { 
+                max-width: 100%; 
+                width: 100%; 
+            }
             .projects-grid-3x3 { grid-template-columns: 1fr; }
             .modal-gallery-grid { grid-template-columns: 1fr; }
             .lightbox-arrow { display: none; }
@@ -940,7 +1013,7 @@
             <div class="face-selector-pill">
                 <button type="button" class="face-btn active" id="btnFaceCorp" onclick="switchPerspective('corp')">
                     <i data-lucide="building-2" style="width: 16px; height: 16px;"></i>
-                    <span>Firma Institucional</span>
+                    <span>Firma Empresarial</span>
                 </button>
                 <button type="button" class="face-btn" id="btnFaceIndep" onclick="switchPerspective('indep')">
                     <i data-lucide="user" style="width: 16px; height: 16px;"></i>
@@ -979,7 +1052,15 @@
 
     <!-- 3. ÁREA PRINCIPAL DEL PORTAFOLIO -->
     <main class="portfolio-main-area">
-        <!-- LÍNEA DE TIEMPO DESLIZANTE -->
+        <!-- BUSCADOR PRINCIPAL (UBICADO ANTES DE LA LÍNEA DE TIEMPO) -->
+        <div style="display: flex; justify-content: center; margin-bottom: 1.5rem; width: 100%;">
+            <div class="search-pill-wrapper" style="max-width: 620px; width: 100%;">
+                <i data-lucide="search" style="width: 18px; height: 18px; color: var(--accent-copper);"></i>
+                <input type="text" id="filterSearchInput" placeholder="Buscar por proyecto, alcance, software o norma..." oninput="handleSearchInput()">
+            </div>
+        </div>
+
+        <!-- LÍNEA DE TIEMPO DESLIZANTE (FILTRO DE AÑOS) -->
         <div class="timeline-container">
             <div class="timeline-track-line"></div>
             <div class="timeline-wrapper">
@@ -1003,13 +1084,8 @@
             </div>
         </div>
 
-        <!-- BARRA DE CONTROLES: BUSCADOR + CATEGORÍAS -->
-        <div class="controls-toolbar">
-            <div class="search-pill-wrapper">
-                <i data-lucide="search" style="width: 18px; height: 18px; color: var(--accent-copper);"></i>
-                <input type="text" id="filterSearchInput" placeholder="Buscar por proyecto, alcance, software o norma..." oninput="handleSearchInput()">
-            </div>
-
+        <!-- FILTRO DE CATEGORÍAS (SEPARADO INDEPENDIENTE EN VERSIÓN MÓVIL Y ESCRITORIO) -->
+        <div style="display: flex; justify-content: center; margin-bottom: 2.5rem; width: 100%;">
             <div class="category-filter-pills">
                 <button type="button" class="cat-btn active" onclick="setCategoryFilter('all', this)">Todos</button>
                 <button type="button" class="cat-btn" onclick="setCategoryFilter('bim', this)">Diseño & BIM</button>
@@ -1025,6 +1101,23 @@
         <!-- PAGINACIÓN NUMÉRICA DINÁMICA -->
         <div class="pagination-container" id="paginationBar"></div>
     </main>
+
+    <!-- BANNER DE CONVERSIÓN CON WHATSAPP -->
+    <div class="cta-banner-container">
+        <div class="cta-banner-box">
+            <div class="cta-left">
+                <h3>Háblanos de tu próximo <span>proyecto</span></h3>
+                <p>Disponible para estructuración BIM, consultorías técnicas y coordinación interdisciplinaria de obra.</p>
+            </div>
+            <div class="cta-divider"></div>
+            <div class="cta-right">
+                <a href="https://wa.me/573158505885?text=Hola,%20deseo%20solicitar%20información%20sobre%20el%20portafolio%20técnico" target="_blank" class="btn-whatsapp-cta">
+                    <i data-lucide="message-square"></i> Iniciar Chat en WhatsApp
+                </a>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Respuesta técnica inmediata</span>
+            </div>
+        </div>
+    </div>
 
     <!-- 4. PIE DE PÁGINA REAJUSTADO -->
     <footer>
@@ -1440,7 +1533,7 @@
             currentPage = pageNum;
             renderGrid();
             renderPagination();
-            document.querySelector('.controls-toolbar').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('.search-pill-wrapper').scrollIntoView({ behavior: 'smooth' });
         }
 
         function openProjectModal(id) {

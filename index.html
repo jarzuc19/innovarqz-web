@@ -2001,7 +2001,7 @@
         </div>
     </section>
 
-    <!-- MODAL DE LANZAMIENTO OPTIMIZADO -->
+    <!-- MODAL DE LANZAMIENTO -->
     <div class="modal-overlay" id="modal-launch">
         <div class="launch-modal-card-bg" style="background-image: url('esencia-digital-innovarqz.jpg');">
             <div class="launch-modal-overlay-dark"></div>
@@ -2344,7 +2344,7 @@
         </div>
     </section>
 
-    <!-- Modal Portafolio Dinámico -->
+    <!-- Modal Portafolio Dinámico Optimizado -->
     <div class="modal-overlay" id="modal-portfolio">
         <div class="modal-content" id="modalPortfolioContent">
             <button class="modal-close" onclick="closeModal('modal-portfolio')"><i data-lucide="x"></i></button>
@@ -2356,8 +2356,13 @@
                     <span id="modalMetaSoftware"><i data-lucide="cpu"></i> ---</span>
                 </div>
             </div>
-            <h5 style="color: var(--text-main); margin-bottom: 0.75rem;">Galería de Imágenes, Planos & Entregables</h5>
-            <div class="modal-gallery-grid" id="modalGalleryGrid"></div>
+
+            <!-- CONTENEDOR CONTROLADO: SE OCULTA COMPLETAMENTE SI NO HAY ENTREGABLES -->
+            <div id="modalGallerySection" style="display: none;">
+                <h5 style="color: var(--text-main); margin-bottom: 0.75rem;">Galería de Imágenes, Planos & Entregables</h5>
+                <div class="modal-gallery-grid" id="modalGalleryGrid"></div>
+            </div>
+
             <div class="modal-description">
                 <h5>Alcance del Proyecto & Desglose Técnico</h5>
                 <p id="modalScope">---</p>
@@ -2447,7 +2452,6 @@
                 <div class="standard-badge"><span>GIS</span> + CIM</div>
             </div>
 
-            <!-- BANNER DINÁMICO CON VIDEO EN BUCLE Y POSTER DE RESPALDO -->
             <div class="esencia-banner-container">
                 <video class="esencia-banner-media" autoplay muted loop playsinline poster="esencia-digital-innovarqz.jpg">
                     <source src="esencia-digital-innovarqz.mp4" type="video/mp4">
@@ -2463,7 +2467,6 @@
                     </div>
 
                     <div class="adn-cards-2x2">
-                        <!-- 1. IN: Ingeniería & Rigor Estructural -->
                         <div class="esencia-card-2x2">
                             <span class="esencia-badge-hero">IN</span>
                             <span class="esencia-tag-pill">Criterio + Estructura</span>
@@ -2471,7 +2474,6 @@
                             <p>La ingeniería civil representa solidez. Aplicamos análisis y cálculos computacionales de vanguardia para obras perdurables.</p>
                         </div>
 
-                        <!-- 2. NOV: Innovación Conectada -->
                         <div class="esencia-card-2x2">
                             <span class="esencia-badge-hero">NOV</span>
                             <span class="esencia-tag-pill">Tec + Data</span>
@@ -2479,7 +2481,6 @@
                             <p>Adoptamos la tecnología como eje transversal. Implementamos metodologías predictivas para prever contingencias y optimizar presupuestos.</p>
                         </div>
 
-                        <!-- 3. ARQ: Arquitectura & Hábitat -->
                         <div class="esencia-card-2x2">
                             <span class="esencia-badge-hero">ARQ</span>
                             <span class="esencia-tag-pill">Entorno + Hábitat</span>
@@ -2487,7 +2488,6 @@
                             <p>La arquitectura responde al entorno mediante planes ambientales rigurosos, adaptabilidad al cambio climático y pertenencia comunitaria.</p>
                         </div>
 
-                        <!-- 4. Z: Control Total de la A a la Z -->
                         <div class="esencia-card-2x2">
                             <span class="esencia-badge-hero">Z</span>
                             <span class="esencia-tag-pill">Control + Activo</span>
@@ -2555,7 +2555,7 @@
         </div>
     </section>
 
-    <!-- VISOR LIGHTBOX CON REPRODUCTOR OPTIMIZADO -->
+    <!-- VISOR LIGHTBOX -->
     <div class="lightbox-overlay" id="lightbox-modal">
         <button class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x"></i></button>
         <button class="lightbox-arrow lightbox-prev" onclick="prevLightboxImage()"><i data-lucide="chevron-left"></i></button>
@@ -2781,11 +2781,12 @@
         }
     ];
 
+    // MAPEO CORREGIDO PARA LA CATEGORÍA CIM
     const nombresCategorias = {
         'bim': 'Diseño & BIM',
         'obra': 'Infraestructura & Obra',
         'interventoria': 'Interventoría',
-        'cim': 'Modelado Urbano (CIM)'
+        'cim': 'Planificación Urbana (CIM)'
     };
 
     const seccionesEstructura = [
@@ -3872,12 +3873,15 @@
         document.getElementById('modalScope').innerText = proj.scope || 'Sin descripción del alcance.';
         document.getElementById('modalTools').innerText = proj.tools || 'Sin herramientas especificadas.';
 
+        const gallerySection = document.getElementById('modalGallerySection');
         const galleryGrid = document.getElementById('modalGalleryGrid');
         galleryGrid.innerHTML = '';
 
         currentGallery = proj.galleryUrls || [];
 
+        // VALIDACIÓN: OCULTA COMPLETAMENTE LA SECCIÓN SI NO HAY ENTREGABLES
         if (currentGallery.length > 0) {
+            gallerySection.style.display = 'block';
             currentGallery.forEach((url, i) => {
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
@@ -3915,14 +3919,8 @@
                 galleryGrid.appendChild(item);
             });
         } else {
-            galleryGrid.innerHTML = `
-                <div class="gallery-item" style="cursor:default;">
-                    <span class="gallery-item-badge">Render 3D Exterior</span>
-                </div>
-                <div class="gallery-item" style="cursor:default;">
-                    <span class="gallery-item-badge">Coordinación MEP / ARQ</span>
-                </div>
-            `;
+            // Evita crear cuadros vacíos y oculta el encabezado de galería
+            gallerySection.style.display = 'none';
         }
 
         if (window.lucide) lucide.createIcons();

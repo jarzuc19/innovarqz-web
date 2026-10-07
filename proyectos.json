@@ -1,5 +1,25 @@
 [
   {
+    "id": "proj-1791346142308",
+    "title": "Vivienda Rural",
+    "subtitle": "Vereda San Isidro, Ricaurte - Propietario(a): Janeth Caipe",
+    "year": "2026",
+    "category": "bim",
+    "standard": "ISO 19650",
+    "software": "Archicad+Revit+IA",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1Naz8sMqNrvJANe0Y9R9JEBIYwRI7DMeW",
+    "galleryUrls": [
+      "https://lh3.googleusercontent.com/d/1CoF6fDv0d5RyHhqnAJYU_r1eWAGsdVMX",
+      "https://lh3.googleusercontent.com/d/1Spxyvkt3fJlvbJ7vckLBc5U4zW5LEFqH",
+      "https://lh3.googleusercontent.com/d/1r06TgGOr5EwlzPhA2kzUzp63zM8DG6lR",
+      "https://lh3.googleusercontent.com/d/1d5TuYLm_wWdN24BDbNz1phcUxk69shX9",
+      "https://drive.google.com/file/d/1GylU5-5ozG_enGV7eMU73lOxUzw8cmwc/preview?type=video",
+      "https://drive.google.com/file/d/10-EKvJXrS08qIRUUdZ4yVQ0NuAHvfo_E/preview?type=video"
+    ],
+    "scope": "Diseño arquitectónico de vivienda rural en dos niveles, estructurado para su ejecución en fases y priorizando una primera etapa con terraza cubierta. El programa espacial integra un área social flexible —diseñada para incorporar el garaje como extensión para eventos de alta concurrencia—, módulos habitacionales con ventanales de piso a techo y cocina con zona de lavandería integrada. El proyecto incorpora criterios normativos de diseño universal y accesibilidad, asegurando áreas principales y baterías de servicio adaptadas para usuarios en silla de ruedas.",
+    "tools": "• Modelado Arquitectónico & Planimetría: Graphisoft Archicad\n• Visualización Hiperrealista: D5 Render + IA\n• Entregables: Plataforma CDE InnovArqZ"
+  },
+  {
     "id": "proj-1789072775125",
     "title": "Vivienda Familiar H&M — Ampliación Residencial Multifuncional",
     "subtitle": "Ricaurte, Nariño. Propietario: Harvey Garcia",

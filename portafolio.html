@@ -1223,7 +1223,7 @@
         .lightbox-next { right: 1.5rem; }
 
         /* =========================================================
-           RESPONSIVE ISOLADO Y COMPACTACIÓN MÓVIL ESTRICTA
+           RESPONSIVE Y COMPACTACIÓN MÓVIL
            ========================================================= */
         @media (max-width: 1024px) {
             .hero-editorial-card { grid-template-columns: 1fr; }
@@ -1288,6 +1288,9 @@
             .btn-cta-action {
                 width: 100%;
                 justify-content: center;
+            }
+            .lightbox-arrow {
+                display: none !important;
             }
         }
 
@@ -2157,6 +2160,18 @@
 
                     item.onclick = (e) => {
                         e.stopPropagation();
+
+                        // SOLUCIÓN MÓVIL (< 600px): Abre el video directamente en Google Drive sin encimar botones
+                        const isMobileDevice = window.innerWidth <= 600;
+                        if (isVid && isMobileDevice) {
+                            const fileId = getDriveId(url);
+                            if (fileId) {
+                                window.open(`https://drive.google.com/file/d/${fileId}/view`, '_blank');
+                                return;
+                            }
+                        }
+
+                        // En pantallas >= 600px o para imágenes, abre el Lightbox incrustado habitual
                         openLightbox(idx);
                     };
                     grid.appendChild(item);

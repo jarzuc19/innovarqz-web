@@ -177,16 +177,22 @@
     "year": "2021",
     "category": "bim",
     "standard": "NSR-10",
-    "software": "AutoCAD / Sketchup",
+    "software": "Archicad + Twinmotion",
     "coverUrl": "https://lh3.googleusercontent.com/d/1D8MRis_VUuQguUUHIeEKsPbe7G5xsnTu",
     "galleryUrls": [
       "https://lh3.googleusercontent.com/d/1VcGgJlRpoX6Sn4rbMzRkJHDaswgzGld7",
       "https://lh3.googleusercontent.com/d/1bMiJKsJvsBj67vgh8qstEIoo0O98yu5M",
       "https://lh3.googleusercontent.com/d/1ldHn9y6Ge6sbauJv4aS0RY6MYVUvcqKJ",
-      "https://lh3.googleusercontent.com/d/1fzcqk7MOLgLTSgXP1xuOesNTJu_hRyGQ"
+      "https://lh3.googleusercontent.com/d/1fzcqk7MOLgLTSgXP1xuOesNTJu_hRyGQ",
+      "https://lh3.googleusercontent.com/d/1jSN7-GspYE-o4BLvKHVhq3HkEU73kN63",
+      "https://lh3.googleusercontent.com/d/1RjJDaOU8hv4LoWogyEXMFfx1Y-Whn--9",
+      "https://lh3.googleusercontent.com/d/1L5oZMiKdHht1QaHw8dpr-a_jtNmCguBn",
+      "https://lh3.googleusercontent.com/d/15PKZsGjfovNINMHnrtznl3hCHpQwIThX",
+      "https://lh3.googleusercontent.com/d/1q0-dn3y-8WdtcXB42IhUehfj3eptQK_3",
+      "https://lh3.googleusercontent.com/d/1zZgiGs03mr7uwASO2RSWQrvHdcrMijaL"
     ],
-    "scope": "[TRAYECTORIA TÉCNICA Y FORMACIÓN DE CAMPO] Prestación de servicios de apoyo a la gestión en la Secretaría de Obras Públicas. Formulación, diseño arquitectónico, memorias de cálculo y estructuración de presupuestos APU para proyectos urbanos y rurales.",
-    "tools": "• Desarrollo Dibujo: AutoCAD 2D/3D - Sketchup - Twinmotion\n• Presupuestación: Análisis de Precios Unitarios (APUs)\n• Documentación: Memorias de Cálculo y Fichas MGA\n"
+    "scope": "Prestación de servicios de apoyo a la gestión en la Secretaría de Obras Públicas. Formulación, diseño arquitectónico, memorias de cálculo y estructuración de presupuestos APU para proyectos urbanos y rurales.",
+    "tools": "• Desarrollo Dibujo: AutoCAD 2D/3D - Sketchup - Archicad - Twinmotion\n• Presupuestación: Análisis de Precios Unitarios (APUs)\n• Documentación: Memorias de Cálculo y Fichas MGA\n"
   },
   {
     "id": "proj-1787726450073",

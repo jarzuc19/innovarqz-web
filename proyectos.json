@@ -210,8 +210,15 @@
     "standard": "NSR-10",
     "software": "AutoCAD Civil 3D",
     "coverUrl": "https://lh3.googleusercontent.com/d/1A9RqH8jnGgGImFghlnBs2nCC04vBY8nA",
-    "galleryUrls": [],
-    "scope": "[TRAYECTORIA TÉCNICA Y FORMACIÓN DE CAMPO] Soporte técnico y seguimiento operativo para la Corporación CORETPA en la construcción de la oficina administrativa del Resguardo Piguambi Palangala y la adecuación de la vía de acceso a Pianulpi. Inspección cuantitativa de materiales, control de APUs y logística en territorio.",
+    "galleryUrls": [
+      "https://lh3.googleusercontent.com/d/1ofFcrbDAavLT9sDFvoYm4EZloVxSw58t",
+      "https://lh3.googleusercontent.com/d/1D_COGystj6u1x8KfdZgQN0faM8sNSHrE",
+      "https://lh3.googleusercontent.com/d/1S_LZgXGZ7xrTcdrGqk3EYF5SRVTce8R8",
+      "https://lh3.googleusercontent.com/d/1YEx3S5KyDC98zp1b_9_7z2VACPisJjtx",
+      "https://lh3.googleusercontent.com/d/1uMJm2X3eq0zJuPy0MrhNDWUjP_Dq66M5",
+      "https://lh3.googleusercontent.com/d/1MN2rVcEklsa5sIaaiDlSq8Gb7qqKd3Ye"
+    ],
+    "scope": "Soporte técnico y seguimiento operativo para la Corporación CORETPA en la construcción de la oficina administrativa del Resguardo Piguambi Palangala y la adecuación de la vía de acceso a Pianulpi. Inspección cuantitativa de materiales, control de APUs y logística en territorio.",
     "tools": "• Levantamientos y Planos: AutoCAD 2D\n• Soporte Financiero: Cuantificación de Materiales y APU\n• Logística de Campo: Control de Ejecución en Territorio"
   },
   {

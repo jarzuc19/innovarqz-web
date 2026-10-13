@@ -1,5 +1,31 @@
 [
   {
+    "id": "proj-1791934362032",
+    "title": "Vivienda Rural Bifamiliar",
+    "subtitle": "Piedrancha, Mallama - Propietario(a): Rodrigo Vallejo",
+    "year": "2024",
+    "category": "bim",
+    "standard": "ISO 19650",
+    "software": "Autodesk Revit",
+    "coverUrl": "https://lh3.googleusercontent.com/d/18gq0VG6TaIZYFOC47qaoCNOP1ZubXJzz",
+    "galleryUrls": [
+      "https://lh3.googleusercontent.com/d/17V8mvQqX_5KHtD-CeaBTbgvTAmz-kqxx",
+      "https://lh3.googleusercontent.com/d/1z54m13X-T5eTuSfCKKB8IhnGsQC4RoQP",
+      "https://lh3.googleusercontent.com/d/1AjJy4sowHH251tFyPhJIaF1rptlKW5jI",
+      "https://lh3.googleusercontent.com/d/1HtWl6ORbjmmMWcPHVZnELePuMuKANhK9",
+      "https://lh3.googleusercontent.com/d/1RmGTrVngYu4Z50ObI2t8KXJ51uIMWRsn",
+      "https://lh3.googleusercontent.com/d/1Vq_8K6nDiEYlW1EOTXdGLZ662WZWrbsQ",
+      "https://lh3.googleusercontent.com/d/1uXPOCKut7axfoZpftoEXs-3moFXFspGM",
+      "https://lh3.googleusercontent.com/d/1VpWgUlrMMxaz0GZ3sdH7za2h-qIMOcRA",
+      "https://lh3.googleusercontent.com/d/1Ge6iuf60WJRNgwR13-xuudaVQLg80dgP",
+      "https://lh3.googleusercontent.com/d/1hm2cdTubVCqddX9cANyBBCh-cbeIfw6s",
+      "https://lh3.googleusercontent.com/d/1Khlw_w4bufVk95DH7lwrDj0lkH3Oa1Lo",
+      "https://lh3.googleusercontent.com/d/1lQNOBkCKyLF9Y9QHrUpKwdNOg6Ch1xxI"
+    ],
+    "scope": "Diseño arquitectónico, coordinación técnica y modelado MEP para vivienda rural de dos niveles en Mallama. El programa espacial comprende un área construida de 78.16 m² en el primer nivel y 101.85 m² en el segundo nivel (180.01 m² totales). Cada nivel integra una distribución funcional independiente compuesta por sala-comedor-cocina, tres habitaciones (una con baño privado), baño social/compartido, zona de lavandería y balcones perimetrales con ventanales de piso a techo y muros cortina. La solución de cubierta combina teja ondulada de zinc y lámina traslúcida sobre estructura inclinada con sistema de recolección de aguas lluvias. El alcance incluye el diseño y modelado hidrosanitario completo (redes de distribución de agua fría en tubería de presión RDE y desagües sanitarios con ventilación independiente), cuantificación y tablas de planificación de aparatos sanitarios, uniones, accesorios y carpinterías.",
+    "tools": "• Modelado BIM & Documentación: Autodesk Revit (Arquitectura + MEP / Instalaciones Hidrosanitarias)\n• Cuantificación de Cantidades: Tablas de planificación nativas Revit (Cómputo de tuberías, accesorios, vanos y áreas)\n• Visualización & Renders: D5 Render / Autodesk Navisworks Manage (Coordinación espacial de redes)"
+  },
+  {
     "id": "proj-1791927280184",
     "title": "Vivienda Residencial Mixta",
     "subtitle": "Santacruz de Guachavez, Nariño - Propietario(a): Yohana Anama",

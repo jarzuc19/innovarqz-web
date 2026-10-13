@@ -1,5 +1,25 @@
 [
   {
+    "id": "proj-1791927280184",
+    "title": "Vivienda Residencial Mixta",
+    "subtitle": "Santacruz de Guachavez, Nariño - Propietario(a): Yohana Anama",
+    "year": "2026",
+    "category": "bim",
+    "standard": "ISO 19650",
+    "software": "Archicad + Revit",
+    "coverUrl": "https://lh3.googleusercontent.com/d/1eMyv1TjdXdwiAnjsv_7QFiTdKKSR_3pl",
+    "galleryUrls": [
+      "https://lh3.googleusercontent.com/d/1O2mg-79xsIyq2_hqfy2pigp-_zxf5W6W",
+      "https://lh3.googleusercontent.com/d/1zl3vE26dAlNrhXnGkU00sUpQwR1Gu8qy",
+      "https://lh3.googleusercontent.com/d/1xuOx3BFhXuAqZDMaH1pGEJbq4TIwibR3",
+      "https://lh3.googleusercontent.com/d/1urkymjwsYbi1DFySL_1HFx-d1I_7NTEF",
+      "https://lh3.googleusercontent.com/d/1alPjSPU2lBHV0M9PXL5U5neNKwaAwZYM",
+      "https://lh3.googleusercontent.com/d/1tWt0X0i-g7-JLFQpCDRqv54bswsXlDCx"
+    ],
+    "scope": "Proyecto de diseño y desarrollo técnico para edificación multifamiliar y comercial de cinco niveles. El programa arquitectónico contempla: Nivel 1 con local comercial adaptable a garaje, barra de servicio y punto fijo independiente; Niveles 2 y 3 estructurados como apartamento dúplex con área social integrada, estudio, patio, balcón en la fachada principal y 3 habitaciones; Niveles 4 y 5 distribuidos como unidades de alquiler de 4 habitaciones (dos con baño privado), cocina y zona de lavado independiente; y cubierta en lámina arquitectónica trapezoidal y policarbonato traslúcido sobre cerchas y correas metálicas PTR. El alcance integra modelado paramétrico de arquitectura e instalaciones (MEP), cuantificación precisa de cantidades de obra y coordinación técnica interdisciplinar.",
+    "tools": "• Modelado & Coordinación BIM: Archicad Arquitectura + Autodesk Revit MEP\n• Detección de Interferencias: Autodesk Navisworks Manage\n• Visualización & Renders: Twinmotion + IA"
+  },
+  {
     "id": "proj-1791346142308",
     "title": "Vivienda Rural Fase 1",
     "subtitle": "Vereda San Isidro, Ricaurte - Propietario(a): Janeth Caipe",

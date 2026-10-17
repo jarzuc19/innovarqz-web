@@ -150,7 +150,7 @@
 
         <div class="header-status">
             <div class="status-dot"></div>
-            <span>Conectado a Supabase CDE</span>
+            <span id="connStatusText">Conectando a Supabase...</span>
         </div>
     </header>
 
@@ -224,7 +224,7 @@
                 <div class="panel-title">
                     <i data-lucide="activity"></i> Matriz Operativa de Proyectos
                 </div>
-                <button onclick="cargarDatosGenerales()" style="background: none; border: none; color: var(--text-muted); cursor: pointer;">
+                <button onclick="cargarDatosGenerales()" style="background: none; border: none; color: var(--text-muted); cursor: pointer;" title="Actualizar datos">
                     <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
                 </button>
             </div>
@@ -271,13 +271,12 @@
 
 <script>
     // ==========================================
-    // 1. CONFIGURACIÓN DE SUPABASE (Tus llaves actuales)
+    // 1. CONFIGURACIÓN SUPABASE CONECTADA
     // ==========================================
     const SUPABASE_URL = "https://bjlqtzrcrofpqlmyvoob.supabase.co";
-    // Sustituye con tu clave anónima (anon public key) de app.js / cde-admin.html
-    const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY_AQUI";
+    const SUPABASE_ANON_KEY = "sb_publishable_htPtQvL-1wrLfu7ACHBg1w_epAZsu1E";
 
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     document.addEventListener('DOMContentLoaded', () => {
         if (window.lucide) lucide.createIcons();
@@ -294,40 +293,42 @@
     }
 
     // ==========================================
-    // 2. CONSULTAS A SUPABASE (Modo Solo Lectura)
+    // 2. CONSULTAS A SUPABASE (LECTURA DIRECTA)
     // ==========================================
     async function cargarDatosSupabase() {
         try {
-            // A. Proyectos
+            // A. Obtener Proyectos
             const { data: proyectos, error: errProy } = await supabaseClient
                 .from('proyectos')
                 .select('*')
-                .order('created_at', { ascending: false });
+                .order('id', { ascending: true });
 
             if (errProy) throw errProy;
 
-            const activos = (proyectos || []).filter(p => p.activo !== false);
-            document.getElementById('kpiActiveProjects').textContent = activos.length;
+            const listaProyectos = (proyectos || []).filter(p => p.activo !== false);
+            document.getElementById('kpiActiveProjects').textContent = listaProyectos.length;
+            document.getElementById('connStatusText').textContent = "Conectado a Supabase CDE";
 
-            // B. Audit Logs (Últimos 15 movimientos)
+            // B. Obtener Bitácora (audit_logs)
             const { data: logs, error: errLogs } = await supabaseClient
                 .from('audit_logs')
                 .select('*')
-                .order('created_at', { ascending: false })
-                .limit(15);
+                .order('id', { ascending: false })
+                .limit(25);
 
             if (!errLogs && logs) {
                 renderizarAuditLogs(logs);
                 calcularMetricasDesdeLogs(logs);
             }
 
-            renderizarTablaProyectos(activos, logs || []);
+            renderizarTablaProyectos(listaProyectos, logs || []);
 
         } catch (error) {
-            console.warn('Nota de lectura Supabase:', error.message);
+            console.error('Error al conectar Supabase:', error);
+            document.getElementById('connStatusText').textContent = "Error de sincronización";
             document.getElementById('projectsTableBody').innerHTML = `
-                <tr><td colspan="4" style="text-align: center; color: var(--warning-color); padding: 1rem;">
-                    Modo seguro de lectura activo. Verifica tu clave pública anon en el script si las tablas tienen RLS habilitado.
+                <tr><td colspan="4" style="text-align: center; color: var(--danger-color); padding: 1rem;">
+                    Error de conexión: ${error.message}
                 </td></tr>
             `;
         }
@@ -338,14 +339,13 @@
         tbody.innerHTML = '';
 
         if (!proyectos || proyectos.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted);">No hay proyectos registrados.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted);">No hay proyectos registrados en Supabase.</td></tr>';
             return;
         }
 
         proyectos.forEach(p => {
-            // Calcular último movimiento registrado para este proyecto
-            const ultimosMovs = logs.filter(l => l.proyecto_id === p.id);
-            let semaforo = '<span class="badge-traffic traffic-green"><i data-lucide="check-circle" style="width: 12px; height: 12px;"></i> Al día</span>';
+            const ultimosMovs = (logs || []).filter(l => l.proyecto_id === p.id);
+            let semaforo = '<span class="badge-traffic traffic-green"><i data-lucide="check-circle" style="width: 12px; height: 12px;"></i> Activo</span>';
             
             if (ultimosMovs.length === 0) {
                 semaforo = '<span class="badge-traffic traffic-amber"><i data-lucide="clock" style="width: 12px; height: 12px;"></i> Sin actividad</span>';
@@ -353,11 +353,11 @@
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td style="font-weight: 700; color: var(--accent-copper);">${p.codigo || 'S/C'}</td>
+                <td style="font-weight: 700; color: var(--accent-copper);">${p.codigo_proyecto || p.codigo || 'S/C'}</td>
                 <td><strong>${p.nombre || 'Sin título'}</strong></td>
                 <td>${semaforo}</td>
                 <td>
-                    <a href="https://cde.innovarqzsas.com?p=${p.id}" target="_blank" style="color: var(--info-color); text-decoration: none; font-weight: 600;">
+                    <a href="https://cde.innovarqzsas.com" target="_blank" style="color: var(--info-color); text-decoration: none; font-weight: 600;">
                         Abrir CDE &rarr;
                     </a>
                 </td>
@@ -373,20 +373,20 @@
         container.innerHTML = '';
 
         if (!logs || logs.length === 0) {
-            container.innerHTML = '<div style="text-align: center; color: var(--text-muted); font-size: 0.8rem;">Sin eventos recientes.</div>';
+            container.innerHTML = '<div style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 1rem;">Sin eventos en bitácora.</div>';
             return;
         }
 
         logs.forEach(l => {
-            const date = new Date(l.created_at).toLocaleDateString('es-CO', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+            const fechaStr = l.version || (l.created_at ? new Date(l.created_at).toLocaleDateString('es-CO') : 'Sin fecha');
             const item = document.createElement('div');
             item.className = 'audit-item';
             item.innerHTML = `
-                <div class="audit-action">${l.accion || 'OPERACIÓN CDE'}</div>
-                <div style="color: var(--text-main); margin-bottom: 0.2rem;">${l.detalles || 'Acción registrada en sistema'}</div>
+                <div class="audit-action">${(l.archivo_nombre || 'EVENTO').replace('NOTA_TECNICA_', '')}</div>
+                <div style="color: var(--text-main); margin-bottom: 0.2rem; font-size: 0.78rem;">${l.drive_file_url ? l.drive_file_url.split(' | ')[0] : (l.estado_destino || 'Actualización')}</div>
                 <div class="audit-meta">
-                    <span>${l.usuario_email || 'Operador'}</span>
-                    <span>${date}</span>
+                    <span>Estado: ${l.estado_destino || 'CDE'}</span>
+                    <span>${fechaStr}</span>
                 </div>
             `;
             container.appendChild(item);
@@ -398,9 +398,10 @@
         let actas = 0;
 
         logs.forEach(l => {
-            const acc = (l.accion || '').toUpperCase();
-            if (acc.includes('SHARED') || acc.includes('SUBIDA') || acc.includes('PROMOCION')) shared++;
-            if (acc.includes('ACTA') || acc.includes('APROBADO')) actas++;
+            const est = (l.estado_destino || '').toUpperCase();
+            const nom = (l.archivo_nombre || '').toUpperCase();
+            if (est.includes('SHARED') || nom.includes('SHARED')) shared++;
+            if (est.includes('PUBLISHED') || nom.includes('ACTA') || nom.includes('APROBADO')) actas++;
         });
 
         document.getElementById('kpiSharedCount').textContent = shared;
@@ -408,7 +409,7 @@
     }
 
     // ==========================================
-    // 3. CONSULTA A PROYECTOS.JSON (Portafolio Web)
+    // 3. CONSULTAS A JSONs (PORTAFOLIO WEB)
     // ==========================================
     async function cargarDatosPortafolio() {
         try {
@@ -417,11 +418,18 @@
             const data = await res.json();
             
             if (Array.isArray(data)) {
-                // Conteo por categorías
+                const nombresMap = {
+                    'bim': 'Diseño & BIM',
+                    'obra': 'Infraestructura & Obra',
+                    'interventoria': 'Interventoría',
+                    'cim': 'Planificación Urbana (CIM)'
+                };
+
                 const counts = {};
                 data.forEach(item => {
-                    const cat = item.categoria || 'Consultoría General';
-                    counts[cat] = (counts[cat] || 0) + 1;
+                    const rawCat = (item.category || item.categoria || 'general').toLowerCase();
+                    const label = nombresMap[rawCat] || item.category || 'Consultoría General';
+                    counts[label] = (counts[label] || 0) + 1;
                 });
 
                 const container = document.getElementById('categoryDistributionContainer');
@@ -445,13 +453,10 @@
                 }
             }
         } catch (e) {
-            console.log('proyectos.json no disponible aún de forma local.');
+            console.log('Nota proyectos.json:', e.message);
         }
     }
 
-    // ==========================================
-    // 4. CONSULTA A PERSONAL.JSON (Equipo Técnico)
-    // ==========================================
     async function cargarDatosPersonal() {
         try {
             const res = await fetch('personal.json');
@@ -461,7 +466,7 @@
                 document.getElementById('kpiTeamCount').textContent = data.length;
             }
         } catch (e) {
-            console.log('personal.json no disponible aún de forma local.');
+            console.log('Nota personal.json:', e.message);
         }
     }
 </script>
